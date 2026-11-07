@@ -1,0 +1,36 @@
+{
+  "schema": "idrive6-hmi-exact-fragment-map-delta-v1",
+  "base_manifest": "tools/shaders/native-reconstructions/hmi-fragment-map-v99.json",
+  "base_manifest_sha256": "58e1592192728dfff046d180a62c7f67fccd17166c849e943d056723bfb986c9",
+  "replacements": [
+    {
+      "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_sky.frag.shd",
+      "shader_sha256": "82c1e1c65498546013b074e710a0b6e3b7bad499d2f28f853d389f3968f95da3",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatSky_fragment.glsl",
+      "source_essl_sha256": "76375251505367aa629700339a2e8aa23539b6e43e4315cfdf75bcf746c695ee",
+      "basis": "Exact BMW UniPatch copy table and finalized arithmetic, compared in an isolated ANGLE Metal replay of V97 draw 166. Normalized sample lane order and native half-float rounding remain candidates."
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_pad_bg.frag.shd",
+      "shader_sha256": "726bf332014cfe9aa86842c3b7d4fa2682bccaa0aff75b915578ae270ddb5c9f",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatPadBg_fragment.glsl",
+      "source_essl_sha256": "a8bdfc97effb339d538eb20df42bc28866e72dab1596132ea1717610ef234944",
+      "basis": "Exact BMW shader symbols and finalizer constant-copy table. Candidate input packing replays V102 draws 182 and 194. Native fragment coordinates and the guest opacity remain to be verified."
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_floor1.frag.shd",
+      "shader_sha256": "6f991032523e15edf141037b5636cb1ae888da29e90b731da94481afad13c750",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatFloor1_fragment.glsl",
+      "source_essl_sha256": "cc49eb98df040bc2f782873cb167544a3935ac5a2834143b3ad0cab8fa7bb7b1",
+      "basis": "Exact BMW shader symbols and finalizer constant-copy table. Half-float sample lanes and bright/opacity pairs replay V102 draw 175. Verify the active guest opacity in V104."
+    },
+    {
+      "asset_path": "common/shader/Text_fragment.shd",
+      "shader_sha256": "afbcb6c7aa216e1f273960a0fb3f566a55fd4fe8d02ff737f8f1ae53e2d36b2c",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v112/afbcb6c7aa216e1f.glsl",
+      "source_essl_sha256": "d6031104c7ce1f2d85bec29f92b401854e544256707ad1d3a12d945fe9cf57ec",
+      "basis": "V111 draw 51 uploads GL_LUMINANCE (0x1909). Replaying the captured BMW geometry and atlas with ANGLE Metal renders Media/Radio when PA1.x receives red-channel coverage. The alpha channel returns one."
+    }
+  ],
+  "purpose": "Retain the V104 graphics mappings and correct luminance sampling for the exact X20511I text fragment."
+}

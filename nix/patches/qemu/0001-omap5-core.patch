@@ -1,0 +1,1378 @@
+From 6bf4618ef7bfc1f435df0e16c44d49dcccbb8af8 Mon Sep 17 00:00:00 2001
+From: iDrive release patch builder <patches@example.invalid>
+Date: Thu, 5 Nov 2026 21:11:01 -0500
+Subject: [PATCH 1/4] Add OMAP5430 board, display and DMA devices
+
+---
+ hw/arm/Kconfig            |  12 +
+ hw/arm/meson.build        |   1 +
+ hw/arm/omap5430.c         | 229 ++++++++++++++
+ hw/display/meson.build    |   3 +
+ hw/display/omap5430_dss.c | 623 ++++++++++++++++++++++++++++++++++++++
+ hw/display/omap5430_dss.h |  15 +
+ hw/dma/meson.build        |   1 +
+ hw/dma/omap5430_sdma.c    | 389 ++++++++++++++++++++++++
+ hw/dma/omap5430_sdma.h    |  10 +
+ 9 files changed, 1283 insertions(+)
+ create mode 100644 hw/arm/omap5430.c
+ create mode 100644 hw/display/omap5430_dss.c
+ create mode 100644 hw/display/omap5430_dss.h
+ create mode 100644 hw/dma/omap5430_sdma.c
+ create mode 100644 hw/dma/omap5430_sdma.h
+
+diff --git a/hw/arm/Kconfig b/hw/arm/Kconfig
+index 6f5b2add6..d1c4aae5f 100644
+--- a/hw/arm/Kconfig
++++ b/hw/arm/Kconfig
+@@ -133,6 +133,18 @@ config OLIMEX_STM32_H405
+     depends on TCG && ARM
+     select STM32F405_SOC
+ 
++config OMAP5430
++    bool
++    default y
++    depends on TCG && ARM
++    select A15MPCORE
++    select SERIAL_MM
++    select USB_EHCI_SYSBUS
++    select USB_OHCI_SYSBUS
++    select USB_NETWORK
++    select USB_XHCI_SYSBUS
++    select UNIMP
++
+ config OMAP
+     bool
+     select FRAMEBUFFER
+diff --git a/hw/arm/meson.build b/hw/arm/meson.build
+index 4233a800b..27ca22783 100644
+--- a/hw/arm/meson.build
++++ b/hw/arm/meson.build
+@@ -22,6 +22,7 @@ arm_common_ss.add(when: 'CONFIG_ARM_V7M', if_true: files('armv7m.c'))
+ arm_common_ss.add(when: 'CONFIG_EXYNOS4', if_true: files('exynos4210.c'))
+ arm_common_ss.add(when: 'CONFIG_DIGIC', if_true: files('digic.c'))
+ arm_common_ss.add(when: 'CONFIG_OMAP', if_true: files('omap1.c'))
++arm_common_ss.add(when: 'CONFIG_OMAP5430', if_true: files('omap5430.c'))
+ arm_common_ss.add(when: 'CONFIG_ALLWINNER_A10', if_true: files('allwinner-a10.c', 'cubieboard.c'))
+ arm_common_ss.add(when: 'CONFIG_ALLWINNER_H3', if_true: files('allwinner-h3.c', 'orangepi.c'))
+ arm_common_ss.add(when: 'CONFIG_ALLWINNER_R40', if_true: files('allwinner-r40.c', 'bananapi_m2u.c'))
+diff --git a/hw/arm/omap5430.c b/hw/arm/omap5430.c
+new file mode 100644
+index 000000000..1f91d2a72
+--- /dev/null
++++ b/hw/arm/omap5430.c
+@@ -0,0 +1,229 @@
++/*
++ * Minimal OMAP5430 machine model for the BMW NBTevo QNX software stack.
++ *
++ * This model provides the dual Cortex-A15 cluster, OMAP5-addressed GIC-400
++ * and UART blocks, and generic EHCI/xHCI hosts used by the QNX image. Other
++ * OMAP5 peripherals are added as their guest-driver requirements are reverse
++ * engineered.
++ *
++ * Copyright (c) 2026
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++
++#include "qemu/osdep.h"
++#include "qemu/units.h"
++#include "qapi/error.h"
++#include "hw/arm/boot.h"
++#include "hw/arm/machines-qom.h"
++#include "hw/char/serial-mm.h"
++#include "hw/core/boards.h"
++#include "hw/core/cpu.h"
++#include "hw/core/irq.h"
++#include "hw/core/qdev-properties.h"
++#include "hw/core/sysbus.h"
++#include "hw/dma/omap5430_sdma.h"
++#include "hw/display/omap5430_sgx.h"
++#include "hw/display/omap5430_dss.h"
++#include "monitor/qdev.h"
++#include "hw/cpu/a15mpcore.h"
++#include "hw/usb/hcd-ehci.h"
++#include "hw/usb/hcd-ohci.h"
++#include "hw/usb/xhci.h"
++#include "hw/usb/usb.h"
++#include "hw/misc/unimp.h"
++#include "net/net.h"
++#include "system/address-spaces.h"
++#include "system/system.h"
++#include "target/arm/cpu.h"
++#include "target/arm/cpu-qom.h"
++
++#define OMAP5430_GIC_BASE       0x48210000
++#define OMAP5430_GIC_IRQS       256
++#define OMAP5430_RAM_BASE       0x80000000
++#define OMAP5430_SDMA_BASE      0x4a056000
++#define OMAP5430_SDMA_SPI       12
++#define OMAP5430_OHCI_BASE      0x4a064800
++#define OMAP5430_OHCI_SPI       76
++#define OMAP5430_EHCI_BASE      0x4a064c00
++#define OMAP5430_EHCI_SPI       77
++#define OMAP5430_XHCI_BASE      0x4a030000
++#define OMAP5430_XHCI_SPI       92
++#define TYPE_USB_NET            "usb-net"
++
++/* OMAP5 UART register blocks and GIC SPI numbers from TI's OMAP5 device tree. */
++static const hwaddr omap5430_uart_base[] = {
++    0x4806a000, /* UART1 */
++    0x4806c000, /* UART2 */
++    0x48020000, /* UART3: BMW boot console */
++    0x4806e000, /* UART4 */
++    0x48066000, /* UART5 */
++    0x48068000, /* UART6 */
++};
++
++static const unsigned int omap5430_uart_spi[] = {
++    72, 73, 74, 70, 105, 106,
++};
++
++static void omap5430_init_cpus(MachineState *machine, qemu_irq *pic)
++{
++    DeviceState *dev;
++    SysBusDevice *busdev;
++    unsigned int n;
++
++    for (n = 0; n < machine->smp.cpus; n++) {
++        Object *cpuobj = object_new(machine->cpu_type);
++
++        object_property_set_bool(cpuobj, "has_el3", false, &error_fatal);
++        if (object_property_find(cpuobj, "has_el2")) {
++            object_property_set_bool(cpuobj, "has_el2", false, &error_fatal);
++        }
++        if (object_property_find(cpuobj, "reset-cbar")) {
++            object_property_set_int(cpuobj, "reset-cbar", OMAP5430_GIC_BASE,
++                                    &error_fatal);
++        }
++        /* BMW startup calibrates ClockCycles and timer reloads at 6.144 MHz.
++         * A15's default 62.5 MHz causes about ten timer interrupts per tick.
++         */
++        object_property_set_int(cpuobj, "cntfrq", 6144000, &error_fatal);
++        qdev_realize(DEVICE(cpuobj), NULL, &error_fatal);
++    }
++
++    dev = qdev_new(TYPE_A15MPCORE_PRIV);
++    qdev_prop_set_uint32(dev, "num-cpu", machine->smp.cpus);
++    qdev_prop_set_uint32(dev, "num-irq", OMAP5430_GIC_IRQS);
++    busdev = SYS_BUS_DEVICE(dev);
++    sysbus_realize_and_unref(busdev, &error_fatal);
++    sysbus_mmio_map(busdev, 0, OMAP5430_GIC_BASE);
++
++    for (n = 0; n < OMAP5430_GIC_IRQS - 32; n++) {
++        pic[n] = qdev_get_gpio_in(dev, n);
++    }
++
++    for (n = 0; n < machine->smp.cpus; n++) {
++        DeviceState *cpudev = DEVICE(qemu_get_cpu(n));
++
++        sysbus_connect_irq(busdev, n, qdev_get_gpio_in(cpudev, ARM_CPU_IRQ));
++        sysbus_connect_irq(busdev, n + machine->smp.cpus,
++                           qdev_get_gpio_in(cpudev, ARM_CPU_FIQ));
++        sysbus_connect_irq(busdev, n + 2 * machine->smp.cpus,
++                           qdev_get_gpio_in(cpudev, ARM_CPU_VIRQ));
++        sysbus_connect_irq(busdev, n + 3 * machine->smp.cpus,
++                           qdev_get_gpio_in(cpudev, ARM_CPU_VFIQ));
++    }
++}
++
++static void omap5430_init_usb(qemu_irq *pic)
++{
++    DeviceState *ehci;
++    DeviceState *ohci;
++    DeviceState *xhci;
++    DeviceState *nic;
++
++    ehci = qdev_new(TYPE_PLATFORM_EHCI);
++    object_property_set_bool(OBJECT(ehci), "companion-enable", true,
++                             &error_fatal);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(ehci), &error_fatal);
++    sysbus_mmio_map(SYS_BUS_DEVICE(ehci), 0, OMAP5430_EHCI_BASE);
++    sysbus_connect_irq(SYS_BUS_DEVICE(ehci), 0, pic[OMAP5430_EHCI_SPI]);
++
++    /* OMAP5 routes low/full-speed peripherals through the OHCI companion. */
++    ohci = qdev_new(TYPE_SYSBUS_OHCI);
++    object_property_set_str(OBJECT(ohci), "masterbus",
++                            SYS_BUS_EHCI(ehci)->ehci.bus.qbus.name,
++                            &error_fatal);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(ohci), &error_fatal);
++    sysbus_mmio_map(SYS_BUS_DEVICE(ohci), 0, OMAP5430_OHCI_BASE);
++    sysbus_connect_irq(SYS_BUS_DEVICE(ohci), 0, pic[OMAP5430_OHCI_SPI]);
++
++    /* The BMW manifest configures the DWC3 xHCI core at this OMAP5 window. */
++    xhci = qdev_new(TYPE_XHCI_SYSBUS);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(xhci), &error_fatal);
++    sysbus_mmio_map(SYS_BUS_DEVICE(xhci), 0, OMAP5430_XHCI_BASE);
++    sysbus_connect_irq(SYS_BUS_DEVICE(xhci), 0, pic[OMAP5430_XHCI_SPI]);
++
++    /* -nic user,model=usb-net attaches CDC/RNDIS Ethernet to OMAP EHCI. */
++    while ((nic = qemu_create_nic_device(TYPE_USB_NET, true, NULL))) {
++        qdev_realize_and_unref(nic, &SYS_BUS_EHCI(ehci)->ehci.bus.qbus,
++                               &error_fatal);
++    }
++}
++
++static void omap5430_init(MachineState *machine)
++{
++    MemoryRegion *sysmem = get_system_memory();
++    qemu_irq pic[OMAP5430_GIC_IRQS - 32] = { 0 };
++    DeviceState *dss;
++    DeviceState *sdma;
++    unsigned int i;
++
++    memory_region_add_subregion(sysmem, OMAP5430_RAM_BASE, machine->ram);
++    dss = qdev_new(TYPE_OMAP5430_DSS);
++    qdev_set_id(dss, g_strdup("omap5-dss"), &error_fatal);
++    object_property_set_link(OBJECT(dss), "system-memory", OBJECT(sysmem),
++                             &error_fatal);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(dss), &error_fatal);
++    omap5430_dss_map(SYS_BUS_DEVICE(dss));
++    omap5430_init_cpus(machine, pic);
++    sysbus_connect_irq(SYS_BUS_DEVICE(dss), 0, pic[113]); /* OMAP5 DMM SPI */
++
++    sdma = qdev_new(TYPE_OMAP5430_SDMA);
++    object_property_add_child(OBJECT(machine), "sdma", OBJECT(sdma));
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(sdma), &error_fatal);
++    sysbus_mmio_map(SYS_BUS_DEVICE(sdma), 0, OMAP5430_SDMA_BASE);
++    sysbus_connect_irq(SYS_BUS_DEVICE(dss), 1, pic[25]); /* DISPC SPI */
++    for (i = 0; i < 4; i++) {
++        sysbus_connect_irq(SYS_BUS_DEVICE(sdma), i, pic[OMAP5430_SDMA_SPI + i]);
++    }
++
++    for (i = 0; i < ARRAY_SIZE(omap5430_uart_base); i++) {
++        /* UART3 is the boot/interactive console on the BMW image. */
++        int chardev = i == 2 ? 0 : (int)i + 1;
++
++        serial_mm_init(sysmem, omap5430_uart_base[i], 2,
++                       pic[omap5430_uart_spi[i]], 3000000,
++                       serial_hd(chardev), DEVICE_LITTLE_ENDIAN);
++    }
++
++    omap5430_init_usb(pic);
++    omap5430_sgx_register_types();
++
++    /* Native PowerVR register/MMU model; firmware execution is still pending. */
++    DeviceState *sgx = qdev_new("omap5430-sgx");
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(sgx), &error_fatal);
++    sysbus_mmio_map(SYS_BUS_DEVICE(sgx), 0, 0x56000000);
++}
++
++static void omap5430_machine_class_init(ObjectClass *oc, const void *data)
++{
++    static const char * const valid_cpu_types[] = {
++        ARM_CPU_TYPE_NAME("cortex-a15"),
++        NULL
++    };
++    MachineClass *mc = MACHINE_CLASS(oc);
++
++    mc->desc = "TI OMAP5430 BMW NBTevo experimental machine";
++    mc->init = omap5430_init;
++    mc->default_cpu_type = ARM_CPU_TYPE_NAME("cortex-a15");
++    mc->valid_cpu_types = valid_cpu_types;
++    mc->default_cpus = 2;
++    mc->min_cpus = 1;
++    mc->max_cpus = 2;
++    mc->default_ram_size = 2048 * MiB;
++    mc->default_ram_id = "omap5430.ram";
++    mc->ignore_memory_transaction_failures = true;
++    /* Machine options are parsed before ordinary user-created objects. */
++}
++
++static const TypeInfo omap5430_machine_type = {
++    .name = MACHINE_TYPE_NAME("omap5430"),
++    .parent = TYPE_MACHINE,
++    .class_init = omap5430_machine_class_init,
++    .interfaces = arm_machine_interfaces,
++};
++
++static void omap5430_machine_init_register_types(void)
++{
++    type_register_static(&omap5430_machine_type);
++}
++
++type_init(omap5430_machine_init_register_types)
+diff --git a/hw/display/meson.build b/hw/display/meson.build
+index ffecedbf7..9ddc296c3 100644
+--- a/hw/display/meson.build
++++ b/hw/display/meson.build
+@@ -141,5 +141,8 @@ if config_all_devices.has_key('CONFIG_VIRTIO_VGA')
+ endif
+ 
+ system_ss.add(when: 'CONFIG_OMAP', if_true: files('omap_lcdc.c'))
++system_ss.add(when: 'CONFIG_OMAP5430', if_true: files('omap5430_dss.c'))
+ 
+ modules += { 'hw-display': hw_display_modules }
++
++system_ss.add(when: 'CONFIG_OMAP5430', if_true: files('omap5430_sgx.c'))
+diff --git a/hw/display/omap5430_dss.c b/hw/display/omap5430_dss.c
+new file mode 100644
+index 000000000..03d8c00f4
+--- /dev/null
++++ b/hw/display/omap5430_dss.c
+@@ -0,0 +1,623 @@
++/*
++ * Minimal OMAP5430 DSS/DMM model for BMW NBTevo.
++ *
++ * The register windows provide read-after-write behavior for the QNX WFD
++ * driver. The DSS display callback scans out linear guest RAM using the
++ * DISPC overlay registers. This is a software display path; it does not
++ * emulate SGX540 or Vivante command processors.
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#include "qemu/osdep.h"
++#include "qapi/error.h"
++#include "hw/display/omap5430_dss.h"
++#include "hw/core/irq.h"
++#include "hw/core/qdev-properties.h"
++#include "qemu/module.h"
++#include "migration/vmstate.h"
++#include "qemu/log.h"
++#include "qemu/timer.h"
++#include "system/memory.h"
++#include "ui/console.h"
++#include "ui/pixel_ops.h"
++
++#define OMAP5430_DSS_BASE             0x58000000
++#define OMAP5430_DSS_SIZE             0x00080000
++#define OMAP5430_DMM_BASE             0x4e000000
++#define OMAP5430_DMM_SIZE             0x00001000
++#define OMAP5430_CM_CORE_BASE       0x4a008000
++#define OMAP5430_CM_CORE_SIZE       0x00002000
++#define OMAP5430_HDMI_W1_BASE         0x4a002800
++#define OMAP5430_HDMI_W1_SIZE         0x00000800
++#define HDMI_WP_SYSCONFIG             0x0010
++#define HDMI_WP_SYSS                  0x0014
++#define HDMI_WP_SYSCONFIG_SOFTRESET   (1U << 1)
++#define HDMI_WP_SYSS_RESETDONE        (1U << 0)
++#define OMAP5430_HDMI_CTRL_BASE       0x4a100000
++#define OMAP5430_HDMI_CTRL_SIZE       0x00003000
++#define OMAP5430_CTRL_BASE            0x48050000
++#define OMAP5430_CTRL_SIZE            0x00001000
++#define OMAP5430_PAD_BASE             0x48058000
++#define OMAP5430_PAD_SIZE             0x00002000
++#define OMAP5430_DSS_ALT0_BASE        0x4a307100
++#define OMAP5430_DSS_ALT1_BASE        0x4ae07100
++#define OMAP5430_DSS_ALT_SIZE         0x00000040
++
++#define DSS_DISPC_BASE                0x1000
++#define DISPC_IRQSTATUS               0x0018
++#define DISPC_IRQENABLE               0x001c
++#define DISPC_CONTROL                 0x0040
++#define DISPC_ENABLE_LCD              (1U << 0)
++#define DISPC_ENABLE_DIGITAL          (1U << 1)
++#define DISPC_GO_LCD                  (1U << 5)
++#define DISPC_GO_DIGITAL              (1U << 6)
++#define DISPC_IRQ_VSYNC               (1U << 1)
++#define DISPC_IRQ_EVSYNC_EVEN         (1U << 2)
++#define DISPC_IRQ_EVSYNC_ODD          (1U << 3)
++#define DISPC_FRAME_NS                16666667
++#define DISPC_SIZE_LCD                0x007c
++#define DISPC_SIZE_LCD2               0x03cc
++#define DISPC_SIZE_LCD3               0x0834
++#define DISPC_OVL_BA0                 0x0000
++#define DISPC_OVL_POS                 0x0008
++#define DISPC_OVL_SIZE                0x000c
++#define DISPC_OVL_ATTR                0x0010
++#define DISPC_OVL_ROW_INC             0x002c
++#define DISPC_OVL_PIX_INC             0x0030
++#define DISPC_ATTR_ENABLE             0x00000001
++#define DISPC_ATTR_FORMAT_SHIFT       1
++#define DMM_PAT_HWINFO                0x0408
++#define DMM_PAT_GEOMETRY              0x040c
++#define DMM_PAT_IRQSTATUS             0x0490
++#define DMM_PAT_IRQENABLE_SET         0x04a0
++#define DMM_PAT_IRQENABLE_CLR         0x04b0
++#define DMM_PAT_STATUS0               0x04c0
++#define DMM_PAT_DESCR0                0x0500
++#define DMM_PAT_CTRL0                 0x0508
++#define DMM_PAT_READY                 0x00000001
++#define DMM_PAT_COMPLETE              0x0000000b
++#define DMM_PAT_IRQ_LAST               0x02
++#define DMM_PAT_IRQ_MANUAL             0x03
++
++#define OMAP5430_WINDOW_COUNT 9
++#define OMAP5430_MAX_DIMENSION 4096
++
++typedef struct OMAP5430Window {
++    MemoryRegion iomem;
++    OMAP5430DSSState *dss;
++    uint32_t *regs;
++    uint32_t reg_count;
++    hwaddr base;
++    hwaddr size;
++    const char *name;
++} OMAP5430Window;
++
++struct OMAP5430DSSState {
++    SysBusDevice parent_obj;
++    OMAP5430Window windows[OMAP5430_WINDOW_COUNT];
++    MemoryRegion *sysmem;
++    QemuConsole *con;
++    qemu_irq dmm_irq;
++    qemu_irq dispc_irq;
++    QEMUTimer *frame_timer;
++    bool digital_odd;
++    hwaddr fb_base;
++    hwaddr fb_bytes;
++    uint32_t width;
++    uint32_t height;
++    uint32_t format;
++    uint32_t xpos;
++    uint32_t ypos;
++    bool trace_dmm;
++    int invalidate;
++};
++
++static const struct {
++    hwaddr base;
++    hwaddr size;
++    const char *name;
++} omap5430_windows[OMAP5430_WINDOW_COUNT] = {
++    { OMAP5430_DSS_BASE, OMAP5430_DSS_SIZE, "omap5430-dss" },
++    { OMAP5430_DMM_BASE, OMAP5430_DMM_SIZE, "omap5430-dmm" },
++    { OMAP5430_CM_CORE_BASE, OMAP5430_CM_CORE_SIZE, "omap5430-cm-core" },
++    { OMAP5430_HDMI_W1_BASE, OMAP5430_HDMI_W1_SIZE, "omap5430-hdmi-w1" },
++    { OMAP5430_HDMI_CTRL_BASE, OMAP5430_HDMI_CTRL_SIZE, "omap5430-hdmi-ctrl" },
++    { OMAP5430_CTRL_BASE, OMAP5430_CTRL_SIZE, "omap5430-control" },
++    { OMAP5430_PAD_BASE, OMAP5430_PAD_SIZE, "omap5430-pad" },
++    { OMAP5430_DSS_ALT0_BASE, OMAP5430_DSS_ALT_SIZE, "omap5430-dss-alt0" },
++    { OMAP5430_DSS_ALT1_BASE, OMAP5430_DSS_ALT_SIZE, "omap5430-dss-alt1" },
++};
++
++static uint32_t omap5430_reg_read(OMAP5430Window *w, hwaddr offset)
++{
++    if (w->base == OMAP5430_DSS_BASE) {
++        if (offset == 0x0000) {
++            return 0x00000050; /* DSS revision */
++        }
++        if (offset == DSS_DISPC_BASE) {
++            return 0x00000040; /* DISPC revision */
++        }
++        if (offset == 0x0014 || offset == DSS_DISPC_BASE + 0x0014) {
++            return 1; /* reset completed */
++        }
++    }
++    if (w->base == OMAP5430_CM_CORE_BASE) {
++        /* CM_GPU: module enable drives the interface/functional clock activity.
++         * Bits 10:8 are read-only; the PowerVR driver waits for all three.
++         */
++        bool enabled = (w->regs[0x1520 / 4] & 3) == 2;
++        if (offset == 0x1500) { /* CM_GPU_CLKSTCTRL */
++            return (w->regs[offset / 4] & 3) | (enabled ? 0x700 : 0);
++        }
++        if (offset == 0x1520) { /* CM_GPU_GPU_CLKCTRL */
++            return (w->regs[offset / 4] & ~(3U << 16)) |
++                   (enabled ? 0 : 3U << 16);
++        }
++    }
++    if (w->base == OMAP5430_DMM_BASE) {
++        switch (offset) {
++        case 0x0000: /* DMM_REVISION */
++            return 0x00000020;
++        case 0x0004: /* DMM_HWINFO */
++            return 0x00000101;
++        case 0x0208: /* DMM_TILER_HWINFO */
++            return 0x00000100;
++        case DMM_PAT_HWINFO: /* four refill engines, one 2D LUT */
++            return 0x04010000;
++        case DMM_PAT_GEOMETRY: /* 256 columns by 256 rows */
++            return 0x08080000;
++        case DMM_PAT_STATUS0:
++        case DMM_PAT_STATUS0 + 4:
++        case DMM_PAT_STATUS0 + 8:
++        case DMM_PAT_STATUS0 + 12:
++            return w->regs[offset >> 2] ?: DMM_PAT_READY;
++        default:
++            break;
++        }
++    }
++    return w->regs[offset >> 2];
++}
++
++static uint64_t omap5430_mmio_read(void *opaque, hwaddr offset, unsigned size)
++{
++    OMAP5430Window *w = opaque;
++    uint32_t value = omap5430_reg_read(w, offset & ~3ULL);
++    unsigned shift = (offset & 3) * 8;
++
++    if (size == 1) {
++        value = (value >> shift) & 0xff;
++    } else if (size == 2) {
++        value = (value >> shift) & 0xffff;
++    }
++    if (w->base == OMAP5430_DMM_BASE && w->dss->trace_dmm) {
++        qemu_log_mask(LOG_UNIMP, "omap5430-dmm: read%u offset=0x%04x value=0x%08x\n",
++                      size, (unsigned)offset, value);
++    }
++    return value;
++}
++
++/* Approximate 60 Hz display timing; register updates latch on a frame. */
++static void omap5430_frame(void *opaque)
++{
++    OMAP5430DSSState *s = opaque;
++    OMAP5430Window *w = &s->windows[0];
++    uint32_t *control = &w->regs[(DSS_DISPC_BASE + DISPC_CONTROL) / 4];
++    uint32_t *status = &w->regs[(DSS_DISPC_BASE + DISPC_IRQSTATUS) / 4];
++    uint32_t enable = w->regs[(DSS_DISPC_BASE + DISPC_IRQENABLE) / 4];
++
++    if (*control & DISPC_ENABLE_LCD) {
++        *control &= ~DISPC_GO_LCD;
++        *status |= DISPC_IRQ_VSYNC;
++    }
++    if (*control & DISPC_ENABLE_DIGITAL) {
++        *control &= ~DISPC_GO_DIGITAL;
++        *status |= s->digital_odd ? DISPC_IRQ_EVSYNC_ODD : DISPC_IRQ_EVSYNC_EVEN;
++        s->digital_odd = !s->digital_odd;
++    }
++    qemu_set_irq(s->dispc_irq, (*status & enable) != 0);
++    if (*control & (DISPC_ENABLE_LCD | DISPC_ENABLE_DIGITAL)) {
++        timer_mod(s->frame_timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) + DISPC_FRAME_NS);
++    }
++}
++
++static void omap5430_mmio_write(void *opaque, hwaddr offset,
++                                uint64_t value, unsigned size)
++{
++    OMAP5430Window *w = opaque;
++    uint32_t *reg = &w->regs[(offset & ~3ULL) >> 2];
++    uint32_t old = *reg;
++    uint32_t mask = size == 4 ? UINT32_MAX : ((1U << (size * 8)) - 1);
++    unsigned shift = (offset & 3) * 8;
++    OMAP5430DSSState *s = w->dss;
++
++    if (w->base == OMAP5430_DMM_BASE && s->trace_dmm) {
++        qemu_log_mask(LOG_UNIMP, "omap5430-dmm: write%u offset=0x%04x value=0x%08x\n",
++                      size, (unsigned)offset, (unsigned)value);
++    }
++    *reg = (*reg & ~(mask << shift)) | (((uint32_t)value & mask) << shift);
++    if (w->base == OMAP5430_DSS_BASE) {
++        w->dss->invalidate = 1;
++        if (size == 4 && offset == DSS_DISPC_BASE + DISPC_IRQSTATUS) {
++            *reg = old & ~(uint32_t)value;
++        }
++        if (size == 4 && (offset == DSS_DISPC_BASE + DISPC_IRQSTATUS ||
++                          offset == DSS_DISPC_BASE + DISPC_IRQENABLE)) {
++            uint32_t status = w->regs[(DSS_DISPC_BASE + DISPC_IRQSTATUS) / 4];
++            uint32_t enable = w->regs[(DSS_DISPC_BASE + DISPC_IRQENABLE) / 4];
++            qemu_set_irq(s->dispc_irq, (status & enable) != 0);
++        } else if (size == 4 && offset == DSS_DISPC_BASE + DISPC_CONTROL) {
++            if (value & (DISPC_ENABLE_LCD | DISPC_ENABLE_DIGITAL)) {
++                if (!timer_pending(s->frame_timer)) {
++                    timer_mod(s->frame_timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) + DISPC_FRAME_NS);
++                }
++            } else {
++                timer_del(s->frame_timer);
++            }
++        }
++    } else if (w->base == OMAP5430_DMM_BASE && size == 4 && !(offset & 3)) {
++        uint32_t *irq_status = &w->regs[DMM_PAT_IRQSTATUS >> 2];
++        uint32_t *irq_enable = &w->regs[DMM_PAT_IRQENABLE_SET >> 2];
++        uint32_t written = value;
++
++        if (offset == DMM_PAT_IRQENABLE_SET) {
++            *irq_enable = old | written;
++        } else if (offset == DMM_PAT_IRQENABLE_CLR) {
++            *irq_enable &= ~written;
++            w->regs[offset >> 2] = written;
++        } else if (offset == DMM_PAT_IRQSTATUS) {
++            *irq_status = old & ~written;
++            w->regs[0x0480 >> 2] &= ~written;
++        } else if (offset >= DMM_PAT_CTRL0 && offset <= DMM_PAT_CTRL0 + 0x30 &&
++                   !((offset - DMM_PAT_CTRL0) & 0x0f) && (written & 1)) {
++            unsigned engine = (offset - DMM_PAT_CTRL0) >> 4;
++
++            /* Bring-up only: completion status, not TILER address translation. */
++            w->regs[(DMM_PAT_STATUS0 + engine * 4) >> 2] = DMM_PAT_COMPLETE;
++            *irq_status |= DMM_PAT_IRQ_MANUAL << (engine * 8);
++            w->regs[0x0480 >> 2] |= DMM_PAT_IRQ_MANUAL << (engine * 8);
++        } else if (offset >= DMM_PAT_DESCR0 && offset <= DMM_PAT_DESCR0 + 0x30 &&
++                   !((offset - DMM_PAT_DESCR0) & 0x0f)) {
++            unsigned engine = (offset - DMM_PAT_DESCR0) >> 4;
++            uint32_t *status = &w->regs[(DMM_PAT_STATUS0 + engine * 4) >> 2];
++
++            if (written) {
++                *status = DMM_PAT_COMPLETE;
++                *irq_status |= DMM_PAT_IRQ_LAST << (engine * 8);
++                w->regs[0x0480 >> 2] = *irq_status;
++            } else {
++                *status = DMM_PAT_READY;
++            }
++        }
++        qemu_set_irq(s->dmm_irq, (*irq_status & *irq_enable) != 0);
++    }
++}
++
++static const MemoryRegionOps omap5430_mmio_ops = {
++    .read = omap5430_mmio_read,
++    .write = omap5430_mmio_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = {
++        .min_access_size = 1,
++        .max_access_size = 4,
++        .unaligned = true,
++    },
++    .impl = {
++        .min_access_size = 1,
++        .max_access_size = 4,
++        .unaligned = true,
++    },
++};
++
++static uint32_t omap5430_reg(const OMAP5430DSSState *s, hwaddr offset)
++{
++    return omap5430_reg_read((OMAP5430Window *)&s->windows[0], offset);
++}
++
++static void omap5430_draw_pixel(uint8_t *dst, const uint8_t *src,
++                                uint32_t format, unsigned out_bpp)
++{
++    unsigned r, g, b;
++
++    if (format == 6 || format == 4 || format == 15 || format == 16 ||
++        format == 17 || format == 18) {
++        uint16_t v = lduw_le_p((void *)src);
++        if (format == 6) {
++            r = ((v >> 11) & 0x1f) * 255 / 31;
++            g = ((v >> 5) & 0x3f) * 255 / 63;
++            b = (v & 0x1f) * 255 / 31;
++        } else {
++            r = ((v >> 8) & 0xf) * 17;
++            g = ((v >> 4) & 0xf) * 17;
++            b = (v & 0xf) * 17;
++        }
++    } else {
++        uint32_t v = ldl_le_p((void *)src);
++        if (format == 8 || format == 11 || format == 12) {
++            /* RGB24 unpacked / ARGB32: 0xXXRRGGBB. */
++            r = (v >> 16) & 0xff;
++            g = (v >> 8) & 0xff;
++            b = v & 0xff;
++        } else { /* RGBA32/RGBX32: 0xRRGGBBxx */
++            r = (v >> 24) & 0xff;
++            g = (v >> 16) & 0xff;
++            b = (v >> 8) & 0xff;
++        }
++    }
++
++    if (out_bpp == 16) {
++        *(uint16_t *)dst = rgb_to_pixel16(r, g, b);
++    } else {
++        *(uint32_t *)dst = rgb_to_pixel32(r, g, b);
++    }
++}
++
++static bool omap5430_update_display(void *opaque)
++{
++    OMAP5430DSSState *s = opaque;
++    DisplaySurface *surface = qemu_console_surface(s->con);
++    uint32_t out_width, out_height, out_bpp;
++    uint32_t planes[] = { 0x0080, 0x00bc, 0x014c, 0x01bc };
++    uint8_t *dest;
++    bool found = false;
++    unsigned i, x, y;
++
++    if (!surface) {
++        return true;
++    }
++    out_bpp = surface_bits_per_pixel(surface);
++    if (out_bpp != 16 && out_bpp != 32) {
++        return true;
++    }
++
++    out_width = (omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD) & 0x7ff) + 1;
++    out_height = ((omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD) >> 16) & 0x7ff) + 1;
++    if (out_width <= 1 || out_height <= 1) {
++        out_width = (omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD2) & 0x7ff) + 1;
++        out_height = ((omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD2) >> 16) & 0x7ff) + 1;
++    }
++    if (out_width <= 1 || out_height <= 1) {
++        out_width = (omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD3) & 0x7ff) + 1;
++        out_height = ((omap5430_reg(s, DSS_DISPC_BASE + DISPC_SIZE_LCD3) >> 16) & 0x7ff) + 1;
++    }
++    /*
++     * The NBTevo digital Screen path can leave all LCD_SIZE registers at
++     * reset while programming the active overlay with the actual mode size.
++     * Match the compositor's plane order and derive the output surface from
++     * the first enabled, dimensioned plane before using the generic fallback.
++     */
++    if (out_width <= 1 || out_height <= 1) {
++        for (i = 0; i < ARRAY_SIZE(planes); i++) {
++            hwaddr p = DSS_DISPC_BASE + planes[i];
++            uint32_t attr = omap5430_reg(s, p + (i == 0 ? 0x20 : DISPC_OVL_ATTR));
++            uint32_t size = omap5430_reg(s, p + DISPC_OVL_SIZE);
++            uint32_t plane_width = (size & 0x7ff) + 1;
++            uint32_t plane_height = ((size >> 16) & 0x7ff) + 1;
++            if ((attr & DISPC_ATTR_ENABLE) && plane_width >= 64 &&
++                plane_height >= 64 && plane_width <= OMAP5430_MAX_DIMENSION &&
++                plane_height <= OMAP5430_MAX_DIMENSION) {
++                out_width = plane_width;
++                out_height = plane_height;
++                break;
++            }
++        }
++    }
++    if (out_width < 64 || out_width > OMAP5430_MAX_DIMENSION ||
++        out_height < 64 || out_height > OMAP5430_MAX_DIMENSION) {
++        out_width = 1280;
++        out_height = 480;
++    }
++    if (out_width != surface_width(surface) || out_height != surface_height(surface)) {
++        qemu_console_resize(s->con, out_width, out_height);
++        surface = qemu_console_surface(s->con);
++        s->invalidate = 1;
++    }
++
++    dest = surface_data(surface);
++    for (i = 0; i < ARRAY_SIZE(planes); i++) {
++        hwaddr p = DSS_DISPC_BASE + planes[i];
++        /* The GFX plane has a different attributes offset than video. */
++        uint32_t attr = omap5430_reg(s, p + (i == 0 ? 0x20 : DISPC_OVL_ATTR));
++        uint32_t size = omap5430_reg(s, p + DISPC_OVL_SIZE);
++        uint32_t width = (size & 0x7ff) + 1;
++        uint32_t height = ((size >> 16) & 0x7ff) + 1;
++        uint32_t format = (attr >> DISPC_ATTR_FORMAT_SHIFT) & 0xf;
++        uint32_t bpp = (format == 6 || format == 4 || format >= 15) ? 2 : 4;
++        int32_t row_inc = (int32_t)omap5430_reg(s, p + DISPC_OVL_ROW_INC);
++        int32_t pixel_inc = (int32_t)omap5430_reg(s, p + DISPC_OVL_PIX_INC);
++        hwaddr base = omap5430_reg(s, p + DISPC_OVL_BA0);
++        uint32_t position = omap5430_reg(s, p + DISPC_OVL_POS);
++        uint32_t xpos = position & 0x7ff;
++        uint32_t ypos = (position >> 16) & 0x7ff;
++        int64_t pixel_step = (int64_t)bpp + pixel_inc - 1;
++        int64_t row_step = (int64_t)(width - 1) * pixel_step + bpp + row_inc - 1;
++        uint64_t bytes;
++        MemoryRegionSection sec;
++        uint8_t *src;
++
++        if (!(attr & DISPC_ATTR_ENABLE) || width < 2 || height < 2 ||
++            width > OMAP5430_MAX_DIMENSION || height > OMAP5430_MAX_DIMENSION ||
++            base == 0 || pixel_step <= 0 || row_step <= 0) {
++            continue;
++        }
++        /* OMAP's increment registers are extra offsets after each pixel/row.
++         * Keep only positive linear fetches here; rotated layouts need signed
++         * base-address adjustment before they can be scanned out safely. */
++        bytes = (uint64_t)(height - 1) * (uint64_t)row_step +
++                (uint64_t)(width - 1) * (uint64_t)pixel_step + bpp;
++        if (bytes > 128ULL * 1024 * 1024) {
++            continue;
++        }
++        sec = memory_region_find(s->sysmem, base, bytes);
++        if (!sec.mr || !memory_region_is_ram(sec.mr) ||
++            int128_get64(sec.size) < bytes) {
++            if (sec.mr) {
++                memory_region_unref(sec.mr);
++            }
++            continue;
++        }
++        src = memory_region_get_ram_ptr(sec.mr) + sec.offset_within_region;
++        for (y = 0; y < height && y + ypos < out_height; y++) {
++            uint8_t *d = dest + (y + ypos) * surface_stride(surface) + xpos * (out_bpp / 8);
++            const uint8_t *r = src + (uint64_t)y * (uint64_t)row_step;
++            for (x = 0; x < width && x + xpos < out_width; x++) {
++                omap5430_draw_pixel(d + x * (out_bpp / 8),
++                                    r + (uint64_t)x * (uint64_t)pixel_step,
++                                    format, out_bpp);
++            }
++        }
++        memory_region_unref(sec.mr);
++        s->fb_base = base;
++        s->width = width;
++        s->height = height;
++        s->format = format;
++        found = true;
++        s->invalidate = 0;
++        break; /* The GFX plane carries the composed iDrive UI. */
++    }
++
++    if (!found && s->invalidate) {
++        memset(dest, 0, surface_stride(surface) * surface_height(surface));
++        s->invalidate = 0;
++    }
++    if (found || s->invalidate == 0) {
++        qemu_console_update(s->con, 0, 0, surface_width(surface), surface_height(surface));
++    }
++    return true;
++}
++
++static void omap5430_invalidate_display(void *opaque)
++{
++    OMAP5430DSSState *s = opaque;
++    s->invalidate = 1;
++}
++
++static const GraphicHwOps omap5430_gfx_ops = {
++    .invalidate = omap5430_invalidate_display,
++    .gfx_update = omap5430_update_display,
++};
++
++static const Property omap5430_dss_properties[] = {
++    DEFINE_PROP_LINK("system-memory", OMAP5430DSSState, sysmem,
++                     TYPE_MEMORY_REGION, MemoryRegion *),
++    DEFINE_PROP_BOOL("trace-dmm", OMAP5430DSSState, trace_dmm, false),
++};
++
++static void omap5430_dss_realize(DeviceState *dev, Error **errp)
++{
++    OMAP5430DSSState *s = OMAP5430_DSS(dev);
++    SysBusDevice *sbd = SYS_BUS_DEVICE(dev);
++    unsigned i;
++
++    if (!s->sysmem) {
++        error_setg(errp, "system-memory property must be set");
++        return;
++    }
++    for (i = 0; i < OMAP5430_WINDOW_COUNT; i++) {
++        OMAP5430Window *w = &s->windows[i];
++        w->dss = s;
++        w->base = omap5430_windows[i].base;
++        w->size = omap5430_windows[i].size;
++        w->name = omap5430_windows[i].name;
++        w->reg_count = w->size / sizeof(uint32_t);
++        w->regs = g_new0(uint32_t, w->reg_count);
++        memory_region_init_io(&w->iomem, OBJECT(s), &omap5430_mmio_ops, w,
++                              w->name, w->size);
++        sysbus_init_mmio(sbd, &w->iomem);
++    }
++    sysbus_init_irq(sbd, &s->dmm_irq);
++    sysbus_init_irq(sbd, &s->dispc_irq);
++    s->frame_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, omap5430_frame, s);
++
++    s->invalidate = 1;
++    s->con = qemu_graphic_console_create(dev, 0, &omap5430_gfx_ops, s);
++    qemu_console_resize(s->con, 1280, 480);
++}
++
++void omap5430_dss_map(SysBusDevice *sbd)
++{
++    unsigned i;
++
++    for (i = 0; i < OMAP5430_WINDOW_COUNT; i++) {
++        sysbus_mmio_map(sbd, i, omap5430_windows[i].base);
++    }
++}
++
++static void omap5430_dss_finalize(Object *obj)
++{
++    OMAP5430DSSState *s = OMAP5430_DSS(obj);
++    unsigned i;
++
++    timer_free(s->frame_timer);
++    if (s->con) {
++        qemu_graphic_console_close(s->con);
++    }
++    for (i = 0; i < OMAP5430_WINDOW_COUNT; i++) {
++        g_free(s->windows[i].regs);
++    }
++}
++
++/* Window sizes are machine constants, never supplied by the snapshot. */
++static const VMStateDescription vmstate_omap5430_window = {
++    .name = "omap5430-dss/window",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .fields = (const VMStateField[]) {
++        VMSTATE_VARRAY_UINT32(regs, OMAP5430Window, reg_count, 1,
++                             vmstate_info_uint32, uint32_t),
++        VMSTATE_END_OF_LIST()
++    },
++};
++
++static int omap5430_dss_post_load(void *opaque, int version_id)
++{
++    OMAP5430DSSState *s = opaque;
++    uint32_t *dss = s->windows[0].regs;
++    uint32_t *dmm = s->windows[1].regs;
++
++    qemu_set_irq(s->dispc_irq,
++        (dss[(DSS_DISPC_BASE + DISPC_IRQSTATUS) / 4] &
++         dss[(DSS_DISPC_BASE + DISPC_IRQENABLE) / 4]) != 0);
++    qemu_set_irq(s->dmm_irq,
++        (dmm[DMM_PAT_IRQSTATUS / 4] & dmm[DMM_PAT_IRQENABLE_SET / 4]) != 0);
++    s->invalidate = 1;
++    return 0;
++}
++
++static const VMStateDescription vmstate_omap5430_dss = {
++    .name = "omap5430-dss",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .post_load = omap5430_dss_post_load,
++    .fields = (const VMStateField[]) {
++        VMSTATE_STRUCT_ARRAY(windows, OMAP5430DSSState, OMAP5430_WINDOW_COUNT,
++                             1, vmstate_omap5430_window, OMAP5430Window),
++        VMSTATE_TIMER_PTR(frame_timer, OMAP5430DSSState),
++        VMSTATE_BOOL(digital_odd, OMAP5430DSSState),
++        VMSTATE_END_OF_LIST()
++    },
++};
++
++static void omap5430_dss_class_init(ObjectClass *oc, const void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(oc);
++
++    set_bit(DEVICE_CATEGORY_DISPLAY, dc->categories);
++    dc->realize = omap5430_dss_realize;
++    dc->vmsd = &vmstate_omap5430_dss;
++    device_class_set_props(dc, omap5430_dss_properties);
++}
++
++static const TypeInfo omap5430_dss_info = {
++    .name = TYPE_OMAP5430_DSS,
++    .parent = TYPE_SYS_BUS_DEVICE,
++    .instance_size = sizeof(OMAP5430DSSState),
++    .class_init = omap5430_dss_class_init,
++    .instance_finalize = omap5430_dss_finalize,
++};
++
++static void omap5430_dss_register_types(void)
++{
++    type_register_static(&omap5430_dss_info);
++}
++
++type_init(omap5430_dss_register_types)
+diff --git a/hw/display/omap5430_dss.h b/hw/display/omap5430_dss.h
+new file mode 100644
+index 000000000..febf2b571
+--- /dev/null
++++ b/hw/display/omap5430_dss.h
+@@ -0,0 +1,15 @@
++/*
++ * OMAP5430 DSS framebuffer support for the BMW NBTevo QNX guest.
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#ifndef HW_DISPLAY_OMAP5430_DSS_H
++#define HW_DISPLAY_OMAP5430_DSS_H
++
++#include "hw/core/sysbus.h"
++
++#define TYPE_OMAP5430_DSS "omap5430-dss"
++OBJECT_DECLARE_SIMPLE_TYPE(OMAP5430DSSState, OMAP5430_DSS)
++
++void omap5430_dss_map(SysBusDevice *sbd);
++
++#endif
+diff --git a/hw/dma/meson.build b/hw/dma/meson.build
+index cc7810beb..842095465 100644
+--- a/hw/dma/meson.build
++++ b/hw/dma/meson.build
+@@ -9,6 +9,7 @@ system_ss.add(when: 'CONFIG_STP2000', if_true: files('sparc32_dma.c'))
+ system_ss.add(when: 'CONFIG_XLNX_ZYNQMP_ARM', if_true: files('xlnx_dpdma.c'))
+ system_ss.add(when: 'CONFIG_XLNX_ZDMA', if_true: files('xlnx-zdma.c'))
+ system_ss.add(when: 'CONFIG_OMAP', if_true: files('omap_dma.c', 'soc_dma.c'))
++system_ss.add(when: 'CONFIG_OMAP5430', if_true: files('omap5430_sdma.c'))
+ system_ss.add(when: 'CONFIG_RASPI', if_true: files('bcm2835_dma.c'))
+ system_ss.add(when: 'CONFIG_SIFIVE_PDMA', if_true: files('sifive_pdma.c'))
+ system_ss.add(when: 'CONFIG_XLNX_CSU_DMA', if_true: files('xlnx_csu_dma.c'))
+diff --git a/hw/dma/omap5430_sdma.c b/hw/dma/omap5430_sdma.c
+new file mode 100644
+index 000000000..f7fa8fdbf
+--- /dev/null
++++ b/hw/dma/omap5430_sdma.c
+@@ -0,0 +1,389 @@
++/*
++ * OMAP5430 SDMA register and unsynchronised transfer model.
++ *
++ * Register semantics follow the former QEMU OMAP DMA4 model and the Linux
++ * OMAP DMA driver. External request lines, linked descriptors, indexed
++ * addressing and peripheral-specific synchronization are not implemented.
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#include "qemu/osdep.h"
++#include "hw/core/irq.h"
++#include "hw/core/qdev-properties.h"
++#include "hw/core/sysbus.h"
++#include "hw/dma/omap5430_sdma.h"
++#include "qemu/log.h"
++#include "qemu/module.h"
++#include "migration/vmstate.h"
++#include "qemu/timer.h"
++#include "system/address-spaces.h"
++
++#define SDMA_BASE              0x4a056000
++#define SDMA_SIZE              0x1000
++#define SDMA_CHANNELS          32
++#define SDMA_IRQS              4
++#define SDMA_CHANNEL_BASE      0x80
++#define SDMA_CHANNEL_STRIDE    0x60
++#define SDMA_MAX_ELEMENTS      (1U << 20)
++/* Approximate latency; transfers must not complete inside the CCR write. */
++#define SDMA_TRANSFER_DELAY_NS (10 * 1000 * 1000)
++
++#define SDMA_IRQSTATUS_BASE    0x08
++#define SDMA_IRQENABLE_BASE    0x18
++#define SDMA_SYSSTATUS         0x28
++#define SDMA_SYSCONFIG         0x2c
++#define SDMA_GCR               0x78
++
++#define SDMA_CCR               0x00
++#define SDMA_CICR              0x08
++#define SDMA_CSR               0x0c
++#define SDMA_CSDP              0x10
++#define SDMA_CEN               0x14
++#define SDMA_CFN               0x18
++#define SDMA_CSSA              0x1c
++#define SDMA_CDSA              0x20
++#define SDMA_CSAC              0x34
++#define SDMA_CDAC              0x38
++#define SDMA_CCEN              0x3c
++#define SDMA_CCFN              0x40
++
++#define SDMA_CCR_ENABLE        (1U << 7)
++#define SDMA_CCR_FILL          (1U << 16)
++#define SDMA_CCR_TRANSPARENT   (1U << 17)
++#define SDMA_CSR_FRAME         (1U << 3)
++#define SDMA_CSR_BLOCK         (1U << 5)
++#define SDMA_CSR_TRANS_ERR     (1U << 8)
++#define SDMA_CSR_MISALIGN      (1U << 11)
++
++typedef struct OMAP5430SDMAChannel {
++    uint32_t regs[SDMA_CHANNEL_STRIDE / 4];
++    OMAP5430SDMAState *controller;
++    unsigned index;
++    QEMUTimer *timer;
++} OMAP5430SDMAChannel;
++
++struct OMAP5430SDMAState {
++    SysBusDevice parent_obj;
++    MemoryRegion iomem;
++    qemu_irq irq[SDMA_IRQS];
++    uint32_t global[SDMA_CHANNEL_BASE / 4];
++    uint32_t irq_status[SDMA_IRQS];
++    uint32_t irq_enable[SDMA_IRQS];
++    OMAP5430SDMAChannel channel[SDMA_CHANNELS];
++    bool trace;
++};
++
++static void sdma_update_irqs(OMAP5430SDMAState *s)
++{
++    unsigned i;
++
++    for (i = 0; i < SDMA_IRQS; i++) {
++        qemu_set_irq(s->irq[i], (s->irq_status[i] & s->irq_enable[i]) != 0);
++    }
++}
++
++static void sdma_complete(OMAP5430SDMAState *s, unsigned n, uint32_t status)
++{
++    OMAP5430SDMAChannel *ch = &s->channel[n];
++    unsigned i;
++
++    ch->regs[SDMA_CCR / 4] &= ~SDMA_CCR_ENABLE;
++    ch->regs[SDMA_CSR / 4] |= status;
++    if (status & ch->regs[SDMA_CICR / 4]) {
++        for (i = 0; i < SDMA_IRQS; i++) {
++            s->irq_status[i] |= s->irq_enable[i] & (1U << n);
++        }
++    }
++    if (s->trace) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "omap5430-sdma: ch%u status=%#x irq=%#x/%#x/%#x/%#x\n",
++                      n, status, s->irq_status[0], s->irq_status[1],
++                      s->irq_status[2], s->irq_status[3]);
++    }
++    sdma_update_irqs(s);
++}
++
++static void sdma_transfer(OMAP5430SDMAState *s, unsigned n)
++{
++    OMAP5430SDMAChannel *ch = &s->channel[n];
++    uint32_t ccr = ch->regs[SDMA_CCR / 4];
++    uint32_t csdp = ch->regs[SDMA_CSDP / 4];
++    uint32_t elements = ch->regs[SDMA_CEN / 4] & 0xffffff;
++    uint32_t frames = ch->regs[SDMA_CFN / 4] & 0xffff;
++    uint32_t src = ch->regs[SDMA_CSSA / 4];
++    uint32_t dst = ch->regs[SDMA_CDSA / 4];
++    unsigned src_mode = (ccr >> 12) & 3;
++    unsigned dst_mode = (ccr >> 14) & 3;
++    unsigned width = 1U << (csdp & 3);
++    uint32_t request = (ccr & 0x1f) | ((ccr >> 14) & 0x60);
++    uint32_t f, e;
++
++    if (s->trace) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "omap5430-sdma: ch%u ccr=%#x csdp=%#x src=%#x dst=%#x "
++                      "elements=%u frames=%u request=%u\n",
++                      n, ccr, csdp, src, dst, elements, frames, request);
++    }
++    if (request) {
++        /* Hardware-synchronized transfers wait for their peripheral request. */
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sdma: external request %u is not modelled\n",
++                      request);
++        return;
++    }
++    if (width > 4 || !elements || !frames ||
++        (uint64_t)elements * frames > SDMA_MAX_ELEMENTS ||
++        src_mode > 1 || dst_mode > 1 ||
++        (ccr & (SDMA_CCR_FILL | SDMA_CCR_TRANSPARENT)) ||
++        ((csdp >> 21) & 1) != ((csdp >> 19) & 1)) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sdma: unsupported transfer on channel %u\n", n);
++        sdma_complete(s, n, SDMA_CSR_TRANS_ERR);
++        return;
++    }
++    if ((src | dst) & (width - 1)) {
++        sdma_complete(s, n, SDMA_CSR_MISALIGN);
++        return;
++    }
++
++    for (f = 0; f < frames; f++) {
++        for (e = 0; e < elements; e++) {
++            uint8_t data[4];
++            MemTxResult result;
++
++            /* Avoid a recursive write into this controller's own registers. */
++            if ((src >= SDMA_BASE && src < SDMA_BASE + SDMA_SIZE) ||
++                (dst >= SDMA_BASE && dst < SDMA_BASE + SDMA_SIZE)) {
++                sdma_complete(s, n, SDMA_CSR_TRANS_ERR);
++                return;
++            }
++            result = address_space_read(&address_space_memory, src,
++                                        MEMTXATTRS_UNSPECIFIED, data, width);
++            if (result == MEMTX_OK) {
++                result = address_space_write(&address_space_memory, dst,
++                                             MEMTXATTRS_UNSPECIFIED, data, width);
++            }
++            if (result != MEMTX_OK) {
++                sdma_complete(s, n, SDMA_CSR_TRANS_ERR);
++                return;
++            }
++            if (src_mode == 1) {
++                src += width;
++            }
++            if (dst_mode == 1) {
++                dst += width;
++            }
++        }
++    }
++    ch->regs[SDMA_CSAC / 4] = src;
++    ch->regs[SDMA_CDAC / 4] = dst;
++    ch->regs[SDMA_CCEN / 4] = elements;
++    ch->regs[SDMA_CCFN / 4] = frames;
++    sdma_complete(s, n, SDMA_CSR_FRAME | SDMA_CSR_BLOCK);
++}
++
++static void sdma_timer(void *opaque)
++{
++    OMAP5430SDMAChannel *ch = opaque;
++
++    if (ch->regs[SDMA_CCR / 4] & SDMA_CCR_ENABLE) {
++        sdma_transfer(ch->controller, ch->index);
++    }
++}
++
++static uint64_t sdma_read(void *opaque, hwaddr offset, unsigned size)
++{
++    OMAP5430SDMAState *s = opaque;
++    unsigned channel, reg;
++
++    if (offset == 0) {
++        return 0x40; /* DMA4 revision */
++    }
++    if (offset >= SDMA_IRQSTATUS_BASE && offset < SDMA_IRQSTATUS_BASE + 16) {
++        return s->irq_status[(offset - SDMA_IRQSTATUS_BASE) / 4];
++    }
++    if (offset >= SDMA_IRQENABLE_BASE && offset < SDMA_IRQENABLE_BASE + 16) {
++        return s->irq_enable[(offset - SDMA_IRQENABLE_BASE) / 4];
++    }
++    if (offset == SDMA_SYSSTATUS) {
++        return 1; /* reset complete */
++    }
++    if (offset < SDMA_CHANNEL_BASE) {
++        return s->global[offset / 4];
++    }
++    channel = (offset - SDMA_CHANNEL_BASE) / SDMA_CHANNEL_STRIDE;
++    reg = (offset - SDMA_CHANNEL_BASE) % SDMA_CHANNEL_STRIDE;
++    if (channel >= SDMA_CHANNELS) {
++        return 0;
++    }
++    return s->channel[channel].regs[reg / 4];
++}
++
++static void sdma_reset(DeviceState *dev)
++{
++    OMAP5430SDMAState *s = OMAP5430_SDMA(dev);
++    unsigned i;
++
++    for (i = 0; i < SDMA_CHANNELS; i++) {
++        timer_del(s->channel[i].timer);
++        memset(s->channel[i].regs, 0, sizeof(s->channel[i].regs));
++    }
++    memset(s->global, 0, sizeof(s->global));
++    memset(s->irq_status, 0, sizeof(s->irq_status));
++    memset(s->irq_enable, 0, sizeof(s->irq_enable));
++    s->global[SDMA_GCR / 4] = 0x00010010;
++    sdma_update_irqs(s);
++}
++
++static void sdma_write(void *opaque, hwaddr offset, uint64_t value,
++                       unsigned size)
++{
++    OMAP5430SDMAState *s = opaque;
++    OMAP5430SDMAChannel *ch;
++    uint32_t old;
++    unsigned channel, reg;
++
++    if (s->trace) {
++        qemu_log_mask(LOG_GUEST_ERROR, "omap5430-sdma: write %#" HWADDR_PRIx
++                      " = %#" PRIx64 "\n", offset, value);
++    }
++    if (offset >= SDMA_IRQSTATUS_BASE && offset < SDMA_IRQSTATUS_BASE + 16) {
++        s->irq_status[(offset - SDMA_IRQSTATUS_BASE) / 4] &= ~(uint32_t)value;
++        sdma_update_irqs(s);
++        return;
++    }
++    if (offset >= SDMA_IRQENABLE_BASE && offset < SDMA_IRQENABLE_BASE + 16) {
++        s->irq_enable[(offset - SDMA_IRQENABLE_BASE) / 4] = value;
++        sdma_update_irqs(s);
++        return;
++    }
++    if (offset == SDMA_SYSCONFIG && (value & 2)) {
++        sdma_reset(DEVICE(s));
++        return;
++    }
++    if (offset < SDMA_CHANNEL_BASE) {
++        if (offset != 0 && offset != SDMA_SYSSTATUS) {
++            s->global[offset / 4] = value;
++        }
++        return;
++    }
++    channel = (offset - SDMA_CHANNEL_BASE) / SDMA_CHANNEL_STRIDE;
++    reg = (offset - SDMA_CHANNEL_BASE) % SDMA_CHANNEL_STRIDE;
++    if (channel >= SDMA_CHANNELS) {
++        return;
++    }
++    ch = &s->channel[channel];
++    old = ch->regs[reg / 4];
++    if (reg == SDMA_CSR) {
++        ch->regs[reg / 4] &= ~(uint32_t)value;
++    } else if (reg != SDMA_CSAC && reg != SDMA_CDAC &&
++               reg != SDMA_CCEN && reg != SDMA_CCFN) {
++        ch->regs[reg / 4] = value;
++    }
++    if (reg == SDMA_CCR && !(old & SDMA_CCR_ENABLE) &&
++        (value & SDMA_CCR_ENABLE)) {
++        timer_mod(ch->timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++                  SDMA_TRANSFER_DELAY_NS);
++    } else if (reg == SDMA_CCR && !(value & SDMA_CCR_ENABLE)) {
++        timer_del(ch->timer);
++    }
++}
++
++static const MemoryRegionOps sdma_ops = {
++    .read = sdma_read,
++    .write = sdma_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 4, .max_access_size = 4, .unaligned = false },
++    .impl = { .min_access_size = 4, .max_access_size = 4, .unaligned = false },
++};
++
++static void sdma_realize(DeviceState *dev, Error **errp)
++{
++    OMAP5430SDMAState *s = OMAP5430_SDMA(dev);
++    unsigned i;
++
++    memory_region_init_io(&s->iomem, OBJECT(s), &sdma_ops, s,
++                          "omap5430-sdma", SDMA_SIZE);
++    sysbus_init_mmio(SYS_BUS_DEVICE(dev), &s->iomem);
++    for (i = 0; i < SDMA_IRQS; i++) {
++        sysbus_init_irq(SYS_BUS_DEVICE(dev), &s->irq[i]);
++    }
++    for (i = 0; i < SDMA_CHANNELS; i++) {
++        s->channel[i].controller = s;
++        s->channel[i].index = i;
++        s->channel[i].timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, sdma_timer,
++                                           &s->channel[i]);
++    }
++    sdma_reset(dev);
++}
++
++static void sdma_unrealize(DeviceState *dev)
++{
++    OMAP5430SDMAState *s = OMAP5430_SDMA(dev);
++    unsigned i;
++
++    for (i = 0; i < SDMA_CHANNELS; i++) {
++        timer_free(s->channel[i].timer);
++    }
++}
++
++static const Property sdma_properties[] = {
++    DEFINE_PROP_BOOL("trace", OMAP5430SDMAState, trace, false),
++};
++
++static const VMStateDescription vmstate_omap5430_sdma_channel = {
++    .name = "omap5430-sdma/channel",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .fields = (const VMStateField[]) {
++        VMSTATE_UINT32_ARRAY(regs, OMAP5430SDMAChannel, SDMA_CHANNEL_STRIDE / 4),
++        VMSTATE_TIMER_PTR(timer, OMAP5430SDMAChannel),
++        VMSTATE_END_OF_LIST()
++    },
++};
++
++static int sdma_post_load(void *opaque, int version_id)
++{
++    sdma_update_irqs(opaque);
++    return 0;
++}
++
++static const VMStateDescription vmstate_omap5430_sdma = {
++    .name = "omap5430-sdma",
++    .version_id = 1,
++    .minimum_version_id = 1,
++    .post_load = sdma_post_load,
++    .fields = (const VMStateField[]) {
++        VMSTATE_UINT32_ARRAY(global, OMAP5430SDMAState, SDMA_CHANNEL_BASE / 4),
++        VMSTATE_UINT32_ARRAY(irq_status, OMAP5430SDMAState, SDMA_IRQS),
++        VMSTATE_UINT32_ARRAY(irq_enable, OMAP5430SDMAState, SDMA_IRQS),
++        VMSTATE_STRUCT_ARRAY(channel, OMAP5430SDMAState, SDMA_CHANNELS,
++                             1, vmstate_omap5430_sdma_channel, OMAP5430SDMAChannel),
++        VMSTATE_END_OF_LIST()
++    },
++};
++
++static void sdma_class_init(ObjectClass *oc, const void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(oc);
++
++    dc->realize = sdma_realize;
++    dc->vmsd = &vmstate_omap5430_sdma;
++    dc->unrealize = sdma_unrealize;
++    device_class_set_legacy_reset(dc, sdma_reset);
++    device_class_set_props(dc, sdma_properties);
++}
++
++static const TypeInfo sdma_info = {
++    .name = TYPE_OMAP5430_SDMA,
++    .parent = TYPE_SYS_BUS_DEVICE,
++    .instance_size = sizeof(OMAP5430SDMAState),
++    .class_init = sdma_class_init,
++};
++
++static void sdma_register_types(void)
++{
++    type_register_static(&sdma_info);
++}
++
++type_init(sdma_register_types)
+diff --git a/hw/dma/omap5430_sdma.h b/hw/dma/omap5430_sdma.h
+new file mode 100644
+index 000000000..0b52e9830
+--- /dev/null
++++ b/hw/dma/omap5430_sdma.h
+@@ -0,0 +1,10 @@
++/* OMAP5430 system DMA controller. */
++#ifndef HW_DMA_OMAP5430_SDMA_H
++#define HW_DMA_OMAP5430_SDMA_H
++
++#include "qom/object.h"
++
++#define TYPE_OMAP5430_SDMA "omap5430-sdma"
++OBJECT_DECLARE_SIMPLE_TYPE(OMAP5430SDMAState, OMAP5430_SDMA)
++
++#endif

@@ -1,0 +1,272 @@
+From 7299a3696f711cf1c1de219ed5853bf5ae3ddce1 Mon Sep 17 00:00:00 2001
+From: iDrive release patch builder <patches@example.invalid>
+Date: Thu, 5 Nov 2026 21:11:01 -0500
+Subject: [PATCH 3/4] Add high speed CDC networking and EHCI diagnostics
+
+---
+ hw/usb/dev-network.c | 33 ++++++++------------
+ hw/usb/hcd-ehci.c    | 74 ++++++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 81 insertions(+), 26 deletions(-)
+
+diff --git a/hw/usb/dev-network.c b/hw/usb/dev-network.c
+index 568a6ff24..4de275061 100644
+--- a/hw/usb/dev-network.c
++++ b/hw/usb/dev-network.c
+@@ -100,7 +100,7 @@ enum usbstring_idx {
+ 
+ static const USBDescStrings usb_net_stringtable = {
+     [STRING_MANUFACTURER]       = "QEMU",
+-    [STRING_PRODUCT]            = "RNDIS/QEMU USB Network Device",
++    [STRING_PRODUCT]            = "CDC/QEMU USB Network Device",
+     [STRING_ETHADDR]            = "400102030405",
+     [STRING_DATA]               = "QEMU USB Net Data Interface",
+     [STRING_CONTROL]            = "QEMU USB Net Control Interface",
+@@ -163,7 +163,7 @@ static const USBDescIface desc_iface_rndis[] = {
+                 .bEndpointAddress      = USB_DIR_IN | 0x01,
+                 .bmAttributes          = USB_ENDPOINT_XFER_INT,
+                 .wMaxPacketSize        = STATUS_BYTECOUNT,
+-                .bInterval             = 1 << LOG2_STATUS_INTERVAL_MSEC,
++                .bInterval             = LOG2_STATUS_INTERVAL_MSEC,
+             },
+         }
+     },{
+@@ -176,11 +176,11 @@ static const USBDescIface desc_iface_rndis[] = {
+             {
+                 .bEndpointAddress      = USB_DIR_IN | 0x02,
+                 .bmAttributes          = USB_ENDPOINT_XFER_BULK,
+-                .wMaxPacketSize        = 0x40,
++                .wMaxPacketSize        = 0x0200,
+             },{
+                 .bEndpointAddress      = USB_DIR_OUT | 0x02,
+                 .bmAttributes          = USB_ENDPOINT_XFER_BULK,
+-                .wMaxPacketSize        = 0x40,
++                .wMaxPacketSize        = 0x0200,
+             }
+         }
+     }
+@@ -234,7 +234,7 @@ static const USBDescIface desc_iface_cdc[] = {
+                 .bEndpointAddress      = USB_DIR_IN | 0x01,
+                 .bmAttributes          = USB_ENDPOINT_XFER_INT,
+                 .wMaxPacketSize        = STATUS_BYTECOUNT,
+-                .bInterval             = 1 << LOG2_STATUS_INTERVAL_MSEC,
++                .bInterval             = LOG2_STATUS_INTERVAL_MSEC,
+             },
+         }
+     },{
+@@ -254,11 +254,11 @@ static const USBDescIface desc_iface_cdc[] = {
+             {
+                 .bEndpointAddress      = USB_DIR_IN | 0x02,
+                 .bmAttributes          = USB_ENDPOINT_XFER_BULK,
+-                .wMaxPacketSize        = 0x40,
++                .wMaxPacketSize        = 0x0200,
+             },{
+                 .bEndpointAddress      = USB_DIR_OUT | 0x02,
+                 .bmAttributes          = USB_ENDPOINT_XFER_BULK,
+-                .wMaxPacketSize        = 0x40,
++                .wMaxPacketSize        = 0x0200,
+             }
+         }
+     }
+@@ -268,17 +268,9 @@ static const USBDescDevice desc_device_net = {
+     .bcdUSB                        = 0x0200,
+     .bDeviceClass                  = USB_CLASS_COMM,
+     .bMaxPacketSize0               = 0x40,
+-    .bNumConfigurations            = 2,
++    .bNumConfigurations            = 1,
+     .confs = (USBDescConfig[]) {
+         {
+-            .bNumInterfaces        = 2,
+-            .bConfigurationValue   = DEV_RNDIS_CONFIG_VALUE,
+-            .iConfiguration        = STRING_RNDIS,
+-            .bmAttributes          = USB_CFG_ATT_ONE | USB_CFG_ATT_SELFPOWER,
+-            .bMaxPower             = 0x32,
+-            .nif = ARRAY_SIZE(desc_iface_rndis),
+-            .ifs = desc_iface_rndis,
+-        },{
+             .bNumInterfaces        = 2,
+             .bConfigurationValue   = DEV_CONFIG_VALUE,
+             .iConfiguration        = STRING_CDC,
+@@ -292,14 +284,15 @@ static const USBDescDevice desc_device_net = {
+ 
+ static const USBDesc desc_net = {
+     .id = {
+-        .idVendor          = RNDIS_VENDOR_NUM,
+-        .idProduct         = RNDIS_PRODUCT_NUM,
++        .idVendor          = CDC_VENDOR_NUM,
++        .idProduct         = CDC_PRODUCT_NUM,
+         .bcdDevice         = 0,
+         .iManufacturer     = STRING_MANUFACTURER,
+         .iProduct          = STRING_PRODUCT,
+         .iSerialNumber     = STRING_SERIALNUMBER,
+     },
+     .full = &desc_device_net,
++    .high = &desc_device_net,
+     .str  = usb_net_stringtable,
+ };
+ 
+@@ -1187,7 +1180,7 @@ static void usb_net_handle_datain(USBNetState *s, USBPacket *p)
+     usb_packet_copy(p, &s->in_buf[s->in_ptr], len);
+     s->in_ptr += len;
+     if (s->in_ptr >= s->in_len &&
+-                    (is_rndis(s) || (s->in_len & (64 - 1)) || !len)) {
++                    (is_rndis(s) || (s->in_len % p->ep->max_packet_size) || !len)) {
+         /* no short packet necessary */
+         usb_net_reset_in_buf(s);
+     }
+@@ -1217,7 +1210,7 @@ static void usb_net_handle_dataout(USBNetState *s, USBPacket *p)
+     s->out_ptr += sz;
+ 
+     if (!is_rndis(s)) {
+-        if (p->iov.size % 64 || p->iov.size == 0) {
++        if (p->iov.size % p->ep->max_packet_size || p->iov.size == 0) {
+             qemu_send_packet(qemu_get_queue(s->nic), s->out_buf, s->out_ptr);
+             s->out_ptr = 0;
+         }
+diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
+index 28a60e4c1..c6e15fd11 100644
+--- a/hw/usb/hcd-ehci.c
++++ b/hw/usb/hcd-ehci.c
+@@ -426,8 +426,8 @@ static int ehci_get_pid(EHCIqtd *qtd)
+     case 2:
+         return USB_TOKEN_SETUP;
+     default:
+-        qemu_log_mask(LOG_GUEST_ERROR, "bad token\n");
+-        return 0;
++        /* Reserved PID encodings are rejected by ehci_execute(). */
++        return -1;
+     }
+ }
+ 
+@@ -467,6 +467,10 @@ static bool ehci_verify_pid(EHCIQueue *q, EHCIqtd *qtd)
+     int ep  = get_field(q->qh.epchar, QH_EPCHAR_EP);
+     int pid = ehci_get_pid(qtd);
+ 
++    if (pid < 0) {
++        return false;
++    }
++
+     /* Note the pid changing is normal for ep 0 (the control ep) */
+     if (q->last_pid && ep != 0 && pid != q->last_pid) {
+         return false;
+@@ -1362,15 +1366,29 @@ static int ehci_execute(EHCIPacket *p, const char *action)
+     if (get_field(p->qtd.token, QTD_TOKEN_TBYTES) > BUFF_SIZE) {
+         ehci_trace_guest_bug(p->queue->ehci,
+                              "guest requested more bytes than allowed");
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "EHCI: oversized qTD qh=0x%08x qtd=0x%08x token=0x%08x\n",
++                      p->queue->qhaddr, p->qtdaddr, p->qtd.token);
++        return -1;
++    }
++
++    p->pid = ehci_get_pid(&p->qtd);
++    endp = get_field(p->queue->qh.epchar, QH_EPCHAR_EP);
++    if (p->pid < 0) {
++        ehci_trace_guest_bug(p->queue->ehci,
++                             "guest qTD used a reserved PID encoding");
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "EHCI: rejecting reserved qTD PID %u at QH 0x%x "
++                      "QTD 0x%x endpoint %d\n",
++                      get_field(p->qtd.token, QTD_TOKEN_PID),
++                      p->queue->qhaddr, p->qtdaddr, endp);
+         return -1;
+     }
+ 
+     if (!ehci_verify_pid(p->queue, &p->qtd)) {
+         ehci_queue_stopped(p->queue); /* Mark the ep in the prev dir stopped */
+     }
+-    p->pid = ehci_get_pid(&p->qtd);
+     p->queue->last_pid = p->pid;
+-    endp = get_field(p->queue->qh.epchar, QH_EPCHAR_EP);
+     ep = usb_ep_get(p->queue->dev, p->pid, endp);
+ 
+     if (p->async == EHCI_ASYNC_NONE) {
+@@ -1382,6 +1400,12 @@ static int ehci_execute(EHCIPacket *p, const char *action)
+         usb_packet_setup(&p->packet, p->pid, ep, 0, p->qtdaddr, spd,
+                          (p->qtd.token & QTD_TOKEN_IOC) != 0);
+         if (usb_packet_map(&p->packet, &p->sgl)) {
++            qemu_log_mask(LOG_GUEST_ERROR,
++                          "EHCI: qTD DMA map failed qh=0x%08x qtd=0x%08x "
++                          "token=0x%08x buffers=%08x,%08x,%08x,%08x,%08x\n",
++                          p->queue->qhaddr, p->qtdaddr, p->qtd.token,
++                          p->qtd.bufptr[0], p->qtd.bufptr[1], p->qtd.bufptr[2],
++                          p->qtd.bufptr[3], p->qtd.bufptr[4]);
+             qemu_sglist_destroy(&p->sgl);
+             return -1;
+         }
+@@ -1587,6 +1611,14 @@ static int ehci_state_fetchentry(EHCIState *ehci, int async)
+ 
+     /* section 4.8, only QH in async schedule */
+     if (async && (NLPTR_TYPE_GET(entry) != NLPTR_TYPE_QH)) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "EHCI: invalid async schedule entry virtual_ns=%llu "
++                      "entry=0x%08x addr=0x%08x type=%u state=%s "
++                      "async_base=0x%08x usbcmd=0x%08x usbsts=0x%08x\n",
++                      (unsigned long long)qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL),
++                      entry, NLPTR_GET(entry), NLPTR_TYPE_GET(entry),
++                      state2str(ehci_get_state(ehci, async)),
++                      ehci->asynclistaddr, ehci->usbcmd, ehci->usbsts);
+         qemu_log_mask(LOG_GUEST_ERROR,
+                       "non queue head request in async schedule\n");
+         return -1;
+@@ -1725,6 +1757,12 @@ static int ehci_state_fetchitd(EHCIState *ehci, int async)
+     ehci_trace_itd(ehci, entry, &itd);
+ 
+     if (ehci_process_itd(ehci, &itd, entry) != 0) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "EHCI: iTD failed link=0x%08x next=0x%08x "
++                      "transactions=%08x,%08x,%08x,%08x,%08x,%08x,%08x,%08x\n",
++                      entry, itd.next, itd.transact[0], itd.transact[1],
++                      itd.transact[2], itd.transact[3], itd.transact[4],
++                      itd.transact[5], itd.transact[6], itd.transact[7]);
+         return -1;
+     }
+ 
+@@ -1868,6 +1906,18 @@ static int ehci_state_horizqh(EHCIQueue *q)
+ {
+     int again = 0;
+ 
++    if (q->async && !NLPTR_TBIT(q->qh.next) &&
++        NLPTR_TYPE_GET(q->qh.next) != NLPTR_TYPE_QH) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "EHCI: async QH link invalid virtual_ns=%llu "
++                      "source_qh=0x%08x link=0x%08x addr=0x%08x type=%u "
++                      "async_base=0x%08x usbcmd=0x%08x usbsts=0x%08x\n",
++                      (unsigned long long)qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL),
++                      NLPTR_GET(q->qhaddr), q->qh.next,
++                      NLPTR_GET(q->qh.next), NLPTR_TYPE_GET(q->qh.next),
++                      q->ehci->asynclistaddr, q->ehci->usbcmd,
++                      q->ehci->usbsts);
++    }
+     if (ehci_get_fetch_addr(q->ehci, q->async) != q->qh.next) {
+         ehci_set_fetch_addr(q->ehci, q->async, q->qh.next);
+         ehci_set_state(q->ehci, q->async, EST_FETCHENTRY);
+@@ -2053,7 +2103,10 @@ static void ehci_advance_state(EHCIState *ehci, int async)
+     int again;
+ 
+     do {
+-        switch (ehci_get_state(ehci, async)) {
++        uint32_t state = ehci_get_state(ehci, async);
++        uint32_t fetch = ehci_get_fetch_addr(ehci, async);
++
++        switch (state) {
+         case EST_WAITLISTHEAD:
+             again = ehci_state_waitlisthead(ehci, async);
+             break;
+@@ -2128,7 +2181,16 @@ static void ehci_advance_state(EHCIState *ehci, int async)
+         if (again < 0 || itd_count > 16) {
+             /* TODO: notify guest (raise HSE irq?) */
+             qemu_log_mask(LOG_GUEST_ERROR,
+-                          "processing error - resetting ehci HC\n");
++                          "EHCI: reset after schedule processing error "
++                          "virtual_ns=%llu schedule=%s state=%s fetch=0x%08x "
++                          "next_fetch=0x%08x result=%d itd_count=%d "
++                          "frindex=0x%04x periodic_base=0x%08x "
++                          "async_base=0x%08x usbcmd=0x%08x usbsts=0x%08x\n",
++                          (unsigned long long)qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL),
++                          async ? "async" : "periodic", state2str(state), fetch,
++                          (uint32_t)ehci_get_fetch_addr(ehci, async), again,
++                          itd_count, ehci->frindex, ehci->periodiclistbase,
++                          ehci->asynclistaddr, ehci->usbcmd, ehci->usbsts);
+             ehci_reset(ehci);
+             again = 0;
+         }

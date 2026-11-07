@@ -1,0 +1,1185 @@
+diff --git a/hw/mips/Kconfig b/hw/mips/Kconfig
+--- a/hw/mips/Kconfig
++++ b/hw/mips/Kconfig
+@@ -86,3 +86,8 @@
+ 
+ config FW_CFG_MIPS
+     bool
++
++config CAPRICORN_M
++    bool
++    default y
++    depends on MIPS64 && !TARGET_BIG_ENDIAN && TCG
+diff --git a/hw/mips/meson.build b/hw/mips/meson.build
+--- a/hw/mips/meson.build
++++ b/hw/mips/meson.build
+@@ -7,6 +7,7 @@
+ mips_ss.add(when: 'CONFIG_MIPS_CPS', if_true: files('cps.c'))
+ 
+ if 'CONFIG_TCG' in config_all_accel
++mips_ss.add(when: 'CONFIG_CAPRICORN_M', if_true: files('capricorn-m.c'))
+ mips_ss.add(when: 'CONFIG_JAZZ', if_true: files('jazz.c'))
+ mips_ss.add(when: 'CONFIG_FULOONG', if_true: files('fuloong2e.c'))
+ mips_ss.add(when: 'CONFIG_MIPS_BOSTON', if_true: files('boston.c'))
+diff --git a/hw/mips/capricorn-m.c b/hw/mips/capricorn-m.c
+new file mode 100644
+--- /dev/null
++++ b/hw/mips/capricorn-m.c
+@@ -0,0 +1,1157 @@
++/*
++ * Toshiba Capricorn-M board bring-up for the Bosch BO03 graphics processor.
++ *
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++
++#include "qemu/osdep.h"
++#include "qemu/units.h"
++#include "qemu/log.h"
++#include "qemu/error-report.h"
++#include "qemu/bswap.h"
++#include "qemu/timer.h"
++#include "qapi/error.h"
++#include "hw/core/boards.h"
++#include "hw/core/clock.h"
++#include "hw/core/irq.h"
++#include "hw/core/sysbus.h"
++#include "ui/console.h"
++#include "ui/surface.h"
++#include "system/address-spaces.h"
++#include "target/mips/cpu.h"
++#include "target/mips/internal.h"
++
++#define CAPRICORN_RAM_SIZE (64 * MiB)
++#define CAPRICORN_GFX_RAM_BASE 0x01800000
++#define CAPRICORN_GFX_RAM_SIZE (32 * MiB)
++#define CAPRICORN_VRAM_BASE 0x04800000
++#define CAPRICORN_VRAM_SIZE (8 * MiB)
++#define CAPRICORN_FLASH_BASE 0x1c000000
++#define CAPRICORN_FLASH_SIZE (64 * MiB)
++/* The GSS startup TLB shim maps the peripheral window to this address. */
++#define CAPRICORN_GDC_BASE 0x01ff0000
++#define CAPRICORN_GDC_SPACING 0x100000
++#define CAPRICORN_RIF_BASE 0x01efc000
++#define CAPRICORN_RIF_APERTURE_BASE 0x12000000
++#define CAPRICORN_RIF_APERTURE_SIZE (64 * MiB)
++#define CAPRICORN_TGL_BASE 0x01e06000
++#define CAPRICORN_GA_BASE 0x01ffc000
++#define CAPRICORN_DMA01_BASE 0x01ffd040
++#define CAPRICORN_AUX_BASE 0x01ffcd80
++#define CAPRICORN_IRC_VECTOR 0x01ffd580
++#define CAPRICORN_CAN_CONTROL 0x01ffdc50
++#define CAN_INIT 0x80
++
++#define GA_RESET 1
++#define GA_ENABLE 2
++#define GA_LIST_ENDED 8
++#define GA_LIST_ADDR 8
++#define GA_STATUS 0x18
++
++#define TGL_RING_READ 0
++#define TGL_DESC_READ 8
++#define TGL_DESC_WRITE 0x18
++#define TGL_DONE_ACK 0x40
++#define TGL_INTERRUPT 0x70
++#define TGL_INIT_ACK 0x48
++#define TGL_STATUS 0x78
++#define TGL_BUFFER_A 0x80
++#define TGL_BUFFER_B 0x88
++#define TGL_READY 0x1000
++
++typedef struct CapricornCan {
++    MemoryRegion mmio;
++    uint16_t control;
++} CapricornCan;
++
++static uint64_t capricorn_can_read(void *opaque, hwaddr offset, unsigned size)
++{
++    CapricornCan *can = opaque;
++
++    switch (offset) {
++    case 0:
++        return can->control;
++    case 8:
++        /* The controller acknowledges entry to and exit from init mode. */
++        return can->control & CAN_INIT;
++    default:
++        return 0;
++    }
++}
++
++static void capricorn_can_write(void *opaque, hwaddr offset, uint64_t value,
++                                unsigned size)
++{
++    CapricornCan *can = opaque;
++
++    if (offset == 0) {
++        can->control = value;
++    }
++}
++
++static const MemoryRegionOps capricorn_can_ops = {
++    .read = capricorn_can_read,
++    .write = capricorn_can_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 1, .max_access_size = 4 },
++};
++
++typedef struct CapricornGa {
++    MemoryRegion mmio;
++    uint8_t registers[0x30];
++} CapricornGa;
++
++static uint64_t capricorn_ga_read(void *opaque, hwaddr offset, unsigned size)
++{
++    CapricornGa *ga = opaque;
++
++    return ldn_le_p(ga->registers + offset, size);
++}
++
++/*
++ * A mode-1 RIF entry maps a four-byte RGB view onto packed three-byte memory.
++ * The register pairs contain the backing base and the aperture bounds in
++ * units of sixteen bytes.
++ */
++static bool capricorn_rif_rgb24(uint32_t addr, unsigned span, hwaddr *backing)
++{
++    uint8_t rif[16];
++
++    for (unsigned i = 0; i < 8; i++) {
++        hwaddr start, end, dst, limit;
++        uint32_t config;
++
++        if (address_space_read(&address_space_memory,
++                               CAPRICORN_RIF_BASE + i * sizeof(rif),
++                               MEMTXATTRS_UNSPECIFIED, rif, sizeof(rif)) != MEMTX_OK) {
++            return false;
++        }
++        config = ldl_le_p(rif);
++        start = (hwaddr)ldl_le_p(rif + 8) << 4;
++        end = (hwaddr)ldl_le_p(rif + 12) << 4;
++        if ((config >> 24) != 0x81 || addr < start || addr >= end ||
++            (addr - start) % 4 || end - addr < span) {
++            continue;
++        }
++        dst = ((hwaddr)ldl_le_p(rif + 4) << 4) + (addr - start) / 4 * 3;
++        limit = dst + span / 4 * 3;
++        if ((dst >= CAPRICORN_VRAM_BASE &&
++             limit <= CAPRICORN_VRAM_BASE + CAPRICORN_VRAM_SIZE) ||
++            (dst >= CAPRICORN_GFX_RAM_BASE &&
++             limit <= CAPRICORN_GFX_RAM_BASE + CAPRICORN_GFX_RAM_SIZE)) {
++            *backing = dst;
++            return true;
++        }
++        return false;
++    }
++    return false;
++}
++
++/* A packed pixel stores alpha, blue, green and red from low to high. */
++static uint32_t capricorn_load_pixel(const uint8_t *pixel)
++{
++    return lduw_le_p(pixel) | (pixel[2] << 16);
++}
++
++static void capricorn_store_pixel(uint8_t *pixel, uint32_t packed)
++{
++    stw_le_p(pixel, packed);
++    pixel[2] = packed >> 16;
++}
++
++/* CPU font rendering uses the four-byte RIF view of the packed pixel. */
++static MemTxResult capricorn_rif_aperture_read(void *opaque, hwaddr offset,
++                                               uint64_t *value, unsigned size,
++                                               MemTxAttrs attrs)
++{
++    hwaddr backing;
++    uint8_t pixel[3];
++    uint32_t packed;
++
++    if (!capricorn_rif_rgb24(CAPRICORN_RIF_APERTURE_BASE + offset, 4, &backing) ||
++        address_space_read(&address_space_memory, backing, attrs,
++                           pixel, sizeof(pixel)) != MEMTX_OK) {
++        return MEMTX_ERROR;
++    }
++
++    packed = capricorn_load_pixel(pixel);
++    *value = 0;
++    for (unsigned c = 0; c < 4; c++) {
++        unsigned sample = extract32(packed, c * 6, 6);
++        *value |= ((sample << 2) | (sample >> 4)) << (c * 8);
++    }
++    return MEMTX_OK;
++}
++
++static MemTxResult capricorn_rif_aperture_write(void *opaque, hwaddr offset,
++                                                uint64_t value, unsigned size,
++                                                MemTxAttrs attrs)
++{
++    hwaddr backing;
++    uint8_t pixel[3];
++    uint32_t packed = 0;
++
++    if (!capricorn_rif_rgb24(CAPRICORN_RIF_APERTURE_BASE + offset, 4, &backing)) {
++        return MEMTX_ERROR;
++    }
++
++    for (unsigned c = 0; c < 4; c++) {
++        packed |= extract32(value, c * 8 + 2, 6) << (c * 6);
++    }
++    capricorn_store_pixel(pixel, packed);
++    return address_space_write(&address_space_memory, backing, attrs,
++                               pixel, sizeof(pixel));
++}
++
++static const MemoryRegionOps capricorn_rif_aperture_ops = {
++    .read_with_attrs = capricorn_rif_aperture_read,
++    .write_with_attrs = capricorn_rif_aperture_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 4, .max_access_size = 8 },
++    .impl = { .min_access_size = 4, .max_access_size = 4 },
++};
++
++static uint32_t capricorn_argb_to_pixel(uint32_t argb)
++{
++    return ((argb >> 26) & 0x3f) | ((argb >> 2) & 0x3f) << 6 |
++           ((argb >> 10) & 0x3f) << 12 | ((argb >> 18) & 0x3f) << 18;
++}
++
++static uint32_t capricorn_pixel_over(uint32_t src, uint32_t dst)
++{
++    unsigned src_alpha = src & 0x3f;
++    unsigned dst_alpha = dst & 0x3f;
++    unsigned src_weight = src_alpha * 63;
++    unsigned dst_weight = dst_alpha * (63 - src_alpha);
++    unsigned total = src_weight + dst_weight;
++    uint32_t result;
++
++    if (src_alpha == 0 || src_alpha == 63) {
++        return src_alpha ? src : dst;
++    }
++
++    result = (total + 31) / 63;
++    for (unsigned shift = 6; shift <= 18; shift += 6) {
++        unsigned channel = (((src >> shift) & 0x3f) * src_weight +
++                            ((dst >> shift) & 0x3f) * dst_weight + total / 2) /
++                           total;
++
++        result |= channel << shift;
++    }
++    return result;
++}
++
++typedef struct CapricornFill {
++    hwaddr backing;
++    unsigned pitch, width, height;
++    uint32_t pixel;
++} CapricornFill;
++
++static bool capricorn_ga_rgb_fill(const uint32_t *params, uint32_t flags,
++                                   CapricornFill *fill)
++{
++    uint32_t addr = params[4];
++    unsigned pitch = params[5], width = params[6], height = params[7];
++
++    /* The observed fading-enabled overwrite uses the full-strength factor. */
++    if (params[3] || (flags != 0 && (flags != 4 || params[0x14] != 0xff)) ||
++        !width || !height || pitch < width || pitch > 0xfff || height > 0xfff) {
++        return false;
++    }
++    if (!capricorn_rif_rgb24(addr, ((height - 1) * pitch + width) * 4,
++                             &fill->backing)) {
++        return false;
++    }
++    fill->pitch = pitch;
++    fill->width = width;
++    fill->height = height;
++    fill->pixel = capricorn_argb_to_pixel(params[0x11]);
++    return true;
++}
++
++static bool capricorn_ga_execute_fill(const CapricornFill *fill)
++{
++    uint8_t row[0xfff * 3];
++    hwaddr dst = fill->backing;
++
++    for (unsigned x = 0; x < fill->width; x++) {
++        capricorn_store_pixel(row + x * 3, fill->pixel);
++    }
++    for (unsigned y = 0; y < fill->height; y++, dst += fill->pitch * 3) {
++        if (address_space_write(&address_space_memory, dst, MEMTXATTRS_UNSPECIFIED,
++                                row, fill->width * 3) != MEMTX_OK) {
++            return false;
++        }
++    }
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: GA fill %ux%u pitch %u color %06x at 0x%08"
++                  HWADDR_PRIx "\n", fill->width, fill->height, fill->pitch,
++                  fill->pixel, fill->backing);
++    return true;
++}
++
++static void capricorn_blend_row(uint8_t *dst, const uint8_t *src, unsigned width)
++{
++    for (unsigned x = 0; x < width; x++, dst += 3, src += 3) {
++        capricorn_store_pixel(dst, capricorn_pixel_over(capricorn_load_pixel(src),
++                                                        capricorn_load_pixel(dst)));
++    }
++}
++
++static bool capricorn_ga_rle24a(const uint32_t *params, uint32_t flags,
++                                 bool blend)
++{
++    hwaddr src = params[9], dst;
++    unsigned pitch = params[5], width = params[6], height = params[7];
++    size_t total = (size_t)width * height;
++    g_autofree uint8_t *pixels = NULL;
++    uint8_t row[0xfff * 3];
++
++    if (params[3] || params[8] || (flags & ~4U) != (blend ? 0x21 : 9) ||
++        (blend && (params[0] != params[4] || params[0xd] || params[0xf])) ||
++        ((flags & 4) && params[0x14] != 0xff) ||
++        !width || !height || pitch < width || pitch > 0xfff || height > 0xfff ||
++        params[0xa] != width || src < CAPRICORN_GFX_RAM_BASE ||
++        src >= CAPRICORN_GFX_RAM_BASE + CAPRICORN_GFX_RAM_SIZE ||
++        !capricorn_rif_rgb24(params[4], ((height - 1) * pitch + width) * 4, &dst)) {
++        return false;
++    }
++
++    pixels = g_malloc(total * 3);
++    for (size_t pixel = 0; pixel < total;) {
++        uint8_t control;
++        unsigned count, bytes;
++        uint8_t *out = pixels + pixel * 3;
++
++        if (src >= CAPRICORN_GFX_RAM_BASE + CAPRICORN_GFX_RAM_SIZE ||
++            address_space_read(&address_space_memory, src++,
++                               MEMTXATTRS_UNSPECIFIED, &control, 1) != MEMTX_OK) {
++            return false;
++        }
++        count = control & 0x7f;
++        bytes = (control & 0x80) ? 3 : count * 3;
++        if (!count || count > total - pixel ||
++            src + bytes > CAPRICORN_GFX_RAM_BASE + CAPRICORN_GFX_RAM_SIZE ||
++            address_space_read(&address_space_memory, src,
++                               MEMTXATTRS_UNSPECIFIED, out, bytes) != MEMTX_OK) {
++            return false;
++        }
++        if (control & 0x80) {
++            for (unsigned i = 1; i < count; i++) {
++                memcpy(out + i * 3, out, 3);
++            }
++        }
++        pixel += count;
++        src += bytes;
++    }
++
++    for (unsigned y = 0; y < height; y++, dst += pitch * 3) {
++        const uint8_t *source = pixels + y * width * 3;
++
++        if (blend) {
++            if (address_space_read(&address_space_memory, dst, MEMTXATTRS_UNSPECIFIED,
++                                   row, width * 3) != MEMTX_OK) {
++                return false;
++            }
++            capricorn_blend_row(row, source, width);
++            source = row;
++        }
++        if (address_space_write(&address_space_memory, dst, MEMTXATTRS_UNSPECIFIED,
++                                source, width * 3) != MEMTX_OK) {
++            return false;
++        }
++    }
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: GA RLE24A %s %ux%u from %08x\n",
++                  blend ? "blend" : "overwrite", width, height, params[9]);
++    return true;
++}
++
++static bool capricorn_ga_copy_rgb(const uint32_t *params, uint32_t flags,
++                                  bool blend)
++{
++    unsigned pitch = params[5];
++    /* The supported clip window starts at the destination address. */
++    unsigned width = MIN(params[6], params[1]);
++    unsigned height = MIN(params[7], params[2]);
++    unsigned src_pitch = params[0xa];
++    hwaddr src, dst;
++    uint8_t row[0xfff * 3], background[0xfff * 3];
++
++    if (params[3] || params[8] || (flags & ~4U) != (blend ? 0x21 : 9) ||
++        ((flags & 4) && params[0x14] != 0xff) ||
++        (blend && (params[0xd] || params[0xf])) ||
++        params[0] != params[4] || !width || !height || pitch < width ||
++        pitch > 0xfff || height > 0xfff ||
++        src_pitch < width || src_pitch > 0xfff ||
++        !capricorn_rif_rgb24(params[9], ((height - 1) * src_pitch + width) * 4, &src) ||
++        !capricorn_rif_rgb24(params[4], ((height - 1) * pitch + width) * 4, &dst)) {
++        return false;
++    }
++    for (unsigned y = 0; y < height; y++, src += src_pitch * 3, dst += pitch * 3) {
++        const uint8_t *result = row;
++
++        if (address_space_read(&address_space_memory, src, MEMTXATTRS_UNSPECIFIED,
++                               row, width * 3) != MEMTX_OK) {
++            return false;
++        }
++        if (blend) {
++            if (address_space_read(&address_space_memory, dst, MEMTXATTRS_UNSPECIFIED,
++                                   background, width * 3) != MEMTX_OK) {
++                return false;
++            }
++            capricorn_blend_row(background, row, width);
++            result = background;
++        }
++        if (address_space_write(&address_space_memory, dst, MEMTXATTRS_UNSPECIFIED,
++                                result, width * 3) != MEMTX_OK) {
++            return false;
++        }
++    }
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: GA RGB %s %ux%u from %08x to %08x\n",
++                  blend ? "blend" : "overwrite", width, height, params[9], params[4]);
++    return true;
++}
++
++/* Coordinates use Q4 and the inverse matrix coefficients use Q16. */
++static bool capricorn_ga_affine(const uint32_t *params, uint32_t flags)
++{
++    int64_t umin = INT64_MAX, vmin = INT64_MAX;
++    int64_t umax = INT64_MIN, vmax = INT64_MIN;
++    int32_t ux = sextract32(params[0xc], 0, 22);
++    int32_t uy = sextract32(params[0xd], 0, 22);
++    int32_t vx = sextract32(params[0xf], 0, 22);
++    int32_t vy = sextract32(params[0xe], 0, 22);
++    unsigned dst_pitch = params[5] & 0xfff;
++    unsigned dst_height = (params[5] >> 16) & 0xfff;
++    unsigned src_pitch = params[0xa];
++    int x_min = INT_MAX, y_min = INT_MAX, x_max = INT_MIN, y_max = INT_MIN;
++    unsigned src_width, src_height;
++    hwaddr src, dst;
++    g_autofree uint8_t *source = NULL;
++    uint8_t row[0xfff * 3];
++    unsigned written = 0;
++
++    if (flags != 3 || params[3] || params[8] || params[0xb] ||
++        params[0x14] > 3 || params[0x1a] != 0xff ||
++        params[0x1b] != 0xff || params[0x1c] != 0xff ||
++        !dst_pitch || !dst_height || !src_pitch || src_pitch > 0xfff) {
++        return false;
++    }
++
++    for (unsigned i = 0; i < 4; i++) {
++        int x = extract32(params[0x10 + i], 16, 15);
++        int y = extract32(params[0x10 + i], 0, 15);
++        int64_t u = (int64_t)ux * x + (int64_t)uy * y;
++        int64_t v = (int64_t)vx * x + (int64_t)vy * y;
++
++        x_min = MIN(x_min, x);
++        y_min = MIN(y_min, y);
++        x_max = MAX(x_max, x);
++        y_max = MAX(y_max, y);
++        umin = MIN(umin, u);
++        vmin = MIN(vmin, v);
++        umax = MAX(umax, u);
++        vmax = MAX(vmax, v);
++    }
++
++    /* The inverse projections give the extent of the source rectangle. */
++    src_width = ((umax - umin + (1 << 19)) >> 20) + 1;
++    src_height = ((vmax - vmin + (1 << 19)) >> 20) + 1;
++    if (src_width > src_pitch || src_height > 0xfff ||
++        !capricorn_rif_rgb24(params[9], ((src_height - 1) * src_pitch + src_width) * 4,
++                             &src) ||
++        !capricorn_rif_rgb24(params[4], dst_height * dst_pitch * 4, &dst)) {
++        return false;
++    }
++
++    x_min = MAX(x_min >> 4, (int)extract32(params[1], 16, 12));
++    y_min = MAX(y_min >> 4, (int)extract32(params[1], 0, 12));
++    x_max = MIN(x_max >> 4, (int)MIN(dst_pitch - 1, extract32(params[2], 16, 12)));
++    y_max = MIN(y_max >> 4, (int)MIN(dst_height - 1, extract32(params[2], 0, 12)));
++    if (x_min > x_max || y_min > y_max) {
++        return true;
++    }
++
++    source = g_malloc((size_t)src_height * src_pitch * 3);
++    for (unsigned y = 0; y < src_height; y++) {
++        if (address_space_read(&address_space_memory, src + y * src_pitch * 3,
++                               MEMTXATTRS_UNSPECIFIED, source + y * src_pitch * 3,
++                               src_width * 3) != MEMTX_OK) {
++            return false;
++        }
++    }
++
++    for (int y = y_min; y <= y_max; y++) {
++        hwaddr line = dst + ((hwaddr)y * dst_pitch + x_min) * 3;
++        size_t len = (x_max - x_min + 1) * 3;
++
++        if (address_space_read(&address_space_memory, line, MEMTXATTRS_UNSPECIFIED,
++                               row, len) != MEMTX_OK) {
++            return false;
++        }
++        for (int x = x_min; x <= x_max; x++) {
++            int64_t u = (int64_t)ux * (x * 16) + (int64_t)uy * (y * 16) - umin;
++            int64_t v = (int64_t)vx * (x * 16) + (int64_t)vy * (y * 16) - vmin;
++            unsigned sx = (u + (1 << 19)) >> 20;
++            unsigned sy = (v + (1 << 19)) >> 20;
++            uint8_t *out = row + (x - x_min) * 3;
++
++            if (sx < src_width && sy < src_height) {
++                const uint8_t *sample = source + (sy * src_pitch + sx) * 3;
++                uint32_t pixel = capricorn_load_pixel(sample);
++
++                capricorn_store_pixel(out, capricorn_pixel_over(
++                    pixel, capricorn_load_pixel(out)));
++                written++;
++            }
++        }
++        if (address_space_write(&address_space_memory, line, MEMTXATTRS_UNSPECIFIED,
++                                row, len) != MEMTX_OK) {
++            return false;
++        }
++    }
++    qemu_log_mask(LOG_UNIMP,
++                  "capricorn-m: GA affine %ux%u source %08x, rectangle %d,%d-%d,%d, %u samples\n",
++                  src_width, src_height, params[9], x_min, y_min, x_max, y_max, written);
++    return true;
++}
++
++static void capricorn_ga_submit(CapricornGa *ga, uint32_t addr)
++{
++    uint32_t params[0x1d] = {};
++    uint8_t word[8];
++    CapricornFill fill;
++    unsigned i;
++
++    ga->registers[GA_STATUS] &= ~GA_LIST_ENDED;
++    if (!(ga->registers[0] & GA_ENABLE)) {
++        return;
++    }
++    for (i = 0; i < 4096; i++) {
++        hwaddr pos = (hwaddr)addr + i * sizeof(word);
++        uint32_t data, op;
++
++        if (pos < CAPRICORN_VRAM_BASE ||
++            pos > CAPRICORN_VRAM_BASE + CAPRICORN_VRAM_SIZE - sizeof(word) ||
++            address_space_read(&address_space_memory, pos, MEMTXATTRS_UNSPECIFIED,
++                               word, sizeof(word)) != MEMTX_OK) {
++            break;
++        }
++        data = ldl_le_p(word);
++        op = ldl_le_p(word + 4);
++        switch (op) {
++        case 0x01010000:
++        case 0x01010001:
++        case 0x01010002:
++        case 0x01010003:
++        case 0x01010004:
++        case 0x01010005:
++        case 0x01010006:
++        case 0x01010007:
++        case 0x01010008:
++        case 0x01010009:
++        case 0x0101000a:
++        case 0x0101000b:
++        case 0x0101000c:
++        case 0x0101000d:
++        case 0x0101000e:
++        case 0x0101000f:
++        case 0x01010010:
++        case 0x01010011:
++        case 0x01010012:
++        case 0x01010013:
++        case 0x01010014:
++        case 0x0101001a:
++        case 0x0101001b:
++        case 0x0101001c:
++            params[op & 0xff] = data;
++            continue;
++        case 0x11040000:
++        case 0x11070000:
++            if (capricorn_ga_copy_rgb(params, data, op == 0x11070000)) {
++                continue;
++            }
++            break;
++        case 0x110e0000:
++        case 0x110f0000:
++            if (capricorn_ga_rle24a(params, data, op == 0x110f0000)) {
++                continue;
++            }
++            break;
++        case 0x11140000:
++            if (capricorn_ga_rgb_fill(params, data, &fill) &&
++                capricorn_ga_execute_fill(&fill)) {
++                continue;
++            }
++            break;
++        case 0x31000000:
++            if (capricorn_ga_affine(params, data)) {
++                continue;
++            }
++            break;
++        case 0x01ff0000:
++            if (data == 0) {
++                ga->registers[GA_STATUS] |= GA_LIST_ENDED;
++                return;
++            }
++            break;
++        }
++        qemu_log_mask(LOG_UNIMP,
++                      "capricorn-m: unsupported GA command %08x:%08x at list 0x%08x word %u\n",
++                      op, data, addr, i);
++        return;
++    }
++    qemu_log_mask(LOG_GUEST_ERROR,
++                  "capricorn-m: unterminated GA list at 0x%08x after %u words\n",
++                  addr, i);
++}
++
++static void capricorn_ga_write(void *opaque, hwaddr offset, uint64_t value,
++                               unsigned size)
++{
++    CapricornGa *ga = opaque;
++
++    stn_le_p(ga->registers + offset, size, value);
++    if (offset == 0 && (value & GA_RESET)) {
++        ga->registers[0] &= ~GA_RESET;
++        ga->registers[GA_STATUS] &= ~GA_LIST_ENDED;
++    } else if (offset == GA_LIST_ADDR && size == 4) {
++        capricorn_ga_submit(ga, value);
++    }
++}
++
++static const MemoryRegionOps capricorn_ga_ops = {
++    .read = capricorn_ga_read,
++    .write = capricorn_ga_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 1, .max_access_size = 4 },
++};
++
++typedef enum CapricornIrq {
++    CAPRICORN_IRQ_AUX,
++    CAPRICORN_IRQ_CLUSTER,
++    CAPRICORN_IRQ_DMA01,
++    CAPRICORN_IRQ_TGL,
++    CAPRICORN_IRQ_HUD,
++} CapricornIrq;
++
++typedef struct CapricornIrc {
++    MemoryRegion vector;
++    qemu_irq cpu_line;
++    uint32_t pending;
++} CapricornIrc;
++
++static void capricorn_irc_set(CapricornIrc *irc, CapricornIrq irq, bool level)
++{
++    irc->pending = deposit32(irc->pending, irq, 1, level);
++    qemu_set_irq(irc->cpu_line, irc->pending != 0);
++}
++
++typedef struct CapricornTgl {
++    MemoryRegion mmio;
++    uint8_t registers[0x100];
++    bool ready;
++    CapricornIrc *irc;
++} CapricornTgl;
++
++static uint64_t capricorn_irc_vector_read(void *opaque, hwaddr offset,
++                                          unsigned size)
++{
++    static const unsigned vectors[] = {
++        [CAPRICORN_IRQ_AUX] = 0x4d,
++        [CAPRICORN_IRQ_CLUSTER] = 0x57,
++        [CAPRICORN_IRQ_DMA01] = 0x6b,
++        [CAPRICORN_IRQ_TGL] = 0xc1,
++        [CAPRICORN_IRQ_HUD] = 0xc2,
++    };
++    CapricornIrc *irc = opaque;
++
++    if (offset == 0 && irc->pending) {
++        return (vectors[ctz32(irc->pending)] - 0x48) * 4;
++    }
++    return 0x80000000;
++}
++
++static void capricorn_irc_vector_write(void *opaque, hwaddr offset,
++                                       uint64_t value, unsigned size)
++{
++    CapricornIrc *irc = opaque;
++
++    /* The auxiliary clock signals an edge and is acknowledged at the IRC. */
++    if (offset == 8 && value == (0x4d - 0x48) * 4) {
++        capricorn_irc_set(irc, CAPRICORN_IRQ_AUX, false);
++    } else if (offset == 8 && value == (0x6b - 0x48) * 4) {
++        capricorn_irc_set(irc, CAPRICORN_IRQ_DMA01, false);
++    }
++}
++
++static const MemoryRegionOps capricorn_irc_vector_ops = {
++    .read = capricorn_irc_vector_read,
++    .write = capricorn_irc_vector_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 4, .max_access_size = 4 },
++};
++
++static void capricorn_tgl_finish_startup(CapricornTgl *tgl)
++{
++    /* Only the boot submission from DLBFinish is covered by this shim. */
++    static const uint32_t startup[] = {
++        0x03000000, 0x20000000, 0x000000ff, 0x16000000,
++        0x0385fe20, 0x03c000a0, 0x0f000100, 0x14000000,
++        0x00000000, 0x03c000a0, 0x00000001, 0x76cc0001,
++        0x00010101, 0xffffffff, 0x00000000, 0x00010000,
++        0x02010101, 0, 0, 0, 0, 0, 0, 0,
++    };
++    uint8_t desc[4], list[sizeof(startup)];
++    hwaddr base = ldl_le_p(tgl->registers + TGL_BUFFER_B);
++
++    if (base != 0x03804000 ||
++        ldl_le_p(tgl->registers + TGL_DESC_WRITE) != 1 ||
++        ldl_le_p(tgl->registers + TGL_DESC_READ) != 0 ||
++        address_space_read(&address_space_memory, base + 0x36000,
++                           MEMTXATTRS_UNSPECIFIED, desc, sizeof(desc)) != MEMTX_OK ||
++        ldl_le_p(desc) != 0x00341b80 ||
++        address_space_read(&address_space_memory, base + 0x37000,
++                           MEMTXATTRS_UNSPECIFIED, list, sizeof(list)) != MEMTX_OK) {
++        goto unsupported;
++    }
++    for (size_t i = 0; i < ARRAY_SIZE(startup); i++) {
++        if (ldl_le_p(list + i * 4) != startup[i]) {
++            goto unsupported;
++        }
++    }
++
++    stl_le_p(tgl->registers + TGL_DESC_READ, 1);
++    stl_le_p(tgl->registers + TGL_RING_READ, ARRAY_SIZE(startup));
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: completing TGL boot submission\n");
++    capricorn_irc_set(tgl->irc, CAPRICORN_IRQ_TGL, true);
++    return;
++
++unsupported:
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: unsupported TGL submission\n");
++}
++
++static uint64_t capricorn_tgl_read(void *opaque, hwaddr offset, unsigned size)
++{
++    CapricornTgl *tgl = opaque;
++    uint64_t value = ldn_le_p(tgl->registers + offset, size);
++
++    if (offset == TGL_STATUS && size == 4 && tgl->ready) {
++        /* The firmware polls this readiness bit after setting both buffers. */
++        value |= TGL_READY;
++    }
++    return value;
++}
++
++static void capricorn_tgl_write(void *opaque, hwaddr offset, uint64_t value,
++                                unsigned size)
++{
++    CapricornTgl *tgl = opaque;
++
++    stn_le_p(tgl->registers + offset, size, value);
++    if (offset == TGL_BUFFER_B && size == 4 && value &&
++        ldl_le_p(tgl->registers + TGL_BUFFER_A)) {
++        tgl->ready = true;
++    } else if (offset == TGL_INIT_ACK && (value & 1)) {
++        tgl->ready = false;
++    } else if (offset == TGL_INTERRUPT && value == 4) {
++        capricorn_tgl_finish_startup(tgl);
++    } else if (offset == TGL_DONE_ACK && (value & 1)) {
++        capricorn_irc_set(tgl->irc, CAPRICORN_IRQ_TGL, false);
++    }
++}
++
++static const MemoryRegionOps capricorn_tgl_ops = {
++    .read = capricorn_tgl_read,
++    .write = capricorn_tgl_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 1, .max_access_size = 4 },
++};
++
++#define CAPRICORN_AUX_ENABLE BIT(31)
++#define CAPRICORN_AUX_COUNT_MASK 0xffffff
++#define CAPRICORN_AUX_HZ 35000000
++
++typedef struct CapricornAux {
++    MemoryRegion mmio;
++    CapricornIrc *irc;
++    QEMUTimer *timer;
++    uint32_t control;
++    int64_t period_ns;
++} CapricornAux;
++
++static void capricorn_aux_tick(void *opaque)
++{
++    CapricornAux *aux = opaque;
++
++    capricorn_irc_set(aux->irc, CAPRICORN_IRQ_AUX, true);
++    timer_mod(aux->timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) + aux->period_ns);
++}
++
++static uint64_t capricorn_aux_read(void *opaque, hwaddr offset, unsigned size)
++{
++    CapricornAux *aux = opaque;
++
++    return offset == 0 ? aux->control : 0;
++}
++
++static void capricorn_aux_write(void *opaque, hwaddr offset, uint64_t value,
++                                unsigned size)
++{
++    CapricornAux *aux = opaque;
++    uint32_t reload = value & CAPRICORN_AUX_COUNT_MASK;
++
++    if (offset != 0) {
++        return;
++    }
++    aux->control = value;
++    if ((value & CAPRICORN_AUX_ENABLE) && reload) {
++        aux->period_ns = muldiv64(reload, NANOSECONDS_PER_SECOND,
++                                  CAPRICORN_AUX_HZ);
++        timer_mod(aux->timer,
++                  qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) + aux->period_ns);
++    } else {
++        timer_del(aux->timer);
++        capricorn_irc_set(aux->irc, CAPRICORN_IRQ_AUX, false);
++    }
++}
++
++static const MemoryRegionOps capricorn_aux_ops = {
++    .read = capricorn_aux_read,
++    .write = capricorn_aux_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 4, .max_access_size = 4 },
++};
++
++#define DMA_SRC 0x08
++#define DMA_DST 0x10
++#define DMA_COUNT 0x18
++#define DMA_SRC_INCREMENT 0x20
++#define DMA_DST_INCREMENT 0x28
++#define DMA_CONTROL_HI 0x31
++#define DMA_STATUS 0x38
++#define DMA_START 1
++
++typedef struct CapricornDma {
++    MemoryRegion mmio;
++    CapricornIrc *irc;
++    uint8_t registers[0x40];
++} CapricornDma;
++
++static void capricorn_dma_copy(CapricornDma *dma)
++{
++    uint64_t src = ldq_le_p(dma->registers + DMA_SRC);
++    uint64_t dst = ldq_le_p(dma->registers + DMA_DST);
++    uint32_t len = ldl_le_p(dma->registers + DMA_COUNT) & 0x3fffff;
++    uint8_t buffer[4096];
++
++    /* Graphics-cache reads use increasing addresses in DMA0 channel 1. */
++    if (!len || ldl_le_p(dma->registers + DMA_SRC_INCREMENT) != 8 ||
++        ldl_le_p(dma->registers + DMA_DST_INCREMENT) != 8 ||
++        src < CAPRICORN_FLASH_BASE ||
++        src > CAPRICORN_FLASH_BASE + CAPRICORN_FLASH_SIZE - len ||
++        dst < CAPRICORN_GFX_RAM_BASE ||
++        dst > CAPRICORN_GFX_RAM_BASE + CAPRICORN_GFX_RAM_SIZE - len) {
++        qemu_log_mask(LOG_UNIMP,
++                      "capricorn-m: unsupported DMA0.1 copy %08" PRIx64
++                      " to %08" PRIx64 " (%u bytes)\n", src, dst, len);
++        return;
++    }
++    for (uint32_t offset = 0; offset < len; offset += sizeof(buffer)) {
++        uint32_t chunk = MIN(len - offset, sizeof(buffer));
++
++        if (address_space_read(&address_space_memory, src + offset,
++                               MEMTXATTRS_UNSPECIFIED, buffer, chunk) != MEMTX_OK ||
++            address_space_write(&address_space_memory, dst + offset,
++                                MEMTXATTRS_UNSPECIFIED, buffer, chunk) != MEMTX_OK) {
++            return;
++        }
++    }
++    qemu_log_mask(LOG_UNIMP, "capricorn-m: DMA0.1 copied %u bytes from %08"
++                  PRIx64 " to %08" PRIx64 "\n", len, src, dst);
++    dma->registers[DMA_CONTROL_HI] &= ~DMA_START;
++    capricorn_irc_set(dma->irc, CAPRICORN_IRQ_DMA01, true);
++}
++
++static uint64_t capricorn_dma_read(void *opaque, hwaddr offset, unsigned size)
++{
++    CapricornDma *dma = opaque;
++
++    return ldn_le_p(dma->registers + offset, size);
++}
++
++static void capricorn_dma_write(void *opaque, hwaddr offset, uint64_t value,
++                                unsigned size)
++{
++    CapricornDma *dma = opaque;
++    bool was_running = dma->registers[DMA_CONTROL_HI] & DMA_START;
++
++    if (offset == DMA_STATUS) {
++        /* These bits are written as ones to clear the previous result. */
++        uint64_t status = ldn_le_p(dma->registers + offset, size);
++        stn_le_p(dma->registers + offset, size, status & ~value);
++    } else {
++        stn_le_p(dma->registers + offset, size, value);
++    }
++    if (!was_running && (dma->registers[DMA_CONTROL_HI] & DMA_START)) {
++        capricorn_dma_copy(dma);
++    }
++}
++
++static const MemoryRegionOps capricorn_dma_ops = {
++    .read = capricorn_dma_read,
++    .write = capricorn_dma_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 1, .max_access_size = 8 },
++    .impl = { .min_access_size = 1, .max_access_size = 8 },
++};
++
++#define GDC_CONTROL 0x00
++#define GDC_LAYER0_START 0x10
++#define GDC_LAYER0_PITCH 0x68
++#define GDC_LAYER0_SIZE 0xb8
++#define GDC_LAYER0_ENABLED BIT(0)
++#define GDC_LAYER0_ALT_FORMAT BIT(20)
++#define GDC_PANEL_ENABLED BIT(31)
++#define GDC_IRQ_STATUS 0x140
++#define GDC_VSYNC_ENABLE 0x04
++#define GDC_VSYNC_PENDING 0x40
++#define GDC_FRAME_PERIOD_NS (NANOSECONDS_PER_SECOND / 60)
++
++#define TYPE_CAPRICORN_GDC "capricorn-gdc"
++OBJECT_DECLARE_SIMPLE_TYPE(CapricornGdc, CAPRICORN_GDC)
++
++struct CapricornGdc {
++    SysBusDevice parent_obj;
++    QemuConsole *console;
++    MemoryRegion irq_status;
++    CapricornIrc *irc;
++    CapricornIrq irq;
++    QEMUTimer *frame_timer;
++    hwaddr regs;
++    uint8_t status;
++};
++
++static uint64_t capricorn_gdc_irq_read(void *opaque, hwaddr offset,
++                                      unsigned size)
++{
++    CapricornGdc *gdc = opaque;
++
++    return gdc->status;
++}
++
++static void capricorn_gdc_irq_write(void *opaque, hwaddr offset,
++                                    uint64_t value, unsigned size)
++{
++    CapricornGdc *gdc = opaque;
++    uint8_t pending = gdc->status & GDC_VSYNC_PENDING;
++
++    gdc->status = (value & ~GDC_VSYNC_PENDING) | (pending & ~value);
++    capricorn_irc_set(gdc->irc, gdc->irq,
++                      (gdc->status & GDC_VSYNC_PENDING) &&
++                      (gdc->status & GDC_VSYNC_ENABLE));
++}
++
++static const MemoryRegionOps capricorn_gdc_irq_ops = {
++    .read = capricorn_gdc_irq_read,
++    .write = capricorn_gdc_irq_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 1, .max_access_size = 1 },
++};
++
++static void capricorn_gdc_vsync(void *opaque)
++{
++    CapricornGdc *gdc = opaque;
++
++    if (gdc->status & GDC_VSYNC_ENABLE) {
++        gdc->status |= GDC_VSYNC_PENDING;
++        capricorn_irc_set(gdc->irc, gdc->irq, true);
++    }
++    timer_mod(gdc->frame_timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++              GDC_FRAME_PERIOD_NS);
++}
++
++static bool capricorn_gdc_scanout(void *opaque)
++{
++    CapricornGdc *gdc = opaque;
++    uint8_t regs[GDC_LAYER0_SIZE + 4];
++    uint8_t row[0xfff * 3];
++    hwaddr backing;
++    unsigned width, height, pitch, span;
++    uint32_t layer_size, control;
++    DisplaySurface *surface;
++
++    if (address_space_read(&address_space_memory, gdc->regs,
++                           MEMTXATTRS_UNSPECIFIED, regs, sizeof(regs)) != MEMTX_OK) {
++        return true;
++    }
++    layer_size = ldl_le_p(regs + GDC_LAYER0_SIZE);
++    control = ldl_le_p(regs + GDC_CONTROL);
++    width = (layer_size >> 16) & 0xfff;
++    height = layer_size & 0x7ff;
++    pitch = lduw_le_p(regs + GDC_LAYER0_PITCH);
++    if (!(control & GDC_LAYER0_ENABLED) || (control & GDC_LAYER0_ALT_FORMAT) ||
++        !(ldl_le_p(regs + 4) & GDC_PANEL_ENABLED) ||
++        !width || !height || pitch < width || pitch > 0xfff) {
++        return true;
++    }
++    span = ((height - 1) * pitch + width) * 4;
++    if (!capricorn_rif_rgb24(ldl_le_p(regs + GDC_LAYER0_START), span, &backing)) {
++        return true;
++    }
++
++    qemu_console_resize(gdc->console, width, height);
++    surface = qemu_console_surface(gdc->console);
++    for (unsigned y = 0; y < height; y++, backing += pitch * 3) {
++        uint32_t *pixels = (uint32_t *)((uint8_t *)surface_data(surface) +
++                                       y * surface_stride(surface));
++
++        if (address_space_read(&address_space_memory, backing,
++                               MEMTXATTRS_UNSPECIFIED, row, width * 3) != MEMTX_OK) {
++            return true;
++        }
++        for (unsigned x = 0; x < width; x++) {
++            uint32_t pixel = capricorn_load_pixel(row + x * 3);
++            unsigned alpha = pixel & 0x3f;
++            unsigned rgb = 0;
++
++            for (unsigned c = 0; c < 3; c++) {
++                unsigned sample = (pixel >> (6 * (c + 1))) & 0x3f;
++                unsigned expanded = (sample << 2) | (sample >> 4);
++
++                rgb |= ((expanded * alpha + 31) / 63) << (c * 8);
++            }
++            pixels[x] = rgb;
++        }
++    }
++    qemu_console_update_full(gdc->console);
++    return true;
++}
++
++static const GraphicHwOps capricorn_gdc_display_ops = {
++    .gfx_update = capricorn_gdc_scanout,
++};
++
++static const TypeInfo capricorn_gdc_type = {
++    .name = TYPE_CAPRICORN_GDC,
++    .parent = TYPE_SYS_BUS_DEVICE,
++    .instance_size = sizeof(CapricornGdc),
++};
++
++static void capricorn_register_gdc(void)
++{
++    type_register_static(&capricorn_gdc_type);
++}
++
++type_init(capricorn_register_gdc)
++
++static void capricorn_gdc_init(MemoryRegion *memory, CapricornIrc *irc,
++                               unsigned display, CapricornIrq irq, const char *id)
++{
++    DeviceState *dev = qdev_new(TYPE_CAPRICORN_GDC);
++    CapricornGdc *gdc = CAPRICORN_GDC(dev);
++
++    dev->id = g_strdup(id);
++    sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
++    gdc->irc = irc;
++    gdc->irq = irq;
++    gdc->regs = CAPRICORN_GDC_BASE - display * CAPRICORN_GDC_SPACING;
++    gdc->console = qemu_graphic_console_create(dev, 0, &capricorn_gdc_display_ops,
++                                               gdc);
++    memory_region_init_io(&gdc->irq_status, OBJECT(gdc), &capricorn_gdc_irq_ops,
++                          gdc, "capricorn-m.gdc-irq", 1);
++    memory_region_add_subregion_overlap(memory, gdc->regs + GDC_IRQ_STATUS,
++                                        &gdc->irq_status, 1);
++    gdc->frame_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, capricorn_gdc_vsync, gdc);
++    timer_mod(gdc->frame_timer, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++              GDC_FRAME_PERIOD_NS);
++}
++
++static void capricorn_m_init(MachineState *machine)
++{
++    MemoryRegion *memory = get_system_memory();
++    MemoryRegion *flash = g_new0(MemoryRegion, 1);
++    MemoryRegion *vram = g_new0(MemoryRegion, 1);
++    MemoryRegion *rif_aperture = g_new0(MemoryRegion, 1);
++    CapricornTgl *tgl = g_new0(CapricornTgl, 1);
++    CapricornIrc *irc = g_new0(CapricornIrc, 1);
++    CapricornAux *aux = g_new0(CapricornAux, 1);
++    CapricornDma *dma = g_new0(CapricornDma, 1);
++    CapricornGa *ga = g_new0(CapricornGa, 1);
++    CapricornCan *can = g_new0(CapricornCan, 1);
++    Clock *cpuclk = clock_new(OBJECT(machine), "cpuclk");
++    MIPSCPU *cpu;
++    mips_def_t *cpu_model;
++
++    if (machine->ram_size != CAPRICORN_RAM_SIZE) {
++        error_report("capricorn-m requires 64 MiB of main RAM");
++        exit(EXIT_FAILURE);
++    }
++
++    clock_set_hz(cpuclk, 280000000);
++    cpu = mips_cpu_create_with_clock(machine->cpu_type, cpuclk, false);
++    cpu_mips_irq_init_cpu(cpu);
++    cpu_mips_clock_init(cpu);
++    /* Preserve the VR5432 execution model and select the TX49 firmware path. */
++    cpu_model = g_memdup2(cpu->env.cpu_model, sizeof(*cpu_model));
++    cpu_model->CP0_PRid = 0x2d48;
++    cpu->env.cpu_model = cpu_model;
++    irc->cpu_line = cpu->env.irq[2];
++    tgl->irc = irc;
++
++    memory_region_add_subregion(memory, 0, machine->ram);
++    memory_region_init_ram(vram, NULL, "capricorn-m.vram",
++                           CAPRICORN_VRAM_SIZE, &error_fatal);
++    memory_region_add_subregion(memory, CAPRICORN_VRAM_BASE, vram);
++
++    memory_region_init_io(rif_aperture, NULL, &capricorn_rif_aperture_ops,
++                          NULL, "capricorn-m.rif-aperture",
++                          CAPRICORN_RIF_APERTURE_SIZE);
++    memory_region_add_subregion(memory, CAPRICORN_RIF_APERTURE_BASE, rif_aperture);
++
++    memory_region_init_rom(flash, NULL, "capricorn-m.flash",
++                           CAPRICORN_FLASH_SIZE, &error_fatal);
++    memset(memory_region_get_ram_ptr(flash), 0xff, CAPRICORN_FLASH_SIZE);
++    memory_region_add_subregion(memory, CAPRICORN_FLASH_BASE, flash);
++
++    memory_region_init_io(&irc->vector, NULL, &capricorn_irc_vector_ops,
++                          irc, "capricorn-m.irc-vector", 12);
++    memory_region_add_subregion_overlap(memory, CAPRICORN_IRC_VECTOR,
++                                        &irc->vector, 1);
++    aux->irc = irc;
++    aux->timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, capricorn_aux_tick, aux);
++    memory_region_init_io(&aux->mmio, NULL, &capricorn_aux_ops, aux,
++                          "capricorn-m.aux-clock", 16);
++    memory_region_add_subregion_overlap(memory, CAPRICORN_AUX_BASE,
++                                        &aux->mmio, 1);
++    dma->irc = irc;
++    memory_region_init_io(&dma->mmio, NULL, &capricorn_dma_ops, dma,
++                          "capricorn-m.dma0.1", sizeof(dma->registers));
++    memory_region_add_subregion_overlap(memory, CAPRICORN_DMA01_BASE,
++                                        &dma->mmio, 1);
++    capricorn_gdc_init(memory, irc, 0, CAPRICORN_IRQ_CLUSTER, "cluster");
++    capricorn_gdc_init(memory, irc, 1, CAPRICORN_IRQ_HUD, "hud");
++    memory_region_init_io(&tgl->mmio, NULL, &capricorn_tgl_ops, tgl,
++                          "capricorn-m.tgl", sizeof(tgl->registers));
++    memory_region_add_subregion_overlap(memory, CAPRICORN_TGL_BASE,
++                                        &tgl->mmio, 1);
++    memory_region_init_io(&ga->mmio, NULL, &capricorn_ga_ops, ga,
++                          "capricorn-m.ga", sizeof(ga->registers));
++    memory_region_add_subregion_overlap(memory, CAPRICORN_GA_BASE,
++                                        &ga->mmio, 1);
++    memory_region_init_io(&can->mmio, NULL, &capricorn_can_ops, can,
++                          "capricorn-m.can-control", 16);
++    memory_region_add_subregion_overlap(memory, CAPRICORN_CAN_CONTROL,
++                                        &can->mmio, 1);
++}
++
++static void capricorn_m_machine_init(MachineClass *mc)
++{
++    mc->desc = "Toshiba Capricorn-M (experimental BO03 graphics board)";
++    mc->init = capricorn_m_init;
++    mc->default_cpu_type = MIPS_CPU_TYPE_NAME("VR5432");
++    mc->default_ram_id = "capricorn-m.ram";
++    mc->default_ram_size = CAPRICORN_RAM_SIZE;
++    mc->max_cpus = 1;
++}
++
++DEFINE_MACHINE("capricorn-m", capricorn_m_machine_init)

@@ -1,0 +1,1660 @@
+From 3ff72064ac3d3e468475013a9f00617714c2aa48 Mon Sep 17 00:00:00 2001
+From: iDrive release patch builder <patches@example.invalid>
+Date: Thu, 5 Nov 2026 21:11:01 -0500
+Subject: [PATCH 2/4] Add OMAP5430 SGX diagnostics and bounded USSE probes
+
+---
+ hw/display/omap5430_sgx.c      | 1207 ++++++++++++++++++++++++++++++++
+ hw/display/omap5430_sgx.h      |    5 +
+ hw/display/omap5430_sgx_usse.h |  416 +++++++++++
+ 3 files changed, 1628 insertions(+)
+ create mode 100644 hw/display/omap5430_sgx.c
+ create mode 100644 hw/display/omap5430_sgx.h
+ create mode 100644 hw/display/omap5430_sgx_usse.h
+
+diff --git a/hw/display/omap5430_sgx.c b/hw/display/omap5430_sgx.c
+new file mode 100644
+index 000000000..09c0dda5b
+--- /dev/null
++++ b/hw/display/omap5430_sgx.c
+@@ -0,0 +1,1207 @@
++/*
++ * OMAP5 SGX register/MMU bring-up model.
++ *
++ * Register offsets and 32-bit page-table format follow the published PowerVR
++ * SGX DDK (sgx544defs.h and sgxmmu.h). The QNX driver's live tables confirm
++ * the 4 KiB format. The opt-in USSE stepper runs only the bounded, captured
++ * initialization-entry subset; unsupported operations stop with their PC and
++ * raw word. Rendering and SGX microkernel completion are not implemented.
++ * The INIT_COMPLETE and misc-info probes remain diagnostic-only responses.
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ */
++#include "qemu/osdep.h"
++#include "hw/core/sysbus.h"
++#include "hw/core/qdev-properties.h"
++#include "migration/vmstate.h"
++#include "qemu/log.h"
++#include "qemu/module.h"
++#include "qemu/timer.h"
++#include "system/address-spaces.h"
++#include "hw/display/omap5430_sgx_usse.h"
++
++#define TYPE_OMAP5430_SGX "omap5430-sgx"
++OBJECT_DECLARE_SIMPLE_TYPE(OMAP5430SGXState, OMAP5430_SGX)
++
++#define SGX_SIZE 0x10000
++#define SGX_BIF_DIR_LIST_BASE0 0x0c50
++#define SGX_EVENT_KICKER 0x0ac4
++#define SGX_EVENT_KICK2 0x0ac0
++#define SGX_CORE0 0x8000
++#define SGX_EVENT_PDS_EXEC 0x0a68
++#define SGX_EVENT_PDS_INFO 0x0a6c
++#define SGX_EVENT_PDS_DATA 0x0a70
++#define SGX_USE_CODE_BASE_FIRST 0x0a0c
++#define SGX_USE_CODE_BASE_LAST 0x0a48
++#define SGX_USE_CODE_BASE_ADDRESS_MASK 0x03ffffff
++#define SGX_USE_CODE_BASE_DATA_MASTER_MASK 0x0c000000
++#define SGX_CAPTURE_PAGE_SIZE 4096
++#define SGX_CAPTURE_CANDIDATE_WORDS 16
++#define SGX_CAPTURE_USE_IMAGE_SIZE 0x20000
++#define SGX_CAPTURE_USE_INIT_BRANCH_TARGET_OFFSET 0x1a248
++#define SGX_INIT_PDS_EXEC 0xf20138a0
++#define SGX_HOST_CTL_VA 0xf4003140
++/* The BMW driver's SGXInitialise polls the first HOST_CTL word. */
++#define SGX_HOST_CTL_INIT_STATUS_OFFSET 0
++/* BMW's client DDK polls ui32BPSetClearSignal at HOST_CTL + 0x1c. */
++#define SGX_HOST_CTL_BP_SIGNAL_OFFSET 0x1c
++#define SGX_KERNEL_CCB_VA 0xf4000000
++/* 256 x 32-byte commands occupy 0x2000 bytes; control follows the CCB. */
++#define SGX_KERNEL_CCB_CTL_VA 0xf4002000
++#define SGX_KERNEL_CCB_ENTRIES 256
++#define SGX_KERNEL_CCB_WORDS 8
++#define SGX_GETMISCINFO_SERVICE_ADDRESS 0x39a
++#define SGX_DATABREAKPOINT_SERVICE_ADDRESS 0x187
++#define SGX_MISCINFO_VA 0xf40031e0
++#define SGX_MISCINFO_READY 0x1
++#define SGX_MISCINFO_GET_STRUCT_SIZES 0x2
++#define SGX_MISCINFO_DDK_VERSION 0x00010913
++#define SGX_MISCINFO_DDK_BUILD 2291151
++#define SGX_MISCINFO_BUILD_OPTIONS 0x1006a41c
++#define SGX_MISCINFO_DDK_VERSION_OFFSET 0x0c
++#define SGX_MISCINFO_DDK_BUILD_OFFSET 0x10
++#define SGX_MISCINFO_CORE_REV_SW_OFFSET 0x18
++#define SGX_MISCINFO_BUILD_OPTIONS_OFFSET 0x1c
++/* Recovered from BMW's SGXDevInitCompatCheck structure accesses. */
++#define SGX_MISCINFO_STRUCT_SIZES_OFFSET 0x28
++/* BMW's 1.9 driver checks 13 fields (its build has no SGX 2D block). */
++#define SGX_MISCINFO_STRUCT_SIZE_COUNT 13
++/* Values emitted by BMW's driver, in SGX_MISCINFO_STRUCT_SIZES field order. */
++static const uint32_t sgx_miscinfo_struct_sizes[SGX_MISCINFO_STRUCT_SIZE_COUNT] = {
++    1332, 1128, 1304, 292, 248, 60, 64,
++    1160, 88, 116, 252, 140, 32,
++};
++#define SGX_INIT_STATUS_DELAY_NS 10000000
++#define SGX_INIT_STATUS_PROBE_MAX_KICKS 2
++#define SGX_QUEUE_TRACE_INTERVAL_NS 10000000
++#define SGX_QUEUE_TRACE_MAX_TICKS 500
++
++struct OMAP5430SGXState {
++    SysBusDevice parent_obj;
++    MemoryRegion iomem;
++    uint32_t regs[SGX_SIZE / 4];
++    uint64_t kicks;
++    uint32_t init_status_probe_kicks;
++    bool trace;
++    bool capture_firmware;
++    bool firmware_capture_done;
++    uint32_t usse_step_budget;
++    bool usse_primary_vldst_probe;
++    bool usse_sync_wdf_probe;
++    bool usse_vbw_probe;
++    bool usse_step_done;
++    uint32_t usse_step_pc;
++    uint32_t usse_step_count;
++    uint32_t usse_link_pc;
++    uint32_t usse_temp[128];
++    bool usse_temp_valid[128];
++    uint32_t usse_primattr[128];
++    uint32_t usse_secattr[128];
++    bool init_status_probe;
++    bool miscinfo_probe;
++    QEMUTimer *init_status_timer;
++    QEMUTimer *queue_trace_timer;
++    uint32_t queue_trace_ticks;
++    uint32_t queue_trace_last_write;
++    uint32_t queue_trace_last_read;
++    uint32_t queue_trace_last_misc_flags;
++    uint32_t queue_trace_unhandled_offset;
++    uint32_t queue_trace_unhandled_service;
++    bool queue_trace_unhandled_valid;
++};
++
++static bool sgx_phys_read32(hwaddr address, uint32_t *value)
++{
++    MemTxResult result;
++    *value = address_space_ldl_le(&address_space_memory, address,
++                                 MEMTXATTRS_UNSPECIFIED, &result);
++    return result == MEMTX_OK;
++}
++
++static bool sgx_phys_write32(hwaddr address, uint32_t value)
++{
++    MemTxResult result;
++    address_space_stl_le(&address_space_memory, address, value,
++                         MEMTXATTRS_UNSPECIFIED, &result);
++    return result == MEMTX_OK;
++}
++
++static bool sgx_translate_details(OMAP5430SGXState *s, uint32_t va,
++                                  hwaddr *pa, uint32_t *pd_out,
++                                  hwaddr *pde_pa_out, uint32_t *pde_out,
++                                  hwaddr *pte_pa_out, uint32_t *pte_out,
++                                  unsigned *page_shift_out)
++{
++    uint32_t pd = s->regs[SGX_BIF_DIR_LIST_BASE0 / 4] & 0xfffff000;
++    uint32_t pde, pte;
++    unsigned page_code, page_shift;
++    hwaddr pde_pa, pte_pa, table;
++
++    pde_pa = pd + (va >> 22) * 4;
++    if (!pd || !sgx_phys_read32(pde_pa, &pde) || !(pde & 1)) {
++        return false;
++    }
++    page_code = (pde >> 1) & 7;
++    if (page_code > 5) {
++        return false;
++    }
++    page_shift = 12 + page_code * 2;
++    /* SGX_MMU_PDE_ADDR_MASK for the observed 32-bit physical format. */
++    table = pde & ~((1U << (24 - page_shift)) - 1);
++    pte_pa = table + ((va & 0x3fffff) >> page_shift) * 4;
++    if (!sgx_phys_read32(pte_pa, &pte) ||
++        !(pte & 1)) {
++        return false;
++    }
++    *pa = (pte & ~((1U << page_shift) - 1)) | (va & ((1U << page_shift) - 1));
++    if (pd_out) {
++        *pd_out = pd;
++    }
++    if (pde_pa_out) {
++        *pde_pa_out = pde_pa;
++    }
++    if (pde_out) {
++        *pde_out = pde;
++    }
++    if (pte_pa_out) {
++        *pte_pa_out = pte_pa;
++    }
++    if (pte_out) {
++        *pte_out = pte;
++    }
++    if (page_shift_out) {
++        *page_shift_out = page_shift;
++    }
++    return true;
++}
++
++static bool sgx_translate(OMAP5430SGXState *s, uint32_t va, hwaddr *pa)
++{
++    return sgx_translate_details(s, va, pa, NULL, NULL, NULL, NULL, NULL,
++                                 NULL);
++}
++
++#define SGX_USSE_ENTRY_BUDGET_MAX 4096
++#define SGX_PDS_DOUTU_ONLY 0x07000185
++#define SGX_PDS_END 0xaf000000
++#define SGX_PDS_DOUTU_FLAGS 0x09000000
++
++static bool sgx_read_gpu32(OMAP5430SGXState *s, uint32_t va, uint32_t *value)
++{
++    hwaddr pa;
++    return sgx_translate(s, va, &pa) && sgx_phys_read32(pa, value);
++}
++
++static bool sgx_read_gpu64(OMAP5430SGXState *s, uint32_t va, uint64_t *value)
++{
++    uint32_t low, high;
++
++    if (!sgx_read_gpu32(s, va, &low) ||
++        !sgx_read_gpu32(s, va + sizeof(uint32_t), &high)) {
++        return false;
++    }
++    *value = low | ((uint64_t)high << 32);
++    return true;
++}
++
++/*
++ * Candidate labels from the public reverse-engineered USSE table. Its
++ * applicability to this firmware is not established; these labels are for
++ * diagnostics only and never select execution semantics.
++ */
++static const char *sgx_usse_reference_candidate(uint64_t instruction)
++{
++    uint32_t word1 = instruction >> 32;
++    uint32_t op1, op2;
++
++    if ((word1 >> 27) != 0x1f) {
++        return NULL;
++    }
++    op1 = (word1 >> 24) & 7;
++    op2 = (word1 >> 20) & 3;
++    if (op1 == 1 && op2 == 2) {
++        return "WDF";
++    }
++    if (op1 == 3 && op2 == 2) {
++        return "EMIT";
++    }
++    if (op1 == 6 && op2 == 2) {
++        return (word1 & (1U << 19)) ? "STR" : "LDR";
++    }
++    return NULL;
++}
++
++/*
++ * Diagnostic interpreter for the captured SGX initialization entry. It
++ * deliberately implements only the captured TEMP LIMM/NOP candidates, exact
++ * bitwise operations, captured SMLSI repeat state, one exact I32MAD2,
++ * and captured instruction candidates. Unresolved memory, branch, and control
++ * effects stop with their PC and word.
++ * No guessed completion or interrupt is delivered to the guest.
++ */
++static void sgx_step_firmware_entry(OMAP5430SGXState *s, uint32_t pds_va)
++{
++    uint32_t doutu_data, doutu_data_word1, doutu, pds_end, code_base;
++    uint32_t address_word, code_va, pc;
++    unsigned code_base_index, instruction_index, executed = 0;
++    int8_t src2_repeat_increment = 0;
++    uint32_t budget = MIN(s->usse_step_budget, SGX_USSE_ENTRY_BUDGET_MAX);
++    uint64_t instruction;
++    bool synchronous_load_ready = false;
++    const char *stop_reason = "instruction-budget";
++
++    s->usse_step_done = true;
++    s->usse_step_count = 0;
++    s->usse_link_pc = 0;
++    memset(s->usse_temp, 0, sizeof(s->usse_temp));
++    memset(s->usse_temp_valid, 0, sizeof(s->usse_temp_valid));
++    memset(s->usse_primattr, 0, sizeof(s->usse_primattr));
++    memset(s->usse_secattr, 0, sizeof(s->usse_secattr));
++
++    if (!sgx_read_gpu32(s, pds_va, &doutu_data) ||
++        !sgx_read_gpu32(s, pds_va + sizeof(uint32_t), &doutu_data_word1) ||
++        !sgx_read_gpu32(s, pds_va + 16, &doutu) ||
++        !sgx_read_gpu32(s, pds_va + 20, &pds_end) ||
++        doutu != SGX_PDS_DOUTU_ONLY || pds_end != SGX_PDS_END) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USSE stop reason=unsupported-pds pds=%#010x\n",
++                      pds_va);
++        return;
++    }
++
++    address_word = doutu_data & ~SGX_PDS_DOUTU_FLAGS;
++    code_base_index = address_word & 0xf;
++    instruction_index = address_word >> 4;
++    if (code_base_index >=
++        (SGX_USE_CODE_BASE_LAST - SGX_USE_CODE_BASE_FIRST) / sizeof(uint32_t) + 1) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USSE stop reason=invalid-code-base index=%u\n",
++                      code_base_index);
++        return;
++    }
++    code_base = s->regs[(SGX_USE_CODE_BASE_FIRST / sizeof(uint32_t)) +
++                        code_base_index];
++    code_va = (code_base & SGX_USE_CODE_BASE_ADDRESS_MASK) << 6;
++    pc = code_va + instruction_index * 8;
++    s->usse_step_pc = pc;
++
++    qemu_log_mask(LOG_UNIMP,
++                  "omap5430-sgx: USSE begin pds=%#010x doutu=%#010x slot=%u "
++                  "code-base=%#010x pc=%#010x row-word1=%#010x "
++                  "budget=%u\n",
++                  pds_va, doutu_data, code_base_index, code_base, pc,
++                  doutu_data_word1, budget);
++
++    while (executed < budget) {
++        SGXUSSEPrefixFields prefix_fields;
++        SGXUSSEPrefixResult prefix_result;
++
++        s->usse_step_pc = pc;
++        if (!sgx_read_gpu64(s, pc, &instruction)) {
++            stop_reason = "unmapped-instruction";
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE stop reason=%s pc=%#010x "
++                          "executed=%u\n", stop_reason, pc, executed);
++            break;
++        }
++
++        prefix_result = sgx_usse_step_prefix(
++            instruction, s->usse_temp, s->usse_temp_valid, &prefix_fields);
++        switch (prefix_result) {
++        case SGX_USSE_PREFIX_APPLIED_LIMM:
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=LIMM r%u=%#010x\n",
++                          executed, pc, instruction,
++                          prefix_fields.limm.destination,
++                          prefix_fields.limm.immediate);
++            pc += 8;
++            executed++;
++            continue;
++        case SGX_USSE_PREFIX_ADVANCED_NOP:
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=NOP\n",
++                          executed, pc, instruction);
++            pc += 8;
++            executed++;
++            continue;
++        case SGX_USSE_PREFIX_STOP_UNSUPPORTED_LIMM:
++            stop_reason = "unsupported-limm-destination-or-predicate";
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE stop reason=%s pc=%#010x "
++                          "word=%#018" PRIx64 " pred=%u bank-ext=%u "
++                          "bank=%u dest=%u\n",
++                          stop_reason, pc, instruction,
++                          prefix_fields.limm.predicate,
++                          prefix_fields.limm.bank_ext,
++                          prefix_fields.limm.bank,
++                          prefix_fields.limm.destination);
++            break;
++        case SGX_USSE_PREFIX_STOP_UNRESOLVED_VLDST: {
++            SGXUSSEVldstFields *fields = &prefix_fields.vldst;
++            bool address_valid = s->usse_temp_valid[4];
++            SGXUSSEVldstPrimaryLoadCandidate candidate;
++            uint32_t load_value;
++            hwaddr load_pa;
++            bool captured_entry_load =
++                (pc == 0xf2001ee0 && executed == 4 &&
++                 instruction == UINT64_C(0xe8230002a0810080) &&
++                 s->usse_temp[4] == 0xf4003000) ||
++                (pc == 0xf2001ef0 && executed == 6 &&
++                 instruction == UINT64_C(0xe8230002a0810480));
++
++            /*
++             * This opt-in path applies Vita3K's SGX543 scalar-load model to
++             * the two captured words and assumes primary-program context.
++             * Keep the normal QEMU path stopped until this hypothesis is
++             * checked against a matching SGX544 trace.
++             */
++                synchronous_load_ready = true;
++            if (s->usse_primary_vldst_probe && captured_entry_load &&
++                sgx_usse_vldst_primary_load_candidate(
++                    fields, s->usse_temp, s->usse_temp_valid, &candidate)) {
++                if (!sgx_translate(s, candidate.address, &load_pa) ||
++                    !sgx_phys_read32(load_pa, &load_value)) {
++                    stop_reason = "unmapped-reference-load-candidate";
++                    qemu_log_mask(LOG_UNIMP,
++                                  "omap5430-sgx: USSE stop reason=%s pc=%#010x "
++                                  "word=%#018" PRIx64 " address=%#010x\n",
++                                  stop_reason, pc, instruction,
++                                  candidate.address);
++                    break;
++                }
++                s->usse_temp[candidate.destination] = load_value;
++                s->usse_temp_valid[candidate.destination] = true;
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: USSE step=%u pc=%#010x "
++                              "word=%#018" PRIx64 " op=LDR "
++                              "reference=SGX543 primary-context-assumed "
++                              "dest=TEMP[%u]=%#010x from-va=%#010x "
++                              "pa=%#" HWADDR_PRIx " width=%u\n",
++                              executed, pc, instruction, candidate.destination,
++                              load_value, candidate.address, load_pa,
++                              candidate.byte_width);
++                pc += 8;
++                executed++;
++                continue;
++            }
++            stop_reason = "unresolved-vldst-semantics";
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE stop reason=%s step=%u "
++                          "pc=%#010x word=%#018" PRIx64 " "
++                          "SGX543-field-candidates pred=%u dest-bank-primattr=%u "
++                          "dest=%u mode=%u addr-mode=%u mask=%u type=%u "
++                          "src0=%u/%u:%u src1=%u/%u:%u src2=%u/%u:%u "
++                          "range=%u incdec=%u cache-bypass=%u drc=%u "
++                          "base-temp4=%#010x valid=%u "
++                          "task-row-word1=%#010x state=unchanged\n",
++                          stop_reason, executed, pc, instruction,
++                          fields->predicate, fields->dest_bank_primattr,
++                          fields->destination, fields->mode,
++                          fields->address_mode, fields->mask_count,
++                          fields->data_type,
++                          fields->src0_bank_ext, fields->src0_bank,
++                          fields->src0_n, fields->src1_bank_ext,
++                          fields->src1_bank, fields->src1_n,
++                          fields->src2_bank_ext, fields->src2_bank,
++                          fields->src2_n, fields->range_enable,
++                          fields->increment_or_decrement,
++                          fields->cache_by_pass12, fields->drc_sel,
++                          s->usse_temp[4], address_valid,
++                          doutu_data_word1);
++            break;
++        }
++        case SGX_USSE_PREFIX_STOP_UNRESOLVED_BRANCH: {
++            SGXUSSEBranchFields *fields = &prefix_fields.branch;
++
++            stop_reason = "unresolved-branch-semantics";
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE stop reason=%s step=%u "
++                          "pc=%#010x word=%#018" PRIx64 " "
++                          "SGX543-field-candidates pred=%u br-type=%u "
++                          "save-link=%u br-off20=%#x low12=%#x "
++                          "any-inst=%u all-inst=%u state=unchanged\n",
++                          stop_reason, executed, pc, instruction,
++                          fields->predicate, fields->branch_type,
++                          fields->save_link, fields->offset20,
++                          fields->offset20 & 0xfff,
++                          fields->any_instruction, fields->all_instructions);
++            break;
++        }
++        case SGX_USSE_PREFIX_NOT_HANDLED:
++            break;
++        }
++
++        if (prefix_result != SGX_USSE_PREFIX_NOT_HANDLED) {
++            break;
++        }
++
++        /* Treat public USSE-table names as candidates, not target decodes. */
++        if (s->usse_sync_wdf_probe && synchronous_load_ready &&
++            instruction == UINT64_C(0xf920000000000000) &&
++            ((pc == 0xf2001ee8 && executed == 5) ||
++             (pc == 0xf2001ef8 && executed == 7))) {
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=WDF "
++                          "reference-candidate=wait "
++                          "assumption=prior-memory-read-completed-synchronously "
++                          "action=advance-diagnostic-only\n",
++                          executed, pc, instruction);
++            synchronous_load_ready = false;
++            pc += 8;
++            executed++;
++            continue;
++        }
++        if (s->usse_primary_vldst_probe && s->usse_sync_wdf_probe &&
++            s->usse_vbw_probe && pc == 0xf2001f00 && executed == 8 &&
++            instruction == UINT64_C(0x5001000020800201) &&
++            s->usse_temp_valid[4]) {
++            SGXUSSEVBWFields vbw_fields;
++            SGXUSSEVBWDecodedCandidate vbw_candidate;
++            uint32_t source = s->usse_temp[4];
++            uint32_t result = source & 1;
++
++            if (sgx_usse_decode_vbw(instruction, &vbw_fields) &&
++                sgx_usse_vbw_operation_candidate(&vbw_fields,
++                                                &vbw_candidate) &&
++                vbw_candidate.operation == SGX_USSE_VBW_AND_CANDIDATE &&
++                vbw_candidate.byte_width == 4 &&
++                vbw_fields.predicate == 0 &&
++                vbw_fields.skip_invalid == 0 &&
++                vbw_fields.no_schedule == 0 &&
++                vbw_fields.repeat_select == 0 &&
++                vbw_fields.sync_start == 0 &&
++                vbw_fields.destination_ext == 0 && vbw_fields.end == 0 &&
++                vbw_fields.src1_ext == 0 && vbw_fields.src2_ext == 1 &&
++                vbw_fields.repeat_count == 0 &&
++                vbw_fields.src2_invert == 0 && vbw_fields.src2_rotate == 0 &&
++                vbw_fields.src2_ext_high == 0 &&
++                vbw_fields.partial_16bit == 0 &&
++                vbw_fields.destination_bank == 0 &&
++                vbw_fields.src1_bank == 0 && vbw_fields.src2_bank == 2 &&
++                vbw_fields.destination == 4 && vbw_fields.src2_select == 0 &&
++                vbw_fields.src1 == 4 && vbw_fields.src2 == 1) {
++                s->usse_temp[4] = result;
++                s->usse_temp_valid[4] = true;
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: USSE step=%u pc=%#010x "
++                              "word=%#018" PRIx64 " op=VBW "
++                              "reference=SGX543-primary-context-assumed "
++                              "candidate=TEMP[4]=TEMP[4] AND 1 "
++                              "source=%#010x result=%#010x "
++                              "action=advance-diagnostic-only\n",
++                              executed, pc, instruction, source, result);
++                pc += 8;
++                executed++;
++                continue;
++            }
++        }
++        if (pc == 0xf2001f00 && executed == 8 &&
++            instruction == UINT64_C(0x5001000020800201)) {
++            SGXUSSEVBWFields vbw_fields;
++            SGXUSSEVBWDecodedCandidate vbw_candidate;
++
++            if (sgx_usse_decode_vbw(instruction, &vbw_fields) &&
++                sgx_usse_vbw_operation_candidate(&vbw_fields,
++                                                &vbw_candidate) &&
++                vbw_candidate.operation == SGX_USSE_VBW_AND_CANDIDATE) {
++                stop_reason = "unresolved-vbw-effects";
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: USSE stop reason=%s "
++                              "pc=%#010x word=%#018" PRIx64 " "
++                              "op=VBW op1=%u op2=%u dest-bank=%u dest=%u "
++                              "src1-bank=%u src1=%u src2-ext=%u "
++                              "src2-bank=%u src2=%u candidate=AND width=%u "
++                              "effects=unmodeled state=unchanged\n",
++                              stop_reason, pc, instruction,
++                              vbw_fields.op1, vbw_fields.op2,
++                              vbw_fields.destination_bank,
++                              vbw_fields.destination, vbw_fields.src1_bank,
++                              vbw_fields.src1, vbw_fields.src2_ext,
++                              vbw_fields.src2_bank, vbw_fields.src2,
++                              vbw_candidate.byte_width);
++                break;
++            }
++        }
++        {
++            SGXUSSEEmitFields emit_fields;
++
++            if (sgx_usse_decode_emit(instruction, &emit_fields)) {
++                stop_reason = "unresolved-emit-effects";
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: USSE stop reason=%s step=%u "
++                              "pc=%#010x word=%#018" PRIx64 " "
++                              "table-candidate=EMIT target=%u "
++                              "task-start-or-mte-hi=%u "
++                              "task-end-or-mte-lo=%u no-schedule=%u "
++                              "sideband=%u:%#x:%#x "
++                              "src0=%u/%u:%u src1=%u/%u:%u "
++                              "src2=%u/%u:%u "
++                              "temp-state-model=%#010x/%s,%#010x/%s,%#010x/%s "
++                              "effects=unmodeled state=unchanged\n",
++                              stop_reason, executed, pc, instruction,
++                              emit_fields.target,
++                              emit_fields.task_start_or_mte_hi,
++                              emit_fields.task_end_or_mte_lo,
++                              emit_fields.no_schedule,
++                              emit_fields.sideband_high,
++                              emit_fields.sideband_mid,
++                              emit_fields.sideband_low,
++                              emit_fields.src0_bank_ext,
++                              emit_fields.src0_bank, emit_fields.src0,
++                              emit_fields.src1_bank_ext,
++                              emit_fields.src1_bank, emit_fields.src1,
++                              emit_fields.src2_bank_ext,
++                              emit_fields.src2_bank, emit_fields.src2,
++                              s->usse_temp[emit_fields.src0],
++                              s->usse_temp_valid[emit_fields.src0] ? "tracked" : "untracked",
++                              s->usse_temp[emit_fields.src1],
++                              s->usse_temp_valid[emit_fields.src1] ? "tracked" : "untracked",
++                              s->usse_temp[emit_fields.src2],
++                              s->usse_temp_valid[emit_fields.src2] ? "tracked" : "untracked");
++                break;
++            }
++        }
++        {
++            const char *control_op = sgx_usse_reference_candidate(instruction);
++
++            if (control_op) {
++                stop_reason = !strcmp(control_op, "WDF") ?
++                    "unresolved-reference-wdf-effects" :
++                    "unresolved-reference-control-effects";
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: USSE stop reason=%s step=%u "
++                              "pc=%#010x word=%#018" PRIx64 " "
++                              "usse-reference-candidate=%s effects=unmodeled\n",
++                              stop_reason, executed, pc, instruction,
++                              control_op);
++                break;
++            }
++        }
++
++        /* Captured VBW: TEMP r4 = TEMP r4 AND immediate 1. */
++        if (pc == 0xf2001f00 && executed == 8 &&
++            instruction == UINT64_C(0x5001000020800201) &&
++            s->usse_temp[4] == 0xf4003000) {
++            uint32_t source = s->usse_temp[4];
++            s->usse_temp[4] = source & 1;
++            s->usse_temp_valid[4] = true;
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=VBW-AND r4=%#010x "
++                          "src=%#010x imm=1\n",
++                          executed, pc, instruction, s->usse_temp[4], source);
++            pc += 8;
++            executed++;
++            continue;
++        }
++
++        /* Phase scheduling is still unresolved for this SGX544-class target. */
++        if (((pc == 0xf2001f38 && executed == 15) ||
++             (pc == 0xf2001f50 && executed == 18)) &&
++            instruction == UINT64_C(0xfa44070000000000)) {
++            stop_reason = "unresolved-phase-effects";
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE stop reason=%s step=%u "
++                          "pc=%#010x word=%#018" PRIx64 " op=PHAS "
++                          "sgx543-next-phase-index-candidate=%#x "
++                          "wait-cond=%u temp-count=%u "
++                          "phase-effects=unmodeled\n",
++                          stop_reason, executed, pc, instruction,
++                          (uint32_t)(instruction & 0xfffff),
++                          (uint32_t)((instruction >> 40) & 7),
++                          (uint32_t)((instruction >> 32) & 0xff));
++            break;
++        }
++
++        /* Captured VBW OR writes TEMP r0 into SECATTR[19]. */
++        if (pc == 0xf2001fc0 && executed == 32 &&
++            instruction == UINT64_C(0x5009000822600000) &&
++            src2_repeat_increment == 1 && s->usse_temp[0] == 0x1001) {
++            uint32_t source = s->usse_temp[0];
++            uint32_t immediate = 0;
++            s->usse_secattr[19] = source | immediate;
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=VBW-OR secattr[19]=%#010x "
++                          "src=temp0:%#010x imm=%#010x\n",
++                          executed, pc, instruction, s->usse_secattr[19],
++                          source, immediate);
++            pc += 8;
++            executed++;
++            continue;
++        }
++
++        /* The captured SMLSI has only src2_inc=1; other fields are zero. */
++        if (pc == 0xf2001f60 && executed == 20 &&
++            instruction == UINT64_C(0xfa10000000000001)) {
++            src2_repeat_increment = 1;
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=SMLSI "
++                          "src2-repeat-inc=%d\n",
++                          executed, pc, instruction, src2_repeat_increment);
++            pc += 8;
++            executed++;
++            continue;
++        }
++
++        /* Count=0 means one captured TEMP r0 = r0 * 1 + 1 iteration. */
++        if (pc == 0xf2001fb8 && executed == 31 &&
++            instruction == UINT64_C(0xd0030000a0000081) &&
++            src2_repeat_increment == 1 && s->usse_temp[0] == 0x1000) {
++            uint32_t source = s->usse_temp[0];
++            s->usse_temp[0] = source * 1 + 1;
++            s->usse_temp_valid[0] = true;
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USSE step=%u pc=%#010x "
++                          "word=%#018" PRIx64 " op=I32MAD2 r0=%#010x "
++                          "src0=%#010x src1-imm=1 src2-imm=1 "
++                          "iterations=1 src2-repeat-inc=%d\n",
++                          executed, pc, instruction, s->usse_temp[0], source,
++                          src2_repeat_increment);
++            pc += 8;
++            executed++;
++            continue;
++        }
++
++        if ((instruction >> 61) == 7 &&
++            (((instruction >> 59) & 3) == 1 ||
++             ((instruction >> 59) & 3) == 2)) {
++            stop_reason = "unsupported-vldst-form";
++        } else {
++            stop_reason = "unsupported-opcode";
++        }
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USSE stop reason=%s pc=%#010x "
++                      "word=%#018" PRIx64 " executed=%u r0=%#010x "
++                      "r2=%#010x r4=%#010x pa4=%#010x "
++                      "src2-repeat-inc=%d temp19=%#010x/%s "
++                      "temp20=%#010x/%s\n",
++                      stop_reason, pc, instruction, executed,
++                      s->usse_temp[0], s->usse_temp[2], s->usse_temp[4],
++                      s->usse_primattr[4], src2_repeat_increment,
++                      s->usse_temp[19], s->usse_temp_valid[19] ? "known" : "unknown",
++                      s->usse_temp[20], s->usse_temp_valid[20] ? "known" : "unknown");
++        break;
++    }
++
++    s->usse_step_count = executed;
++    if (executed == budget && !strcmp(stop_reason, "instruction-budget")) {
++        s->usse_step_pc = pc;
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USSE stop reason=instruction-budget "
++                      "pc=%#010x executed=%u\n", pc, executed);
++    }
++}
++
++static void sgx_capture_map(OMAP5430SGXState *s, const char *name, uint32_t va)
++{
++    uint32_t pd, pde, pte;
++    unsigned page_shift;
++    hwaddr pa, pde_pa, pte_pa;
++
++    if (!sgx_translate_details(s, va, &pa, &pd, &pde_pa, &pde, &pte_pa,
++                               &pte, &page_shift)) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: capture-map name=%s va=%#010x unmapped pd=%#010x\n",
++                      name, va, s->regs[SGX_BIF_DIR_LIST_BASE0 / 4] & 0xfffff000);
++        return;
++    }
++    qemu_log_mask(LOG_UNIMP,
++                  "omap5430-sgx: capture-map name=%s va=%#010x pd=%#010x "
++                  "pde-pa=%#" HWADDR_PRIx " pde=%#010x pte-pa=%#" HWADDR_PRIx
++                  " pte=%#010x page-shift=%u pa=%#" HWADDR_PRIx "\n",
++                  name, va, pd, pde_pa, pde, pte_pa, pte, page_shift, pa);
++}
++
++static void sgx_capture_words(OMAP5430SGXState *s, const char *name,
++                              uint32_t va, unsigned word_count)
++{
++    unsigned i;
++    for (i = 0; i < word_count; i++, va += sizeof(uint32_t)) {
++        hwaddr pa;
++        uint32_t word;
++
++        if (!sgx_translate(s, va, &pa) || !sgx_phys_read32(pa, &word)) {
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: %s unmapped va=%#010x index=%u\n",
++                          name, va, i);
++            break;
++        }
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: %s va=%#010x pa=%#" HWADDR_PRIx
++                      " word=%#010x\n", name, va, pa, word);
++    }
++}
++
++static void sgx_capture_use_code_bases(OMAP5430SGXState *s)
++{
++    unsigned offset;
++
++    for (offset = SGX_USE_CODE_BASE_FIRST;
++         offset <= SGX_USE_CODE_BASE_LAST; offset += sizeof(uint32_t)) {
++        unsigned slot = (offset - SGX_USE_CODE_BASE_FIRST) / sizeof(uint32_t);
++        uint32_t value = s->regs[offset / sizeof(uint32_t)];
++        uint32_t address_field = value & SGX_USE_CODE_BASE_ADDRESS_MASK;
++        uint32_t code_va = address_field << 6;
++        unsigned data_master = (value & SGX_USE_CODE_BASE_DATA_MASTER_MASK) >> 26;
++        hwaddr pa;
++
++        if (!value) {
++            continue;
++        }
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USE-CODE-BASE slot=%u value=%#010x "
++                      "address-field=%#010x dm=%u va=%#010x\n",
++                      slot, value, address_field, data_master, code_va);
++        sgx_capture_map(s, "USE-code-base", code_va);
++        if (!sgx_translate(s, code_va, &pa)) {
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: USE-CANDIDATE slot=%u dm=%u "
++                          "address-field=%#010x va=%#010x source=unmapped\n",
++                          slot, data_master, address_field, code_va);
++            continue;
++        }
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: USE-CANDIDATE slot=%u dm=%u "
++                      "address-field=%#010x va=%#010x source=sgx-mmu\n",
++                      slot, data_master, address_field, code_va);
++        if (data_master == 3) {
++            /* The captured BMW slot 15 uses DM3 and maps the firmware image. */
++            sgx_capture_words(s, "USE-CODE", code_va,
++                              SGX_CAPTURE_USE_IMAGE_SIZE / sizeof(uint32_t));
++            /* The captured X20511I block branches here after its first
++             * initialization helper. Probe it separately because the active
++             * MMU mapping may end before this target. */
++            sgx_capture_map(s, "USE-BRANCH-TARGET",
++                            code_va + SGX_CAPTURE_USE_INIT_BRANCH_TARGET_OFFSET);
++            sgx_capture_words(s, "USE-BRANCH-TARGET",
++                              code_va + SGX_CAPTURE_USE_INIT_BRANCH_TARGET_OFFSET,
++                              SGX_CAPTURE_CANDIDATE_WORDS);
++        } else {
++            sgx_capture_words(s, "USE-CANDIDATE", code_va,
++                              SGX_CAPTURE_CANDIDATE_WORDS);
++        }
++    }
++}
++
++static void sgx_capture_firmware_state(OMAP5430SGXState *s, uint32_t pds_va)
++{
++    uint32_t page_va = pds_va & ~(SGX_CAPTURE_PAGE_SIZE - 1);
++
++    qemu_log_mask(LOG_UNIMP,
++                  "omap5430-sgx: firmware-capture begin pds-va=%#010x "
++                  "pds-page-va=%#010x page-size=%u\n",
++                  pds_va, page_va, SGX_CAPTURE_PAGE_SIZE);
++    sgx_capture_map(s, "PDS-page", page_va);
++    sgx_capture_words(s, "PDS-PAGE", page_va,
++                      SGX_CAPTURE_PAGE_SIZE / sizeof(uint32_t));
++    sgx_capture_use_code_bases(s);
++    qemu_log_mask(LOG_UNIMP, "omap5430-sgx: firmware-capture end\n");
++}
++
++static void sgx_init_status_probe_cb(void *opaque)
++{
++    OMAP5430SGXState *s = opaque;
++    hwaddr init_status_pa;
++
++    if (sgx_translate(s, SGX_HOST_CTL_VA + SGX_HOST_CTL_INIT_STATUS_OFFSET,
++                      &init_status_pa) &&
++        sgx_phys_write32(init_status_pa, 1)) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: INIT_COMPLETE diagnostic probe wrote "
++                      "host-control init-status va=%#x pa=%#" HWADDR_PRIx "\n",
++                      SGX_HOST_CTL_VA + SGX_HOST_CTL_INIT_STATUS_OFFSET,
++                      init_status_pa);
++        s->queue_trace_ticks = 0;
++        s->queue_trace_last_write = UINT32_MAX;
++        s->queue_trace_last_read = UINT32_MAX;
++        s->queue_trace_last_misc_flags = UINT32_MAX;
++        timer_mod_ns(s->queue_trace_timer,
++                     qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++                     SGX_QUEUE_TRACE_INTERVAL_NS);
++    } else {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: INIT_COMPLETE probe could not translate "
++                      "host-control init-status va=%#x\n",
++                      SGX_HOST_CTL_VA + SGX_HOST_CTL_INIT_STATUS_OFFSET);
++    }
++}
++
++static void sgx_trace_words(OMAP5430SGXState *s, const char *name, uint32_t va)
++{
++    unsigned i;
++    hwaddr pa;
++    uint32_t word;
++
++    for (i = 0; i < 8; i++, va += 4) {
++        if (!sgx_translate(s, va, &pa) || !sgx_phys_read32(pa, &word)) {
++            qemu_log_mask(LOG_UNIMP, "omap5430-sgx: %s unmapped va=%#x\n", name, va);
++            break;
++        }
++        qemu_log_mask(LOG_UNIMP, "omap5430-sgx: %s va=%#x pa=%#" HWADDR_PRIx
++                      " word=%#010x\n", name, va, pa, word);
++    }
++}
++
++static void sgx_trace_kernel_ccb(OMAP5430SGXState *s)
++{
++    if (s->kicks > 8) {
++        return;
++    }
++    sgx_trace_words(s, "KCCB", SGX_KERNEL_CCB_VA);
++    sgx_trace_words(s, "KCCB-CTL", SGX_KERNEL_CCB_CTL_VA);
++    sgx_trace_words(s, "host-ctl", SGX_HOST_CTL_VA);
++    sgx_trace_words(s, "miscinfo", SGX_MISCINFO_VA);
++}
++
++static bool sgx_miscinfo_probe_response(OMAP5430SGXState *s, uint32_t misc_va)
++{
++    hwaddr misc_pa;
++    uint32_t flags;
++    unsigned i;
++
++    if (!sgx_translate(s, misc_va, &misc_pa) ||
++        !sgx_phys_read32(misc_pa, &flags)) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: misc-info probe could not translate va=%#x\n",
++                      misc_va);
++        return false;
++    }
++
++    if (flags & SGX_MISCINFO_GET_STRUCT_SIZES) {
++        for (i = 0; i < SGX_MISCINFO_STRUCT_SIZE_COUNT; i++) {
++            if (!sgx_phys_write32(misc_pa + SGX_MISCINFO_STRUCT_SIZES_OFFSET +
++                                  i * sizeof(uint32_t),
++                                  sgx_miscinfo_struct_sizes[i])) {
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: misc-info probe could not write "
++                              "size table\n");
++                return false;
++            }
++        }
++    }
++
++    if (!sgx_phys_write32(misc_pa + SGX_MISCINFO_DDK_VERSION_OFFSET,
++                          SGX_MISCINFO_DDK_VERSION) ||
++        !sgx_phys_write32(misc_pa + SGX_MISCINFO_DDK_BUILD_OFFSET,
++                          SGX_MISCINFO_DDK_BUILD) ||
++        !sgx_phys_write32(misc_pa + SGX_MISCINFO_CORE_REV_SW_OFFSET, 0) ||
++        !sgx_phys_write32(misc_pa + SGX_MISCINFO_BUILD_OPTIONS_OFFSET,
++                          SGX_MISCINFO_BUILD_OPTIONS) ||
++        !sgx_phys_write32(misc_pa, flags | SGX_MISCINFO_READY)) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: misc-info probe could not write va=%#x\n",
++                      misc_va);
++        return false;
++    }
++
++    qemu_log_mask(LOG_UNIMP,
++                  "omap5430-sgx: diagnostic GETMISCINFO response va=%#x flags=%#x "
++                  "ddk=%#x build=%u options=%#x sizes=BMW-client\n",
++                  misc_va, flags | SGX_MISCINFO_READY,
++                  SGX_MISCINFO_DDK_VERSION, SGX_MISCINFO_DDK_BUILD,
++                  SGX_MISCINFO_BUILD_OPTIONS);
++    return true;
++}
++
++static void sgx_process_kernel_ccb(OMAP5430SGXState *s)
++{
++    hwaddr ctl_pa;
++    uint32_t write_offset, read_offset;
++
++    if (!sgx_translate(s, SGX_KERNEL_CCB_CTL_VA, &ctl_pa) ||
++        !sgx_phys_read32(ctl_pa, &write_offset) ||
++        !sgx_phys_read32(ctl_pa + 4, &read_offset)) {
++        return;
++    }
++
++    while (read_offset != write_offset) {
++        uint32_t command[SGX_KERNEL_CCB_WORDS];
++        uint32_t command_va = SGX_KERNEL_CCB_VA +
++                              (read_offset & (SGX_KERNEL_CCB_ENTRIES - 1)) *
++                              SGX_KERNEL_CCB_WORDS * sizeof(uint32_t);
++        hwaddr command_pa;
++        unsigned i;
++        bool handled = false;
++
++        if (!sgx_translate(s, command_va, &command_pa)) {
++            break;
++        }
++        for (i = 0; i < SGX_KERNEL_CCB_WORDS; i++) {
++            if (!sgx_phys_read32(command_pa + i * sizeof(uint32_t),
++                                 &command[i])) {
++                return;
++            }
++        }
++
++        if (s->miscinfo_probe &&
++            command[0] == SGX_GETMISCINFO_SERVICE_ADDRESS) {
++            handled = sgx_miscinfo_probe_response(s, command[3]);
++        } else if (s->miscinfo_probe &&
++                   command[0] == SGX_DATABREAKPOINT_SERVICE_ADDRESS) {
++            hwaddr bp_signal_pa;
++            if (sgx_translate(s, SGX_HOST_CTL_VA + SGX_HOST_CTL_BP_SIGNAL_OFFSET,
++                              &bp_signal_pa) &&
++                sgx_phys_write32(bp_signal_pa, 1)) {
++                handled = true;
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: diagnostic DATABREAKPOINT completion "
++                              "signal set; breakpoint registers remain unimplemented\n");
++            }
++        }
++
++        if (!handled) {
++            if (!s->queue_trace_unhandled_valid ||
++                s->queue_trace_unhandled_offset != read_offset ||
++                s->queue_trace_unhandled_service != command[0]) {
++                qemu_log_mask(LOG_UNIMP,
++                              "omap5430-sgx: unhandled KCCB entry=%u va=%#x "
++                              "service=%#x cache=%#x data=%#x,%#x,%#x,%#x,%#x,%#x; "
++                              "no firmware execution; request remains pending\n",
++                              read_offset, command_va, command[0], command[1],
++                              command[2], command[3], command[4], command[5],
++                              command[6], command[7]);
++                s->queue_trace_unhandled_offset = read_offset;
++                s->queue_trace_unhandled_service = command[0];
++                s->queue_trace_unhandled_valid = true;
++            }
++            /* Keep unsupported or failed requests pending for the real firmware. */
++            break;
++        }
++        s->queue_trace_unhandled_valid = false;
++
++        read_offset = (read_offset + 1) & (SGX_KERNEL_CCB_ENTRIES - 1);
++        if (!sgx_phys_write32(ctl_pa + 4, read_offset)) {
++            break;
++        }
++    }
++}
++
++static void sgx_queue_trace_cb(void *opaque)
++{
++    OMAP5430SGXState *s = opaque;
++    hwaddr ctl_pa, misc_pa;
++    uint32_t write_offset, read_offset, misc_flags;
++    bool changed = false;
++
++    if (sgx_translate(s, SGX_KERNEL_CCB_CTL_VA, &ctl_pa) &&
++        sgx_phys_read32(ctl_pa, &write_offset) &&
++        sgx_phys_read32(ctl_pa + 4, &read_offset) &&
++        sgx_translate(s, SGX_MISCINFO_VA, &misc_pa) &&
++        sgx_phys_read32(misc_pa, &misc_flags)) {
++        changed = write_offset != s->queue_trace_last_write ||
++                  read_offset != s->queue_trace_last_read ||
++                  misc_flags != s->queue_trace_last_misc_flags;
++        if (changed || s->queue_trace_ticks == 0 ||
++            s->queue_trace_ticks % 100 == 0) {
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: queue probe tick=%u write=%#x "
++                          "read=%#x misc-flags=%#x\n",
++                          s->queue_trace_ticks, write_offset, read_offset,
++                          misc_flags);
++        }
++        if (changed && (write_offset || read_offset || misc_flags)) {
++            sgx_trace_kernel_ccb(s);
++        }
++        s->queue_trace_last_write = write_offset;
++        s->queue_trace_last_read = read_offset;
++        s->queue_trace_last_misc_flags = misc_flags;
++        if (s->miscinfo_probe) {
++            sgx_process_kernel_ccb(s);
++        }
++    } else if (s->queue_trace_ticks == 0) {
++        qemu_log_mask(LOG_UNIMP,
++                      "omap5430-sgx: queue probe could not translate SGX buffers\n");
++    }
++
++    s->queue_trace_ticks++;
++    if (s->queue_trace_ticks < SGX_QUEUE_TRACE_MAX_TICKS) {
++        timer_mod_ns(s->queue_trace_timer,
++                     qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++                     SGX_QUEUE_TRACE_INTERVAL_NS);
++    }
++}
++
++static uint64_t sgx_read(void *opaque, hwaddr offset, unsigned size)
++{
++    OMAP5430SGXState *s = opaque;
++    uint32_t value = s->regs[offset / 4];
++
++    if (s->trace) {
++        qemu_log_mask(LOG_UNIMP, "omap5430-sgx: read offset=%#06x value=%#010x\n",
++                      (unsigned)offset, value);
++    }
++    return value;
++}
++
++static void sgx_write(void *opaque, hwaddr offset, uint64_t value, unsigned size)
++{
++    OMAP5430SGXState *s = opaque;
++    s->regs[offset / 4] = value;
++    if (s->trace) {
++        qemu_log_mask(LOG_UNIMP, "omap5430-sgx: write offset=%#06x value=%#010x\n",
++                      (unsigned)offset, (uint32_t)value);
++    }
++    if ((offset == SGX_EVENT_KICK2 || offset == SGX_CORE0 + SGX_EVENT_KICK2) &&
++        (value & 1)) {
++        s->kicks++;
++        qemu_log_mask(LOG_UNIMP, "omap5430-sgx: firmware event %" PRIu64
++                      " pd=%#x pds=%#x info=%#x data=%#x\n", s->kicks,
++                      s->regs[SGX_BIF_DIR_LIST_BASE0 / 4],
++                      s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4],
++                      s->regs[(SGX_CORE0 + SGX_EVENT_PDS_INFO) / 4],
++                      s->regs[(SGX_CORE0 + SGX_EVENT_PDS_DATA) / 4]);
++        if (s->capture_firmware && !s->firmware_capture_done &&
++            s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4] == SGX_INIT_PDS_EXEC) {
++            s->firmware_capture_done = true;
++            sgx_capture_firmware_state(
++                s, s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4]);
++        }
++        if (s->usse_step_budget && !s->usse_step_done &&
++            s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4] == SGX_INIT_PDS_EXEC) {
++            sgx_step_firmware_entry(
++                s, s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4]);
++        }
++        if (s->init_status_probe &&
++            s->init_status_probe_kicks < SGX_INIT_STATUS_PROBE_MAX_KICKS &&
++            s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4] == SGX_INIT_PDS_EXEC) {
++            s->init_status_probe_kicks++;
++            timer_mod_ns(s->init_status_timer,
++                         qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL) +
++                         SGX_INIT_STATUS_DELAY_NS);
++            qemu_log_mask(LOG_UNIMP,
++                          "omap5430-sgx: scheduled diagnostic INIT_COMPLETE "
++                          "probe %u/%u in 10ms\n",
++                          s->init_status_probe_kicks,
++                          SGX_INIT_STATUS_PROBE_MAX_KICKS);
++        }
++        sgx_trace_words(s, "event-kicker", s->regs[SGX_EVENT_KICKER / 4]);
++        sgx_trace_words(s, "PDS", s->regs[(SGX_CORE0 + SGX_EVENT_PDS_EXEC) / 4]);
++        sgx_trace_kernel_ccb(s);
++        /* Kick is a trigger, not persistent state; the bounded stepper above
++         * does not synthesize completion for unsupported instructions. */
++        s->regs[offset / 4] = 0;
++    }
++}
++
++static const MemoryRegionOps sgx_ops = {
++    .read = sgx_read,
++    .write = sgx_write,
++    .endianness = DEVICE_LITTLE_ENDIAN,
++    .valid = { .min_access_size = 4, .max_access_size = 4, .unaligned = false },
++    .impl = { .min_access_size = 4, .max_access_size = 4, .unaligned = false },
++};
++
++static const VMStateDescription vmstate_sgx = {
++    .name = TYPE_OMAP5430_SGX,
++    .version_id = 6,
++    .minimum_version_id = 1,
++    .fields = (const VMStateField[]) {
++        VMSTATE_UINT32_ARRAY(regs, OMAP5430SGXState, SGX_SIZE / 4),
++        VMSTATE_UINT64(kicks, OMAP5430SGXState),
++        VMSTATE_UINT32_V(init_status_probe_kicks, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_ticks, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_last_write, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_last_read, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_last_misc_flags, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_unhandled_offset, OMAP5430SGXState, 2),
++        VMSTATE_UINT32_V(queue_trace_unhandled_service, OMAP5430SGXState, 2),
++        VMSTATE_BOOL_V(queue_trace_unhandled_valid, OMAP5430SGXState, 2),
++        VMSTATE_BOOL_V(usse_step_done, OMAP5430SGXState, 3),
++        VMSTATE_UINT32_V(usse_step_pc, OMAP5430SGXState, 3),
++        VMSTATE_UINT32_V(usse_step_count, OMAP5430SGXState, 3),
++        VMSTATE_UINT32_V(usse_link_pc, OMAP5430SGXState, 5),
++        VMSTATE_UINT32_ARRAY_V(usse_temp, OMAP5430SGXState, 128, 3),
++        VMSTATE_BOOL_ARRAY_V(usse_temp_valid, OMAP5430SGXState, 128, 6),
++        VMSTATE_UINT32_ARRAY_V(usse_primattr, OMAP5430SGXState, 128, 3),
++        VMSTATE_UINT32_ARRAY_V(usse_secattr, OMAP5430SGXState, 128, 4),
++        VMSTATE_TIMER_PTR_V(init_status_timer, OMAP5430SGXState, 2),
++        VMSTATE_TIMER_PTR_V(queue_trace_timer, OMAP5430SGXState, 2),
++        VMSTATE_END_OF_LIST()
++    },
++};
++
++static void sgx_reset(DeviceState *dev)
++{
++    OMAP5430SGXState *s = OMAP5430_SGX(dev);
++    memset(s->regs, 0, sizeof(s->regs));
++    s->kicks = 0;
++    s->init_status_probe_kicks = 0;
++    s->firmware_capture_done = false;
++    s->usse_step_done = false;
++    s->usse_step_pc = 0;
++    s->usse_step_count = 0;
++    s->usse_link_pc = 0;
++    memset(s->usse_temp, 0, sizeof(s->usse_temp));
++    memset(s->usse_temp_valid, 0, sizeof(s->usse_temp_valid));
++    memset(s->usse_primattr, 0, sizeof(s->usse_primattr));
++    memset(s->usse_secattr, 0, sizeof(s->usse_secattr));
++    s->queue_trace_unhandled_offset = 0;
++    s->queue_trace_unhandled_service = 0;
++    s->queue_trace_unhandled_valid = false;
++    if (s->init_status_timer) {
++        timer_del(s->init_status_timer);
++    }
++    s->queue_trace_ticks = 0;
++    if (s->queue_trace_timer) {
++        timer_del(s->queue_trace_timer);
++    }
++}
++
++static void sgx_realize(DeviceState *dev, Error **errp)
++{
++    OMAP5430SGXState *s = OMAP5430_SGX(dev);
++    s->init_status_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL,
++                                        sgx_init_status_probe_cb, s);
++    s->queue_trace_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL,
++                                        sgx_queue_trace_cb, s);
++    memory_region_init_io(&s->iomem, OBJECT(s), &sgx_ops, s, TYPE_OMAP5430_SGX, SGX_SIZE);
++    sysbus_init_mmio(SYS_BUS_DEVICE(s), &s->iomem);
++}
++
++static void sgx_finalize(Object *obj)
++{
++    OMAP5430SGXState *s = OMAP5430_SGX(obj);
++    if (s->init_status_timer) {
++        timer_free(s->init_status_timer);
++    }
++    if (s->queue_trace_timer) {
++        timer_free(s->queue_trace_timer);
++    }
++}
++
++static const Property sgx_properties[] = {
++    DEFINE_PROP_BOOL("trace", OMAP5430SGXState, trace, false),
++    DEFINE_PROP_BOOL("capture-firmware", OMAP5430SGXState, capture_firmware, false),
++    DEFINE_PROP_UINT32("usse-step-budget", OMAP5430SGXState, usse_step_budget, 0),
++    DEFINE_PROP_BOOL("usse-primary-vldst-probe", OMAP5430SGXState, usse_primary_vldst_probe, false),
++    DEFINE_PROP_BOOL("usse-sync-wdf-probe", OMAP5430SGXState, usse_sync_wdf_probe, false),
++    DEFINE_PROP_BOOL("usse-vbw-probe", OMAP5430SGXState, usse_vbw_probe, false),
++    DEFINE_PROP_BOOL("init-status-probe", OMAP5430SGXState, init_status_probe, false),
++    DEFINE_PROP_BOOL("miscinfo-probe", OMAP5430SGXState, miscinfo_probe, false),
++};
++
++static void sgx_class_init(ObjectClass *oc, const void *data)
++{
++    DeviceClass *dc = DEVICE_CLASS(oc);
++    dc->realize = sgx_realize;
++    dc->vmsd = &vmstate_sgx;
++    device_class_set_legacy_reset(dc, sgx_reset);
++    device_class_set_props(dc, sgx_properties);
++}
++
++static const TypeInfo sgx_type = {
++    .name = TYPE_OMAP5430_SGX,
++    .parent = TYPE_SYS_BUS_DEVICE,
++    .instance_size = sizeof(OMAP5430SGXState),
++    .class_init = sgx_class_init,
++    .instance_finalize = sgx_finalize,
++};
++
++void omap5430_sgx_register_types(void)
++{
++    type_register_static(&sgx_type);
++}
+diff --git a/hw/display/omap5430_sgx.h b/hw/display/omap5430_sgx.h
+new file mode 100644
+index 000000000..fe55c6cb0
+--- /dev/null
++++ b/hw/display/omap5430_sgx.h
+@@ -0,0 +1,5 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef HW_DISPLAY_OMAP5430_SGX_H
++#define HW_DISPLAY_OMAP5430_SGX_H
++void omap5430_sgx_register_types(void);
++#endif
+diff --git a/hw/display/omap5430_sgx_usse.h b/hw/display/omap5430_sgx_usse.h
+new file mode 100644
+index 000000000..bb41840e6
+--- /dev/null
++++ b/hw/display/omap5430_sgx_usse.h
+@@ -0,0 +1,416 @@
++#ifndef OMAP5430_SGX_USSE_H
++#define OMAP5430_SGX_USSE_H
++
++/*
++ * Small, pure USSE prefix decoder shared by the QEMU device and the offline
++ * firmware-fixture replay. Field layouts follow the pinned SGX543 grammar;
++ * they are candidates for the BMW SGX544-class firmware, not a silicon spec.
++ */
++#include <stdbool.h>
++#include <stdint.h>
++
++#define SGX_USSE_TEMP_COUNT 128
++
++typedef struct SGXUSSELimmFields {
++    uint32_t predicate;
++    uint32_t bank_ext;
++    uint32_t bank;
++    uint32_t destination;
++    uint32_t immediate;
++} SGXUSSELimmFields;
++
++typedef struct SGXUSSEVldstFields {
++    uint32_t op1;
++    uint32_t predicate;
++    uint32_t skip_invalid;
++    uint32_t no_schedule;
++    uint32_t moe_expand;
++    uint32_t sync_start;
++    uint32_t cache_ext;
++    uint32_t src0_bank_ext;
++    uint32_t src1_bank_ext;
++    uint32_t src2_bank_ext;
++    uint32_t mask_count;
++    uint32_t mode;
++    uint32_t address_mode;
++    uint32_t dest_bank_primattr;
++    uint32_t range_enable;
++    uint32_t data_type;
++    uint32_t increment_or_decrement;
++    uint32_t src0_bank;
++    uint32_t cache_by_pass12;
++    uint32_t drc_sel;
++    uint32_t src1_bank;
++    uint32_t src2_bank;
++    uint32_t destination;
++    uint32_t src0_n;
++    uint32_t src1_n;
++    uint32_t src2_n;
++} SGXUSSEVldstFields;
++
++typedef struct SGXUSSEVldstPrimaryLoadCandidate {
++    uint32_t address;
++    uint32_t destination;
++    uint32_t byte_width;
++} SGXUSSEVldstPrimaryLoadCandidate;
++
++typedef struct SGXUSSEVBWFields {
++    uint32_t op1;
++    uint32_t predicate;
++    uint32_t skip_invalid;
++    uint32_t no_schedule;
++    uint32_t repeat_select;
++    uint32_t sync_start;
++    uint32_t destination_ext;
++    uint32_t end;
++    uint32_t src1_ext;
++    uint32_t src2_ext;
++    uint32_t repeat_count;
++    uint32_t src2_invert;
++    uint32_t src2_rotate;
++    uint32_t src2_ext_high;
++    uint32_t op2;
++    uint32_t partial_16bit;
++    uint32_t destination_bank;
++    uint32_t src1_bank;
++    uint32_t src2_bank;
++    uint32_t destination;
++    uint32_t src2_select;
++    uint32_t src1;
++    uint32_t src2;
++} SGXUSSEVBWFields;
++
++typedef enum SGXUSSEVBWOperationCandidate {
++    SGX_USSE_VBW_AND_CANDIDATE,
++    SGX_USSE_VBW_OR_CANDIDATE,
++    SGX_USSE_VBW_XOR_CANDIDATE,
++    SGX_USSE_VBW_SHL_CANDIDATE,
++    SGX_USSE_VBW_ROL_CANDIDATE,
++    SGX_USSE_VBW_SHR_CANDIDATE,
++    SGX_USSE_VBW_ASR_CANDIDATE,
++} SGXUSSEVBWOperationCandidate;
++
++typedef struct SGXUSSEVBWDecodedCandidate {
++    SGXUSSEVBWOperationCandidate operation;
++    uint32_t byte_width;
++} SGXUSSEVBWDecodedCandidate;
++
++/* Public SGX544 table fields; decode only, with no output/task effects. */
++typedef struct SGXUSSEEmitFields {
++    uint32_t sideband_high;
++    uint32_t opcat;
++    uint32_t src0_bank_ext;
++    uint32_t end;
++    uint32_t src1_bank_ext;
++    uint32_t src2_bank_ext;
++    uint32_t target;
++    uint32_t task_start_or_mte_hi;
++    uint32_t task_end_or_mte_lo;
++    uint32_t no_schedule;
++    uint32_t sideband_mid;
++    uint32_t src0_bank;
++    uint32_t incp;
++    uint32_t src1_bank;
++    uint32_t src2_bank;
++    uint32_t sideband_low;
++    uint32_t freep;
++    uint32_t src0;
++    uint32_t src1;
++    uint32_t src2;
++} SGXUSSEEmitFields;
++
++typedef struct SGXUSSEBranchFields {
++    uint32_t predicate;
++    uint32_t save_link;
++    uint32_t branch_type;
++    uint32_t any_instruction;
++    uint32_t all_instructions;
++    uint32_t offset20;
++} SGXUSSEBranchFields;
++
++typedef enum SGXUSSEPrefixResult {
++    SGX_USSE_PREFIX_NOT_HANDLED,
++    SGX_USSE_PREFIX_APPLIED_LIMM,
++    SGX_USSE_PREFIX_ADVANCED_NOP,
++    SGX_USSE_PREFIX_STOP_UNSUPPORTED_LIMM,
++    SGX_USSE_PREFIX_STOP_UNRESOLVED_VLDST,
++    SGX_USSE_PREFIX_STOP_UNRESOLVED_BRANCH,
++} SGXUSSEPrefixResult;
++
++typedef struct SGXUSSEPrefixFields {
++    SGXUSSELimmFields limm;
++    SGXUSSEVldstFields vldst;
++    SGXUSSEBranchFields branch;
++} SGXUSSEPrefixFields;
++
++static inline bool sgx_usse_decode_limm(uint64_t instruction,
++                                        SGXUSSELimmFields *fields)
++{
++    const uint64_t mask = UINT64_C(0xff30000000000000);
++    const uint64_t pattern = UINT64_C(0xfc20000000000000);
++
++    if ((instruction & mask) != pattern) {
++        return false;
++    }
++
++    fields->predicate = (instruction >> 41) & 7;
++    fields->bank_ext = (instruction >> 51) & 1;
++    fields->bank = (instruction >> 32) & 3;
++    fields->destination = (instruction >> 21) & 0x7f;
++    fields->immediate = (instruction & 0x1fffff) |
++                        (((instruction >> 36) & 0x1f) << 21) |
++                        (((instruction >> 44) & 0x3f) << 26);
++    return true;
++}
++
++static inline bool sgx_usse_is_nop(uint64_t instruction)
++{
++    return (instruction >> 59) == 0x1f &&
++           ((instruction >> 54) & 1) == 0 &&
++           ((instruction >> 52) & 3) == 0 &&
++           ((instruction >> 38) & 7) == 5;
++}
++
++static inline bool sgx_usse_decode_vldst(uint64_t instruction,
++                                         SGXUSSEVldstFields *fields)
++{
++    uint32_t op1;
++
++    if ((instruction >> 61) != 7) {
++        return false;
++    }
++    op1 = (instruction >> 59) & 3;
++    if (op1 != 1 && op1 != 2) {
++        return false;
++    }
++
++    fields->op1 = op1;
++    fields->predicate = (instruction >> 56) & 7;
++    fields->skip_invalid = (instruction >> 55) & 1;
++    fields->no_schedule = (instruction >> 54) & 1;
++    fields->moe_expand = (instruction >> 53) & 1;
++    fields->sync_start = (instruction >> 52) & 1;
++    fields->cache_ext = (instruction >> 51) & 1;
++    fields->src0_bank_ext = (instruction >> 50) & 1;
++    fields->src1_bank_ext = (instruction >> 49) & 1;
++    fields->src2_bank_ext = (instruction >> 48) & 1;
++    fields->mask_count = (instruction >> 44) & 0xf;
++    fields->mode = (instruction >> 40) & 3;
++    fields->address_mode = (instruction >> 42) & 3;
++    fields->dest_bank_primattr = (instruction >> 39) & 1;
++    fields->range_enable = (instruction >> 38) & 1;
++    fields->data_type = (instruction >> 36) & 3;
++    fields->increment_or_decrement = (instruction >> 35) & 1;
++    fields->src0_bank = (instruction >> 34) & 1;
++    fields->cache_by_pass12 = (instruction >> 33) & 1;
++    fields->drc_sel = (instruction >> 32) & 1;
++    fields->src1_bank = (instruction >> 30) & 3;
++    fields->src2_bank = (instruction >> 28) & 3;
++    fields->destination = (instruction >> 21) & 0x7f;
++    fields->src0_n = (instruction >> 14) & 0x7f;
++    fields->src1_n = (instruction >> 7) & 0x7f;
++    fields->src2_n = instruction & 0x7f;
++    return true;
++}
++
++/* Decode only the SGX543 grammar fields for a VBW instruction. */
++static inline bool sgx_usse_decode_vbw(uint64_t instruction,
++                                       SGXUSSEVBWFields *fields)
++{
++    if (((instruction >> 62) & 3) != 1) {
++        return false;
++    }
++
++    fields->op1 = (instruction >> 59) & 7;
++    fields->predicate = (instruction >> 56) & 7;
++    fields->skip_invalid = (instruction >> 55) & 1;
++    fields->no_schedule = (instruction >> 54) & 1;
++    fields->repeat_select = (instruction >> 53) & 1;
++    fields->sync_start = (instruction >> 52) & 1;
++    fields->destination_ext = (instruction >> 51) & 1;
++    fields->end = (instruction >> 50) & 1;
++    fields->src1_ext = (instruction >> 49) & 1;
++    fields->src2_ext = (instruction >> 48) & 1;
++    fields->repeat_count = (instruction >> 44) & 0xf;
++    fields->src2_invert = (instruction >> 43) & 1;
++    fields->src2_rotate = (instruction >> 38) & 0x1f;
++    fields->src2_ext_high = (instruction >> 36) & 3;
++    fields->op2 = (instruction >> 35) & 1;
++    fields->partial_16bit = (instruction >> 34) & 1;
++    fields->destination_bank = (instruction >> 32) & 3;
++    fields->src1_bank = (instruction >> 30) & 3;
++    fields->src2_bank = (instruction >> 28) & 3;
++    fields->destination = (instruction >> 21) & 0x7f;
++    fields->src2_select = (instruction >> 14) & 0x7f;
++    fields->src1 = (instruction >> 7) & 0x7f;
++    fields->src2 = instruction & 0x7f;
++    return true;
++}
++
++/* Decode the published SGX544 EMIT layout; do not execute it. */
++static inline bool sgx_usse_decode_emit(uint64_t instruction,
++                                        SGXUSSEEmitFields *fields)
++{
++    if ((instruction >> 59) != 0x1f ||
++        ((instruction >> 56) & 7) != 3 ||
++        ((instruction >> 52) & 3) != 2) {
++        return false;
++    }
++
++    fields->sideband_high = (instruction >> 54) & 3;
++    fields->opcat = (instruction >> 52) & 3;
++    fields->src0_bank_ext = (instruction >> 51) & 1;
++    fields->end = (instruction >> 50) & 1;
++    fields->src1_bank_ext = (instruction >> 49) & 1;
++    fields->src2_bank_ext = (instruction >> 48) & 1;
++    fields->target = (instruction >> 46) & 3;
++    fields->task_start_or_mte_hi = (instruction >> 45) & 1;
++    fields->task_end_or_mte_lo = (instruction >> 44) & 1;
++    fields->no_schedule = (instruction >> 43) & 1;
++    fields->sideband_mid = (instruction >> 35) & 0x3f;
++    fields->src0_bank = (instruction >> 34) & 1;
++    fields->incp = (instruction >> 32) & 3;
++    fields->src1_bank = (instruction >> 30) & 3;
++    fields->src2_bank = (instruction >> 28) & 3;
++    fields->sideband_low = (instruction >> 22) & 0x3f;
++    fields->freep = (instruction >> 21) & 1;
++    fields->src0 = (instruction >> 14) & 0x7f;
++    fields->src1 = (instruction >> 7) & 0x7f;
++    fields->src2 = instruction & 0x7f;
++    return true;
++}
++
++/*
++ * Classify the opcode using Vita3K's SGX543 translator as a reference.
++ * This reports no operand-bank or register effects and does not execute.
++ */
++static inline bool sgx_usse_vbw_operation_candidate(
++    const SGXUSSEVBWFields *fields, SGXUSSEVBWDecodedCandidate *candidate)
++{
++    switch (fields->op1) {
++    case 2:
++        candidate->operation = fields->op2 ? SGX_USSE_VBW_OR_CANDIDATE :
++                                              SGX_USSE_VBW_AND_CANDIDATE;
++        break;
++    case 3:
++        candidate->operation = SGX_USSE_VBW_XOR_CANDIDATE;
++        break;
++    case 4:
++        candidate->operation = fields->op2 ? SGX_USSE_VBW_ROL_CANDIDATE :
++                                              SGX_USSE_VBW_SHL_CANDIDATE;
++        break;
++    case 5:
++        candidate->operation = fields->op2 ? SGX_USSE_VBW_ASR_CANDIDATE :
++                                              SGX_USSE_VBW_SHR_CANDIDATE;
++        break;
++    default:
++        return false;
++    }
++
++    candidate->byte_width = fields->partial_16bit ? 2 : 4;
++    return true;
++}
++
++/*
++ * Candidate semantics for the captured scalar LDR form. Imagination's
++ * support forum states that SGX543 and SGX544 share the instruction set for
++ * debugging/profiling; this address calculation follows Vita3K's SGX543
++ * translator. It is intentionally limited to the exact simple register and
++ * immediate form below. The caller must separately assume a primary program
++ * and must not treat this as silicon-validated execution.
++ */
++static inline bool sgx_usse_vldst_primary_load_candidate(
++    const SGXUSSEVldstFields *fields,
++    const uint32_t temp[SGX_USSE_TEMP_COUNT],
++    const bool temp_valid[SGX_USSE_TEMP_COUNT],
++    SGXUSSEVldstPrimaryLoadCandidate *candidate)
++{
++    uint64_t address;
++
++    if (fields->op1 != 1 || fields->predicate != 0 ||
++        fields->skip_invalid != 0 || fields->no_schedule != 0 ||
++        fields->sync_start != 0 || fields->cache_ext != 0 ||
++        fields->mask_count != 0 || fields->mode != 0 ||
++        fields->address_mode != 0 || fields->dest_bank_primattr != 0 ||
++        fields->range_enable != 0 || fields->data_type != 0 ||
++        fields->increment_or_decrement != 0 || fields->src0_bank_ext != 0 ||
++        fields->src0_bank != 0 || fields->src0_n >= SGX_USSE_TEMP_COUNT ||
++        fields->src1_bank_ext != 1 || fields->src1_bank != 2 ||
++        fields->src2_bank_ext != 1 || fields->src2_bank != 2 ||
++        fields->destination >= SGX_USSE_TEMP_COUNT ||
++        fields->cache_by_pass12 != 1 || fields->drc_sel != 0 ||
++        !temp_valid[fields->src0_n]) {
++        return false;
++    }
++
++    /* Extended source-bank selector 2 is IMMEDIATE in the SGX543 decoder.
++     * The translator scales src1 by the f32 width, adds src2 as bytes, and
++     * adds four bytes only when moe_expand is clear. */
++    address = temp[fields->src0_n] + (uint64_t)fields->src1_n * 4 +
++              fields->src2_n + (fields->moe_expand ? 0 : 4);
++    if (address > UINT32_MAX) {
++        return false;
++    }
++
++    candidate->address = (uint32_t)address;
++    candidate->destination = fields->destination;
++    candidate->byte_width = 4;
++    return true;
++}
++
++static inline bool sgx_usse_decode_branch_fields(
++    uint64_t instruction, SGXUSSEBranchFields *fields)
++{
++    uint32_t word1 = instruction >> 32;
++
++    /* Match only the fixed SGX543 BR opcode fields; semantics remain open. */
++    if ((word1 >> 27) != 0x1f ||
++        ((instruction >> 54) & 1) != 0 ||
++        ((instruction >> 52) & 3) != 0 ||
++        ((instruction >> 39) & 3) != 0) {
++        return false;
++    }
++
++    fields->predicate = (instruction >> 56) & 7;
++    fields->save_link = (instruction >> 41) & 1;
++    fields->branch_type = (instruction >> 38) & 1;
++    fields->any_instruction = (instruction >> 21) & 1;
++    fields->all_instructions = (instruction >> 20) & 1;
++    fields->offset20 = instruction & 0xfffff;
++    return true;
++}
++
++/*
++ * Apply only the entry-prefix effects currently supported by both callers.
++ * VLDST and BR are decoded for diagnostics but stop before any state change.
++ */
++static inline SGXUSSEPrefixResult sgx_usse_step_prefix(
++    uint64_t instruction, uint32_t temp[SGX_USSE_TEMP_COUNT],
++    bool temp_valid[SGX_USSE_TEMP_COUNT], SGXUSSEPrefixFields *fields)
++{
++    if (sgx_usse_decode_limm(instruction, &fields->limm)) {
++        if (fields->limm.predicate != 0 || fields->limm.bank_ext != 0 ||
++            fields->limm.bank != 0 || fields->limm.destination >= 124) {
++            return SGX_USSE_PREFIX_STOP_UNSUPPORTED_LIMM;
++        }
++        temp[fields->limm.destination] = fields->limm.immediate;
++        temp_valid[fields->limm.destination] = true;
++        return SGX_USSE_PREFIX_APPLIED_LIMM;
++    }
++
++    if (sgx_usse_is_nop(instruction)) {
++        return SGX_USSE_PREFIX_ADVANCED_NOP;
++    }
++
++    if (sgx_usse_decode_vldst(instruction, &fields->vldst)) {
++        return SGX_USSE_PREFIX_STOP_UNRESOLVED_VLDST;
++    }
++
++    if (sgx_usse_decode_branch_fields(instruction, &fields->branch)) {
++        return SGX_USSE_PREFIX_STOP_UNRESOLVED_BRANCH;
++    }
++
++    return SGX_USSE_PREFIX_NOT_HANDLED;
++}
++
++#endif

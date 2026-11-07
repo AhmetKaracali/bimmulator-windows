@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6WB Simulator</title>
+<style>
+  :root { color-scheme: dark; font-family: system-ui, sans-serif; color: #eef4fc; background: #080c12; }
+  * { box-sizing: border-box; }
+  body { max-width: 1280px; margin: 0 auto; padding: 28px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  h1 { font-weight: 600; font-size: 24px; margin: 0; }
+  .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .2em; color: #9eb2ce; }
+  nav { display: flex; gap: 8px; }
+  a, button, select { color: inherit; background: #172231; border: 1px solid #31435b; border-radius: 6px; padding: 7px 12px; font: inherit; }
+  nav a { text-decoration: none; font-size: 13px; }
+  a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #9ce1ff; }
+  section { margin-top: 20px; }
+  section > p { margin: 0 0 8px; }
+  .screen { overflow: hidden; border-radius: 14px; border: 1px solid #253347; background: #05070a; }
+  svg { display: block; width: 100%; height: auto; font-variant-numeric: tabular-nums; }
+  .graphics { transition: opacity .18s; }
+  body.off .graphics { opacity: 0; }
+  .display { --accent: #8dc9ff; --track: #183144; }
+  body.sport .display { --accent: #ff7957; --track: #4b292b; }
+  body.eco .display { --accent: #75e4d1; --track: #1d4144; }
+  .track { fill: none; stroke: var(--track); stroke-width: 6; }
+  .arc { fill: none; stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
+  .tick { stroke: #6d829f; stroke-width: 1; }
+  .major { stroke: #bacade; stroke-width: 2; }
+  .dial-label { fill: #aabbd2; font-size: 15px; text-anchor: middle; }
+  .unit { fill: #9aadc9; font-size: 14px; letter-spacing: .1em; }
+  .readout { fill: #f4f8ff; font-weight: 500; }
+  .accent { fill: var(--accent); }
+  .needle { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+  .metric { fill: #b9cbe4; font-size: 16px; }
+  .status { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 17px; }
+  .status label { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; }
+  input[type=range] { width: clamp(65px, 12vw, 120px); accent-color: #8dc9ff; }
+  #connection { font-size: 12px; color: #9eb2ce; }
+  #connection[data-error] { color: #ffad9a; }
+  .hud { max-width: 720px; }
+  body[data-view=cluster] #hud, body[data-view=hud] #cluster { display: none; }
+  body[data-view=hud] .hud { max-width: 100%; }
+  @media (max-width: 660px) { body { padding: 15px; } }
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">F3X · MODELED DISPLAYS</div><h1>6WB Simulator</h1></div>
+  <nav aria-label="Display views"><a href="/">Both</a><a href="/cluster">Cluster</a><a href="/hud">HUD</a></nav>
+</header>
+<section id="cluster" class="display" aria-labelledby="cluster-label">
+  <p id="cluster-label" class="eyebrow">01 · INSTRUMENT CLUSTER</p>
+  <div class="screen">
+  <svg viewBox="0 0 1000 360" role="img" aria-label="Modeled 6WB instrument cluster">
+    <defs>
+      <radialGradient id="panel-glow"><stop stop-color="#152739"/><stop offset="1" stop-color="#080e16"/></radialGradient>
+    </defs>
+    <g class="graphics">
+      <rect width="1000" height="360" fill="url(#panel-glow)"/>
+      <path d="M32 305H968 M32 48H968" stroke="#25384e"/>
+      <text x="45" y="33" class="unit">DKOMBI</text>
+      <text x="955" y="33" text-anchor="end" class="unit" id="mode-label">COMFORT</text>
+      <g id="speed-dial"></g><g id="rpm-dial"></g>
+      <text x="250" y="187" text-anchor="middle" font-size="70" class="readout" id="speed">0</text>
+      <text x="250" y="213" text-anchor="middle" class="unit">KM/H</text>
+      <text x="750" y="187" text-anchor="middle" font-size="59" class="readout" id="rpm">0.8</text>
+      <text x="750" y="213" text-anchor="middle" class="unit">×1000 RPM</text>
+      <text x="500" y="107" text-anchor="middle" class="unit">GEAR</text>
+      <text x="500" y="160" text-anchor="middle" font-size="49" class="accent" id="gear">P</text>
+      <g id="cluster-nav" visibility="hidden">
+        <text x="500" y="196" text-anchor="middle" class="accent" font-size="26" id="cluster-turn"></text>
+        <text x="500" y="220" text-anchor="middle" class="metric" id="cluster-distance"></text>
+      </g>
+      <text x="500" y="264" text-anchor="middle" class="metric" id="media-title"></text>
+      <text x="45" y="336" class="metric" id="fuel">FUEL 76%</text>
+      <text x="955" y="336" text-anchor="end" class="metric" id="temperature">90°C</text>
+    </g>
+  </svg>
+  </div>
+</section>
+<section id="hud" class="display hud" aria-labelledby="hud-label">
+  <p id="hud-label" class="eyebrow">02 · HEAD-UP DISPLAY</p>
+  <div class="screen">
+  <svg viewBox="0 0 720 205" role="img" aria-label="Modeled head-up display">
+    <defs>
+      <radialGradient id="hud-glow"><stop stop-color="#122a38"/><stop offset="1" stop-color="#05070a"/></radialGradient>
+    </defs>
+    <g class="graphics">
+      <rect width="720" height="205" fill="url(#hud-glow)"/>
+      <g id="hud-limit" visibility="hidden">
+        <circle cx="124" cy="110" r="28" fill="#f7f9ff" stroke="#ea5f55" stroke-width="5"/>
+        <text x="124" y="118" text-anchor="middle" fill="#101621" font-size="24" font-weight="700" id="speed-limit"></text>
+      </g>
+      <text x="330" y="115" text-anchor="middle" class="readout" font-size="64" id="hud-speed">0</text>
+      <text x="330" y="144" text-anchor="middle" class="unit">KM/H</text>
+      <g id="hud-nav" visibility="hidden">
+        <text x="510" y="112" text-anchor="middle" class="accent" font-size="54" id="hud-turn"></text>
+        <text x="510" y="144" text-anchor="middle" class="metric" id="hud-distance"></text>
+        <text x="510" y="172" text-anchor="middle" class="unit" id="road"></text>
+      </g>
+    </g>
+  </svg>
+  </div>
+</section>
+<div class="status" aria-label="Simulator controls">
+  <label><input type="checkbox" id="ignition" checked> Ignition</label>
+  <label>Speed <input type="range" id="speed-control" min="0" max="260" value="0" aria-label="Speed in kilometers per hour"></label>
+  <label>RPM <input type="range" id="rpm-control" min="0" max="8000" value="800" step="50" aria-label="Engine RPM"></label>
+  <label>Gear <select id="gear-control"><option>P</option><option>R</option><option>N</option><option>D</option><option>M</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></label>
+  <label>Mode <select id="mode"><option>comfort</option><option>sport</option><option>eco</option></select></label>
+  <span id="connection" role="status">Connecting to host</span>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const show = (id, text) => { $(id).textContent = text; };
+  const visible = (id, on) => $(id).setAttribute('visibility', on ? 'visible' : 'hidden');
+  const turns = {left: '↰', right: '↱', straight: '↑', uturn: '↶'};
+  const endpoint = '/api/v1/vehicle';
+  const path = location.pathname.slice(1);
+  if (path) document.body.dataset.view = path;
+
+  function shape(parent, type, attrs, text) {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', type);
+    for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, value);
+    if (text !== undefined) node.textContent = text;
+    parent.appendChild(node);
+    return node;
+  }
+
+  function dial(id, x, maximum, majorStep, scale) {
+    const group = $(id);
+    const centerY = 177;
+    function point(radius, fraction) {
+      const angle = (144 + fraction * 252) * Math.PI / 180;
+      return [x + radius * Math.cos(angle), centerY + radius * Math.sin(angle)];
+    }
+    function arc(fraction) {
+      return `M${point(116, 0)} A116,116 0 ${fraction > 180 / 252 ? 1 : 0} 1 ${point(116, fraction)}`;
+    }
+    shape(group, 'path', {d: arc(1), class: 'track'});
+    const active = shape(group, 'path', {class: 'arc'});
+    const ticks = Math.round(maximum / majorStep * 5);
+    for (let i = 0; i <= ticks; i++) {
+      const major = i % 5 === 0;
+      const [x1, y1] = point(105, i / ticks);
+      const [x2, y2] = point(major ? 95 : 100, i / ticks);
+      shape(group, 'line', {x1, y1, x2, y2, class: major ? 'tick major' : 'tick'});
+      if (major) {
+        const [x, y] = point(82, i / ticks);
+        shape(group, 'text', {x, y: y + 5, class: 'dial-label'}, i / 5 * majorStep / scale);
+      }
+    }
+    const needle = shape(group, 'line', {class: 'needle'});
+    return (value) => {
+      const f = Math.min(value / maximum, 1);
+      active.setAttribute('d', f ? arc(f) : '');
+      const [x1, y1] = point(94, f);
+      const [x2, y2] = point(111, f);
+      for (const [name, value] of Object.entries({x1, y1, x2, y2})) needle.setAttribute(name, value);
+    };
+  }
+
+  const speedDial = dial('speed-dial', 250, 260, 20, 1);
+  const rpmDial = dial('rpm-dial', 750, 8000, 1000, 1000);
+  let lastRevision = -1;
+
+  function render(state) {
+    if (state.revision < lastRevision) return;
+    lastRevision = state.revision;
+    document.body.classList.toggle('off', !state.ignition);
+    document.body.classList.toggle('sport', state.mode === 'sport');
+    document.body.classList.toggle('eco', state.mode === 'eco');
+    speedDial(state.speed_kph);
+    rpmDial(state.engine_rpm);
+    show('speed', Math.round(state.speed_kph));
+    show('hud-speed', Math.round(state.speed_kph));
+    show('rpm', (state.engine_rpm / 1000).toFixed(1));
+    show('gear', state.gear);
+    show('mode-label', state.mode.toUpperCase());
+    show('fuel', `FUEL ${Math.round(state.fuel_pct)}%`);
+    show('temperature', `${Math.round(state.temperature_c)}°C`);
+    show('media-title', state.media_title.length > 26 ? `${state.media_title.slice(0, 25)}…` : state.media_title);
+    visible('hud-limit', state.speed_limit_kph !== null);
+    show('speed-limit', Math.round(state.speed_limit_kph));
+    visible('cluster-nav', !!state.guidance);
+    visible('hud-nav', !!state.guidance);
+    if (state.guidance) {
+      const {turn, distance_m, road} = state.guidance;
+      const distance = distance_m >= 1000 ? `${(distance_m / 1000).toFixed(1)} km` : `${Math.round(distance_m)} m`;
+      show('cluster-turn', turns[turn]);
+      show('hud-turn', turns[turn]);
+      show('cluster-distance', distance);
+      show('hud-distance', distance);
+      show('road', road.length > 24 ? `${road.slice(0, 23)}…` : road);
+    }
+    for (const [id, name] of Object.entries({'speed-control': 'speed_kph', 'rpm-control': 'engine_rpm', 'gear-control': 'gear', mode: 'mode'})) {
+      if ($(id) !== document.activeElement) $(id).value = state[name];
+    }
+    $('ignition').checked = state.ignition;
+    $('connection').removeAttribute('data-error');
+    show('connection', `Host connected · sample ${state.revision}`);
+  }
+
+  function connectionError() {
+    $('connection').setAttribute('data-error', '');
+    show('connection', 'Waiting for host');
+  }
+
+  async function poll() {
+    try {
+      const result = await fetch(endpoint, {cache: 'no-store'});
+      if (!result.ok) throw new Error('Vehicle state unavailable');
+      const state = await result.json();
+      if (state.revision < lastRevision && $('connection').hasAttribute('data-error')) lastRevision = -1;
+      render(state);
+    } catch { connectionError(); }
+    setTimeout(poll, 125);
+  }
+
+  async function update(field, value) {
+    try {
+      const result = await fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({[field]: value})});
+      if (!result.ok) throw new Error('Vehicle update rejected');
+      render(await result.json());
+    } catch { connectionError(); }
+  }
+
+  $('ignition').onchange = (event) => update('ignition', event.target.checked);
+  $('speed-control').onchange = (event) => update('speed_kph', +event.target.value);
+  $('rpm-control').onchange = (event) => update('engine_rpm', +event.target.value);
+  $('gear-control').onchange = (event) => update('gear', event.target.value);
+  $('mode').onchange = (event) => update('mode', event.target.value);
+  poll();
+</script>
+</body>
+</html>

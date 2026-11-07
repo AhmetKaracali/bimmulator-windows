@@ -1,0 +1,182 @@
+#version 300 es
+// Reconstructed host ESSL from exact BMW .shd symbols and finalized USSE.
+// .shd sha256: df0b141abf1f025c94d5a64bc9233fbd46abfa25c7ef4b2e5b89366ac101c26b
+// Candidate module sha256: 0dfc352d56134e98b610a3c627ab1a3ee431c9318f455a7d64da05b0fe50ab7d
+// Constant-copy table sha256: 8c068b6b820979811e9877186b595767ae201009d44bd425a4d4357617b30c29
+uniform mat4 u_MVPMatrix;
+uniform vec3 CO_FLOOR;
+uniform vec3 CO_TOP;
+
+const vec4 _53[32] = vec4[](vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0));
+const int _66[4] = int[](0, 0, 0, 0);
+const bool _72[4] = bool[](false, false, false, false);
+
+in vec4 a_Color;
+in vec3 a_Position;
+in vec2 a_TextureCoordinate;
+const vec4 attribute_register_3 = vec4(0.0);
+const vec4 attribute_register_4 = vec4(0.0);
+const vec4 attribute_register_5 = vec4(0.0);
+const vec4 attribute_register_6 = vec4(0.0);
+const vec4 attribute_register_7 = vec4(0.0);
+const vec4 attribute_register_8 = vec4(0.0);
+const vec4 attribute_register_9 = vec4(0.0);
+const vec4 attribute_register_10 = vec4(0.0);
+const vec4 attribute_register_11 = vec4(0.0);
+const vec4 attribute_register_12 = vec4(0.0);
+const vec4 attribute_register_13 = vec4(0.0);
+const vec4 attribute_register_14 = vec4(0.0);
+const vec4 attribute_register_15 = vec4(0.0);
+out vec3 base_co;
+out vec2 uv;
+
+vec4 pa[32] = _53;
+vec4 sa[32] = _53;
+vec4 internal[4] = vec4[](vec4(0.0), vec4(0.0), vec4(0.0), vec4(0.0));
+vec4 _output[32] = _53;
+
+void primary_program()
+{
+    vec2 _260 = vec2(pa[1].x, pa[1].y);
+    vec3 _271 = vec3(_260.x, _260.y, vec2(pa[1].z, pa[1].w).x);
+    internal[0] = vec4(_271.x, _271.y, _271.z, internal[0].w);
+    internal[1] = vec4(sa[4].z, sa[4].w, sa[5].x, sa[5].y) * vec4(internal[0].x, internal[0].x, internal[0].x, internal[0].x);
+    internal[1] = vec4(internal[0].y, internal[0].y, internal[0].y, internal[0].y) * vec4(sa[3].z, sa[3].w, sa[4].x, sa[4].y) + internal[1];
+    internal[0] = vec4(internal[0].z, internal[0].z, internal[0].z, internal[0].z) * vec4(sa[2].z, sa[2].w, sa[3].x, sa[3].y) + internal[1];
+    vec2 _358 = vec2(1.0) * vec2(sa[5].z, sa[5].w) + vec2(internal[0].x, internal[0].y);
+    _output[0] = vec4(_358.x, _358.y, _output[0].z, _output[0].w);
+    vec2 _376 = vec2(sa[6].x, sa[6].y) + vec2(internal[0].z, internal[0].w);
+    _output[0] = vec4(_output[0].x, _output[0].y, _376.x, _376.y);
+    vec4 _387 = internal[0];
+    _387.y = pa[2].y;
+    internal[0] = _387;
+    vec2 _409 = vec2(sa[7].z, sa[7].w);
+    vec3 _413 = vec3(vec2(sa[7].x, sa[7].y).y, _409.x, _409.y);
+    internal[1] = vec4(_413.x, _413.y, _413.z, internal[1].w);
+    vec3 _441 = vec3(internal[0].y, internal[0].y, internal[0].y) * vec3(sa[6].z, sa[6].w, sa[7].x) + vec3(internal[1].x, internal[1].y, internal[1].z);
+    internal[2] = vec4(_441.x, _441.y, _441.z, internal[2].w);
+    vec2 _467 = vec2(internal[0].y, internal[0].y) * (vec2(0.0) - vec2(internal[1].x, internal[1].y)) + vec2(internal[2].x, internal[2].y);
+    _output[1] = vec4(_467.x, _467.y, _output[1].z, _output[1].w);
+    vec4 _490 = _output[1];
+    _490.z = internal[0].y * (0.0 - internal[1].z) + internal[2].z;
+    _output[1] = _490;
+    vec4 _501 = _output[1];
+    _501.w = uintBitsToFloat(floatBitsToUint(pa[2].x));
+    _output[1] = _501;
+    vec4 _511 = _output[2];
+    _511.x = uintBitsToFloat(floatBitsToUint(pa[2].y));
+    _output[2] = _511;
+}
+
+void main()
+{
+    pa[0] = a_Color;
+    pa[1] = vec4(a_Position, 1.0);
+    pa[2] = vec4(a_TextureCoordinate, 0.0, 1.0);
+    pa[3] = attribute_register_3;
+    pa[4] = attribute_register_4;
+    pa[5] = attribute_register_5;
+    pa[6] = attribute_register_6;
+    pa[7] = attribute_register_7;
+    pa[8] = attribute_register_8;
+    pa[9] = attribute_register_9;
+    pa[10] = attribute_register_10;
+    pa[11] = attribute_register_11;
+    pa[12] = attribute_register_12;
+    pa[13] = attribute_register_13;
+    pa[14] = attribute_register_14;
+    pa[15] = attribute_register_15;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Native uniform/constants copied through the IMG table.
+    sa[2].z = u_MVPMatrix[2][0];
+    sa[2].w = u_MVPMatrix[2][1];
+    sa[3].x = u_MVPMatrix[2][2];
+    sa[3].y = u_MVPMatrix[2][3];
+    sa[3].z = u_MVPMatrix[1][0];
+    sa[3].w = u_MVPMatrix[1][1];
+    sa[4].x = u_MVPMatrix[1][2];
+    sa[4].y = u_MVPMatrix[1][3];
+    sa[4].z = u_MVPMatrix[0][0];
+    sa[4].w = u_MVPMatrix[0][1];
+    sa[5].x = u_MVPMatrix[0][2];
+    sa[5].y = u_MVPMatrix[0][3];
+    sa[5].z = u_MVPMatrix[3][0];
+    sa[5].w = u_MVPMatrix[3][1];
+    sa[6].x = u_MVPMatrix[3][2];
+    sa[6].y = u_MVPMatrix[3][3];
+    sa[6].z = CO_TOP.x;
+    sa[6].w = CO_TOP.y;
+    sa[7].x = CO_TOP.z;
+    sa[7].y = CO_FLOOR.x;
+    sa[7].z = CO_FLOOR.y;
+    sa[7].w = CO_FLOOR.z;
+    sa[8].x = uintBitsToFloat(0x438b0000u);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    primary_program();
+    gl_Position = _output[0];
+    base_co = _output[1].xyz;
+    uv = _output[2].xy;
+
+}

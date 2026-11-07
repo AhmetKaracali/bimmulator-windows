@@ -1,0 +1,14 @@
+# Copy to idrive6.toml and edit psdzdata to your extracted PSdZData directory.
+psdzdata = "/path/to/psdzdata"
+
+# Select the ECUs to start. The 6WB opens both the cluster and HUD.
+modules = ["head-unit", "6wb"]
+
+# Optional. Defaults to $XDG_CACHE_HOME/idrive6 or ~/.cache/idrive6.
+# cacheDir = "/path/to/idrive6-cache"
+
+# Optional: cocoa (default) or none for headless runs.
+# display = "cocoa"
+
+# Optional: 2 (default) or 1 for the slower single-core compatibility mode.
+# cpuCount = 2

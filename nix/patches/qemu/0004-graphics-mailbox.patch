@@ -1,0 +1,130 @@
+From cebae53f724999a350f9dd2e5d369b75465851a6 Mon Sep 17 00:00:00 2001
+From: iDrive release patch builder <patches@example.invalid>
+Date: Thu, 5 Nov 2026 21:11:01 -0500
+Subject: [PATCH 4/4] Add shared graphics mailbox to OMAP5430 machine
+
+---
+ hw/arm/omap5430.c | 62 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 61 insertions(+), 1 deletion(-)
+
+diff --git a/hw/arm/omap5430.c b/hw/arm/omap5430.c
+index 1f91d2a72..2e739d6fb 100644
+--- a/hw/arm/omap5430.c
++++ b/hw/arm/omap5430.c
+@@ -11,6 +11,7 @@
+  */
+ 
+ #include "qemu/osdep.h"
++#include "qemu/error-report.h"
+ #include "qemu/units.h"
+ #include "qapi/error.h"
+ #include "hw/arm/boot.h"
+@@ -33,6 +34,7 @@
+ #include "hw/misc/unimp.h"
+ #include "net/net.h"
+ #include "system/address-spaces.h"
++#include "system/hostmem.h"
+ #include "system/system.h"
+ #include "target/arm/cpu.h"
+ #include "target/arm/cpu-qom.h"
+@@ -40,6 +42,8 @@
+ #define OMAP5430_GIC_BASE       0x48210000
+ #define OMAP5430_GIC_IRQS       256
+ #define OMAP5430_RAM_BASE       0x80000000
++#define OMAP5430_GFX_MAILBOX    0x70000000
++#define OMAP5430_GFX_MAILBOX_SIZE (17 * MiB)
+ #define OMAP5430_SDMA_BASE      0x4a056000
+ #define OMAP5430_SDMA_SPI       12
+ #define OMAP5430_OHCI_BASE      0x4a064800
+@@ -50,6 +54,14 @@
+ #define OMAP5430_XHCI_SPI       92
+ #define TYPE_USB_NET            "usb-net"
+ 
++#define TYPE_OMAP5430_MACHINE MACHINE_TYPE_NAME("omap5430")
++OBJECT_DECLARE_SIMPLE_TYPE(OMAP5430MachineState, OMAP5430_MACHINE)
++
++struct OMAP5430MachineState {
++    MachineState parent_obj;
++    char *graphics_mailbox;
++};
++
+ /* OMAP5 UART register blocks and GIC SPI numbers from TI's OMAP5 device tree. */
+ static const hwaddr omap5430_uart_base[] = {
+     0x4806a000, /* UART1 */
+@@ -155,8 +167,30 @@ static void omap5430_init(MachineState *machine)
+     DeviceState *dss;
+     DeviceState *sdma;
+     unsigned int i;
++    const char *mailbox_id = OMAP5430_MACHINE(machine)->graphics_mailbox;
+ 
+     memory_region_add_subregion(sysmem, OMAP5430_RAM_BASE, machine->ram);
++    if (mailbox_id) {
++        Object *object = object_resolve_path_type(mailbox_id,
++                                                  TYPE_MEMORY_BACKEND, NULL);
++        HostMemoryBackend *mailbox;
++        MemoryRegion *region;
++
++        if (!object) {
++            error_report("OMAP5430 graphics mailbox backend '%s' not found",
++                         mailbox_id);
++            exit(EXIT_FAILURE);
++        }
++        mailbox = MEMORY_BACKEND(object);
++        region = host_memory_backend_get_memory(mailbox);
++
++        if (memory_region_size(region) != OMAP5430_GFX_MAILBOX_SIZE) {
++            error_report("OMAP5430 graphics mailbox backend must be 17 MiB");
++            exit(EXIT_FAILURE);
++        }
++        region = machine_consume_memdev(machine, mailbox);
++        memory_region_add_subregion(sysmem, OMAP5430_GFX_MAILBOX, region);
++    }
+     dss = qdev_new(TYPE_OMAP5430_DSS);
+     qdev_set_id(dss, g_strdup("omap5-dss"), &error_fatal);
+     object_property_set_link(OBJECT(dss), "system-memory", OBJECT(sysmem),
+@@ -193,6 +227,25 @@ static void omap5430_init(MachineState *machine)
+     sysbus_mmio_map(SYS_BUS_DEVICE(sgx), 0, 0x56000000);
+ }
+ 
++static char *omap5430_get_graphics_mailbox(Object *object, Error **errp)
++{
++    return g_strdup(OMAP5430_MACHINE(object)->graphics_mailbox);
++}
++
++static void omap5430_set_graphics_mailbox(Object *object, const char *value,
++                                         Error **errp)
++{
++    OMAP5430MachineState *machine = OMAP5430_MACHINE(object);
++
++    g_free(machine->graphics_mailbox);
++    machine->graphics_mailbox = g_strdup(value);
++}
++
++static void omap5430_machine_finalize(Object *object)
++{
++    g_free(OMAP5430_MACHINE(object)->graphics_mailbox);
++}
++
+ static void omap5430_machine_class_init(ObjectClass *oc, const void *data)
+ {
+     static const char * const valid_cpu_types[] = {
+@@ -212,11 +265,18 @@ static void omap5430_machine_class_init(ObjectClass *oc, const void *data)
+     mc->default_ram_id = "omap5430.ram";
+     mc->ignore_memory_transaction_failures = true;
+     /* Machine options are parsed before ordinary user-created objects. */
++    object_class_property_add_str(oc, "graphics-mailbox",
++                                  omap5430_get_graphics_mailbox,
++                                  omap5430_set_graphics_mailbox);
++    object_class_property_set_description(oc, "graphics-mailbox",
++                                          "Optional shared graphics RAM backend");
+ }
+ 
+ static const TypeInfo omap5430_machine_type = {
+-    .name = MACHINE_TYPE_NAME("omap5430"),
++    .name = TYPE_OMAP5430_MACHINE,
+     .parent = TYPE_MACHINE,
++    .instance_size = sizeof(OMAP5430MachineState),
++    .instance_finalize = omap5430_machine_finalize,
+     .class_init = omap5430_machine_class_init,
+     .interfaces = arm_machine_interfaces,
+ };
