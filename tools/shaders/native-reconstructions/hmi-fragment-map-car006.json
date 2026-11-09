@@ -890,6 +890,18 @@
       "output_byte_order_native_verified": false,
       "basis": "hand-written: fade = clamp(vFading) product, alpha = glyph.r*vColor.a*u_opacity*fade (v64 pinned u_opacity to 0)",
       "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/77140b130ca8a7ce.glsl"
+    },
+    {
+      "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/sport_mat_SportTube.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "d63a0857d22d44b33815637601f0cddab360a9c3a78ccbb07f340342c05f1f2d"
+    },
+    {
+      "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/sport_mat_cursor.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "f57a3474e02424c8f34d7087204c76012e68732ad9402d1e3bf5802842679139"
     }
   ],
   "generation_failures": [],

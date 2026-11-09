@@ -240,6 +240,18 @@
       "shader_sha256": "e37592a3fde5b4166c38f15400de1fe702700bdcdec46d8ddb811e8dc6acefa6",
       "source_essl_sha256": "3557ce8643399dfab16c0dc3f9b88ab92beb97b50f0b575ebc6cbe4c1f6b79b0",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+    },
+    {
+      "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.vert.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/sport_mat_SportTube.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "5da80ac0859774e86f986ec183700071e6157342c7f85fc8ebf31e192303c615"
+    },
+    {
+      "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.vert.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/sport_mat_cursor.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "4eb09913d419a4d7380ab433fef028a1e62ee666d015a9c0cd7fcc0c8fb346d5"
     }
   ],
   "generation_failures": [],
