@@ -886,6 +886,9 @@ if [[ -n "${IDRIVE_STARTER_VARIANT:-}" ]]; then
   fi
   export IDRIVE_STARTER_VARIANT_HELPER="$WORK_DIR/starter-variant"
   "$SCRIPT_DIR/tools/build-qnx-starter-variant.sh" "$IDRIVE_STARTER_VARIANT" "$IDRIVE_STARTER_VARIANT_HELPER"
+  # WSL2 port: guest-side downloader for the host overlay archive (Plugins/ etc.).
+  export IDRIVE_WSL_FETCH_HELPER="$WORK_DIR/wsl-fetch"
+  "$SCRIPT_DIR/tools/build-qnx-wsl-fetch.sh" "$IDRIVE_WSL_FETCH_HELPER"
 fi
 if [[ "${IDRIVE_SCREEN_TEST:-0}" == "1" ]]; then
   if [[ -z "${IDRIVE_ROOTFS_TREE:-}" ]]; then

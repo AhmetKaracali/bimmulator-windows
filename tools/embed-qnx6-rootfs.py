@@ -391,6 +391,12 @@ def embed(
         if not variant_bytes.startswith(b"\x7fELF"):
             raise RuntimeError("starter variant helper is not an ELF executable")
         payloads.append(("proc/boot/starter-variant", variant_bytes, True))
+    wsl_fetch_helper = os.environ.get("IDRIVE_WSL_FETCH_HELPER")
+    if wsl_fetch_helper:
+        fetch_bytes = Path(wsl_fetch_helper).read_bytes()
+        if not fetch_bytes.startswith(b"\x7fELF"):
+            raise RuntimeError("WSL overlay downloader is not an ELF executable")
+        payloads.append(("proc/boot/wsl-fetch", fetch_bytes, True))
     controller_library = os.environ.get("IDRIVE_HMI_CONTROLLER_LIBRARY")
     if controller_library:
         controller_bytes = Path(controller_library).read_bytes()
@@ -1095,7 +1101,7 @@ def embed(
             # Plugins/ folder) from the host. This runs after a pre-starter snapshot resume, so
             # plugin changes need only a fast restart instead of a new root extraction.
             "echo 'WSL overlay: requesting http://160.48.199.253:41600/overlay.tar' >/dev/ser1\n"
-            "if SOCK=/idrive wget -q -O /dev/shmem/wsl-overlay.tar http://160.48.199.253:41600/overlay.tar >/dev/ser1 2>&1; then\n"
+            "if SOCK=/idrive /proc/boot/wsl-fetch >/dev/ser1 2>&1; then\n"
             "  if /bin/bsdtar -x -f /dev/shmem/wsl-overlay.tar -C /fs/sda0 >/dev/ser1 2>&1; then\n"
             "    echo 'WSL overlay applied' >/dev/ser1\n"
             "    /bin/bsdtar -t -f /dev/shmem/wsl-overlay.tar >/dev/ser1 2>&1\n"
