@@ -2008,6 +2008,17 @@ bool process_request(const unsigned char *request,
                      static_cast<unsigned long long>(frame_hash(
                          std::vector<unsigned char>(binary, binary + c))),
                      path.c_str());
+        // Optional: keep every unmapped native binary so it can be matched to its .shd asset.
+        if (const char *dump_dir = std::getenv("IDRIVE_ANGLE_SHADER_DUMP_DIR")) {
+            char dump_path[512];
+            std::snprintf(dump_path, sizeof(dump_path), "%s/unmapped-%u-%016llx.shd", dump_dir, c,
+                          static_cast<unsigned long long>(frame_hash(
+                              std::vector<unsigned char>(binary, binary + c))));
+            if (FILE *dump = std::fopen(dump_path, "wb")) {
+                std::fwrite(binary, 1, c, dump);
+                std::fclose(dump);
+            }
+        }
         set_error(response, kGlInvalidEnum);
         return false;
     }
