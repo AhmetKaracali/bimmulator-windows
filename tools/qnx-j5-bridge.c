@@ -66,6 +66,7 @@ static unsigned char attr_data[MAX_ATTRS][1024];
 static int attr_len[MAX_ATTRS];
 
 static void say(const char *text) { puts(text); }
+static int connect_host(void);
 
 static int write_all(const void *data, int length)
 {
@@ -137,6 +138,18 @@ static int on_fill(void *srv, void *stream, unsigned id)
     return 1;
 }
 
+/* DSI "response id for this request" callback (srv+0xE4). Returning an id subscribes the
+ * requesting session to that response; without it DSIServerSendResponse drops the reply.
+ * DSYSMOSTServer: registerMOSTClientExt(0x0F) / registerMOSTClient?(0x03) -> responseMOSTClient,
+ * registerMOSTSubnet(0x09) -> responseMOSTSubnet. */
+static int on_response_id(void *srv, unsigned id)
+{
+    (void)srv;
+    if (id == 0x0f || id == 0x03) return (int)0x80000000u;
+    if (id == 0x09) return (int)0x80000008u;
+    return -1;
+}
+
 /* DSI request callback: forward the raw request, then apply the host's replies while the
  * requesting client's session is still active. */
 static void on_request(void *srv, unsigned int *stream, unsigned id)
@@ -150,7 +163,7 @@ static void on_request(void *srv, unsigned int *stream, unsigned id)
         for (;;) {
             unsigned rid, rarg; int rlen;
             int kind = read_frame(&rid, &rarg, &rlen);
-            if (kind < 0) { say("j5-bridge: host link lost"); _exit(3); }
+            if (kind < 0) { say("j5-bridge: host link lost"); close(sock); sock = -1; break; }
             if (kind == 12) break;
             handle_host_frame(kind, rid, rarg, rlen);
         }
@@ -162,13 +175,21 @@ static void *host_reader(void *unused)
 {
     (void)unused;
     for (;;) {
+        if (sock < 0) {                       /* host side restarted: reconnect, keep DSI up */
+            int fd = connect_host();
+            pthread_mutex_lock(mutex);
+            sock = fd;
+            send_frame(1, 0x00040005u, 1, "MOSTSubSystemServer.DSYSMOSTServer", 34);
+            pthread_mutex_unlock(mutex);
+            say("j5-bridge: reconnected to host");
+        }
         struct pollfd_q p = { sock, POLLIN, 0 };
         pthread_mutex_lock(mutex);
-        if (poll(&p, 1, 20) > 0 && (p.revents & POLLIN)) {
+        if (sock >= 0 && poll(&p, 1, 20) > 0 && (p.revents & POLLIN)) {
             unsigned id, arg; int length;
             int kind = read_frame(&id, &arg, &length);
-            if (kind < 0) { say("j5-bridge: host link lost"); _exit(3); }
-            handle_host_frame(kind, id, arg, length);
+            if (kind < 0) { say("j5-bridge: host link lost"); close(sock); sock = -1; }
+            else handle_host_frame(kind, id, arg, length);
         }
         pthread_mutex_unlock(mutex);
         usleep(2000);
@@ -176,7 +197,7 @@ static void *host_reader(void *unused)
     return 0;
 }
 
-void _start(void)
+static int connect_host(void)
 {
     struct qnx_sockaddr_in address = {
         sizeof(struct qnx_sockaddr_in), AF_INET,
@@ -184,13 +205,17 @@ void _start(void)
         (unsigned int)(160u | (48u << 8) | (199u << 16) | (253u << 24)), {0}
     };
     for (int attempt = 0; ; attempt++) {
-        sock = socket(AF_INET, SOCK_STREAM, 0);
-        if (sock >= 0 && connect(sock, &address, sizeof(address)) == 0) break;
-        if (sock >= 0) close(sock);
-        sock = -1;
+        int fd = socket(AF_INET, SOCK_STREAM, 0);
+        if (fd >= 0 && connect(fd, &address, sizeof(address)) == 0) return fd;
+        if (fd >= 0) close(fd);
         if (attempt == 0) say("j5-bridge: waiting for host j5_server on 160.48.199.253:5600");
         usleep(1000000);
     }
+}
+
+void _start(void)
+{
+    sock = connect_host();
     say("j5-bridge: connected to host");
     pthread_mutex_init(mutex, 0);
     send_frame(1, 0x00040005u, 0, "MOSTSubSystemServer.DSYSMOSTServer", 34);
@@ -200,6 +225,7 @@ void _start(void)
     DSIServerInit(server, "DSYSMOSTServer", "MOSTSubSystemServer", 4, 5);
     server[0xd4 / 4] = (unsigned int)on_fill;
     server[0xd8 / 4] = (unsigned int)on_request;
+    server[0xe4 / 4] = (unsigned int)on_response_id;
 
     int thread;
     pthread_create(&thread, 0, host_reader, 0);
