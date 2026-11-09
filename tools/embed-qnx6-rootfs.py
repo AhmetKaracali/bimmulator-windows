@@ -1112,6 +1112,12 @@ def embed(
             "else\n"
             "  echo 'WSL overlay: none served' >/dev/ser1\n"
             "fi\n"
+            # WSL2 port: an overlay may ship guest helpers (e.g. the Jacinto MOST-server bridge);
+            # opt/idrive/autostart.sh runs in the background before HmiMain3D starts.
+            "if [ -f /fs/sda0/opt/idrive/autostart.sh ]; then\n"
+            "  echo 'WSL overlay: starting opt/idrive/autostart.sh' >/dev/ser1\n"
+            "  /bin/ksh /fs/sda0/opt/idrive/autostart.sh >/dev/ser1 2>&1 &\n"
+            "fi\n"
             "echo 'Preparing HmiMain3D writable data directories on the root volume' >/dev/ser1\n"
             "/bin/ls -ld /dev/shmem /fs/sda0/opt/hmi/data /var >/dev/ser1 2>&1\n"
             "for hmi_data_dir in /fs/sda0/opt/hmi/data/rw /fs/sda0/opt/hmi/data/rw/RHMI-Cache /fs/sda0/opt/hmi/data/rw/RHMI-Cache/FbmTxtPers /fs/sda0/opt/hmi/data/rw/RHMI-Cache/PersistentA4ARes; do\n"

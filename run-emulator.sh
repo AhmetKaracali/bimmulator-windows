@@ -162,7 +162,8 @@ export IDRIVE_QEMU_CDC_NETWORK="$CDC_NETWORK"
 if [[ -n "$MOST_SIPC_HOST_PORT" ]]; then
   if [[ "$CDC_NETWORK" != "1" || "$EMULATOR_PROFILE" != "omap5-graphics" ||
         "$ANGLE_EGL_HMI" != "1" || "${IDRIVE_HMI_FORCE_START:-0}" != "1" ||
-        -z "${IDRIVE_ROOTFS_TREE:-}" || -n "$QEMU_LOADVM" ]]; then
+        -z "${IDRIVE_ROOTFS_TREE:-}" ]]; then
+    # WSL2 port: snapshot resumes are allowed; the guestfwd forwarder is re-created by QEMU.
     echo "IDRIVE_MOST_SIPC_HOST_PORT requires the native HMI profile and its isolated CDC stack." >&2
     exit 1
   fi
