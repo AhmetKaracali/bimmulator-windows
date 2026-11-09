@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""WSL2 port helper: take the pre-starter snapshot during a running emulator boot.
+"""WSL2 port helper for the pre-starter snapshot.
 
-Run while the emulator boots with IDRIVE_ROOTFS_READY_HOLD_SECONDS and IDRIVE_QEMU_STATE_FILE
-set. Waits for the guest's "Rootfs-ready snapshot window" serial line, then saves the VM state
-with QMP ``savevm`` so later boots can skip QNX start-up and root extraction.
+  wsl-snapshot.py save   <run_dir> [name]   wait for the guest's rootfs-ready hold, unplug the
+                                            non-migratable usb-net, savevm, plug it back
+  wsl-snapshot.py resume <run_dir>          after a ``-loadvm`` start, plug usb-net back in
 
-Usage: wsl-snapshot.py <run_dir> [snapshot_name]
+The snapshot is taken after root extraction and before starter, when the guest has not started
+its network stack yet, so unplugging and re-plugging the USB network adapter is invisible to it.
 """
 from __future__ import annotations
 
@@ -16,44 +17,102 @@ import time
 from pathlib import Path
 
 MARKER = b"Rootfs-ready snapshot window"
+USBNET = {"driver": "usb-net", "id": "idrive-usbnet", "bus": "usb-bus.0", "netdev": "idrive-net"}
 
 
-def qmp_command(sock_path: Path, command: dict) -> dict:
-    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as sock:
-        sock.connect(str(sock_path))
-        stream = sock.makefile("rwb")
-        stream.readline()
-        for message in ({"execute": "qmp_capabilities"}, command):
-            stream.write((json.dumps(message) + "\n").encode())
-            stream.flush()
-            while True:
-                reply = json.loads(stream.readline())
-                if "return" in reply or "error" in reply:
-                    break
-        return reply
+class Qmp:
+    def __init__(self, path: Path):
+        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.sock.connect(str(path))
+        self.stream = self.sock.makefile("rwb")
+        self.stream.readline()
+        self.events: list = []
+        self.call("qmp_capabilities")
+
+    def call(self, command: str, **arguments) -> dict:
+        message = {"execute": command}
+        if arguments:
+            message["arguments"] = arguments
+        self.stream.write((json.dumps(message) + "\n").encode())
+        self.stream.flush()
+        while True:
+            reply = json.loads(self.stream.readline())
+            if "event" in reply:
+                self.events.append(reply)
+                continue
+            if "error" in reply:
+                raise RuntimeError(f"{command}: {reply['error']}")
+            return reply
+
+    def wait_event(self, name: str, timeout: float) -> None:
+        deadline = time.time() + timeout
+        if any(e.get("event") == name for e in self.events):
+            return
+        self.sock.settimeout(timeout)
+        while time.time() < deadline:
+            reply = json.loads(self.stream.readline())
+            if reply.get("event") == name:
+                return
+        raise TimeoutError(name)
+
+    def hmp(self, line: str) -> str:
+        output = self.call("human-monitor-command", **{"command-line": line}).get("return", "")
+        if "Error" in output:
+            raise RuntimeError(output.strip())
+        return output
+
+
+def wait_for(path: Path, predicate, timeout: float) -> bool:
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if predicate(path):
+            return True
+        time.sleep(0.5)
+    return False
+
+
+def save(run_dir: Path, name: str) -> int:
+    serial = run_dir / "serial.log"
+    if not wait_for(serial, lambda p: p.exists() and MARKER in p.read_bytes(), 1200):
+        print("SNAPSHOT_FAIL hold marker not seen", flush=True)
+        return 1
+    qmp = Qmp(run_dir / "qmp.sock")
+    started = time.time()
+    qmp.call("device_del", id="idrive-usbnet")
+    qmp.wait_event("DEVICE_DELETED", 10)
+    qmp.hmp(f"savevm {name}")
+    qmp.call("device_add", **USBNET)
+    print(f"SNAPSHOT_OK name={name} seconds={time.time() - started:.1f}", flush=True)
+    return 0
+
+
+def resume(run_dir: Path) -> int:
+    sock = run_dir / "qmp.sock"
+    if not wait_for(sock, lambda p: p.exists(), 120):
+        print("RESUME_FAIL no QMP socket", flush=True)
+        return 1
+    for _ in range(60):
+        try:
+            qmp = Qmp(sock)
+            break
+        except OSError:
+            time.sleep(0.5)
+    else:
+        print("RESUME_FAIL QMP not answering", flush=True)
+        return 1
+    qmp.call("device_add", **USBNET)
+    print("RESUME_OK usb-net plugged", flush=True)
+    return 0
 
 
 def main() -> int:
-    run_dir = Path(sys.argv[1])
-    name = sys.argv[2] if len(sys.argv) > 2 else "prestarter"
-    serial = run_dir / "serial.log"
-    deadline = time.time() + 1200
-    while time.time() < deadline:
-        if serial.exists() and MARKER in serial.read_bytes():
-            break
-        time.sleep(1)
-    else:
-        print("SNAPSHOT_FAIL marker not seen", flush=True)
-        return 1
-    started = time.time()
-    reply = qmp_command(run_dir / "qmp.sock",
-                        {"execute": "human-monitor-command", "arguments": {"command-line": f"savevm {name}"}})
-    output = reply.get("return", "") if isinstance(reply.get("return"), str) else ""
-    if "error" in reply or "Error" in output:
-        print(f"SNAPSHOT_FAIL {reply}", flush=True)
-        return 1
-    print(f"SNAPSHOT_OK name={name} seconds={time.time() - started:.1f}", flush=True)
-    return 0
+    mode, run_dir = sys.argv[1], Path(sys.argv[2])
+    if mode == "save":
+        return save(run_dir, sys.argv[3] if len(sys.argv) > 3 else "prestarter")
+    if mode == "resume":
+        return resume(run_dir)
+    print("usage: wsl-snapshot.py save|resume <run_dir> [name]", file=sys.stderr)
+    return 2
 
 
 if __name__ == "__main__":

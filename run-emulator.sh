@@ -1487,8 +1487,12 @@ if [[ "$CDC_NETWORK" == "1" &&
     fi
     QEMU_ARGS+=(
       -netdev "user,id=idrive-net,net=160.48.199.0/24,host=160.48.199.253$OTF_HOSTFWD_OPTION$GUESTFWD_OPTIONS"
-      -device usb-net,bus=usb-bus.0,netdev=idrive-net
     )
+    # WSL2 port: usb-net is not migratable. A resumed snapshot was saved without it, so it is
+    # hot-plugged by tools/wsl-snapshot.py right after the restore (id lets QMP remove/re-add it).
+    if [[ -z "${IDRIVE_QEMU_RESUME_VM:-}" ]]; then
+      QEMU_ARGS+=( -device usb-net,id=idrive-usbnet,bus=usb-bus.0,netdev=idrive-net )
+    fi
     if [[ "$OTF_CAPTURE" == "1" ]]; then
       echo "Host loopback TCP $OTF_CAPTURE_LOCAL_PORT forwards to the BMW OTF agent listening on guest port 1000."
     fi
