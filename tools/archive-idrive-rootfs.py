@@ -70,6 +70,7 @@ HMI_CID_TOUCH_PATCHES = (
     (0xD9CD0, b"\xa4", b"\xa5"),  # page 0x3005, byte 0x44, bit 0
     (0xD8B15, b"\x00", b"\x01"),  # page 0x300b, byte 0x05, bit 0
 )
+MOST_TRACE_GUEST_PATH = "/opt/idrive/most.tp"
 HMI_MAIN_PATH = "opt/hmi/ID5/bin/HmiMain3D"
 HMI_MAIN_SHA256 = "406a672cf6e603752953189a65429745ab44fd2172b17de381d5f59818e3f64a"
 HMI_BENCH_INPUT_PATCHES = (
@@ -275,6 +276,15 @@ def _profile_starter_config(
     run_packages: set[str] | None = None,
 ) -> bytes:
     root = ET.fromstring(config.read_bytes())
+    if os.environ.get("IDRIVE_MOST_TRACE_CONFIG"):
+        # WSL2 port: let the native MOST client load a text trace configuration
+        # (CHBTraceScopeManager::loadTextPersistence) that routes its scopes to the console.
+        for process in root.iter("Process"):
+            if process.findtext("Name") == "/opt/sys/bin/most":
+                for tag in ("Args", "ResArgs"):
+                    element = process.find(tag)
+                    if element is not None and element.text and "--tp=" not in element.text:
+                        element.text = element.text + " --tp=" + MOST_TRACE_GUEST_PATH
     if most_sipc_stack:
         table = root.find("EnvironmentTable")
         count = root.find("EnvironmentCount")
@@ -461,6 +471,8 @@ def archive_rootfs(
         fingerprint.update(b"1" if defer_otf_agent else b"0")
         if most_sipc_stack:
             fingerprint.update(b"most-sipc-private-stack\0")
+        if os.environ.get("IDRIVE_MOST_TRACE_CONFIG"):
+            fingerprint.update(b"most-trace\0" + Path(os.environ["IDRIVE_MOST_TRACE_CONFIG"]).read_bytes())
         fingerprint.update(b"1" if hmi_coding_id6l else b"0")
         if hmi_coding_id6l:
             fingerprint.update(b"hmi-id6-light-overlay\0")
@@ -780,6 +792,12 @@ def archive_rootfs(
         for relative_path, data in hmi_binary_overlays.items():
             entry = archive.gettarinfo(str(root / relative_path), arcname=relative_path)
             archive.addfile(_normalize(entry), io.BytesIO(data))
+        if os.environ.get("IDRIVE_MOST_TRACE_CONFIG"):
+            trace_config = Path(os.environ["IDRIVE_MOST_TRACE_CONFIG"])
+            trace_data = trace_config.read_bytes()
+            entry = archive.gettarinfo(str(trace_config), arcname=MOST_TRACE_GUEST_PATH.lstrip("/"))
+            entry.size = len(trace_data)
+            archive.addfile(_normalize(entry), io.BytesIO(trace_data))
         if hmi_variantregistry is not None:
             entry = archive.gettarinfo(
                 str(hmi_variantregistry), arcname=HMI_VARIANTREGISTRY_PATH
