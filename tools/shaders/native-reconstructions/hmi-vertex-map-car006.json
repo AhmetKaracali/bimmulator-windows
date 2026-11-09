@@ -156,10 +156,11 @@
     },
     {
       "asset_path": "common/shader/Text_ColorFading_vertex_fadeVertical.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-vertex/21bd82bd8d53570b.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/Text_ColorFading_vertex_fadeVertical.glsl",
       "shader_sha256": "21bd82bd8d53570bd6f330770809bd6f6cdce5907d6dc17e8568ffffba0c4ade",
-      "source_essl_sha256": "d2fd4b1c7eec22faa92a2a703699976fde12ea7a03762624d85fb82cf710b4fc",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "source_essl_sha256": "f2866ade936d1abf0822cf193486d184e76ac099c45860a9cf84984383c58345",
+      "basis": "hand-written test: MVP*position, u_color, no fade",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-vertex/21bd82bd8d53570b.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.vert.shd",

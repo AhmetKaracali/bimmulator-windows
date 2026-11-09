@@ -281,6 +281,12 @@ void capture_draw_snapshot(GLenum mode, GLsizei count, GLenum index_type)
         g_draw_capture_index >= g_draw_capture_limit) {
         return;
     }
+    // WSL2 port: with IDRIVE_ANGLE_DRAW_CAPTURE_TRIGGER set, only capture while that file exists
+    // (lets a capture start on a specific HMI screen instead of at boot).
+    static const char *trigger = std::getenv("IDRIVE_ANGLE_DRAW_CAPTURE_TRIGGER");
+    if (trigger && *trigger && access(trigger, F_OK) != 0) {
+        return;
+    }
 
     EGLSurface surface = eglGetCurrentSurface(EGL_DRAW);
     EGLint width = 0;
