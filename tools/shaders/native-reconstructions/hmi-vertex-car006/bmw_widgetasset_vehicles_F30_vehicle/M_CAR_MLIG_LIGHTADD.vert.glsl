@@ -22,7 +22,7 @@ void main()
     vec3 h_n = vec3(0.0, 1.0, 0.0);
     vec3 h_eye = vec3(0.0, 0.0, -1.0);
     vec3 h_ldir = normalize(vec3(0.3, 1.0, 0.4));
-    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;
+    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.3 + 0.7;
     varCoord = a_TextureCoordinate.xy;
     col = a_Color;
     lightup = clamp(max(max(lamp1, lamp2), 0.0), 0.0, 1.0);

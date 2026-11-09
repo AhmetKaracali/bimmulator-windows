@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MAPS = ROOT / "tools/shaders/native-reconstructions"
 TYPES = {2: "float", 3: "vec2", 4: "vec3", 5: "vec4", 0x16: "mat4", 0x18: "sampler2D"}
 # Owner's car: F30 340i, grey (Mineral Grey metallic B39 approximated in linear-ish sRGB).
-PAINT_RGB = (0.42, 0.44, 0.47)
+PAINT_RGB = (0.55, 0.57, 0.60)
 
 spec = importlib.util.spec_from_file_location("insp", Path(__file__).with_name("inspect-sgx-shader.py"))
 insp = importlib.util.module_from_spec(spec)
@@ -79,7 +79,7 @@ def vertex(name, sy):
                               else "normalize(a_Normal);" if "a_Normal" in a else "vec3(0.0, 1.0, 0.0);"))
     B.append("    vec3 h_eye = " + ("normalize(h_wp - u_CameraWorldPosition);" if "u_CameraWorldPosition" in u else "vec3(0.0, 0.0, -1.0);"))
     B.append("    vec3 h_ldir = " + ("normalize(-LightADir);" if "LightADir" in u else "normalize(vec3(0.3, 1.0, 0.4));"))
-    B.append("    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;")
+    B.append("    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.3 + 0.7;")
     if fam == "paint":
         base = "vec3(%.3f, %.3f, %.3f)" % PAINT_RGB
     elif "diffColor" in u:
