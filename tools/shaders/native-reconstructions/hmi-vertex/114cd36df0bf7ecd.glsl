@@ -58,6 +58,7 @@ void primary_program()
     _output[0] = vec4(_output[0].x, _output[0].y, _417.x, _417.y);
 }
 
+// Varyings read with SGX packing (tools/fix-packed-varyings.py).
 void main()
 {
     pa[0] = a_Position;
@@ -163,8 +164,7 @@ void main()
 
     primary_program();
     gl_Position = _output[0];
-    vColor = _output[1];
-    vTexCoord = _output[2].xy;
-    fFading = _output[3].x;
-
+    vColor = vec4(_output[1].x, _output[1].y, _output[1].z, _output[1].w);
+    vTexCoord = vec2(_output[2].x, _output[2].y);
+    fFading = _output[2].z;
 }

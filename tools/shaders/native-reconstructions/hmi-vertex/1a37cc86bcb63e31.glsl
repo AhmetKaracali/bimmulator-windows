@@ -70,6 +70,7 @@ void primary_program()
     _output[0] = vec4(_output[0].x, _output[0].y, _440.x, _440.y);
 }
 
+// Varyings read with SGX packing (tools/fix-packed-varyings.py).
 void main()
 {
     pa[0] = vec4(a_TextureCoordinate, 0.0, 1.0);
@@ -176,7 +177,6 @@ void main()
     secondary_program();
     primary_program();
     gl_Position = _output[0];
-    mc = _output[1].xyz;
-    uv = _output[2].xy;
-
+    mc = vec3(_output[1].x, _output[1].y, _output[1].z);
+    uv = vec2(_output[1].w, _output[2].x);
 }

@@ -49,6 +49,7 @@ void primary_program()
     _output[0] = vec4(_output[0].x, _output[0].y, _401.x, _401.y);
 }
 
+// Varyings read with SGX packing (tools/fix-packed-varyings.py).
 void main()
 {
     pa[0] = a_Position;
@@ -154,6 +155,5 @@ void main()
 
     primary_program();
     gl_Position = _output[0];
-    vTexCoord = _output[1].xy;
-
+    vTexCoord = vec2(_output[1].x, _output[1].y);
 }

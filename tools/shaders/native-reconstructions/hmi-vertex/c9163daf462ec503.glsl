@@ -120,6 +120,7 @@ void primary_program()
     _output[4] = _646;
 }
 
+// Varyings read with SGX packing (tools/fix-packed-varyings.py).
 void main()
 {
     pa[0] = vec4(a_TextureCoordinate, 0.0, 1.0);
@@ -235,12 +236,11 @@ void main()
     secondary_program();
     primary_program();
     gl_Position = _output[0];
-    p_fd = _output[1].xyz;
-    p_grd = _output[2].xyz;
-    uv = _output[3].xy;
-    ant = _output[4].x;
-    px = _output[5].x;
-    v_cm = _output[6].x;
-    v_stack = _output[7].x;
-
+    p_fd = vec3(_output[1].x, _output[1].y, _output[1].z);
+    p_grd = vec3(_output[1].w, _output[2].x, _output[2].y);
+    uv = vec2(_output[2].z, _output[2].w);
+    ant = _output[3].x;
+    px = _output[3].z;
+    v_cm = _output[4].x;
+    v_stack = _output[4].z;
 }
