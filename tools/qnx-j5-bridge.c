@@ -66,6 +66,12 @@ static unsigned char attr_data[MAX_ATTRS][1024];
 static int attr_len[MAX_ATTRS];
 
 static void say(const char *text) { puts(text); }
+static int memcmp_(const void *a, const void *b, unsigned n)
+{
+    const unsigned char *x = a, *y = b;
+    for (unsigned i = 0; i < n; i++) if (x[i] != y[i]) return 1;
+    return 0;
+}
 static int connect_host(void);
 
 static int write_all(const void *data, int length)
@@ -116,14 +122,16 @@ static void handle_host_frame(int kind, unsigned id, unsigned arg, int length)
         memset(stream, 0, sizeof(stream));
         DSIOpen(stream);
         if (length) DSIWrite(stream, rx, length, 1);
-        DSIServerSendResponse(server, arg ? (int)arg : 0x200, (int)id, stream);
+        int rc = DSIServerSendResponse(server, arg ? (int)arg : 0x200, (int)id, stream);
         DSIClose(stream);
+        send_frame(6, id, (unsigned)rc, 0, 0);
     } else if (kind == 11) {
         unsigned slot = id & 0xff;
         if (slot < MAX_ATTRS && length <= (int)sizeof(attr_data[0])) {
             memcpy(attr_data[slot], rx, (unsigned)length);
             attr_len[slot] = length;
-            DSIServerSendNotification(server, (int)id);
+            int rc = DSIServerSendNotification(server, (int)id);
+            send_frame(6, id, (unsigned)rc, 0, 0);
         }
     }
 }
@@ -171,10 +179,32 @@ static void on_request(void *srv, unsigned int *stream, unsigned id)
     pthread_mutex_unlock(mutex);
 }
 
+/* Diagnostics: send the DSI notification table (srv+0xB4: int count, 24-byte entries) to the
+ * host whenever it changes (frame kind 5). */
+static unsigned char last_table[4 + 64 * 24];
+static int last_table_len = -1;
+static void report_table(void)
+{
+    const int *table = (const int *)server[0xb4 / 4];
+    int count = table ? table[0] : 0;
+    if (count < 0 || count > 64) count = 64;
+    int length = table ? 4 + count * 24 : 0;
+    if (length == last_table_len && (!length || !memcmp_(last_table, table, (unsigned)length))) return;
+    if (length) memcpy(last_table, table, (unsigned)length);
+    last_table_len = length;
+    send_frame(5, 0, (unsigned)count, table, length);
+}
+
 static void *host_reader(void *unused)
 {
     (void)unused;
+    int ticks = 0;
     for (;;) {
+        if (sock >= 0 && ++ticks % 100 == 0) {
+            pthread_mutex_lock(mutex);
+            report_table();
+            pthread_mutex_unlock(mutex);
+        }
         if (sock < 0) {                       /* host side restarted: reconnect, keep DSI up */
             int fd = connect_host();
             pthread_mutex_lock(mutex);
