@@ -559,6 +559,20 @@ const char *opcode_name(unsigned int opcode)
     case IDRIVE_ANGLE_EGL_RPC_GL_GEN_TEXTURES: return "GL_GEN_TEXTURES";
     case IDRIVE_ANGLE_EGL_RPC_GL_CREATE_SHADER: return "GL_CREATE_SHADER";
     case IDRIVE_ANGLE_EGL_RPC_GL_BATCH: return "GL_BATCH";
+    case IDRIVE_ANGLE_EGL_RPC_GL_GEN_FRAMEBUFFERS: return "GL_GEN_FRAMEBUFFERS";
+    case IDRIVE_ANGLE_EGL_RPC_GL_GEN_RENDERBUFFERS: return "GL_GEN_RENDERBUFFERS";
+    case IDRIVE_ANGLE_EGL_RPC_GL_BIND_FRAMEBUFFER: return "GL_BIND_FRAMEBUFFER";
+    case IDRIVE_ANGLE_EGL_RPC_GL_BIND_RENDERBUFFER: return "GL_BIND_RENDERBUFFER";
+    case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_TEXTURE_2D: return "GL_FRAMEBUFFER_TEXTURE_2D";
+    case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_RENDERBUFFER: return "GL_FRAMEBUFFER_RENDERBUFFER";
+    case IDRIVE_ANGLE_EGL_RPC_GL_RENDERBUFFER_STORAGE: return "GL_RENDERBUFFER_STORAGE";
+    case IDRIVE_ANGLE_EGL_RPC_GL_CHECK_FRAMEBUFFER_STATUS: return "GL_CHECK_FRAMEBUFFER_STATUS";
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_FRAMEBUFFERS: return "GL_DELETE_FRAMEBUFFERS";
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_RENDERBUFFERS: return "GL_DELETE_RENDERBUFFERS";
+    case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_SUB_IMAGE_2D: return "GL_COPY_TEX_SUB_IMAGE_2D";
+    case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_IMAGE_2D: return "GL_COPY_TEX_IMAGE_2D";
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_TEXTURES: return "GL_DELETE_TEXTURES";
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_BUFFERS: return "GL_DELETE_BUFFERS";
     case IDRIVE_ANGLE_EGL_RPC_GL_BIND_BUFFER: return "GL_BIND_BUFFER";
     case IDRIVE_ANGLE_EGL_RPC_GL_BIND_TEXTURE: return "GL_BIND_TEXTURE";
     case IDRIVE_ANGLE_EGL_RPC_GL_SHADER_BINARY_CAPTURE: return "GL_SHADER_BINARY_CAPTURE";
@@ -2360,6 +2374,119 @@ bool process_request(const unsigned char *request,
         glGenerateMipmap(static_cast<GLenum>(a));
         const GLenum error = glGetError();
         if (error != GL_NO_ERROR) {
+            set_error(response, static_cast<EGLint>(error));
+            return false;
+        }
+        return true;
+    }
+
+    case IDRIVE_ANGLE_EGL_RPC_GL_GEN_FRAMEBUFFERS:
+    case IDRIVE_ANGLE_EGL_RPC_GL_GEN_RENDERBUFFERS: {
+        if (eglGetCurrentContext() == EGL_NO_CONTEXT) {
+            set_error(response, kGlInvalidOperation);
+            return false;
+        }
+        if (!payload.empty() || a > IDRIVE_ANGLE_EGL_RPC_MAX_PAYLOAD / sizeof(GLuint)) {
+            set_error(response, kGlInvalidValue);
+            return false;
+        }
+        std::vector<GLuint> objects(a);
+        if (opcode == IDRIVE_ANGLE_EGL_RPC_GL_GEN_FRAMEBUFFERS)
+            glGenFramebuffers(static_cast<GLsizei>(a), objects.data());
+        else
+            glGenRenderbuffers(static_cast<GLsizei>(a), objects.data());
+        const GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            set_error(response, static_cast<EGLint>(error));
+            return false;
+        }
+        for (const GLuint object : objects) append_u32(response_payload, object);
+        set_value(response, 0, a);
+        return true;
+    }
+
+    case IDRIVE_ANGLE_EGL_RPC_GL_BIND_FRAMEBUFFER:
+    case IDRIVE_ANGLE_EGL_RPC_GL_BIND_RENDERBUFFER:
+    case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_TEXTURE_2D:
+    case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_RENDERBUFFER:
+    case IDRIVE_ANGLE_EGL_RPC_GL_RENDERBUFFER_STORAGE:
+    case IDRIVE_ANGLE_EGL_RPC_GL_CHECK_FRAMEBUFFER_STATUS:
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_FRAMEBUFFERS:
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_RENDERBUFFERS:
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_TEXTURES:
+    case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_BUFFERS:
+    case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_SUB_IMAGE_2D:
+    case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_IMAGE_2D: {
+        if (eglGetCurrentContext() == EGL_NO_CONTEXT) {
+            set_error(response, kGlInvalidOperation);
+            return false;
+        }
+        auto word = [&](std::size_t index) {
+            return idrive_angle_egl_rpc_u32(payload.data() + index * 4u);
+        };
+        auto words = [&](std::size_t count) { return payload.size() == count * 4u; };
+        switch (opcode) {
+        case IDRIVE_ANGLE_EGL_RPC_GL_BIND_FRAMEBUFFER:
+            if (!payload.empty()) { set_error(response, kGlInvalidValue); return false; }
+            glBindFramebuffer(static_cast<GLenum>(a), static_cast<GLuint>(b));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_BIND_RENDERBUFFER:
+            if (!payload.empty()) { set_error(response, kGlInvalidValue); return false; }
+            glBindRenderbuffer(static_cast<GLenum>(a), static_cast<GLuint>(b));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_TEXTURE_2D:
+            if (!words(5)) { set_error(response, kGlInvalidValue); return false; }
+            glFramebufferTexture2D(word(0), word(1), word(2), word(3), static_cast<GLint>(word(4)));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_RENDERBUFFER:
+            if (!words(4)) { set_error(response, kGlInvalidValue); return false; }
+            glFramebufferRenderbuffer(word(0), word(1), word(2), word(3));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_RENDERBUFFER_STORAGE: {
+            if (!words(4)) { set_error(response, kGlInvalidValue); return false; }
+            GLenum format = word(1);
+            if (format == 0x88F0u) format = 0x88F0u;   /* DEPTH24_STENCIL8(_OES): same value in ES3 */
+            glRenderbufferStorage(word(0), format, static_cast<GLsizei>(word(2)),
+                                  static_cast<GLsizei>(word(3)));
+            break;
+        }
+        case IDRIVE_ANGLE_EGL_RPC_GL_CHECK_FRAMEBUFFER_STATUS:
+            set_value(response, 0, glCheckFramebufferStatus(static_cast<GLenum>(a)));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_FRAMEBUFFERS:
+        case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_RENDERBUFFERS:
+        case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_TEXTURES:
+        case IDRIVE_ANGLE_EGL_RPC_GL_DELETE_BUFFERS: {
+            if (payload.size() % 4u) { set_error(response, kGlInvalidValue); return false; }
+            std::vector<GLuint> names(payload.size() / 4u);
+            for (std::size_t i = 0; i < names.size(); ++i) names[i] = word(i);
+            const GLsizei n = static_cast<GLsizei>(names.size());
+            if (opcode == IDRIVE_ANGLE_EGL_RPC_GL_DELETE_FRAMEBUFFERS) glDeleteFramebuffers(n, names.data());
+            else if (opcode == IDRIVE_ANGLE_EGL_RPC_GL_DELETE_RENDERBUFFERS) glDeleteRenderbuffers(n, names.data());
+            else if (opcode == IDRIVE_ANGLE_EGL_RPC_GL_DELETE_TEXTURES) glDeleteTextures(n, names.data());
+            else glDeleteBuffers(n, names.data());
+            break;
+        }
+        case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_SUB_IMAGE_2D:
+            if (!words(8)) { set_error(response, kGlInvalidValue); return false; }
+            glCopyTexSubImage2D(word(0), static_cast<GLint>(word(1)), static_cast<GLint>(word(2)),
+                                static_cast<GLint>(word(3)), static_cast<GLint>(word(4)),
+                                static_cast<GLint>(word(5)), static_cast<GLsizei>(word(6)),
+                                static_cast<GLsizei>(word(7)));
+            break;
+        case IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_IMAGE_2D:
+            if (!words(8)) { set_error(response, kGlInvalidValue); return false; }
+            glCopyTexImage2D(word(0), static_cast<GLint>(word(1)), word(2),
+                             static_cast<GLint>(word(3)), static_cast<GLint>(word(4)),
+                             static_cast<GLsizei>(word(5)), static_cast<GLsizei>(word(6)),
+                             static_cast<GLint>(word(7)));
+            break;
+        default:
+            break;
+        }
+        const GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            std::fprintf(stderr, "ANGLE_FBO_ERROR op=%u a=%u b=%u error=0x%04x\n", opcode, a, b, error);
             set_error(response, static_cast<EGLint>(error));
             return false;
         }

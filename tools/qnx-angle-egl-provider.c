@@ -2858,6 +2858,164 @@ void glReadPixels(int x, int y, int width, int height,
     g_gl_error = GL_NO_ERROR;
 }
 
+
+/* ---- Render-to-texture: framebuffer / renderbuffer objects and framebuffer copies ----
+ * The HMI renders 3D scenes (vehicle model, camera crane) into textures and composites them;
+ * without these the scenes were drawn straight onto the window with oversized viewports. */
+static void fbo_payload_call(unsigned int opcode, const unsigned int *words, unsigned int count,
+                             unsigned int a, unsigned int b)
+{
+    unsigned char payload[64];
+    struct RpcResult reply;
+    unsigned int i;
+    if (g_current_context == EGL_NO_CONTEXT) {
+        g_gl_error = GL_INVALID_OPERATION;
+        return;
+    }
+    for (i = 0; i < count; ++i) idrive_angle_egl_rpc_put_u32(payload + i * 4u, words[i]);
+    if (!rpc(opcode, a, b, 0, count ? payload : 0, count * 4u, &reply))
+        g_gl_error = reply.error ? reply.error : GL_INVALID_OPERATION;
+    else
+        g_gl_error = GL_NO_ERROR;
+}
+
+static void delete_gl_objects(unsigned int opcode, int count, const unsigned int *names)
+{
+    unsigned char payload[256 * 4];
+    struct RpcResult reply;
+    int i, done = 0;
+    if (g_current_context == EGL_NO_CONTEXT) {
+        g_gl_error = GL_INVALID_OPERATION;
+        return;
+    }
+    if (count < 0 || (count > 0 && !names)) {
+        g_gl_error = GL_INVALID_VALUE;
+        return;
+    }
+    g_gl_error = GL_NO_ERROR;
+    while (done < count) {
+        int chunk = count - done > 256 ? 256 : count - done;
+        for (i = 0; i < chunk; ++i)
+            idrive_angle_egl_rpc_put_u32(payload + (unsigned int)i * 4u, names[done + i]);
+        if (!rpc(opcode, 0, 0, 0, payload, (unsigned int)chunk * 4u, &reply))
+            g_gl_error = reply.error ? reply.error : GL_INVALID_OPERATION;
+        done += chunk;
+    }
+}
+
+void glGenFramebuffers(int count, unsigned int *framebuffers)
+{
+    gen_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_GEN_FRAMEBUFFERS, "glGenFramebuffers",
+                   count, framebuffers);
+}
+
+void glGenRenderbuffers(int count, unsigned int *renderbuffers)
+{
+    gen_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_GEN_RENDERBUFFERS, "glGenRenderbuffers",
+                   count, renderbuffers);
+}
+
+void glBindFramebuffer(unsigned int target, unsigned int framebuffer)
+{
+    (void)bind_gl_object(IDRIVE_ANGLE_EGL_RPC_GL_BIND_FRAMEBUFFER, "glBindFramebuffer",
+                         target, framebuffer, IDRIVE_ANGLE_MAILBOX_BATCH);
+}
+
+void glBindRenderbuffer(unsigned int target, unsigned int renderbuffer)
+{
+    (void)bind_gl_object(IDRIVE_ANGLE_EGL_RPC_GL_BIND_RENDERBUFFER, "glBindRenderbuffer",
+                         target, renderbuffer, IDRIVE_ANGLE_MAILBOX_BATCH);
+}
+
+void glFramebufferTexture2D(unsigned int target, unsigned int attachment,
+                            unsigned int textarget, unsigned int texture, int level)
+{
+    const unsigned int words[5] = { target, attachment, textarget, texture, (unsigned int)level };
+    fbo_payload_call(IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_TEXTURE_2D, words, 5, 0, 0);
+}
+
+void glFramebufferRenderbuffer(unsigned int target, unsigned int attachment,
+                               unsigned int renderbuffertarget, unsigned int renderbuffer)
+{
+    const unsigned int words[4] = { target, attachment, renderbuffertarget, renderbuffer };
+    fbo_payload_call(IDRIVE_ANGLE_EGL_RPC_GL_FRAMEBUFFER_RENDERBUFFER, words, 4, 0, 0);
+}
+
+void glRenderbufferStorage(unsigned int target, unsigned int internalformat,
+                           int width, int height)
+{
+    const unsigned int words[4] = { target, internalformat, (unsigned int)width, (unsigned int)height };
+    fbo_payload_call(IDRIVE_ANGLE_EGL_RPC_GL_RENDERBUFFER_STORAGE, words, 4, 0, 0);
+}
+
+unsigned int glCheckFramebufferStatus(unsigned int target)
+{
+    struct RpcResult reply;
+    if (g_current_context == EGL_NO_CONTEXT) {
+        g_gl_error = GL_INVALID_OPERATION;
+        return 0;
+    }
+    if (!rpc(IDRIVE_ANGLE_EGL_RPC_GL_CHECK_FRAMEBUFFER_STATUS, target, 0, 0, 0, 0, &reply)) {
+        g_gl_error = reply.error ? reply.error : GL_INVALID_OPERATION;
+        return 0;
+    }
+    g_gl_error = GL_NO_ERROR;
+    return reply.value[0];
+}
+
+void glDeleteFramebuffers(int count, const unsigned int *framebuffers)
+{
+    delete_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_DELETE_FRAMEBUFFERS, count, framebuffers);
+}
+
+void glDeleteRenderbuffers(int count, const unsigned int *renderbuffers)
+{
+    delete_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_DELETE_RENDERBUFFERS, count, renderbuffers);
+}
+
+void glDeleteTextures(int count, const unsigned int *textures)
+{
+    delete_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_DELETE_TEXTURES, count, textures);
+}
+
+void glDeleteBuffers(int count, const unsigned int *buffers)
+{
+    struct ProviderThreadState *state = provider_thread_state();
+    int i;
+    for (i = 0; buffers && i < count; ++i) {
+        unsigned int slot;
+        for (slot = 0; slot < 2; ++slot)
+            if (state->confirmed_bind[slot][buffers[i] % kBindCacheSlots] == buffers[i])
+                state->confirmed_bind[slot][buffers[i] % kBindCacheSlots] = 0;
+    }
+    delete_gl_objects(IDRIVE_ANGLE_EGL_RPC_GL_DELETE_BUFFERS, count, buffers);
+}
+
+void glCopyTexSubImage2D(unsigned int target, int level, int xoffset, int yoffset,
+                         int x, int y, int width, int height)
+{
+    const unsigned int words[8] = { target, (unsigned int)level, (unsigned int)xoffset,
+                                    (unsigned int)yoffset, (unsigned int)x, (unsigned int)y,
+                                    (unsigned int)width, (unsigned int)height };
+    fbo_payload_call(IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_SUB_IMAGE_2D, words, 8, 0, 0);
+}
+
+void glCopyTexImage2D(unsigned int target, int level, unsigned int internalformat,
+                      int x, int y, int width, int height, int border)
+{
+    const unsigned int words[8] = { target, (unsigned int)level, internalformat, (unsigned int)x,
+                                    (unsigned int)y, (unsigned int)width, (unsigned int)height,
+                                    (unsigned int)border };
+    fbo_payload_call(IDRIVE_ANGLE_EGL_RPC_GL_COPY_TEX_IMAGE_2D, words, 8, 0, 0);
+}
+
+unsigned char glIsFramebuffer(unsigned int framebuffer) { return framebuffer != 0; }
+unsigned char glIsRenderbuffer(unsigned int renderbuffer) { return renderbuffer != 0; }
+void glDiscardFramebufferEXT(unsigned int target, int count, const unsigned int *attachments)
+{
+    (void)target; (void)count; (void)attachments;    /* a hint only */
+}
+
 static unsigned int unsupported_gl(const char *entry)
 {
 #if defined(IDRIVE_ANGLE_EGL_TRACE)
