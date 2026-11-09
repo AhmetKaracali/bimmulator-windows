@@ -5,7 +5,9 @@
 
   outputs = { self, nixpkgs, ... }:
     let
-      system = "aarch64-darwin";
+      # WSL2 port (branch wsl-linux): upstream's verified host is aarch64-darwin;
+      # this branch builds for x86_64-linux under WSL2 on Windows (display via WSLg).
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ self.overlays.default ];
@@ -98,7 +100,7 @@
           export IDRIVE_KOMBI_QEMU="${pkgs.qemu-capricorn-m}/bin/qemu-system-mips64el"
           export IDRIVE_QNX_CLANG="${pkgs.llvmPackages.clang-unwrapped}/bin/clang"
           export IDRIVE_ANGLE_ROOT="${pkgs.angle}"
-          export IDRIVE_LZO_LIBRARY="${pkgs.lzo}/lib/liblzo2.dylib"
+          export IDRIVE_LZO_LIBRARY="${pkgs.lzo}/lib/liblzo2${pkgs.stdenv.hostPlatform.extensions.sharedLibrary}"
           export IDRIVE_HOST_CXX="${pkgs.clang}/bin/clang++"
           export IDRIVE_ANGLE_SERVER="${angleServer}/bin/angle-egl-rpc-server"
           export IDRIVE_NIX="${pkgs.nix}/bin/nix"

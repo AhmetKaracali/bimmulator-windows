@@ -66,10 +66,11 @@ def checked_config(project: Path, file: Path, nix: str) -> dict:
     if not isinstance(psdz, str) or not Path(psdz).is_absolute():
         raise ValueError("Set psdzdata to an absolute path to the extracted PSdZData directory.")
     config["psdzdata"] = str(external_path(project, Path(psdz), "psdzdata"))
-    config.setdefault("display", "cocoa")
+    # macOS uses QEMU's Cocoa window; Linux (incl. WSL2/WSLg) uses GTK or SDL.
+    config.setdefault("display", "cocoa" if sys.platform == "darwin" else "gtk")
     config.setdefault("cpuCount", 2)
-    if config["display"] not in {"cocoa", "none"}:
-        raise ValueError("display must be 'cocoa' or 'none'.")
+    if config["display"] not in {"cocoa", "gtk", "sdl", "none"}:
+        raise ValueError("display must be 'cocoa', 'gtk', 'sdl' or 'none'.")
     if type(config["cpuCount"]) is not int or config["cpuCount"] not in {1, 2}:
         raise ValueError("cpuCount must be the integer 1 or 2.")
     cache = config.get("cacheDir")
@@ -268,7 +269,7 @@ def run_kombi_session(project, cache, config, images, head_unit):
     run = Path(tempfile.mkdtemp(prefix="6wb-", dir=runs))
     ram = run / "vehicle.ram"
     gss, flash_config, graphics = map(str, images)
-    display = "sdl" if config["display"] == "cocoa" else "none"
+    display = "none" if config["display"] == "none" else "sdl"
 
     with ExitStack() as cleanup:
         qmp = run / "qmp.sock"
