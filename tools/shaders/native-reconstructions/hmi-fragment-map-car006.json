@@ -855,9 +855,9 @@
     },
     {
       "asset_path": "common/shader/Text_fragment_fade.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/77140b130ca8a7ce.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Text_fragment_fade.glsl",
       "shader_sha256": "77140b130ca8a7cee0aab7ea128babdcb43afe8e8818e5b21c5e36695054b6e4",
-      "source_essl_sha256": "8287fabe27b36c867b6ee5105968a89e0a7d4715b56be5776311207c667b8b32",
+      "source_essl_sha256": "26b36a9b1e00dd3e87307e7b5828cd426bad5e6a95fc357391aaba22ad803928",
       "samplers": [
         {
           "name": "tex0",
@@ -875,7 +875,8 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "hand-written: fade = clamp(vFading) product, alpha = glyph.r*vColor.a*u_opacity*fade (v64 pinned u_opacity to 0)",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/77140b130ca8a7ce.glsl"
     }
   ],
   "generation_failures": [],
