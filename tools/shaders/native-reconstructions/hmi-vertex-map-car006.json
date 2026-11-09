@@ -158,7 +158,7 @@
       "asset_path": "common/shader/Text_ColorFading_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/Text_ColorFading_vertex_fadeVertical.glsl",
       "shader_sha256": "21bd82bd8d53570bd6f330770809bd6f6cdce5907d6dc17e8568ffffba0c4ade",
-      "source_essl_sha256": "f2866ade936d1abf0822cf193486d184e76ac099c45860a9cf84984383c58345",
+      "source_essl_sha256": "94094f40b17c51a18d4554efd4e80b1d721418357a1145761c025daecd3be4ec",
       "basis": "hand-written test: MVP*position, u_color, no fade",
       "previous_source_path": "tools/shaders/native-reconstructions/hmi-vertex/21bd82bd8d53570b.glsl"
     },

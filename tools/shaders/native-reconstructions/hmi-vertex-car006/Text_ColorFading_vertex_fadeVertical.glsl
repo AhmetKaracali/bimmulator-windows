@@ -18,7 +18,9 @@ void main()
     gl_Position = u_MVPMatrix * vec4(a_Position.xyz, 1.0);
     vColor = u_color;
     vTexCoord = a_TextureCoordinate;
-    // keep every native input live (HMI looks them up by name); evaluates to 1.0 for finite values
-    float keep = step(-1.0e30, a_Custom + u_scrollAreaFadeParameters.x + u_MC1Matrix[0][0]);
-    vFading = vec3(keep);   // scroll-area fade disabled for the first test
+    // Keep every native input live (the HMI looks them up by name) without letting their values
+    // matter: submenu lists send u_scrollAreaFadeParameters.x = -FLT_MAX, so no arithmetic on it.
+    bool sentinel = a_Custom == -12345.5 && u_MC1Matrix[0][0] == -12345.5
+        && u_scrollAreaFadeParameters.y == -12345.5;
+    vFading = vec3(sentinel ? 0.999 : 1.0);   // scroll-area fade not reproduced yet
 }
