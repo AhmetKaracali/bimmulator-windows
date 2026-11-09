@@ -240,9 +240,9 @@
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/ba29cf6aad326a44.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/controller_arrow_mat_arrow.glsl",
       "shader_sha256": "236bdfb1917119fb50f25a37d44f69e7a9b476b8765263e247a30872b655674f",
-      "source_essl_sha256": "948568c752a51dd56e84cce6a7c4f7f07fc0589a67ef4e9faec150b57fa1e479",
+      "source_essl_sha256": "7bda12e9b61a429c496299338c35f3e9639e6a1b4922716d42b441b100380774",
       "samplers": [
         {
           "name": "t",
@@ -261,7 +261,8 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "ba29cf6aad326a4459b43a3a8013908221ff5c1921372d65c19b9b0b5ba8c7ca"
+      "x20511i_shader_sha256": "ba29cf6aad326a4459b43a3a8013908221ff5c1921372d65c19b9b0b5ba8c7ca",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/ba29cf6aad326a44.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge.frag.shd",
@@ -402,9 +403,9 @@
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Cursor_mat_highlight.glsl",
       "shader_sha256": "c30fe0d0cbc29e076d1db22e54949e38854172748a3e29babf66dd85dc295558",
-      "source_essl_sha256": "ad1018502195273f6e7f6dcd7d28d3929572a4a509ef18293dc2558f129395fc",
+      "source_essl_sha256": "ac291b5a6b4756a2f45017de14260e9edc1d0ebe85204ea295c93acce56e75d5",
       "samplers": [
         {
           "name": "t1",
@@ -422,7 +423,8 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight_main.frag.shd",
@@ -450,9 +452,9 @@
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow2.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/7bb56fa7eb34d199.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Cursor_mat_main_edge_glow2.glsl",
       "shader_sha256": "7bb56fa7eb34d1994110de7ab97b86f28ceab7e24f4fd21e3eea8b3a472b6853",
-      "source_essl_sha256": "a4af178accfddd871ec10e62fa1ac98217f7af44d7c3033b9521d83198cc1e15",
+      "source_essl_sha256": "29787f34cad10fc855c0da8dc2edc0876c3608156ed83d7bca5ad043b67ae7fc",
       "samplers": [
         {
           "name": "t0",
@@ -479,7 +481,8 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/7bb56fa7eb34d199.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_bg.frag.shd",
@@ -532,9 +535,9 @@
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_gloss.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/c4324ac0edffdf3b.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/CursorBG_mat_list_gloss.glsl",
       "shader_sha256": "0db1365a7819369c58dbfd4531126ccb2d25395568204022c86e32457c035ea9",
-      "source_essl_sha256": "94746b4698f3f9a729825289f8e79332d66527f5ca9f9caf84a969a0a4336fe9",
+      "source_essl_sha256": "111071442c078e563796470ceb654b63fbae2f94c820514d8b52b2a8a6a12fa5",
       "samplers": [],
       "mapped_sampler_candidate": null,
       "unmapped_sampler_symbols": [],
@@ -545,7 +548,8 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "c4324ac0edffdf3b4af3ed532c8fe071793fd7a253319bf3069814ab211b9991"
+      "x20511i_shader_sha256": "c4324ac0edffdf3b4af3ed532c8fe071793fd7a253319bf3069814ab211b9991",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c4324ac0edffdf3b.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_pressed.frag.shd",
@@ -783,9 +787,9 @@
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_shadow.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/cf69532a3d1177d0.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_shadow.glsl",
       "shader_sha256": "cf69532a3d1177d0f00bac883c933d1a3b3afb6703647f1ebe93c6109e1f36e6",
-      "source_essl_sha256": "f2f7bde1ee923f85f4eee1637b51374bab18af2dc933c9812d3e67aecc22c6f1",
+      "source_essl_sha256": "cdd92d3c069d21d0a45c20635c023806e6cd08bf8da3005396c7aa3b45a9fa25",
       "samplers": [
         {
           "name": "t",
@@ -803,13 +807,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/cf69532a3d1177d0.glsl"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/statusbar/shaders/mat_statusbar.frag.shd",
-      "source_path": "tools/shaders/native-reconstructions/hmi-fragment/b01fecb1c1da0447.glsl",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/statusbar_mat_statusbar.glsl",
       "shader_sha256": "d1d87c43cc4e13ceb30f9e0e680b03bb634a1e93f87701ea0b75f41c6144280c",
-      "source_essl_sha256": "977f1048a5b1737600e724e6ea7821540b1586eb701861032af12753f522071f",
+      "source_essl_sha256": "15a67009c25f9fd5ae4147d5e0a0427f6d2af66cc70692d248104078d3d3a9ae",
       "samplers": [
         {
           "name": "tex0",
@@ -828,7 +833,8 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "b01fecb1c1da0447c0f75a0427a89be71a20867c49aa49ce949678b0242150e3"
+      "x20511i_shader_sha256": "b01fecb1c1da0447c0f75a0427a89be71a20867c49aa49ce949678b0242150e3",
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/b01fecb1c1da0447.glsl"
     },
     {
       "asset_path": "common/shader/IconRGBA_fragment.shd",
