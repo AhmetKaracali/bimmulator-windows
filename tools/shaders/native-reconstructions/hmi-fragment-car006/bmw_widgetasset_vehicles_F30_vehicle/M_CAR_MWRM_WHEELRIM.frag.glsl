@@ -12,6 +12,6 @@ void main()
     vec3 c = v_BaseShade;
     vec3 r = normalize(v_Refl.xyz);
     vec2 env = r.xy / (2.0 * sqrt(r.x * r.x + r.y * r.y + (r.z + 1.0) * (r.z + 1.0) + 1e-5)) + 0.5;
-    c += texture(EnvTex, env).rgb * 0.85 * (0.4 + 0.6 * v_Refl.w);
+    c += texture(EnvTex, env).rgb * 0.9 * (0.4 + 0.6 * v_Refl.w);
     bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp(1.0, 0.0, 1.0));
 }

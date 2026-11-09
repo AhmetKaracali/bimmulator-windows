@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MAPS = ROOT / "tools/shaders/native-reconstructions"
 TYPES = {2: "float", 3: "vec2", 4: "vec3", 5: "vec4", 0x16: "mat4", 0x18: "sampler2D"}
 # Owner's car: F30 340i, grey (Mineral Grey metallic B39 approximated in linear-ish sRGB).
-PAINT_RGB = (0.27, 0.29, 0.31)
+PAINT_RGB = (0.42, 0.44, 0.47)
 
 spec = importlib.util.spec_from_file_location("insp", Path(__file__).with_name("inspect-sgx-shader.py"))
 insp = importlib.util.module_from_spec(spec)
@@ -79,7 +79,7 @@ def vertex(name, sy):
                               else "normalize(a_Normal);" if "a_Normal" in a else "vec3(0.0, 1.0, 0.0);"))
     B.append("    vec3 h_eye = " + ("normalize(h_wp - u_CameraWorldPosition);" if "u_CameraWorldPosition" in u else "vec3(0.0, 0.0, -1.0);"))
     B.append("    vec3 h_ldir = " + ("normalize(-LightADir);" if "LightADir" in u else "normalize(vec3(0.3, 1.0, 0.4));"))
-    B.append("    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.65 + 0.35;")
+    B.append("    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;")
     if fam == "paint":
         base = "vec3(%.3f, %.3f, %.3f)" % PAINT_RGB
     elif "diffColor" in u:
@@ -166,7 +166,7 @@ def fragment(name, sy):
     if "v_Refl" in i and "EnvTex" in u:
         B.append("    vec3 r = normalize(v_Refl.xyz);")
         B.append("    vec2 env = r.xy / (2.0 * sqrt(r.x * r.x + r.y * r.y + (r.z + 1.0) * (r.z + 1.0) + 1e-5)) + 0.5;")
-        k = {"chrome": "0.85", "paint": "0.35", "glass": "0.45", "metal": "0.5"}.get(fam, "0.15")
+        k = {"chrome": "0.9", "paint": "0.55", "glass": "0.5", "metal": "0.55"}.get(fam, "0.2")
         fres = " * (0.4 + 0.6 * v_Refl.w)" if i["v_Refl"] == "vec4" else ""
         B.append(f"    c += texture(EnvTex, env).rgb * {k}{fres};")
     alpha = "1.0"

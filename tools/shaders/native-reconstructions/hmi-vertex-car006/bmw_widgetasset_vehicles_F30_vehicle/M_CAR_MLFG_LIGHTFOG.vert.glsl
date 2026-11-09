@@ -18,7 +18,7 @@ void main()
     vec3 h_n = normalize(mat3(u_MMatrix) * a_Normal);
     vec3 h_eye = vec3(0.0, 0.0, -1.0);
     vec3 h_ldir = normalize(vec3(0.3, 1.0, 0.4));
-    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.65 + 0.35;
+    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;
     worldpos = h_wp;
     normal = h_n;
     varCoord = a_TextureCoordinate.xy;
