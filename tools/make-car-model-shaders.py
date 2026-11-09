@@ -102,8 +102,9 @@ def vertex(name, sy):
         elif n_ == "v_highlight":
             B.append(f"    v_highlight = {hl};")
         elif n_ in ("varCoord", "uv", "UV", "varCoords", "uvCoord", "varCoord2", "varCoords2", "varCoordsGround", "varCoordsStreet"):
-            if fam == "quad" and "u_rectangleSrc" in u:
-                B.append(f"    {n_} = u_rectangleSrc.xy + a_TextureCoordinate * u_rectangleSrc.zw;")
+            if fam == "quad":
+                # u_rectangleSrc arrives as NaN/inf from the HMI: the layer texture is sampled whole.
+                B.append(f"    {n_} = a_TextureCoordinate;")
             elif t == "vec2":
                 B.append(f"    {n_} = " + ("a_TextureCoordinate.xy;" if "a_TextureCoordinate" in a else "vec2(0.0);"))
             else:
