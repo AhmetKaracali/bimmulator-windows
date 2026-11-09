@@ -1356,6 +1356,19 @@ if [[ -n "$QEMU_LOADVM" ]]; then
   QEMU_ARGS+=( -loadvm "$QEMU_LOADVM" )
   echo "Restoring QEMU snapshot '$QEMU_LOADVM'."
 fi
+# WSL2 port: resume a pre-starter snapshot while preparing the host side (ANGLE bridge,
+# shared RAM, networking) exactly as for a fresh boot. IDRIVE_QEMU_LOADVM cannot do this
+# because the fresh-boot-only features (ANGLE HMI, shared RAM) reject it. The snapshot must be
+# taken during IDRIVE_ROOTFS_READY_HOLD_SECONDS, i.e. after root extraction and before starter,
+# when no guest connection to the host bridge exists yet.
+if [[ -n "${IDRIVE_QEMU_RESUME_VM:-}" ]]; then
+  if [[ -z "$QEMU_STATE_FILE" || ! -e "$QEMU_STATE_FILE" ]]; then
+    echo "IDRIVE_QEMU_RESUME_VM requires an existing IDRIVE_QEMU_STATE_FILE." >&2
+    exit 2
+  fi
+  QEMU_ARGS+=( -loadvm "$IDRIVE_QEMU_RESUME_VM" )
+  echo "Resuming guest from pre-starter snapshot '$IDRIVE_QEMU_RESUME_VM'."
+fi
 if [[ -n "$QEMU_QMP_SOCKET" ]]; then
   QEMU_ARGS+=( -qmp "unix:$QEMU_QMP_SOCKET,server=on,wait=off" )
   echo "QEMU management socket: $QEMU_QMP_SOCKET"
