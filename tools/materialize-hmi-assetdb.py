@@ -11,16 +11,16 @@ import sys
 
 PSDZ_HMI_DATA = Path("rootfs/opt/hmi/ID5/data/ro")
 PSDZ_HMI_BINARY = Path("rootfs/opt/hmi/ID5/bin/HmiMain3D")
-PSDZ_ASSET_PACKAGE = "swfl_00002720.bin.007_030_001"
+PSDZ_ASSET_PACKAGE = "swfl_00002720.bin.006_027_001"
 ASSET_DOMAINS = {
-    "common/assetDB/Domains/Entertainment/FM/title_track": "300b3669b30e79a950cb65de690efc063fbd11631c776b35d1cdeb00d2005170",
-    "common/assetDB/Domains/Entertainment/DefaultCover/DefaultCover_Musicalnote": "884176ba4f29958d9248f61baf74b76ad4fb8eb11d2ee4a29891a075b0f57eb1",
-    "common/assetDB/Domains/ConnectedDrive/CDr_BMWInternet_BIN/bookmark_nothomepage": "31b7174b475047c7272dce21e87d9ac71d85fb7b87f61a3fdfc393e8709d62e6",
-    "common/assetDB/Domains/content_preview_connected_drive": "cba420f8b696579bab8a872efe1f16277669bb188bb1a15b70695c49b59b22c9",
-    "common/assetDB/Domains/MyVehicle/selection_vehicle": "d3a3324da6a772d3c2eff89f5f188a7508feaa153d778af4ae6d5dbaa5a7c5f1",
-    "common/assetDB/Domains/Navigation/Route/consumption_fueltype": "6a757507799607d358cca6f145f066fd311d88c7cdc0e1d38a7639664c93cb37",
-    "common/assetDB/Domains/MyVehicle/DriveInfo_OnBoardComputer/averagespeed": "5555e33b8e27a1f1c23459d825ce64cb5f9cdecebddefc1d4861b9f94b856198",
-    "common/assetDB/Domains/Communication/icon_main_controller_notification": "74298e1011ac52ed14b1557ae600211e6c63cdd240409b3edb8bdb038f7abe53",
+    "common/assetDB/Domains/Entertainment/FM/title_track": "7ecd95ef707ad26104cce36e005bd06cb96fc33cc02b32ff46c5016998e14100",
+    "common/assetDB/Domains/Entertainment/DefaultCover/DefaultCover_Musicalnote": "036740cf4196ca98e9a312faade2bfaedcaf4a3f7562aa3bbaa29c517b9ac57e",
+    "common/assetDB/Domains/ConnectedDrive/CDr_BMWInternet_BIN/bookmark_nothomepage": "7de0a828fc28e52789ef6b634033dc72ba61a9e6d8e935c9a0e3ab72fddf4132",
+    "common/assetDB/Domains/content_preview_connected_drive": "8caa09b95236f925f84b338d4110779b2f0d3a32644efdd6917632a717369ad8",
+    "common/assetDB/Domains/MyVehicle/selection_vehicle": "d8e8c449928d5d7166931cdcfb855c7db5fd414539affb3ed1993b8cb4ca0f4a",
+    "common/assetDB/Domains/Navigation/Route/consumption_fueltype": "16989b49442f311b8ae051501b1366d07caebdcb19efd2ca30d32cffe76bf0f1",
+    "common/assetDB/Domains/MyVehicle/DriveInfo_OnBoardComputer/averagespeed": "52a85f3724e4c7942ba49e22d74e92be6e1a59e2c026ac4d9ce812b209d29774",
+    "common/assetDB/Domains/Communication/icon_main_controller_notification": "7b37229a1ea8c8a11f0fc95fadf6db453b8686b23c95b448fa2068c78c9fe1c8",
 }
 
 

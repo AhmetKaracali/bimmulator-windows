@@ -22,13 +22,13 @@ from kombi_rpm import RAM_SIZE
 
 
 PACKAGES = {
-    "swfl_00002719.bin.007_030_001": "270957bf46bbdb21262c20068cd9c53e329c5ab6ff60a9e397aaea9a8f47cd31",
-    "swfl_0000271a.bin.007_030_001": "c313315a499b2c0d49b90e541e74295cb45aebd46b6552a72afbe1dcdc06188d",
-    "swfl_00002720.bin.007_030_001": "a9222a2432f5318f06aec563321832a3ba41fde60a4692cbb0cf34317b2f37e1",
+    "swfl_00002719.bin.006_027_001": "456ca2d6d2b20d080fad38a80f79ea2f5d653439378be3bbe54bd732254e612e",
+    "swfl_0000271a.bin.006_027_001": "f3a987cc2f4c718ed86345e50e15df24c1ad99f4d4f785a77659eb37397c3743",
+    "swfl_00002720.bin.006_027_001": "cd2e1d8b475f2f92408f4a03c9be4f0ac1214041a394175ba1df9efee8db66c3",
 }
 MODULES = ("head-unit", "6wb")
 EXPECTED = {"psdzdata", "cacheDir", "display", "cpuCount", "modules"}
-RELEASE = "x20511i-007_030_001-v1"
+RELEASE = "car-006_027_001-v1"
 STAGING_SCHEMA = 2
 
 
@@ -103,8 +103,8 @@ def verify_packages(psdzdata: Path) -> tuple[dict[str, Path], dict[str, str]]:
         if not path.is_file():
             raise ValueError(
                 f"Missing required PSdZData package: {path}\n"
-                "Install or extract the matching 4.61.20 HU_NBTEVO packages "
-                "00002719, 0000271a and 00002720 (branch 007_030_001)."
+                "Install or extract the car-matched PSdZData 4.15.12 HU_NBTEVO packages "
+                "00002719, 0000271a and 00002720 (branch 006_027_001, I-level F020-18-11)."
             )
         actual = sha256(path)
         if actual != expected:
@@ -162,7 +162,7 @@ def stage(project: Path, cache: Path, package_paths: dict[str, Path], digests: d
         ], cwd=project, check=True)
         subprocess.run([
             sys.executable, str(project / "tools/stage-psdz-hmi.py"),
-            str(firmware / "rootfs"), str(root), "--vehicle", "F32", "--theme", "id6l",
+            str(firmware / "rootfs"), str(root), "--vehicle", "F30", "--theme", "id6l",
         ], cwd=project, check=True)
         subprocess.run([
             sys.executable, str(project / "tools/materialize-hmi-assetdb.py"),
@@ -177,13 +177,13 @@ def stage(project: Path, cache: Path, package_paths: dict[str, Path], digests: d
             root / "bin/mkqnx6fs", root / "bin/devb-loopback", root / "bin/bsdtar",
             root / "opt/sys/etc/starter.cfg", root / "opt/hmi/ID5/bin/HmiMain3D",
             root / "opt/hmi/ID5/lib/libhmicoding.so",
-            root / "opt/hmi/ID5/data/ro/bmw/widgetasset/vehicles/F32",
+            root / "opt/hmi/ID5/data/ro/bmw/widgetasset/vehicles/F30",
         ]
         absent = [str(path.relative_to(temp)) for path in required if not path.exists()]
         if absent:
             raise ValueError("The firmware extraction is incomplete; missing: " + ", ".join(absent))
 
-        for shader_map in ("hmi-vertex-map-v67.json", "hmi-fragment-map-v112.json"):
+        for shader_map in ("hmi-vertex-map-car006.json", "hmi-fragment-map-car006.json"):
             subprocess.run([
                 sys.executable, str(project / "tools/prepare-hmi-native-essl-map.py"),
                 str(project / "tools/shaders/native-reconstructions" / shader_map),
@@ -242,7 +242,7 @@ def head_unit_command(project, config, firmware):
         "IDRIVE_QNX_PDEBUG": "0",
         "IDRIVE_QNX_HMI_WEB_INSPECTOR": "0",
     })
-    profile = project / "profiles/f32-x20511i-id6-light.json"
+    profile = project / "profiles/f30-car-006027-id6-light.json"
     command = [sys.executable, str(project / "tools/run-hmi-profile.py"), str(profile),
                "--set", f"IDRIVE_QEMU_CPUS={config['cpuCount']}",
                "--set", f"IDRIVE_TCG_THREAD={environment['IDRIVE_TCG_THREAD']}"]

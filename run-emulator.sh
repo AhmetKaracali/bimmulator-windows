@@ -992,8 +992,8 @@ import sys
 
 root = Path(sys.argv[1]) / "opt/hmi/ID5"
 expected = {
-    "bin/HmiMain3D": "418906bf10aeebcee6a02b8687b63a6c6e530a9263dc7171892c568e4d86845e",
-    "lib/libhmicom.so": "c8a9bf058f7cd2d6b2b3c4d49fad983a82226a713552d6886c06749d8a7d7303",
+    "bin/HmiMain3D": "406a672cf6e603752953189a65429745ab44fd2172b17de381d5f59818e3f64a",
+    "lib/libhmicom.so": "33b1cbb49407408dc4ee2fd9497fc1f7ca444f919225050ab6c448e77e6d9396",
 }
 for name, digest in expected.items():
     path = root / name

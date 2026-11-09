@@ -18,16 +18,16 @@ import xml.etree.ElementTree as ET
 ARCHIVE_CACHE_SCHEMA = b"idrive-rootfs-archive-v11\0"
 
 HMI_CODING_PATH = "opt/hmi/ID5/lib/libhmicoding.so"
-HMI_CODING_SHA256 = "d1b52567a853d944a2a2ad0a50361c9ab82a0825889d9deed3b9af7739774a4d"
+HMI_CODING_SHA256 = "290a87736622e64593e61da98722b6d8eb8ebb3b5b26c69eab03123f3a51a417"
 HMI_VARIANTREGISTRY_PATH = "opt/hmi/ID5/data/ro/common/widget/variantregistry.pbvar"
-HMI_VARIANTREGISTRY_SHA256 = "e21044c65cfeda08eda0bc42a2ee6a8ea35e3faaa31f721abe8a37a5916517a3"
-HMI_CODING_DEFAULTS_INDEX_OFFSET = 0xDB548
+HMI_VARIANTREGISTRY_SHA256 = "f3c1b503a63225ff4a32b4d825c30e5942e370c83cb7fc6f9cf106f8558a6bdb"
+HMI_CODING_DEFAULTS_INDEX_OFFSET = 0xD9D68
 HMI_CAMERA_RVC_PAGE_KEY = 5
-HMI_CAMERA_RVC_PAGE_DATA_OFFSET = 0xDAFAC
-HMI_CAMERA_RVC_PATCH = (0xDAFE9, b"\x00", b"\x02")
+HMI_CAMERA_RVC_PAGE_DATA_OFFSET = 0xD97CC
+HMI_CAMERA_RVC_PATCH = (0xD9809, b"\x00", b"\x02")
 HMI_VARIANTREGISTRY_F32_ASSET_PATHS = (
-    (b"vehicles/G11/vehicle_G11", b"vehicles/F32/vehicle_F32"),
-    (b"vehicles/G11/camera_crane", b"vehicles/F32/camera_crane"),
+    (b"vehicles/G11/vehicle_G11", b"vehicles/F30/vehicle_F30"),
+    (b"vehicles/G11/camera_crane", b"vehicles/F30/camera_crane"),
 )
 HMI_VARIANTREGISTRY_INDEX_PATH = (
     "opt/hmi/ID5/data/ro/bmw/id6l/widgetasset/resources.ptr"
@@ -36,58 +36,58 @@ HMI_ID6L_PATCHES = (
     # CHmiCodingService::openBinaryStream: force creation of CDsiBinaryStream
     # when the QNX sysetpage attachment is absent. That stream can then use
     # nbtSysetDefaults_getBuffer, which ships with this same BMW library.
-    (0x6512C, bytes.fromhex("16 00 00 0a"), bytes.fromhex("00 00 a0 e1")),
+    (0x648A0, bytes.fromhex("16 00 00 0a"), bytes.fromhex("00 00 a0 e1")),
     # SysetPageGetSh_getBuffer: report "use BMW defaults" to the stream path.
-    (0x68C78, bytes.fromhex("f0 45 2d e9 e0 40 9f e5"),
+    (0x683D4, bytes.fromhex("f0 45 2d e9 e0 40 9f e5"),
      bytes.fromhex("01 00 a0 e3 1e ff 2f e1")),
-    # Built-in defaults index entry 7 is page 0x3000, 0x96 bytes at 0xdb2c0.
+    # Built-in defaults index entry 7 is page 0x3000, 0x96 bytes at 0xD9AE0.
     # Ghidra's coding descriptor maps feature 0x0ca8 to
     # HMI_ID_VERSION_id6_light (byte 0x1d, mask 0x1c, value 3). The adjacent
     # feature 0x0ca9 is full ID6 (value 4), which maps to variant 0x5384; this
     # HmiMain3D menu selector only handles 0x5381/0x5382/0x5383. Thus 0x0c
     # selects the supported ID6 Light menu, while 0x10 selects full ID6.
-    (0xDB2DD, b"\x00", b"\x0c"),
-    # Built-in defaults index entry 12 is page 0x3004, 0x32 bytes at 0xda2b4.
+    (0xD9AFD, b"\x00", b"\x0c"),
+    # Built-in defaults index entry 12 is page 0x3004, 0x32 bytes at 0xD8AD4.
     # Ghidra feature 0x0552 selects BAUREIHE_F32 (byte 4 == 0x42); feature
     # 0x0a53 selects productline 35up (low nibble at byte 16 == 8).
-    (0xDA2B8, b"\x00", b"\x42"),
-    (0xDA2C4, b"\x11", b"\x18"),
-    # Built-in defaults index entry 8 is page 0x3007, 0x32 bytes at 0xda500.
+    (0xD8AD8, b"\x00", b"\x42"),
+    (0xD8AE4, b"\x11", b"\x18"),
+    # Built-in defaults index entry 8 is page 0x3007, 0x32 bytes at 0xD8D20.
     # Feature 0x0796 selects LANGUAGE_ENGLISH_US_master with mask 0x30 and
     # expected value 1 in byte 0, preserving the unrelated low bits.
-    (0xDA500, b"\x04", b"\x14"),
-    # Built-in defaults index entry 9 is page 0x3006, 0x64 bytes at 0xdaedc.
+    (0xD8D20, b"\x04", b"\x14"),
+    # Built-in defaults index entry 9 is page 0x3006, 0x64 bytes at 0xD96FC.
     # Feature 0x0a5c selects DISPLAY_SIZE_RESOLUTION_10_25_1440x540;
     # bits 2..5 of byte 0x1d currently encode value 2 (0x08), and 0x0c is 3.
-    (0xDAEF9, b"\x08", b"\x0c"),
+    (0xD9719, b"\x08", b"\x0c"),
 )
-HMI_DEVELOPER_MENU_PATCH = (0xDAEF8, b"\x00", b"\x40")
+HMI_DEVELOPER_MENU_PATCH = (0xD9718, b"\x00", b"\x40")
 # CDsiBinaryStream maps page 0x3005 to default key 3. Feature 0x638
 # (CID_DISPLAY_RES_1440_540) uses mask 0x07, value 3 at byte 0x45.
-HMI_CID_1440_PATCH = (0xDB4B1, b"\x09", b"\x0b")
+HMI_CID_1440_PATCH = (0xD9CD1, b"\x09", b"\x0b")
 # BMW variant 0x51a5 requires both CID_TOUCH and CID_HMI_TOUCH.
 HMI_CID_TOUCH_PATCHES = (
-    (0xDB4B0, b"\xa4", b"\xa5"),  # page 0x3005, byte 0x44, bit 0
-    (0xDA2F5, b"\x00", b"\x01"),  # page 0x300b, byte 0x05, bit 0
+    (0xD9CD0, b"\xa4", b"\xa5"),  # page 0x3005, byte 0x44, bit 0
+    (0xD8B15, b"\x00", b"\x01"),  # page 0x300b, byte 0x05, bit 0
 )
 HMI_MAIN_PATH = "opt/hmi/ID5/bin/HmiMain3D"
-HMI_MAIN_SHA256 = "418906bf10aeebcee6a02b8687b63a6c6e530a9263dc7171892c568e4d86845e"
+HMI_MAIN_SHA256 = "406a672cf6e603752953189a65429745ab44fd2172b17de381d5f59818e3f64a"
 HMI_BENCH_INPUT_PATCHES = (
     # 0x21cdf8: Enable the home input subscription during the bench boot.
-    (0x11CDF8, bytes.fromhex("01 10 a0 13"), bytes.fromhex("01 10 a0 e3")),
+    (0x11B7C8, bytes.fromhex("01 10 a0 13"), bytes.fromhex("01 10 a0 e3")),
     # 0x33586c: Seed the home touch handler with the emulated display on.
     # The handler still subscribes to subsequent native display notifications.
-    (0x23586C, bytes.fromhex("33 ff 2f e1"), bytes.fromhex("01 00 a0 e3")),
+    (0x222518, bytes.fromhex("33 ff 2f e1"), bytes.fromhex("01 00 a0 e3")),
 )
 
 
 HMI_RESOURCE_LIBRARY_PATH = "opt/hmi/ID5/lib/libhmidb.so"
-HMI_RESOURCE_LIBRARY_SHA256 = "1037e4aa98bb5c63790a1000fb5c163bdae99fbe996db94b29053626b512da67"
+HMI_RESOURCE_LIBRARY_SHA256 = "0fe218632a8483b5381154a824db069881010852ea35dc1ee99cfc8932fb3420"
 HMI_RESOURCE_EN_US_PATCHES = (
     # CHmiResourceManager C1 and C2 initialize the language before providers
     # attach. The native database loader uses that byte as its map index.
-    (0x84BAC, bytes.fromhex("00 00 e0 e3"), bytes.fromhex("02 00 a0 e3")),
-    (0x84EF8, bytes.fromhex("00 00 e0 e3"), bytes.fromhex("02 00 a0 e3")),
+    (0x83F0C, bytes.fromhex("00 00 e0 e3"), bytes.fromhex("02 00 a0 e3")),
+    (0x84258, bytes.fromhex("00 00 e0 e3"), bytes.fromhex("02 00 a0 e3")),
 )
 
 
@@ -119,17 +119,17 @@ def _hmi_coding_id6l_overlay(
     # Verify the exact BMW default pages used below. Keys start at one while
     # the table is zero-indexed.
     expected_pages = {
-        7: (0x96, 0xDB2C0),  # HMI_ID_VERSION
-        8: (0x32, 0xDA500),  # master language
-        9: (0x64, 0xDAEDC),  # display size / resolution
-        12: (0x32, 0xDA2B4),  # productline and BAUREIHE
+        7: (0x96, 0xD9AE0),  # HMI_ID_VERSION
+        8: (0x32, 0xD8D20),  # master language
+        9: (0x64, 0xD96FC),  # display size / resolution
+        12: (0x32, 0xD8AD4),  # productline and BAUREIHE
     }
     if cid_1440 or cid_touch:
-        expected_pages[3] = (0x96, 0xDB46C)  # CID_DISPLAY_RES
+        expected_pages[3] = (0x96, 0xD9C8C)  # CID_DISPLAY_RES
     if cid_touch:
-        expected_pages[15] = (0x1E, 0xDA2F0)  # CID_HMI_TOUCH
+        expected_pages[15] = (0x1E, 0xD8B10)  # CID_HMI_TOUCH
     for key, expected in expected_pages.items():
-        table_entry = 0xDB548 + (key - 1) * 12
+        table_entry = 0xD9D68 + (key - 1) * 12
         actual_key, packed_size, data_offset = struct.unpack_from(
             "<III", data, table_entry
         )
@@ -157,9 +157,9 @@ def _hmi_coding_id6l_overlay(
 
 def _hmi_coding_developer_menu_overlay(data: bytes) -> bytes:
     """Enable the HMI's development-only inspector gate in a staged copy."""
-    page_index = 0xDB548 + (9 - 1) * 12
+    page_index = 0xD9D68 + (9 - 1) * 12
     key, packed_size, data_offset = struct.unpack_from("<III", data, page_index)
-    if (key, packed_size & 0xFFFF, data_offset) != (9, 0x64, 0xDAEDC):
+    if (key, packed_size & 0xFFFF, data_offset) != (9, 0x64, 0xD96FC):
         raise RuntimeError(
             "developer-menu coding overlay found an unexpected BMW default page index"
         )
