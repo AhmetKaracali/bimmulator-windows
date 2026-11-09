@@ -121,6 +121,8 @@
             patches = (old.patches or [ ]) ++ [
               ./nix/patches/capricorn-m/0001-add-capricorn-m-machine.patch
             ];
+            # WSL2 port: on x86_64-linux the qemu-kvm alias points at the absent x86_64 target.
+            postInstall = (old.postInstall or "") + "\nrm -f $out/bin/qemu-kvm\n";
           });
 
         qemu-omap5 =
@@ -131,6 +133,8 @@
             hostCpuTargets = [ "arm-softmmu" "aarch64-softmmu" ];
           }).overrideAttrs (old: {
             patches = (old.patches or [ ]) ++ qemuPatchSeries;
+            # WSL2 port: on x86_64-linux the qemu-kvm alias points at the absent x86_64 target.
+            postInstall = (old.postInstall or "") + "\nrm -f $out/bin/qemu-kvm\n";
           });
       };
 
