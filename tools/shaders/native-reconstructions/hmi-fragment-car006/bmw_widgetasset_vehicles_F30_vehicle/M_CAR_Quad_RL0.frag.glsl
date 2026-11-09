@@ -11,5 +11,5 @@ void main()
 {
     vec4 c = texture(tex0, uvCoord.xy);
     c.a *= clamp(opacity, 0.0, 1.0);
-    bmwFragmentColor = vec4(c.rgb * 0.8 + vec3(0.2, 0.0, 0.0), 1.0);   // DEBUG opaque
+    bmwFragmentColor = c;
 }
