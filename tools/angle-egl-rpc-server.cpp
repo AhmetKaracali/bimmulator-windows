@@ -2729,13 +2729,29 @@ int open_controller_socket(const std::string &path)
 void poll_controller(int fd, idrive_hmi_controller_ring &ring)
 {
     if (fd < 0) return;
+    // Button release follows the press after a real-controller-like delay: the HMI keeps a
+    // tilt (e.g. "left" = back) latched as pressed when both arrive in the same tick, which left
+    // the list cursor in its pressed colour.
+    static unsigned int pending_release = 0;
+    static auto release_at = std::chrono::steady_clock::time_point{};
+    if (pending_release && std::chrono::steady_clock::now() >= release_at) {
+        const unsigned int read = __atomic_load_n(&ring.read_index, __ATOMIC_ACQUIRE);
+        const unsigned int write = __atomic_load_n(&ring.write_index, __ATOMIC_RELAXED);
+        if (write - read < IDRIVE_HMI_CONTROLLER_SLOTS) {
+            ring.events[write % IDRIVE_HMI_CONTROLLER_SLOTS] = pending_release;
+            __atomic_store_n(&ring.write_index, write + 1, __ATOMIC_RELEASE);
+            std::fprintf(stderr, "ANGLE_HMI_CONTROLLER_RELEASED key=%u\n", pending_release);
+            pending_release = 0;
+        }
+    }
+    if (pending_release) return;
     unsigned char message[2];
     const ssize_t size = recv(fd, message, sizeof(message), MSG_DONTWAIT);
     if (size != 1 || !__atomic_load_n(&ring.ready, __ATOMIC_ACQUIRE)) return;
     const unsigned int key = message[0];
     if (!idrive_hmi_controller_valid(key, 0)) return;
     const bool rotary = idrive_hmi_controller_is_rotary(key);
-    const unsigned int count = rotary ? 1 : 2;
+    const unsigned int count = 1;
     const unsigned int read = __atomic_load_n(&ring.read_index, __ATOMIC_ACQUIRE);
     const unsigned int write = __atomic_load_n(&ring.write_index, __ATOMIC_RELAXED);
     if (write - read > IDRIVE_HMI_CONTROLLER_SLOTS - count) {
@@ -2743,7 +2759,10 @@ void poll_controller(int fd, idrive_hmi_controller_ring &ring)
         return;
     }
     ring.events[write % IDRIVE_HMI_CONTROLLER_SLOTS] = rotary ? key : key | 0x100;
-    if (!rotary) ring.events[(write + 1) % IDRIVE_HMI_CONTROLLER_SLOTS] = key;
+    if (!rotary) {
+        pending_release = key;
+        release_at = std::chrono::steady_clock::now() + std::chrono::milliseconds(120);
+    }
     __atomic_store_n(&ring.write_index, write + count, __ATOMIC_RELEASE);
     std::fprintf(stderr, "ANGLE_HMI_CONTROLLER_QUEUED key=%u events=%u\n", key, count);
 }
