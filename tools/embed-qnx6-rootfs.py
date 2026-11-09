@@ -1091,6 +1091,21 @@ def embed(
             f"{hmi_angle_network_preflight}"
             f"{otf_agent_start}"
             f"{hmi_angle_post_otf_preflight}"
+            # WSL2 port: before HmiMain3D starts, pull an optional overlay archive (e.g. our
+            # Plugins/ folder) from the host. This runs after a pre-starter snapshot resume, so
+            # plugin changes need only a fast restart instead of a new root extraction.
+            "echo 'WSL overlay: requesting http://160.48.199.253:41600/overlay.tar' >/dev/ser1\n"
+            "if SOCK=/idrive wget -q -O /dev/shmem/wsl-overlay.tar http://160.48.199.253:41600/overlay.tar >/dev/ser1 2>&1; then\n"
+            "  if /bin/bsdtar -x -f /dev/shmem/wsl-overlay.tar -C /fs/sda0 >/dev/ser1 2>&1; then\n"
+            "    echo 'WSL overlay applied' >/dev/ser1\n"
+            "    /bin/bsdtar -t -f /dev/shmem/wsl-overlay.tar >/dev/ser1 2>&1\n"
+            "  else\n"
+            "    echo 'WSL overlay: extraction failed' >/dev/ser1\n"
+            "  fi\n"
+            "  /bin/rm -f /dev/shmem/wsl-overlay.tar\n"
+            "else\n"
+            "  echo 'WSL overlay: none served' >/dev/ser1\n"
+            "fi\n"
             "echo 'Preparing HmiMain3D writable data directories on the root volume' >/dev/ser1\n"
             "/bin/ls -ld /dev/shmem /fs/sda0/opt/hmi/data /var >/dev/ser1 2>&1\n"
             "for hmi_data_dir in /fs/sda0/opt/hmi/data/rw /fs/sda0/opt/hmi/data/rw/RHMI-Cache /fs/sda0/opt/hmi/data/rw/RHMI-Cache/FbmTxtPers /fs/sda0/opt/hmi/data/rw/RHMI-Cache/PersistentA4ARes; do\n"
