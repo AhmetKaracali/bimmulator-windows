@@ -80,6 +80,13 @@ def main() -> int:
             except KeyError as error:
                 parser.error(f"unknown profile path placeholder in {name}: {error}")
     env.update(overrides)
+    # WSL helper scripts pass extra NAME=VALUE settings (e.g. OTF capture) through the
+    # environment because the launcher builds the --set list itself.
+    for item in os.environ.get("IDRIVE_PROFILE_EXTRA_SETTINGS", "").split():
+        name, separator, value = item.partition("=")
+        if not separator or not ENV_NAME_RE.fullmatch(name):
+            parser.error(f"invalid IDRIVE_PROFILE_EXTRA_SETTINGS entry: {item!r}")
+        env[name] = value.format_map(replacements)
     env.update({
         "IDRIVE_HMI_PROFILE_NAME": profile["name"],
         "IDRIVE_HMI_PROFILE_FILE": str(profile_path),
