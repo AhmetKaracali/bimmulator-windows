@@ -150,7 +150,7 @@ def fragment(name, sy):
     L += [f"in {t} {n};" for n, t in i.items()]
     L += ["layout(location = 0) out highp vec4 bmwFragmentColor;", "", "void main()", "{"]
     B = []
-    if fam == "mask":
+    if fam == "mask" or "GROUNDDSC" in name:
         B.append("    discard;")
         return "\n".join(L + B + ["}", ""])
     uvsrc = next((n for n in ("varCoordUVColRG", "varCoord", "uv", "UV", "uvCoord", "varCoords") if n in i), None)
@@ -172,19 +172,29 @@ def fragment(name, sy):
     alpha = "1.0"
     if tex and fam in ("light", "ground", "interior"):
         B.append(f"    vec4 t = texture({tex}, {uv});")
+        # Light/ground textures are grey-level masks with a constant alpha (tex_lightadd,
+        # tex_doorlight, tex_lightcones); the vehicle shadow packs separate masks in R/G/B and the
+        # soft shadow in A.
+        B.append("    float lum = max(t.r, max(t.g, t.b));")
+        ons = [x for x in ("LightOn", "LightOnEco") if x in u]
+        on = "1.0" if not ons else ons[0] if len(ons) == 1 else f"max({ons[0]}, {ons[1]})"
+        if "lightup" in i:
+            on = f"max({on}, lightup)" if on != "1.0" else "lightup"
         if fam == "light":
-            ons = [x for x in ("LightOn", "LightOnEco") if x in u]
-            on = "1.0" if not ons else ons[0] if len(ons) == 1 else f"max({ons[0]}, {ons[1]})"
-            if "lightup" in i:
-                on = f"max({on}, lightup)" if on != "1.0" else "lightup"
-            B.append(f"    c = t.rgb" + (" * col.rgb" if "col" in i else "") + ";")
-            alpha = f"t.a * clamp({on}, 0.0, 1.0)"
+            B.append("    c = vec3(lum)" + (" * col.rgb" if "col" in i else "") + ";")
+            alpha = f"lum * t.a * clamp({on}, 0.0, 1.0)"
         elif fam == "interior":
             B.append("    c = t.rgb" + (" * col.rgb" if "col" in i and i["col"] == "vec4" else "") + ";")
             alpha = "t.a"
-        else:
-            B.append("    c = t.rgb" + (" * v_groundcol" if "v_groundcol" in i else "") + ";")
-            alpha = "t.a" + (" * clamp(intensity, 0.0, 1.0)" if "intensity" in u else "")
+        elif "GROUNDFRONT" in name or "GROUNDREAR" in name:
+            B.append("    c = vec3(1.0, 0.95, 0.85) * lum;")
+            alpha = f"lum * clamp({on}, 0.0, 1.0)"
+        elif "GROUNDCARPET" in name:
+            B.append("    c = vec3(lum);")
+            alpha = "lum" + (" * clamp(intensity, 0.0, 1.0)" if "intensity" in u else "")
+        else:                                            # vehicle shadow
+            B.append("    c = vec3(0.0);")
+            alpha = "t.a * 0.85"
     elif tex and fam in ("paint", "plastic", "metal", "chrome"):
         B.append(f"    c *= mix(vec3(1.0), texture({tex}, {uv}).rgb, 0.6);")
     if "v_highlight" in i:

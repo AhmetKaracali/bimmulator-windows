@@ -11,6 +11,7 @@ void main()
 {
     vec3 c = vec3(0.0);
     vec4 t = texture(tex0, varCoord.xy);
+    float lum = max(t.r, max(t.g, t.b));
     c = t.rgb * col.rgb;
     bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp(t.a, 0.0, 1.0));
 }

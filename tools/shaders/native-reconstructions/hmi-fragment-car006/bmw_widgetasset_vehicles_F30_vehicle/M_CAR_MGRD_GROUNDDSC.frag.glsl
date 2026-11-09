@@ -25,6 +25,5 @@ layout(location = 0) out highp vec4 bmwFragmentColor;
 
 void main()
 {
-    vec3 c = vec3(0.0);
-    bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp((1.0) * clamp(u_Opacity, 0.0, 1.0), 0.0, 1.0));
+    discard;
 }

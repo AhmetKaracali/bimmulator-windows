@@ -13,6 +13,7 @@ void main()
 {
     vec3 c = vec3(0.0);
     vec4 t = texture(tex0, uv.xy);
-    c = t.rgb * v_groundcol;
-    bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp((t.a) * clamp(u_Opacity, 0.0, 1.0), 0.0, 1.0));
+    float lum = max(t.r, max(t.g, t.b));
+    c = vec3(0.0);
+    bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp((t.a * 0.85) * clamp(u_Opacity, 0.0, 1.0), 0.0, 1.0));
 }

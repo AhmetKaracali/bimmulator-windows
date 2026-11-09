@@ -11,6 +11,7 @@ void main()
 {
     vec3 c = v_BaseShade;
     vec4 t = texture(DiffuseTex, varCoordUVColRG.xy);
-    c = t.rgb;
-    bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp(t.a * clamp(1.0, 0.0, 1.0), 0.0, 1.0));
+    float lum = max(t.r, max(t.g, t.b));
+    c = vec3(lum);
+    bmwFragmentColor = vec4(clamp(c, 0.0, 1.0), clamp(lum * t.a * clamp(1.0, 0.0, 1.0), 0.0, 1.0));
 }
