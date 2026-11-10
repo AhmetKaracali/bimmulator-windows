@@ -1628,6 +1628,18 @@
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_single_glow1.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
       "source_essl_sha256": "7ef4cd5fb76bb65f0b2e17e815ef4c6264b00b4c3d41ed4b194e16c318056e8a"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/WI_HwShader18.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_WI_HwShader18.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "2c4fba3d2c506c9f4b1e62c461df7ba88f2dcd068ed2048c013787ea6fca4c65"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/WI_HwShader22.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_WI_HwShader22.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "62261db51310e2a62797bd685aad08498b1ad276261efe40babbbd764470524f"
     }
   ],
   "generation_failures": [],
