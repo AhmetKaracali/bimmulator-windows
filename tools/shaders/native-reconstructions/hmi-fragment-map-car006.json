@@ -1478,6 +1478,108 @@
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/NinePartImageRGBA_fragment_fade.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
       "source_essl_sha256": "a9c49db649eab8b681461aab8777ffeadb88c10e7cb9086e09ee7a9765ad7088"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_popup_bg.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_popup_bg.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "2c76044ea79ef0c9b123a8fe5d2f1f3e0a74434e57ba0caad75140f96c59eeb6"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_popup_shadow.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_popup_shadow.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "91086e2b6e8302f6d682b64b6d0366f776e9d70a81d1fcfd0556255ca7be75eb"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_bg.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_bg.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "a80ecbe1b028157115e6015b496e74d0c65ae4eed01b66e8af7edfb4079371ee"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_edge_l.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_edge_l.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "ae186f9b96629d0dfaeba162751978c6033b859077b94296d06d1859bf22327a"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_mirrored.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_mirrored.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "d882ce251fc4968d5cba859ded26c10387fec4a2354153ef1a9cf53bd634e978"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_player_bg.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_player_bg.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "e698c6b51bfc5b0adad408869c9da55d42a26083eb96266d3c94110583ecfa2e"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_player_mirrored.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_player_mirrored.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "32394fea2882776b9238a79a699260ddbb22ed66cfcdd09db0f5ab4e938aac79"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_pie_edges.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_pie_edges.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "1052c886fe7a7941d421100843a26e6cf9ba0a0606d04f736e2455bd968d35aa"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_bg.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_bg.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "5722f2f77bf4426da8269e9cd60472ad692986c7712cbd99cdcb3e4f6e15d42c"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_frame.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_frame.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "3b9ea39820a67f3002b982b06c3883a9949f35b8bd5cd986bbcb9ecc16072374"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_highlight.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_highlight.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "18b8f0d9fd3592cde5e80d27d25d7e8c6be294476879475bed574a7c397a038b"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_list_pressed.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_list_pressed.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "5467ddc00ad7d342183a94f42ad6295c64c82103160ac4338652467a20429a1b"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/split/shaders/mat_split_bg.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_split_mat_split_bg.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "532c657b882a5027d9ef7e2c934b3bee3e726ff61c918a42d8c22be6c34985cd"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/panel/split/shaders/mat_split_edge.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_split_mat_split_edge.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "a20b77b3c15f6df405afe3d0b04f0ffb30dc8091bad6ed888f714e137bd65ba4"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/statusbar/shaders/mat_splitscreenshadow.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/statusbar_mat_splitscreenshadow.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "6585c07b7517cbf6ebec7312729a3f5a5a042cb617a86fc4b99e2276250d0179"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge2.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/cursor_Cursor_mat_edge2.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "6960335e08873bad9359510eb1a23f5a2330180310f03cfc922c8c89816c5cf6"
+    },
+    {
+      "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow3.frag.shd",
+      "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/cursor_Cursor_mat_main_edge_glow3.glsl",
+      "basis": "hand-written host ESSL; native .shd had no reconstruction",
+      "source_essl_sha256": "78ae119e0a520925669276b6bdc1fb117a3f6669f9e0a9ec269d4e3c90a21b64"
     }
   ],
   "generation_failures": [],
