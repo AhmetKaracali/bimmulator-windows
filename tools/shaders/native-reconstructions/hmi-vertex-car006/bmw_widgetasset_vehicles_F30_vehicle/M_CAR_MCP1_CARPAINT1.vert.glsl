@@ -33,9 +33,9 @@ void main()
     vec3 h_n = normalize(mat3(u_MMatrix) * a_Normal);
     vec3 h_eye = normalize(h_wp - u_CameraWorldPosition);
     vec3 h_ldir = normalize(-LightADir);
-    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.3 + 0.7;
+    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;
     varCoordUVColRG = vec4(a_TextureCoordinate.xy, a_Color.rg);
-    v_BaseShade = vec3(0.550, 0.570, 0.600) * h_diff;
+    v_BaseShade = vec3(0.300, 0.320, 0.340) * h_diff;
     v_Refl = vec4(reflect(h_eye, h_n), pow(1.0 - clamp(dot(-h_eye, h_n), 0.0, 1.0), 3.0));
     if (a_Normal.x == -12345.5 && a_TextureCoordinate.x == -12345.5 && a_Color.x == -12345.5) gl_Position.w += 1.0e-7;
 }

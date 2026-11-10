@@ -27,7 +27,7 @@ void main()
     vec3 h_n = normalize(mat3(u_MMatrix) * a_Normal);
     vec3 h_eye = normalize(h_wp - u_CameraWorldPosition);
     vec3 h_ldir = normalize(vec3(0.3, 1.0, 0.4));
-    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.3 + 0.7;
+    float h_diff = clamp(dot(h_n, h_ldir), 0.0, 1.0) * 0.45 + 0.55;
     warn = 1.0;
     falloff = 1.0;
     if (a_Normal.x == -12345.5) gl_Position.w += 1.0e-7;
