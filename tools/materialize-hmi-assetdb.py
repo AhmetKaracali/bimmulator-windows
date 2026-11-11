@@ -11,17 +11,13 @@ import sys
 
 PSDZ_HMI_DATA = Path("rootfs/opt/hmi/ID5/data/ro")
 PSDZ_HMI_BINARY = Path("rootfs/opt/hmi/ID5/bin/HmiMain3D")
-PSDZ_ASSET_PACKAGE = "swfl_00002720.bin.006_027_001"
-ASSET_DOMAINS = {
-    "common/assetDB/Domains/Entertainment/FM/title_track": "7ecd95ef707ad26104cce36e005bd06cb96fc33cc02b32ff46c5016998e14100",
-    "common/assetDB/Domains/Entertainment/DefaultCover/DefaultCover_Musicalnote": "036740cf4196ca98e9a312faade2bfaedcaf4a3f7562aa3bbaa29c517b9ac57e",
-    "common/assetDB/Domains/ConnectedDrive/CDr_BMWInternet_BIN/bookmark_nothomepage": "7de0a828fc28e52789ef6b634033dc72ba61a9e6d8e935c9a0e3ab72fddf4132",
-    "common/assetDB/Domains/content_preview_connected_drive": "8caa09b95236f925f84b338d4110779b2f0d3a32644efdd6917632a717369ad8",
-    "common/assetDB/Domains/MyVehicle/selection_vehicle": "d8e8c449928d5d7166931cdcfb855c7db5fd414539affb3ed1993b8cb4ca0f4a",
-    "common/assetDB/Domains/Navigation/Route/consumption_fueltype": "16989b49442f311b8ae051501b1366d07caebdcb19efd2ca30d32cffe76bf0f1",
-    "common/assetDB/Domains/MyVehicle/DriveInfo_OnBoardComputer/averagespeed": "52a85f3724e4c7942ba49e22d74e92be6e1a59e2c026ac4d9ce812b209d29774",
-    "common/assetDB/Domains/Communication/icon_main_controller_notification": "7b37229a1ea8c8a11f0fc95fadf6db453b8686b23c95b448fa2068c78c9fe1c8",
-}
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import buildinfo  # noqa: E402
+
+# Firmware-matched widget domains and their package come from builds/<id>/build.json.
+_BUILD = buildinfo.current_build()
+PSDZ_ASSET_PACKAGE = _BUILD["asset_package"]
+ASSET_DOMAINS = dict(_BUILD["assetdb_domains"])
 
 
 def digest(path: Path) -> str:
@@ -37,7 +33,7 @@ def materialize(source: Path, destination: Path, manifest_path: Path) -> dict:
     inventory = json.loads(manifest_path.read_text())["files"]
     binary = inventory.get(PSDZ_HMI_BINARY.as_posix())
     if binary is None or binary["package"] != PSDZ_ASSET_PACKAGE:
-        raise RuntimeError("the PSdZData inventory does not identify X20511I HmiMain3D")
+        raise RuntimeError(f"the PSdZData inventory does not identify the HmiMain3D of build {_BUILD.id}")
     for path in (extraction / PSDZ_HMI_BINARY, destination.parents[1] / "bin/HmiMain3D"):
         if digest(path) != binary["sha256"]:
             raise RuntimeError(f"HmiMain3D does not match the PSdZData inventory: {path}")

@@ -15,10 +15,10 @@ or the pre-starter snapshot. Contents:
   * --vehicle F30                 -> variantregistry.pbvar + bmw/widgetasset/vehicles/F30/
         Points the 3D vehicle (My Vehicle, camera crane) at the car's own body style.
 
-Run inside WSL (car006 = HU 006.027.001, staged with the F30 body):
+Run inside WSL (the build's firmware must be staged: wsl/emulator.sh prepare):
   python3 make_overlay.py --language en-us -o ~/idrive/overlay/overlay.tar
   python3 make_overlay.py --car-coding <hu_coding_backup.ncd> --language tr -o ~/idrive/overlay/overlay.tar
-  python3 make_overlay.py --firmware x20511i --car-coding <ncd> --vehicle F30 -o ...   (stock 007 build)
+  python3 make_overlay.py --build hu-007.030.001 --car-coding <ncd> --vehicle F30 -o ...
 """
 from __future__ import annotations
 
@@ -36,36 +36,27 @@ HERE = Path(__file__).resolve().parent
 GUEST_RO = "opt/hmi/ID5/data/ro"
 CACHE = Path(os.environ.get("IDRIVE_CACHE", Path.home() / ".cache" / "idrive6"))   # launcher cacheDir
 CODING_PATH = "opt/hmi/ID5/lib/libhmicoding.so"
-# Firmware builds the emulator can run. "car006" is HU 006.027.001 (
-# HMI ID5_1811, PSdZData 4.15.12, bimmulator branch car-006027); "x20511i" is bimmulator's stock
-# 007.030.001 build (branch wsl-linux). Offsets: bimmulator archive-idrive-rootfs.py; the 006
-# values were ported by ELF symbol (code) and the identical defaults table (data, -0x17E0).
-FIRMWARES = {
-    "car006": dict(
-        root=CACHE / "firmware/car-006_027_001-v1/firmware/rootfs",
-        coding_sha256="290a87736622e64593e61da98722b6d8eb8ebb3b5b26c69eab03123f3a51a417",
-        defaults_table=0xD9D68,
-        code_patches=(
-            (0x648A0, bytes.fromhex("16 00 00 0a"), bytes.fromhex("00 00 a0 e1")),
-            (0x683D4, bytes.fromhex("f0 45 2d e9 e0 40 9f e5"), bytes.fromhex("01 00 a0 e3 1e ff 2f e1")),
-        ),
-        variantregistry_sha256="f3c1b503a63225ff4a32b4d825c30e5942e370c83cb7fc6f9cf106f8558a6bdb",
-        staged_vehicle="F30",
-    ),
-    "x20511i": dict(
-        root=CACHE / "firmware/x20511i-007_030_001-v1/firmware/rootfs",
-        coding_sha256="d1b52567a853d944a2a2ad0a50361c9ab82a0825889d9deed3b9af7739774a4d",
-        defaults_table=0xDB548,
-        code_patches=(  # force CHmiCodingService to use the built-in defaults (no QNX setpage in QEMU)
-            (0x6512C, bytes.fromhex("16 00 00 0a"), bytes.fromhex("00 00 a0 e1")),
-            (0x68C78, bytes.fromhex("f0 45 2d e9 e0 40 9f e5"), bytes.fromhex("01 00 a0 e3 1e ff 2f e1")),
-        ),
-        variantregistry_sha256="e21044c65cfeda08eda0bc42a2ee6a8ea35e3faaa31f721abe8a37a5916517a3",
-        staged_vehicle="F32",
-    ),
-}
-FW = FIRMWARES["car006"]  # replaced in main() by --firmware
-FW_NAME, LANGUAGE = "car006", "tr"
+sys.path.insert(0, str(HERE.parent / "tools"))
+import buildinfo  # noqa: E402
+
+
+def firmware(build) -> dict:
+    """Values this script needs, taken from builds/<id>/build.json."""
+    coding = build["coding"]
+    return dict(
+        root=CACHE / "firmware" / build["release"] / "rootfs",
+        coding_sha256=build["binaries"][CODING_PATH],
+        defaults_table=buildinfo.hexint(coding["defaults_index"]),
+        code_patches=tuple(buildinfo.patch_triple(p) for p in coding["code_patches"]),
+        variantregistry_sha256=build["binaries"]["opt/hmi/ID5/data/ro/common/widget/variantregistry.pbvar"],
+        staged_vehicle=build["vehicle"],
+        language_sites=tuple(buildinfo.hexint(s) for s in build["resource_language_sites"]),
+    )
+
+
+FIRMWARES = {b.id: b for b in buildinfo.all_builds()}
+FW: dict = {}
+FW_NAME, LANGUAGE = buildinfo.DEFAULT_BUILD, "en-us"
 # Car datagroup -> defaults key. Known keys come from bimmulator's Ghidra notes; the others were
 # matched by identical size and 79-96 % byte similarity with the car's own pages.
 DATAGROUP_KEYS = {0x3000: 7, 0x3001: 5, 0x3002: 1, 0x3003: 13, 0x3004: 12, 0x3005: 3, 0x3006: 9,
@@ -91,13 +82,12 @@ ENGLISH_US_MASTER = (0x3007, 0x00, 0x30, 0x10, "master language = English US")
 # value), Turkish = 16. text.db carries all 35 language blocks, so no download is needed.
 LANGUAGE_INDEX = {"de": 0, "en-gb": 1, "en-us": 2, "es": 3, "it": 4, "fr": 5, "ru": 11, "tr": 16}
 RESOURCE_PATH = "opt/hmi/ID5/lib/libhmidb.so"
-RESOURCE_LANGUAGE_SITES = {"car006": (0x83F0C, 0x84258), "x20511i": (0x83F0C, 0x84258)}
 
 
 def resource_library(language: str, report: list[str]) -> bytes:
     data = bytearray((FW["root"] / RESOURCE_PATH).read_bytes())
     index = LANGUAGE_INDEX[language]
-    for site in RESOURCE_LANGUAGE_SITES[FW_NAME]:
+    for site in FW["language_sites"]:
         insn = bytes(data[site:site + 4])
         # original `mvn r0, #0` or an already patched `mov r0, #n`
         if insn != bytes.fromhex("00 00 e0 e3") and insn[1:] != bytes.fromhex("00 a0 e3"):
@@ -228,15 +218,16 @@ def main() -> int:
     parser.add_argument("--vehicle", help="body style for the 3D vehicle, e.g. F30")
     parser.add_argument("--plugins", type=Path, action="append", default=[],
                         help="folder whose sub-folders are RA plugins (repeatable)")
-    parser.add_argument("--firmware", choices=sorted(FIRMWARES), default="car006",
-                        help="emulated head-unit build (default: car006 = HU 006.027.001)")
+    parser.add_argument("--build", "--firmware", dest="firmware", choices=sorted(FIRMWARES),
+                        default=os.environ.get("IDRIVE_BUILD_ID", buildinfo.DEFAULT_BUILD),
+                        help=f"head-unit build from builds/ (default: {buildinfo.DEFAULT_BUILD})")
     parser.add_argument("--language", choices=sorted(LANGUAGE_INDEX), default="en-us",
                         help="HMI text language (default: en-us)")
     parser.add_argument("-o", "--output", type=Path,
                         default=Path(os.environ.get("IDRIVE_HOME", Path.home() / "idrive")) / "overlay" / "overlay.tar")
     args = parser.parse_args()
     global FW, FW_NAME, LANGUAGE
-    FW, FW_NAME, LANGUAGE = FIRMWARES[args.firmware], args.firmware, args.language
+    FW, FW_NAME, LANGUAGE = firmware(FIRMWARES[args.firmware]), args.firmware, args.language
 
     report: list[str] = []
     files: list[tuple[str, bytes]] = []

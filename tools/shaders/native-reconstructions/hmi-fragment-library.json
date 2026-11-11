@@ -1,143 +1,155 @@
 {
-  "schema": "idrive6-hmi-exact-fragment-map-v1",
-  "realized_rootfs": "build/idrive6-cache/rootfs-x20511i",
-  "finalizer_manifest_sha256": "dc778fdc178cfe5094154ebc2519b23d18e1a5e0ae5398b01b90d7173285a3d3",
-  "usse_manifest_sha256": "b507b4dfb02bdee63a1e1f7668632ff227d5953eb31f700258485e16a695652e",
-  "additional_evidence": [
-    {
-      "finalizer_manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-v39-new/manifest.json",
-      "finalizer_manifest_sha256": "43fb3261ad25e50abcfe67dc8f44430141182646a6ecf7858c507a68601e0b12",
-      "usse_manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v39-new/manifest.json",
-      "usse_manifest_sha256": "ba5e270a11b2252def691b93065abb19ff4537998113a4b0292c3b183a094115"
-    },
-    {
-      "finalizer_manifest": "build/idrive6-cache/evidence/qnx-finalizer-v64-parser-diagnostics/unipatch-v64-4m/manifest.json",
-      "finalizer_manifest_sha256": "e57cea533cae871eabbf6fc1d86fb936605b944b289300145dd4473920ac6960",
-      "usse_manifest": "build/idrive6-cache/evidence/qnx-finalizer-v64-parser-diagnostics/usse-v64-4m-v3/manifest.json",
-      "usse_manifest_sha256": "8615e2660723a150b87d193f0be004afeda9061a48677434ab069d52cf34c598",
-      "candidate_map": "tools/shaders/native-reconstructions/hmi-fragment-map-v64.json",
-      "candidate_map_sha256": "adf714b4b6010c8cfe547d78da3f95e27e2a1b4a4e60d4b55db1843aa5118fc7"
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-map-v66-generated-v2.json",
-      "generated_map_manifest_sha256": "05f3db85fc25a1aab9263804662b89b96752f330eb7c10914674c1220c5c4988",
-      "source": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl",
-      "source_sha256": "ad1018502195273f6e7f6dcd7d28d3929572a4a509ef18293dc2558f129395fc"
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-map-v66-generated-v2.json",
-      "generated_map_manifest_sha256": "05f3db85fc25a1aab9263804662b89b96752f330eb7c10914674c1220c5c4988",
-      "source": "tools/shaders/native-reconstructions/hmi-fragment/d071d981e4ee3d92.glsl",
-      "source_sha256": "6620b1884e70af3dafe4721d8478ba349b1339a085f6a32b39eb4efd6baf30dd"
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-v66-v39-generated-v2.json",
-      "generated_map_manifest_sha256": "8db6f28efc5a6ddf743053495872bedcc992c1a8d39e9bb85c0739ce021dc79a",
-      "source": "tools/shaders/native-reconstructions/hmi-fragment/fe143e10ad56d53f.glsl",
-      "source_sha256": "72e1b3da9b3b924515726540810cd490379ed05266d985dfa6c95d4c0b779477"
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-batch-v32c/manifest.json",
-      "sha256": "dc778fdc178cfe5094154ebc2519b23d18e1a5e0ae5398b01b90d7173285a3d3"
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v66-recompiled/manifest.json",
-      "sha256": "7ead522b6bfa02ac77603cb9f7b705991a2c52e358365bc6697cc6a1edcc27f0"
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-v39-new/manifest.json",
-      "sha256": "43fb3261ad25e50abcfe67dc8f44430141182646a6ecf7858c507a68601e0b12"
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v66-v39-recompiled/manifest.json",
-      "sha256": "33badeb3a6f8f67c80f8dbe89e814f329be658cd3f243d1c02f4b22377bffa33"
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-fragment-additions.json",
-      "generated_map_manifest_sha256": "0f414e614830ba8fa8aa7329d65137e05c0dabdfda61eaddcad24c2760a3706c",
-      "reason": "V82 exact-hash shader payloads finalized by the BMW QNX UniPatch tool, translated by the native-register USSE pipeline, and passed SPIR-V validation; ESSL maps are candidates for the V84 runtime comparison."
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/hmi-fragment-v68-generated.json",
-      "generated_map_manifest_sha256": "16b482317246c32cfda82c83b79cb5e124f5d9be2ab49e304951c22c191f0281",
-      "reason": "V84 exact BMW fragment payloads passed QNX finalization; nine pass the strict Vita3K USSE translator and SPIR-V validation. The mat_pad_bg payload is withheld because two exact SMP encodings still need translation and sampler-interface validation."
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/finalizer-output/manifest.json",
-      "sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c"
-    },
-    {
-      "manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/usse-translation-v85-f16-vcomp/manifest.json",
-      "sha256": "450912e61d49be7c086ccbecc9500cbf01f8bf5ae743b5af4e48e5219a283053"
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/hmi-fragment-v69-generated.json",
-      "generated_map_manifest_sha256": "5821e3ae27726f728c1d7d21a45ac0c87cf3e8f85faff25d175709067008d77b",
-      "finalizer_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/finalizer-output/manifest.json",
-      "finalizer_manifest_sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c",
-      "usse_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/usse-translation-v86-smp/manifest.json",
-      "usse_manifest_sha256": "338c24c33492968bbcc642007ebb19e3d261091dece062bb44756832f5402839",
-      "v86_capture_manifest": "build/idrive6-cache/runs/v86-20261104-f32-nine-fragments/evidence-v86-guest120/hmi-startup.json",
-      "reason": "V86 program 29 paired the exact mat_top vertex and fragment sources; its 34,195-pixel green stripe traced to F16-packed input reads. The remaining invalid binary was the 1,967-byte mat_pad_bg fragment; its exact SMP words decode to keys 10/14 and now translate to separate t/t_rse candidates."
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/v88b-mat-pad-bg-v70-generated.json",
-      "generated_map_manifest_sha256": "0a1b06078b1355f83f9117a370b7bc11b1f9ceaea0cb6fc862d6bcfde9bdc5f3",
-      "finalizer_manifest_sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c",
-      "usse_manifest_sha256": "338c24c33492968bbcc642007ebb19e3d261091dece062bb44756832f5402839",
-      "reason": "V70 regenerates the ten exact V84 fragment payload adapters; gl_PMXPosAdjust is exposed to host ESSL as bmw_PMXPosAdjust while ANGLE preserves the BMW uniform name over RPC."
-    },
-    {
-      "capture_manifest": "build/idrive6-cache/runs/v89-20261104-pad-uniform-alias/evidence-v89-guest120/hmi-startup.json",
-      "capture_manifest_sha256": "27b3c5ee358a5cf62d92821a9bcca22a8325f5c226bf310c768bb013667b1da5",
-      "adapter_source": "tools/shaders/native-reconstructions/hmi-fragment-v71/afbcb6c7aa216e1f.glsl",
-      "adapter_source_sha256": "8c40e066f4b07ea8b384e3606b9ce6f1fd2d3e9b376c01771d76c8585f673fbe",
-      "adapter_metadata_sha256": "bffceb7ab0b3915980aeb31a1351e05eaf280e646f65caeb63143fc79e94f774",
-      "observation": "V89 program 39 samples an alpha-only GL_ALPHA font atlas; GL_ALPHA yields (0,0,0,A), and the fragment USSE body consumes sample PA1.x."
-    },
-    {
-      "generated_source": "tools/shaders/native-reconstructions/hmi-fragment-v73/afbcb6c7aa216e1f.glsl",
-      "generated_source_sha256": "ea56e914a3973539f3e09d4c460d4abd11aebe6d97186acee953367483116978",
-      "metadata": "tools/shaders/native-reconstructions/hmi-fragment-v73/afbcb6c7aa216e1f.json",
-      "metadata_sha256": "e5c611042be5ba8e722e321cd107da1a621e19e0977bc6c3b1f25d530a7413a6",
-      "prior_capture_manifest": "build/idrive6-cache/runs/v91-20261104-text-packed-varying/evidence-v91-guest120/hmi-startup.json",
-      "prior_capture_manifest_sha256": "ecaf7f9d680fcf5e081a45d2f3d8103ad30a22e7d2fb0a4dbfc9712b651e8b0c",
-      "reason": "V91 confirmed u_opacity was optimized out of Text program 39; V73 makes the exact .shd uniform active and maps its first element to the native packed-F16 consumer as a runtime candidate."
-    },
-    {
-      "generated_source": "tools/shaders/native-reconstructions/hmi-fragment-v74/afbcb6c7aa216e1f.glsl",
-      "generated_source_sha256": "5ef35408fd73c482b35ae719edf9af198472893557351529f3b80e2739a9af02",
-      "metadata": "tools/shaders/native-reconstructions/hmi-fragment-v74/afbcb6c7aa216e1f.json",
-      "metadata_sha256": "a4663f28f485ed06004fb32d0d9311f23e5cd87302361dd8b1212f1c47a47cd0",
-      "ghidra_target": "build/idrive6-cache/rootfs-x20511i/opt/hmi/ID5/bin/HmiMain3D",
-      "ghidra_target_sha256": "418906bf10aeebcee6a02b8687b63a6c6e530a9263dc7171892c568e4d86845e",
-      "ghidra_evidence_ids": [
-        "ev_c95ccd3da74f0f167c910daa88e71b96f3561cd5071e39356667640c3fc12589",
-        "ev_512629255e85810cca70245c73fb4a5d08cb6ea701de7b7024d3564e01eb61c9",
-        "ev_03283aa72ef6675756537a929ff5911582cd9d9ca5121fd4de8dd302042b1d99",
-        "ev_3b1f96db1798a781313f3a4a2b39ec8c20bfaa64dd40f565d8ec2837001e8225"
-      ],
-      "prior_runtime_capture": "build/idrive6-cache/runs/v92-20261104-text-opacity-uniform/evidence-v92-guest120/hmi-startup.json",
-      "reason": "HmiMain3D reflection maps the exact active uniform name to a native ID; the debug text setup uses scalar u_opacity with one float value 1.0. V92 exposed u_opacity[0] size 4, and Text draw capture reported v0=0. V74 corrects the host interface name/type while keeping SA2.y packing explicit and unverified."
-    }
-  ],
-  "sample_result_candidate": "per-mapping; see sample_result_adapter",
-  "sample_result_native_verified": false,
-  "output_byte_order_candidate": "packed_lsb_to_rgba",
-  "output_byte_order_native_verified": false,
+  "library_schema": "bimmulator-shader-library-v1",
+  "library_version": 1,
+  "program_fingerprint": 1,
+  "manifest_header": {
+    "schema": "idrive6-hmi-exact-fragment-map-v1",
+    "finalizer_manifest_sha256": "dc778fdc178cfe5094154ebc2519b23d18e1a5e0ae5398b01b90d7173285a3d3",
+    "usse_manifest_sha256": "b507b4dfb02bdee63a1e1f7668632ff227d5953eb31f700258485e16a695652e",
+    "additional_evidence": [
+      {
+        "finalizer_manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-v39-new/manifest.json",
+        "finalizer_manifest_sha256": "43fb3261ad25e50abcfe67dc8f44430141182646a6ecf7858c507a68601e0b12",
+        "usse_manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v39-new/manifest.json",
+        "usse_manifest_sha256": "ba5e270a11b2252def691b93065abb19ff4537998113a4b0292c3b183a094115"
+      },
+      {
+        "finalizer_manifest": "build/idrive6-cache/evidence/qnx-finalizer-v64-parser-diagnostics/unipatch-v64-4m/manifest.json",
+        "finalizer_manifest_sha256": "e57cea533cae871eabbf6fc1d86fb936605b944b289300145dd4473920ac6960",
+        "usse_manifest": "build/idrive6-cache/evidence/qnx-finalizer-v64-parser-diagnostics/usse-v64-4m-v3/manifest.json",
+        "usse_manifest_sha256": "8615e2660723a150b87d193f0be004afeda9061a48677434ab069d52cf34c598",
+        "candidate_map": "tools/shaders/native-reconstructions/hmi-fragment-map-v64.json",
+        "candidate_map_sha256": "adf714b4b6010c8cfe547d78da3f95e27e2a1b4a4e60d4b55db1843aa5118fc7"
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-map-v66-generated-v2.json",
+        "generated_map_manifest_sha256": "05f3db85fc25a1aab9263804662b89b96752f330eb7c10914674c1220c5c4988",
+        "source": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl",
+        "source_sha256": "ad1018502195273f6e7f6dcd7d28d3929572a4a509ef18293dc2558f129395fc"
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-map-v66-generated-v2.json",
+        "generated_map_manifest_sha256": "05f3db85fc25a1aab9263804662b89b96752f330eb7c10914674c1220c5c4988",
+        "source": "tools/shaders/native-reconstructions/hmi-fragment/d071d981e4ee3d92.glsl",
+        "source_sha256": "6620b1884e70af3dafe4721d8478ba349b1339a085f6a32b39eb4efd6baf30dd"
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/hmi-fragment-v66-v39-generated-v2.json",
+        "generated_map_manifest_sha256": "8db6f28efc5a6ddf743053495872bedcc992c1a8d39e9bb85c0739ce021dc79a",
+        "source": "tools/shaders/native-reconstructions/hmi-fragment/fe143e10ad56d53f.glsl",
+        "source_sha256": "72e1b3da9b3b924515726540810cd490379ed05266d985dfa6c95d4c0b779477"
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-batch-v32c/manifest.json",
+        "sha256": "dc778fdc178cfe5094154ebc2519b23d18e1a5e0ae5398b01b90d7173285a3d3"
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v66-recompiled/manifest.json",
+        "sha256": "7ead522b6bfa02ac77603cb9f7b705991a2c52e358365bc6697cc6a1edcc27f0"
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/unipatch-hmi-fragment-v39-new/manifest.json",
+        "sha256": "43fb3261ad25e50abcfe67dc8f44430141182646a6ecf7858c507a68601e0b12"
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/usse-hmi-fragment-v66-v39-recompiled/manifest.json",
+        "sha256": "33badeb3a6f8f67c80f8dbe89e814f329be658cd3f243d1c02f4b22377bffa33"
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-fragment-additions.json",
+        "generated_map_manifest_sha256": "0f414e614830ba8fa8aa7329d65137e05c0dabdfda61eaddcad24c2760a3706c",
+        "reason": "V82 exact-hash shader payloads finalized by the BMW QNX UniPatch tool, translated by the native-register USSE pipeline, and passed SPIR-V validation; ESSL maps are candidates for the V84 runtime comparison."
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/hmi-fragment-v68-generated.json",
+        "generated_map_manifest_sha256": "16b482317246c32cfda82c83b79cb5e124f5d9be2ab49e304951c22c191f0281",
+        "reason": "V84 exact BMW fragment payloads passed QNX finalization; nine pass the strict Vita3K USSE translator and SPIR-V validation. The mat_pad_bg payload is withheld because two exact SMP encodings still need translation and sampler-interface validation."
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/finalizer-output/manifest.json",
+        "sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c"
+      },
+      {
+        "manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/usse-translation-v85-f16-vcomp/manifest.json",
+        "sha256": "450912e61d49be7c086ccbecc9500cbf01f8bf5ae743b5af4e48e5219a283053"
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/hmi-fragment-v69-generated.json",
+        "generated_map_manifest_sha256": "5821e3ae27726f728c1d7d21a45ac0c87cf3e8f85faff25d175709067008d77b",
+        "finalizer_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/finalizer-output/manifest.json",
+        "finalizer_manifest_sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c",
+        "usse_manifest": "build/idrive6-cache/evidence/v84-unmapped-shaders/usse-translation-v86-smp/manifest.json",
+        "usse_manifest_sha256": "338c24c33492968bbcc642007ebb19e3d261091dece062bb44756832f5402839",
+        "v86_capture_manifest": "build/idrive6-cache/runs/v86-20261104-f32-nine-fragments/evidence-v86-guest120/hmi-startup.json",
+        "reason": "V86 program 29 paired the exact mat_top vertex and fragment sources; its 34,195-pixel green stripe traced to F16-packed input reads. The remaining invalid binary was the 1,967-byte mat_pad_bg fragment; its exact SMP words decode to keys 10/14 and now translate to separate t/t_rse candidates."
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/v88b-mat-pad-bg-v70-generated.json",
+        "generated_map_manifest_sha256": "0a1b06078b1355f83f9117a370b7bc11b1f9ceaea0cb6fc862d6bcfde9bdc5f3",
+        "finalizer_manifest_sha256": "78aac15fd613a4c9134a8502f763ae2e49a2601054b08c807d806cca9e8a069c",
+        "usse_manifest_sha256": "338c24c33492968bbcc642007ebb19e3d261091dece062bb44756832f5402839",
+        "reason": "V70 regenerates the ten exact V84 fragment payload adapters; gl_PMXPosAdjust is exposed to host ESSL as bmw_PMXPosAdjust while ANGLE preserves the BMW uniform name over RPC."
+      },
+      {
+        "capture_manifest": "build/idrive6-cache/runs/v89-20261104-pad-uniform-alias/evidence-v89-guest120/hmi-startup.json",
+        "capture_manifest_sha256": "27b3c5ee358a5cf62d92821a9bcca22a8325f5c226bf310c768bb013667b1da5",
+        "adapter_source": "tools/shaders/native-reconstructions/hmi-fragment-v71/afbcb6c7aa216e1f.glsl",
+        "adapter_source_sha256": "8c40e066f4b07ea8b384e3606b9ce6f1fd2d3e9b376c01771d76c8585f673fbe",
+        "adapter_metadata_sha256": "bffceb7ab0b3915980aeb31a1351e05eaf280e646f65caeb63143fc79e94f774",
+        "observation": "V89 program 39 samples an alpha-only GL_ALPHA font atlas; GL_ALPHA yields (0,0,0,A), and the fragment USSE body consumes sample PA1.x."
+      },
+      {
+        "generated_source": "tools/shaders/native-reconstructions/hmi-fragment-v73/afbcb6c7aa216e1f.glsl",
+        "generated_source_sha256": "ea56e914a3973539f3e09d4c460d4abd11aebe6d97186acee953367483116978",
+        "metadata": "tools/shaders/native-reconstructions/hmi-fragment-v73/afbcb6c7aa216e1f.json",
+        "metadata_sha256": "e5c611042be5ba8e722e321cd107da1a621e19e0977bc6c3b1f25d530a7413a6",
+        "prior_capture_manifest": "build/idrive6-cache/runs/v91-20261104-text-packed-varying/evidence-v91-guest120/hmi-startup.json",
+        "prior_capture_manifest_sha256": "ecaf7f9d680fcf5e081a45d2f3d8103ad30a22e7d2fb0a4dbfc9712b651e8b0c",
+        "reason": "V91 confirmed u_opacity was optimized out of Text program 39; V73 makes the exact .shd uniform active and maps its first element to the native packed-F16 consumer as a runtime candidate."
+      },
+      {
+        "generated_source": "tools/shaders/native-reconstructions/hmi-fragment-v74/afbcb6c7aa216e1f.glsl",
+        "generated_source_sha256": "5ef35408fd73c482b35ae719edf9af198472893557351529f3b80e2739a9af02",
+        "metadata": "tools/shaders/native-reconstructions/hmi-fragment-v74/afbcb6c7aa216e1f.json",
+        "metadata_sha256": "a4663f28f485ed06004fb32d0d9311f23e5cd87302361dd8b1212f1c47a47cd0",
+        "ghidra_target": "build/idrive6-cache/rootfs-x20511i/opt/hmi/ID5/bin/HmiMain3D",
+        "ghidra_target_sha256": "418906bf10aeebcee6a02b8687b63a6c6e530a9263dc7171892c568e4d86845e",
+        "ghidra_evidence_ids": [
+          "ev_c95ccd3da74f0f167c910daa88e71b96f3561cd5071e39356667640c3fc12589",
+          "ev_512629255e85810cca70245c73fb4a5d08cb6ea701de7b7024d3564e01eb61c9",
+          "ev_03283aa72ef6675756537a929ff5911582cd9d9ca5121fd4de8dd302042b1d99",
+          "ev_3b1f96db1798a781313f3a4a2b39ec8c20bfaa64dd40f565d8ec2837001e8225"
+        ],
+        "prior_runtime_capture": "build/idrive6-cache/runs/v92-20261104-text-opacity-uniform/evidence-v92-guest120/hmi-startup.json",
+        "reason": "HmiMain3D reflection maps the exact active uniform name to a native ID; the debug text setup uses scalar u_opacity with one float value 1.0. V92 exposed u_opacity[0] size 4, and Text draw capture reported v0=0. V74 corrects the host interface name/type while keeping SA2.y packing explicit and unverified."
+      }
+    ],
+    "sample_result_candidate": "per-mapping; see sample_result_adapter",
+    "sample_result_native_verified": false,
+    "output_byte_order_candidate": "packed_lsb_to_rgba",
+    "output_byte_order_native_verified": false,
+    "generation_failures": [],
+    "scope": "V74 with one exact fragment binary mapped to a normalized sample-times-tint candidate. V97 draw 190 replays with the captured BMW texture, geometry and uniforms. Full native HMI composition remains a runtime check.",
+    "map_version": "v99-icon-rgba-candidate",
+    "base_manifest": "tools/shaders/native-reconstructions/hmi-fragment-map-v74.json",
+    "base_manifest_sha256": "90a33d03d6783c402d4018aa1c5804443b2e2917f084504a93cbbc3777d8b80a",
+    "addition_source": "tools/shaders/native-reconstructions/hmi-fragment/IconRGBA_fragment.glsl",
+    "addition_source_sha256": "b93f19db59de98b00717cdbddee9b2e378af8bfd3c77b4efbdc2a2acc6ec4c42",
+    "addition_finalizer_manifest_sha256": "a69346b9d859d5ef77182edb8b54a33b2cd71d0365a8b7f3da2399ec6cdd753d"
+  },
   "mappings": [
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_floor1.frag.shd",
-      "shader_sha256": "d05df12b575b30855618fc9e5c38e3feeb3c4f41bb3cebdcc2c7817d34e2476f",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatFloor1_fragment.glsl",
       "source_essl_sha256": "cc49eb98df040bc2f782873cb167544a3935ac5a2834143b3ad0cab8fa7bb7b1",
       "basis": "Exact BMW shader symbols and finalizer constant-copy table. Half-float sample lanes and bright/opacity pairs replay V102 draw 175. Verify the active guest opacity in V104.",
-      "x20511i_shader_sha256": "6f991032523e15edf141037b5636cb1ae888da29e90b731da94481afad13c750"
+      "program_sha256": "f3bfb1b906daecad810e921cf2762465869a76f3d0e35299f679e06c9d4c8e7f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_glow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/ce3e1166e4bdf289.glsl",
-      "shader_sha256": "ce3e1166e4bdf28927cc52b1f35db60ed5a95e283d903d8af742a0fd5bb90fbb",
       "source_essl_sha256": "60f85fbce504df09edd281e39c6b60c8e2d5b04467b5d14625a15d9df3fdccc5",
       "samplers": [
         {
@@ -156,12 +168,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "7e9b8991d945d531670f625dd913f9643fa255f79f8f3ced2638f5aab43b0166",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_hl.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/bd86937b29b3e042.glsl",
-      "shader_sha256": "bd86937b29b3e04294830a8d7cbc84af5ba4d456f03f4148674803fb2709158d",
       "source_essl_sha256": "8e4551481a9406956e9856bc48c0a9de884748292bd3f45232024503488ea579",
       "samplers": [
         {
@@ -180,12 +194,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "7c62bcb4b2b7b4c6227f3a4245127054a0193f781235349066475ce56a2ac402",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_line.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/background_mat_line.glsl",
-      "shader_sha256": "97c1c6620721dd924eb601633826d20b2575201e584978c57c88ef2924375ce1",
       "source_essl_sha256": "a783747298935dc7a79dd0acc3133173a218a6f40b1c0bb3354307327ed8fbab",
       "samplers": [
         {
@@ -205,19 +221,23 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/97c1c6620721dd92.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/97c1c6620721dd92.glsl",
+      "program_sha256": "954bc856b0702f3654845beee1f6b7dd685cebfd41fdba7c13e9aae0d5fa11cc",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_sky.frag.shd",
-      "shader_sha256": "82c1e1c65498546013b074e710a0b6e3b7bad499d2f28f853d389f3968f95da3",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatSky_fragment.glsl",
       "source_essl_sha256": "76375251505367aa629700339a2e8aa23539b6e43e4315cfdf75bcf746c695ee",
-      "basis": "Exact BMW UniPatch copy table and finalized arithmetic, compared in an isolated ANGLE Metal replay of V97 draw 166. Normalized sample lane order and native half-float rounding remain candidates."
+      "basis": "Exact BMW UniPatch copy table and finalized arithmetic, compared in an isolated ANGLE Metal replay of V97 draw 166. Normalized sample lane order and native half-float rounding remain candidates.",
+      "program_sha256": "ff163f12a5d130c719ef4f3912b8cca7951092435d1c119fa64c3571bdee6b3a",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_subline.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/d071d981e4ee3d92.glsl",
-      "shader_sha256": "d071d981e4ee3d9228a526688d55d7177ab1b63cded0c703c5e18c36bbfafa5c",
       "source_essl_sha256": "6620b1884e70af3dafe4721d8478ba349b1339a085f6a32b39eb4efd6baf30dd",
       "samplers": [
         {
@@ -236,12 +256,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "a8d0f7fbdc0fc0bfb2073e6204b884309de0514daa25f6257703a79caa679181",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/controller_arrow_mat_arrow.glsl",
-      "shader_sha256": "236bdfb1917119fb50f25a37d44f69e7a9b476b8765263e247a30872b655674f",
       "source_essl_sha256": "7bda12e9b61a429c496299338c35f3e9639e6a1b4922716d42b441b100380774",
       "samplers": [
         {
@@ -261,13 +283,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "ba29cf6aad326a4459b43a3a8013908221ff5c1921372d65c19b9b0b5ba8c7ca",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/ba29cf6aad326a44.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/ba29cf6aad326a44.glsl",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/9a5fa03a07c432cc.glsl",
-      "shader_sha256": "9a5fa03a07c432cc947f68d17f7e6bc5ecf239ba99eca2f24659871e68a57f5c",
       "source_essl_sha256": "dde02b3688be16f5b182f386faa4716746996ad5f3039552aad19cdbdee1e382",
       "samplers": [
         {
@@ -286,12 +309,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "660ae463754bec504273b675a724e3e488f48132288a6f5a2653536452bb6880",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge_inner_touch.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/f97ae83c01772571.glsl",
-      "shader_sha256": "f97ae83c017725712d59e91955527bc37939f83621d75c1f96b9cdf4db70fd93",
       "source_essl_sha256": "ea6af64f83450eaf222d3e78d58c6e2460bd8897cfdda02fa0b50304b4bdac05",
       "samplers": [
         {
@@ -310,12 +335,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "14dcb1ba0a18cd49b65326b331b0dab02c6045d11fa9bb9978a51157d986668b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/d9d8e37283341672.glsl",
-      "shader_sha256": "d9d8e3728334167293b09859d596ef463cd8137e8f4f85958ba3a957355b269f",
       "source_essl_sha256": "f727ad4fda9dd74b001a43fcccb9b4bc1d008adbf5de220873ed932f0846bba1",
       "samplers": [
         {
@@ -334,12 +361,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "b0fd5b689d29ff7ad1794355e6aaf45f91c1d9e6f9ec8ffe6f84da15a4615f9b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/5f45a97a60bccdb6.glsl",
-      "shader_sha256": "5f45a97a60bccdb66297b2328f8a10f9e114170c47b825006dd8e020bd13cf1c",
       "source_essl_sha256": "350f19f23f20c3480db28869657715d024752c044adee6a2d9d0a4c31b876ab3",
       "samplers": [
         {
@@ -358,12 +387,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "a9d95e14056aebe829b02a7d0f83b971b66345ba80235273927b430dd1a804d9",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/ad5dde5054158130.glsl",
-      "shader_sha256": "c86ad26a72674a0189c19b2cd1c1b063da18de01941e4cd54572d2aa7ed4d3f1",
       "source_essl_sha256": "0ce7b74f304b9bfaed3421bd524838e606227e61429047fa51f56af1f7708017",
       "samplers": [],
       "mapped_sampler_candidate": null,
@@ -375,12 +406,13 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "ad5dde505415813072f598d1e990758eb85493b23de8d54d72c427a59328dd87"
+      "program_sha256": "1b6af8fb49da373777e270fb1b7cf1d9631ab7989871f2554104f974fafe8f0e",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_seeall_touch.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/97fc77bf116044ef.glsl",
-      "shader_sha256": "97fc77bf116044ef91afe8c9d93390a24802d6b20ca91ff0879b6c5b4a1e820b",
       "source_essl_sha256": "6cfa2ffe8923347063ea55714bf298ecad9bc0f80bd760342a8294f3dc908655",
       "samplers": [
         {
@@ -399,12 +431,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "240670eeec67bb4111f8b17de8f98b8950e66e91c5b974f3ecb7230efabe8326",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Cursor_mat_highlight.glsl",
-      "shader_sha256": "c30fe0d0cbc29e076d1db22e54949e38854172748a3e29babf66dd85dc295558",
       "source_essl_sha256": "ac291b5a6b4756a2f45017de14260e9edc1d0ebe85204ea295c93acce56e75d5",
       "samplers": [
         {
@@ -424,12 +458,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c30fe0d0cbc29e07.glsl",
+      "program_sha256": "bc11b030c589e5dac695859219e772d0fff36f927d69151d58d7aab232a01b63",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight_main.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/61145e59abc8e80a.glsl",
-      "shader_sha256": "61145e59abc8e80a8e97022962b9372379407f38fc08185d190dd165a38f8014",
       "source_essl_sha256": "9c310dfa6b917142cbb70bcafe1dfdee6813f88a75b2c92f6b44717cd2190617",
       "samplers": [
         {
@@ -448,12 +484,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "f4ba9671405cb18ffdbb4e60169479dc6693fcb784be22f3f072fa37e7ef8467",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Cursor_mat_main_edge_glow2.glsl",
-      "shader_sha256": "7bb56fa7eb34d1994110de7ab97b86f28ceab7e24f4fd21e3eea8b3a472b6853",
       "source_essl_sha256": "29787f34cad10fc855c0da8dc2edc0876c3608156ed83d7bca5ad043b67ae7fc",
       "samplers": [
         {
@@ -482,12 +520,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/7bb56fa7eb34d199.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/7bb56fa7eb34d199.glsl",
+      "program_sha256": "55d2db42f72c857c1b9924f298ac5890bc5251882e9e4696fe9bb11b24137488",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/CursorBG_mat_bg.glsl",
-      "shader_sha256": "9af0a57ef55d32dd32464f117c5d692b60c63e2d87e7986b733c7ac74eb4457e",
       "source_essl_sha256": "53eb21dce4301c63e0f7bc51a3a3863e3ee4467f8d71e44df5f1a1cfdf82d4e0",
       "samplers": [
         {
@@ -507,12 +547,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/9af0a57ef55d32dd.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/9af0a57ef55d32dd.glsl",
+      "program_sha256": "70e639786a88d45d721e64fd9e7356e0e3d69b4064e82426b24cc02da8793b6b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_dotglow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/6c12160f3c05b9e3.glsl",
-      "shader_sha256": "6c12160f3c05b9e3987bc96bea23c024eeb65039d31edd4d583d172d946f24ae",
       "source_essl_sha256": "b5902362fa783b526171628b84506b15d70421cb3c9eb48a641b3f5eef09e88a",
       "samplers": [
         {
@@ -531,12 +573,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "f7a5f86466006efdd6ae9ef93a811fad073311094ed2d78c678e4c296802e2ec",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_gloss.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/CursorBG_mat_list_gloss.glsl",
-      "shader_sha256": "0db1365a7819369c58dbfd4531126ccb2d25395568204022c86e32457c035ea9",
       "source_essl_sha256": "111071442c078e563796470ceb654b63fbae2f94c820514d8b52b2a8a6a12fa5",
       "samplers": [],
       "mapped_sampler_candidate": null,
@@ -548,13 +592,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "c4324ac0edffdf3b4af3ed532c8fe071793fd7a253319bf3069814ab211b9991",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c4324ac0edffdf3b.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/c4324ac0edffdf3b.glsl",
+      "program_sha256": "8e5093f01c8e49390d052d59ceaa93a80162a2eba47049be22eaaf6309f637db",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_pressed.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/cd02bf138fc0ca85.glsl",
-      "shader_sha256": "cd02bf138fc0ca859e3f171fd8922d4b3e0523f0c5a971e191d32893c4126ec6",
       "source_essl_sha256": "6e61437f56ad8b2725a1476ea8653c032decdbb0899280dd6407526934d51e79",
       "samplers": [
         {
@@ -573,12 +618,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "ee007b0d6120f1e43b6f68e94f55d7b644dae50d18e686f86c8dba5f70384074",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_shadow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/CursorBG_mat_shadow.glsl",
-      "shader_sha256": "dcb0fd52b04afcd4c4b655750aa01b8d1d765ead09a4b9bd0bed913178e94582",
       "source_essl_sha256": "fb9d71b7b5a63c1c82d89946aabb4d06ae3c8ffe76057bccc8eeb4c5d438b44b",
       "samplers": [
         {
@@ -598,13 +645,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "7559af48f921868efb22902ac0dfdcf5d29d0e188d3554cca806c029fcf19260",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/7559af48f921868e.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/7559af48f921868e.glsl",
+      "program_sha256": "f9beb20ec6424186e6bbb2097952255798a9ab26bfecd9c5dbbb1dd1aef6b266",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_pad.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/14f74983d4621b9b.glsl",
-      "shader_sha256": "2500e08c7b6723c8fcd9f766b0498eb54433822d76a770d15f1161df64a4be86",
       "source_essl_sha256": "21036bca4c28cdfb255bd98b951f2fe919b932bced330c94a43d7e04bd3c58ca",
       "samplers": [
         {
@@ -624,19 +672,22 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "14f74983d4621b9b1f0d51d666cf8189129afc151e596e79e81a1746442cb3c8"
+      "program_sha256": "fa0c2f68db256961e07cff01b47615a6303a9a2d94702f936556a18a35ff31c2",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_pad_bg.frag.shd",
-      "shader_sha256": "726bf332014cfe9aa86842c3b7d4fa2682bccaa0aff75b915578ae270ddb5c9f",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/MatPadBg_fragment.glsl",
       "source_essl_sha256": "a8bdfc97effb339d538eb20df42bc28866e72dab1596132ea1717610ef234944",
-      "basis": "Exact BMW shader symbols and finalizer constant-copy table. Candidate input packing replays V102 draws 182 and 194. Native fragment coordinates and the guest opacity remain to be verified."
+      "basis": "Exact BMW shader symbols and finalizer constant-copy table. Candidate input packing replays V102 draws 182 and 194. Native fragment coordinates and the guest opacity remain to be verified.",
+      "program_sha256": "c6917f11d755355e7094bb29079aa12898d9c2c65b0d1ab9cbf11ffe572f959c",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_reflection.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/d9ee51b652dc95f4.glsl",
-      "shader_sha256": "d9ee51b652dc95f4bb5c41428a3e64013bc03ddb6157641d994c663c98329353",
       "source_essl_sha256": "feeef43e14f3a01b8b2569592a4684fcf4df1c4b541f3985afd7132fa1033509",
       "samplers": [
         {
@@ -655,12 +706,14 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
-      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified"
+      "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
+      "program_sha256": "da320ea81ab1626395315ea926f831884fe65e5967a00a3617f1360b9605846f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_top.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v70/94607d87c4120580.glsl",
-      "shader_sha256": "8c8990a7cd8c21e83b1819fb13bbfa295d3e2daa1eda0e0cd0b28c218376e9fc",
       "source_essl_sha256": "0c360259e9229a23054def7b6e200c6465153ddd7233c899905e360012f335ca",
       "samplers": [],
       "mapped_sampler_candidate": null,
@@ -672,12 +725,13 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "94607d87c4120580a4b7f51328c66c25cf759e884ebe69e252ee2c700fef343b"
+      "program_sha256": "054856f95f5d4daf451aee5cf7df302ce68f6a727c7ce19180567aa12e12ca9b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_bg.glsl",
-      "shader_sha256": "277e23435359690bf18af136fbc862ca228d05307a2a0715d72c5353560340fd",
       "source_essl_sha256": "6f2a65194d1dd238d0cde9139deec75548ba8088bd610a7d5f41ebbeb49a3cbe",
       "samplers": [
         {
@@ -706,12 +760,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/277e23435359690b.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/277e23435359690b.glsl",
+      "program_sha256": "cd735b393cb5a0fe2bea662bfc33f0fcb1d0c3c84d9f4833506ca255527b625c",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_edge_l.glsl",
-      "shader_sha256": "a6b992d43d6b0dc5e13ec8a226c856df994bd55b4e4c43a349bd4167265fc33e",
       "source_essl_sha256": "b16f86c0fa1eb468d88a100b93ccd3058ddf5cca88043250ff1b2d8a4307a8bd",
       "samplers": [
         {
@@ -731,13 +787,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "f4d4085ac3008d75d4fcc68df42345f907802be0a6a3ac7e40849a69aa626349",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/f4d4085ac3008d75.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/f4d4085ac3008d75.glsl",
+      "program_sha256": "27119e681b3518f9cf439d507949006fd7a573a9c6138bd67ddd3ac901417147",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_edge_l1.glsl",
-      "shader_sha256": "7c8022a1eaa81d07aeb0c746c19268f7b7fb5ca9e1f58780d75a984712b13151",
       "source_essl_sha256": "f5a6d6e8312a22fc8ba4bb1889c3ec941d58b07d416d42d574c94f6e970a8c76",
       "samplers": [
         {
@@ -757,13 +814,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "28d0404d6155198ca1756afa9e3cdea12c0060573af523559e09cc78ba724ff3",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/28d0404d6155198c.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/28d0404d6155198c.glsl",
+      "program_sha256": "260717fb0694507a2c1b8e228f8f5db11c1cb763006042c5b8025b052a25207b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_mirrored.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_mirrored.glsl",
-      "shader_sha256": "fe143e10ad56d53f8507acfa3d70466831e5add28b4c6dcea86a7bfc1dbfdd50",
       "source_essl_sha256": "a9bb99cdeb3bed010a30fe2f207bf7154cddbbc6c41b95637c2ef17792170fb3",
       "samplers": [
         {
@@ -783,12 +841,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/fe143e10ad56d53f.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/fe143e10ad56d53f.glsl",
+      "program_sha256": "afd43e5a39d123d0170d35f91a9cf400bff3870dc127aa14689e2bdebd45eaad",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_shadow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/panel_mat_list_shadow.glsl",
-      "shader_sha256": "cf69532a3d1177d0f00bac883c933d1a3b3afb6703647f1ebe93c6109e1f36e6",
       "source_essl_sha256": "cdd92d3c069d21d0a45c20635c023806e6cd08bf8da3005396c7aa3b45a9fa25",
       "samplers": [
         {
@@ -808,12 +868,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/cf69532a3d1177d0.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/cf69532a3d1177d0.glsl",
+      "program_sha256": "7449f6f72a37211187ffec784d0485b033108856f2d7f3aeb3ed954df85d819c",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/statusbar/shaders/mat_statusbar.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/statusbar_mat_statusbar.glsl",
-      "shader_sha256": "d1d87c43cc4e13ceb30f9e0e680b03bb634a1e93f87701ea0b75f41c6144280c",
       "source_essl_sha256": "15a67009c25f9fd5ae4147d5e0a0427f6d2af66cc70692d248104078d3d3a9ae",
       "samplers": [
         {
@@ -833,13 +895,14 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "exact .shd symbols + cached BMW UniPatch input/constant tables + native USSE translation; full RGBA sample PA is derived from the matching input row and vec2 varying; native output lane packing remains unverified",
-      "x20511i_shader_sha256": "b01fecb1c1da0447c0f75a0427a89be71a20867c49aa49ce949678b0242150e3",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/b01fecb1c1da0447.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment/b01fecb1c1da0447.glsl",
+      "program_sha256": "f74422067fce5ad2372b96430a89600ac176a90ba1afcbc09256ab2ad9daa60f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/IconRGBA_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment/IconRGBA_fragment.glsl",
-      "shader_sha256": "befb1737d8e7110cea4f797343c2eaca51c2d9d95249f45774c34d0982fc9819",
       "source_essl_sha256": "b93f19db59de98b00717cdbddee9b2e378af8bfd3c77b4efbdc2a2acc6ec4c42",
       "samplers": [
         {
@@ -857,19 +920,23 @@
       "sample_result_native_verified": false,
       "output_byte_order_candidate": "normalized_rgba_output",
       "output_byte_order_native_verified": false,
-      "basis": "Exact V97 IconRGBA/ImageRGBA binary, BMW UniPatch copy table and finalized SOP2, plus isolated ANGLE Metal replay of draw 190 with its captured texture, buffers and uniforms. Native packed lane order and quantization remain unverified."
+      "basis": "Exact V97 IconRGBA/ImageRGBA binary, BMW UniPatch copy table and finalized SOP2, plus isolated ANGLE Metal replay of draw 190 with its captured texture, buffers and uniforms. Native packed lane order and quantization remain unverified.",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Text_fragment.shd",
-      "shader_sha256": "afbcb6c7aa216e1f273960a0fb3f566a55fd4fe8d02ff737f8f1ae53e2d36b2c",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-v112/afbcb6c7aa216e1f.glsl",
       "source_essl_sha256": "d6031104c7ce1f2d85bec29f92b401854e544256707ad1d3a12d945fe9cf57ec",
-      "basis": "V111 draw 51 uploads GL_LUMINANCE (0x1909). Replaying the captured BMW geometry and atlas with ANGLE Metal renders Media/Radio when PA1.x receives red-channel coverage. The alpha channel returns one."
+      "basis": "V111 draw 51 uploads GL_LUMINANCE (0x1909). Replaying the captured BMW geometry and atlas with ANGLE Metal renders Media/Radio when PA1.x receives red-channel coverage. The alpha channel returns one.",
+      "program_sha256": "81d8eb760752cbc9e0872da85bb44effee35e7542125ce85f4491dbcedbf6e1b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Text_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/Text_fragment_fade.glsl",
-      "shader_sha256": "77140b130ca8a7cee0aab7ea128babdcb43afe8e8818e5b21c5e36695054b6e4",
       "source_essl_sha256": "26b36a9b1e00dd3e87307e7b5828cd426bad5e6a95fc357391aaba22ad803928",
       "samplers": [
         {
@@ -889,767 +956,1135 @@
       "output_byte_order_candidate": "packed_lsb_to_rgba",
       "output_byte_order_native_verified": false,
       "basis": "hand-written: fade = clamp(vFading) product, alpha = glyph.r*vColor.a*u_opacity*fade (v64 pinned u_opacity to 0)",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/77140b130ca8a7ce.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-fragment-v64/77140b130ca8a7ce.glsl",
+      "program_sha256": "c90f828a81468c027800c630524757ed5df0f95ecea3c27b6d2f7f6908472fa0",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/sport_mat_SportTube.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "d63a0857d22d44b33815637601f0cddab360a9c3a78ccbb07f340342c05f1f2d"
+      "source_essl_sha256": "d63a0857d22d44b33815637601f0cddab360a9c3a78ccbb07f340342c05f1f2d",
+      "program_sha256": "9ad2da68c419d4b9891faca7259f3efc3a9471dee2eb604ecbcbb2d3815c2b81",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/sport_mat_cursor.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "f57a3474e02424c8f34d7087204c76012e68732ad9402d1e3bf5802842679139"
+      "source_essl_sha256": "f57a3474e02424c8f34d7087204c76012e68732ad9402d1e3bf5802842679139",
+      "program_sha256": "d137d0cc78fc7f35253db64ed414cc9dcc34d8a3d44da6a53d3c5f70bae07193",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ContentShader_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ContentShader_fragment.glsl",
       "source_essl_sha256": "5426a5014d2cc28e34c8dfbf5e5b96aad5b8a23a6805f2f1b7ba36ea1d6d6a10",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "813e6428bd6110fc8f183e0d2f3ac079d8a7a865cf75db7c95575bfe175ab4b0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_notex_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Gal3DDraw2D_notex_fragment.glsl",
       "source_essl_sha256": "5faad25d45640b6ed959c1bff7c4135e06b295fb06c571751bb4da84e8bc2cb0",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "46bfc805a3accff0663ae248a77780100c7cdd4195ffef22ae39cee2e56f4474",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_tex_luminance_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Gal3DDraw2D_tex_luminance_fragment.glsl",
       "source_essl_sha256": "9c13c54270418179a42f9820bb1eafc022795b85025c1e74aed1259caadaeb70",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "fd75c0c0217e9910f38bca414adc8e3c008cb41468ef86e3b0d7ab92a81db712",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_tex_luminance_repeat_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Gal3DDraw2D_tex_luminance_repeat_fragment.glsl",
       "source_essl_sha256": "928051e2eefc3fb4364835cafc218cfe90503add919c6245ee11672f3ab1d161",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "964253161024a718ca9b9a68ff9e08d6290b428a87388c111632a9ad70c17e82",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_tex_rgb_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Gal3DDraw2D_tex_rgb_fragment.glsl",
       "source_essl_sha256": "1fe2e42ca6f580cf51fdaac77360ed0c352bc587d7cc83065fef54e181b47529",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "d099999a07ae0352c63da48ba7c2579e6706262b89402878f734ea9463a3668e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_tex_rgb_repeat_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Gal3DDraw2D_tex_rgb_repeat_fragment.glsl",
       "source_essl_sha256": "6cdbe7e82a6ace81cebe4d7bab77817cd9f2dcff27ba96b72e5c57d24a9835ed",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "dd2d86853c63ca8bfef242090e58a020cf7c24827380c92db36172455a1ccb27",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/IconRGBA_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/IconRGBA_fragment_fade.glsl",
       "source_essl_sha256": "752612d2bacefbd945c3bbfdd1e151844ee125dc33b45e05ad3798d2cbfddaa8",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/IconRGBA_fragment_repeat.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/IconRGBA_fragment_repeat.glsl",
       "source_essl_sha256": "09126ec7742ebe4c60c3612d233ec27140297e999658cb8471f046dbbd465cc9",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "01389a690977104315e01309e8e6d200e506165bd23f94e751fb9861a833929e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/IconRGBA_fragment_repeat_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/IconRGBA_fragment_repeat_fade.glsl",
       "source_essl_sha256": "3389ddbd22997a60e3acc8a47c17448d672360d47325361350a3057b0cdeec65",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "899ac4419128863cdf1485e9e3d136e0593000470168274ba05570f025b93e15",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageAnimationBlend_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageAnimationBlend_fragment.glsl",
       "source_essl_sha256": "3a51162638288921368ee87c66595cfcd774b7d224adc5b959fa06d9508a2872",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ec824edd8fc1c5a104b3092343c31ee8a0003c3705153a38bf22055581895324",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageAnimation_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageAnimation_fragment.glsl",
       "source_essl_sha256": "2c89db5344b8315c448634a393c46351a2eed454bf8343b6df9850f275201026",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "7c8b945f88bd034ba93973312639f411e580fa37b5c8a59327d886b6e3dad70f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminanceAlpha_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminanceAlpha_fragment.glsl",
       "source_essl_sha256": "6cdaa897601d5d030cd577a1b5b9fdf9591ca8ac6d490d39c77ec32caf6c7ace",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminanceAlpha_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminanceAlpha_fragment_fade.glsl",
       "source_essl_sha256": "15dad6c073e8ac7606140b49bbf759a332e699c90ff9066a094e3df3b268d5d9",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminanceAlpha_fragment_repeat.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminanceAlpha_fragment_repeat.glsl",
       "source_essl_sha256": "34d0ac3ffd1f718ddba0dbc13ab6eb13237a9056c75f9c49e35be9a9b1d8749e",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "5a127eb89090058bde92600af0611863eefb085ec878b2961e830dae26327c6d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminanceAlpha_fragment_repeat_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminanceAlpha_fragment_repeat_fade.glsl",
       "source_essl_sha256": "2d7663707458380a0ebe704d246e6676d26c1ffff815eb695b5980624c4f8c13",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "991bf4cd00f49d11fa1594d4f4e3e047106e8da51d43c52f7227114cccec2f39",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminance_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminance_fragment.glsl",
       "source_essl_sha256": "847c404f52190203d543dc7eced592e1d137d2f8cb5e9de19372ae40b38aa215",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "0d69af6bebfcb3ed29b655ab92ed80a15cdcdbec3f21c7ed11e8c29bc1177945",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminance_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminance_fragment_fade.glsl",
       "source_essl_sha256": "92460426d7b87ec91ebfcb77060672b88e82192b1e6c127f545355f5d313e57f",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "3afa1307480d803cff390182743188758deab101a59fd6546613c741608e9853",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminance_fragment_repeat.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminance_fragment_repeat.glsl",
       "source_essl_sha256": "f3c1b789fd442a2252825ef2df59fdcb491b5c7cea471e979cd43faa790d9a46",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "14c0a75cd732928d1ee6663d32e3844df0d65c37e0af77460aee2d7dd765c0ea",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageLuminance_fragment_repeat_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageLuminance_fragment_repeat_fade.glsl",
       "source_essl_sha256": "0625434135b69c9fede3e94449e3c07c4b8366c8ed00831b96f110aece2939da",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "0292308bbfae9f2352d51575913457948e429138ca98a271e820e6d9b829cc84",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageRGBA_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageRGBA_fragment.glsl",
       "source_essl_sha256": "bd2d3b3e16b4fba725fc6836e59be9b35a378828009ad83ecee8dd9e6edde00b",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageRGBA_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageRGBA_fragment_fade.glsl",
       "source_essl_sha256": "bd37cee629ea29cc3d48773209319143c4ed80e620a3721465f75d4efed57c49",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageRGBA_fragment_repeat.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageRGBA_fragment_repeat.glsl",
       "source_essl_sha256": "6eaddbdfc7f18bdaa88d5eb72f678955abafe0dd003aa2d06b0ae9e5970936d2",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "800bf4e70d7211574551f5af75c436a229bbbaae4d8c518ce7c135fa58f80c85",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageRGBA_fragment_repeat_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/ImageRGBA_fragment_repeat_fade.glsl",
       "source_essl_sha256": "6815c6a9f22f167d5dd21ad58b86b2b7536f1c547c3ffb20e1197bda6822a38c",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "22802093f2ab96e647d7fafc949713a7a9e06cd234dcc325de72c9603be6e95d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Rectangle_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/Rectangle_fragment_fade.glsl",
       "source_essl_sha256": "191342a693ba2476553571bbd03bf4f8db719be6bdfe0112ea31b8f3bc6d656e",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ed39e068a33c94fa4f2ad114cfac87cad5c91de746cf6812aa8b11533a0cd1a2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/SpecialText_fragment.glsl",
       "source_essl_sha256": "ab79b24fed8cfa957dbab4031485e742a86d5fd846ee2b2020798a8733edba67",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "2923e3be362e88ccee4f5faef607d7a60676c66f97289e0052725be2d423515f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/SpecialText_fragment_fade.glsl",
       "source_essl_sha256": "e035a1676e65b5c3cfa63f597a20d83ddc299099d60a5fdec87a49571f352bb7",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "9dde753277990fb79c8b5f22bdf593b17bcd40f76ea1564dadb4677dca9fb178",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_fragment_repeat.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/SpecialText_fragment_repeat.glsl",
       "source_essl_sha256": "ca12c525a9d30f076acdd8df2ed95a89d6e98d22026a1ed49c20014a321c8015",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "c53b1085a045165678baceef51987af0529252ca7f786488ef82b00a4145a557",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_fragment_repeat_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/SpecialText_fragment_repeat_fade.glsl",
       "source_essl_sha256": "8a1f1e4bfbf933a292bd0d5f3f79caad21adb82682c12bb91b44008d7c507183",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "292505c31179ddcafc2c904a52c2c3fd08839872f4999b38864ca85c308fe4e5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_edge.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/pad_mat_edge.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "cf24171e2ff39a6225d3f553f7100b42e830dcdf086021ec16b6f25cb5e7da6a"
+      "source_essl_sha256": "cf24171e2ff39a6225d3f553f7100b42e830dcdf086021ec16b6f25cb5e7da6a",
+      "program_sha256": "78d1b43eac032a08b04ebfbbcce990afa1b94040ff46f8b9011839c216e19b45",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_main_edge_glow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/pad_mat_main_edge_glow.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "4a51d06e8d0318b8dbb298c84e3a8bf39e1adb467d41a49c30b79a346fc47804"
+      "source_essl_sha256": "4a51d06e8d0318b8dbb298c84e3a8bf39e1adb467d41a49c30b79a346fc47804",
+      "program_sha256": "300444d9f9e931b1b22ed8a6025ea6fe6c5bc665c823e3d60a047d513d637d13",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBP1_BLACKPLASTIC1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBP1_BLACKPLASTIC1.frag.glsl",
       "source_essl_sha256": "8238e3c5b0adce09e5942bc6614be4be1533b06c5be67403939a7e4d3184d2cf",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "142d789c268bfc81094923d37162a37176692b19f4a72289954d83f8711bbfcc",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBP2_BLACKPLASTIC2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBP2_BLACKPLASTIC2.frag.glsl",
       "source_essl_sha256": "7fc443c53ec5b16859ffde20f76ef0534bf879efe0c6eaf816bd328395c419f9",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "0319c21b47c33422675ee9eee52c345f8f0ed8586245c2f5637b170d61f2b92b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBRB_BRAKEDISCBMW.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBRB_BRAKEDISCBMW.frag.glsl",
       "source_essl_sha256": "4228ccd116ade283837eb0efbc696be45fb17d4645587730929b99d1f644b458",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "3c6261a2eb74f8231f44578b579d2765692c5bb9ef2f93653a11f3add07c97b9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBRC_BRAKECUT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBRC_BRAKECUT.frag.glsl",
       "source_essl_sha256": "d1ab5265f108a341796da3e341affa4ebbfd0a515f374548cb723876f3184ac5",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "228db03135e23c837a7d527054ac88383fe64d363e5b38cb0f207a2858fcc19f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCH2_CHROME2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCH2_CHROME2.frag.glsl",
       "source_essl_sha256": "48ee849cbf2d644da4f52f455c3c6932319b35bff54bfa16df48a8806df4c964",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "e5bb44044a78d9ef7f593e01bff54d35168c8ea2411f3af16ccb2ecc29722c38",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCHR_CHROME.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCHR_CHROME.frag.glsl",
       "source_essl_sha256": "f93c5eccb2bd048cc6d118c9964e14f2bcccdaae864359dcd743d736fd3119d4",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "1168d1a6a160ed36eab3dff7913abc1b986cf6f5b98caee88464cce997f68f31",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCHS_CHASSIS.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCHS_CHASSIS.frag.glsl",
       "source_essl_sha256": "eb05eab1e0dcadede1b7dedb81dcef26ee4d9c7bbef2a294ca80010fbd5aeef1",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "576ef55bbe60dd036aeae2bdc378a0fdec3c1695eaa4b7f99da1eb538c44dd24",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP1_CARPAINT1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP1_CARPAINT1.frag.glsl",
       "source_essl_sha256": "9bb102d2241e64c773dccf9c236e5849b27ae51041d2870e7cc2510434473721",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "5a5d822057d6a69be6140d205f3fcb1298ce3918dd294d7863568e4eda88ede9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP2_CARPAINT2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP2_CARPAINT2.frag.glsl",
       "source_essl_sha256": "44d21907098cac929b28123a4baa83e2247601830987cc5fc89543bf294d2d5f",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "e5bb44044a78d9ef7f593e01bff54d35168c8ea2411f3af16ccb2ecc29722c38",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP3_CARPAINT3.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP3_CARPAINT3.frag.glsl",
       "source_essl_sha256": "283943a7428e9f6c95ed23482253be8f0e1bb1488aa5500606792dda84da1956",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "1258ba19ab99044019e9d4185abc1e7110333e07e9f715eb95cdf93ec041c901",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCPS_PDCCARPAINTADD.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCPS_PDCCARPAINTADD.frag.glsl",
       "source_essl_sha256": "68e4237b35938833680358e61aa0c40b3fc20211b4515b29f6f323c9e72e5b06",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6418733429cb4d7dffc38c496a3a867c29d313c50d22b2d3427c2b6859255cc8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MFI2_FILLER2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MFI2_FILLER2.frag.glsl",
       "source_essl_sha256": "63946cc9a997a148f80e46ebb7b7e4494dec56356e9b04c44795f5d01153cfca",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "ac033fc58e223990a30aea4aa07aed1692b5edad1b0ec73e665fdfeeaaaede55",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MFIL_FILLER.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MFIL_FILLER.frag.glsl",
       "source_essl_sha256": "24a37d2efbe9e77e36c3abe0b3ade472ffea6be47aa09c24ce4d73becf7ef6e3",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "d6c9d733cc190478abbb40bf42063bf467cb9a0c3813f2e543e80bd383f8e4a9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL1_GLASS1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL1_GLASS1.frag.glsl",
       "source_essl_sha256": "0c695627d15c71b3139da206a92dcd55cc8595b11cf7759e651be5124b3ae5d9",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "e40f0baeab4ea62715b80128388b74657e1e1ef51a5be0d4c47374d269c65024",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL2_GLASS2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL2_GLASS2.frag.glsl",
       "source_essl_sha256": "3e30bb6efff4513fc3370aae7349bbdd2df93b371e339713b81d588b6d91cc61",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "cd5066110ad86a7ef60d8e9a9138aa1a5b7c037ceb4a6f0e7a26e69b338dceb3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL4_GLASS4.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL4_GLASS4.frag.glsl",
       "source_essl_sha256": "efb87271d42f503a4d0e8d04cabf66b4084e5f56e2a73f1c0eeb7a06440b0645",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "7aad329c3bee70fdbd109cbab9d812ab8e21dcb829339ff1a0842fc9b7420731",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL5_GLASS5.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL5_GLASS5.frag.glsl",
       "source_essl_sha256": "c6f4dcea30960c324baaaf76155fdc4a777bb9dc9effa6e6c5ee991f31d7c56d",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "3bb961ae3bf98d44cb74336579452838b203c6a85e42f972e35008d9abe23211",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGLC_GROUNDCARPET.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGLC_GROUNDCARPET.frag.glsl",
       "source_essl_sha256": "518f2b039251adef44bd43bd2ed0ee0736c2a0d7a258ef0a4e1272fb53bb5696",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "479a958b89f6e3689750d82d69793515606287708f801f977613eb3a14617306",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRD_GROUNDDSC.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRD_GROUNDDSC.frag.glsl",
       "source_essl_sha256": "09d2110066276110f940fe1eca926f048a28462e076a1ec21cbfe0082d1287bb",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "33ea6049bb1d672f443e3cf914150b366d082ec3ec59a1fac26e4077e257ceae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRF_GROUNDFRONT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRF_GROUNDFRONT.frag.glsl",
       "source_essl_sha256": "8306e98c9a351e7360cb6bb932e1f1cea0e40c70eada68bab0aa308b8713abf6",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "697800d8c754ca3ecba02c2803c7418b7c364cd4a42174a4d0b6d5e5be6ffc44",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRO_GROUND.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRO_GROUND.frag.glsl",
       "source_essl_sha256": "32026e12e5ebfd08bdcd6bff80bf5f0a6449055d50b228b8b6751b6c8e0f6738",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "c2f1f25197f06e5f3b469204266dbb25b0043c995bcf841ff928c7d1f7abf76a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRR_GROUNDREAR.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRR_GROUNDREAR.frag.glsl",
       "source_essl_sha256": "458d585f4184d783ff7fa19e12fa491646ef7bfbdc0a04852ef12cbf43f9eef1",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "4cafef726c638bc0004fc912a9c8f664a98ed1b2310bf5dc053f77e7e3dd926f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MIN2_INTERIOR2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MIN2_INTERIOR2.frag.glsl",
       "source_essl_sha256": "9011ef2ae7069b778063f362ad25ec2d03bbdc1c5e9a3b6636ff2581b50b21b6",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "21529fc58937e637bfc0ead65ece00bfc18339b7e550c7c0fde1b6d57e8d3291",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MINR_INTERIORRIGHT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MINR_INTERIORRIGHT.frag.glsl",
       "source_essl_sha256": "765ed8d0087048d112cf1b350834a6afc5034bc53c0520de72f641dc7140af0b",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "04f65d7371526920fb6ed2af525ea94d37b4d919bd00f1d8ac1438f58e20430e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFE_LIGHTFLAREECO.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFE_LIGHTFLAREECO.frag.glsl",
       "source_essl_sha256": "80384b5696908110e2431ef16b9426fdffbd5bfa374e9931d291c012931c332c",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "deb990ffb03b3dd7c31860dce57c012647488d401a0ec74bb2cc0284b9b3b855",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFG_LIGHTFOG.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFG_LIGHTFOG.frag.glsl",
       "source_essl_sha256": "32cdbded1ea85fb32bb54bc5198b25b180a01d9d38b37b52d7d65767860a9374",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "aa934b2e7ea326ea2137ef7530d4f571d55104807bc38450e3ce7647be6cf0cb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFO_FOGLIGHT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFO_FOGLIGHT.frag.glsl",
       "source_essl_sha256": "2bb1183c50627df2a1953d577e0894002c11f32fb4ccfebcdca5152feb5c2835",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "47ff44eb17746b1c22ce1a1debedcbc17968f87c0fe6b55653ae7faee3460837",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLGS_BMWLOGO.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLGS_BMWLOGO.frag.glsl",
       "source_essl_sha256": "9ed243d5d08a431d0ff42f23d69a6129946b43b864ae0e14038d045ab0a0283d",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "c7feb8efe385281d9125541364d7c5fb8bd02fced061fc9f5c27d6c456914d3d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIA_LIGHTADD2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIA_LIGHTADD2.frag.glsl",
       "source_essl_sha256": "4e21feafb770e6d572e25bb2019de57a503c4a587b83f343030ec9cb397b6f8b",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "005c8b6783eebfbcd647d6d23bf19b89d8febcef22a318498fb64f4b1d39f986",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLID_LIGHTDOOR.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLID_LIGHTDOOR.frag.glsl",
       "source_essl_sha256": "19ec9bf810b6c527c15de60e24ec0e1f0c7bc09637d94955ba3eafb366eeb477",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6ff334421c9a2fb2b3220fb4061b0539d436a872d052b3cb00cc004585109879",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIF_LIGHTFRONT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIF_LIGHTFRONT.frag.glsl",
       "source_essl_sha256": "125bb321da0b2b4229603742f7d078a5e77d1ce26f9ab179549f37f021f5ed2e",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "d9a957fe9e9ce359c1c1c63750ea42ee122650cf6d8d3904dd4b982d7dab2148",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIG_LIGHTADD.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIG_LIGHTADD.frag.glsl",
       "source_essl_sha256": "69520639cbf3dd522dae8fa79979a2bb4807ccfe0c2486625d39f31f6b8ea896",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "2d2a835a4617ab0d5668b6ef8d71921e446bb21e1988cd6707e063d71df94c29",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIR_LIGHTREAR.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIR_LIGHTREAR.frag.glsl",
       "source_essl_sha256": "84acbec0a6de9f3aa7e8244c781353db07918f09f4593c7191752745e8bbe7f9",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "d6c9d733cc190478abbb40bf42063bf467cb9a0c3813f2e543e80bd383f8e4a9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MRLC_RLCUT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MRLC_RLCUT.frag.glsl",
       "source_essl_sha256": "a76e4989e90a7f61268dba45a0c180d25e8c9a29cab2fb71c9ed4538bae09bdc",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "fd55458fa0dfe921361ccc1110da19f40fc6c33752394045b27879699ca3d0cf",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWCT_WHEELCOAT.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWCT_WHEELCOAT.frag.glsl",
       "source_essl_sha256": "c0ca48c049fd8b81e18495b7faad41b1e6dde95fa5130146f9e44d89700ac34b",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "dcb897761d87282b86203dbf01a349fdacadc9b4f6448d536f497708052f5976",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWMK_WHEELMASK.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWMK_WHEELMASK.frag.glsl",
       "source_essl_sha256": "70502767f42d51324887e21463785b1c6fcb28c172caec0b38b93d2a9ec2ec76",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "34a33290ce8ce264039fe672f748440b3b77748db65ef23fe6a06bcdd4656ad9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWRM_WHEELRIM.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWRM_WHEELRIM.frag.glsl",
       "source_essl_sha256": "deceb9947c0b594b3e43bbb5993c9ffb0731afe4eb6a83fd288414bfd1b137a3",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "776b6169d6ab89eafff02ffd94ed8f4fd25e0a125e26a9929bf0af354901cf2b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_Quad_RL0.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_Quad_RL0.frag.glsl",
       "source_essl_sha256": "2284f90c86553359004939fe362b30d169d9f7c190baaa5b38bc4c62ea214e21",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "256496f501755230d1db657a4a6d4191e4921cc703771f196252aa070c8fae3a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller/shaders/mat_mapscale_bg7.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_controller/mat_mapscale_bg7.frag.glsl",
       "source_essl_sha256": "6c6792f3940daad3a839fa92fc2359e2fde5b75f154534306d7309a231921c4d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "87197e8bb46a7a178bea00664d83bbc82624e451fabf736fcc00eef1529bf613",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frequency_pointer.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_cursor_Cursor/mat_frequency_pointer.frag.glsl",
       "source_essl_sha256": "25576a75222d87ba2804437091dcf8f7c3085d7ffdc845fff480f07837be1de2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e139cbeb2f7d109b570c05e328160a8a6e4dcd91991accb1dccfc872d6eeb049",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_navi_startup/mat_bmw_logo.frag.glsl",
       "source_essl_sha256": "bfb083940895660e1076e972c2d01103c071591e1dca44f478f492ea0928a799",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5fb0d7db155ffe1edfacb68f9f5e2beb821583a6fb3fa7201c22b9c15fea34dd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/split/shaders/mat_split_strap.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_panel_split/mat_split_strap.frag.glsl",
       "source_essl_sha256": "dae576667d7f4afa8816708ed14500d09bd6d39b20677d1ed8698c8fabe0be35",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/spellerBackground/spellerBackgroundModel/shaders/mat_speller_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_spellerBackground_spellerBackgroundModel/mat_speller_bg.frag.glsl",
       "source_essl_sha256": "dae576667d7f4afa8816708ed14500d09bd6d39b20677d1ed8698c8fabe0be35",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a40a4c711d1bcbc48bafeb75b6a5b775c485e77e6fc9897d60b35f074d9b7668",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/spellerBackground/spellerBackgroundModel/shaders/speller_bg1_mat.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/bmw_id6l_widgetasset_spellerBackground_spellerBackgroundModel/speller_bg1_mat.frag.glsl",
       "source_essl_sha256": "dae576667d7f4afa8816708ed14500d09bd6d39b20677d1ed8698c8fabe0be35",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5e8f6a4603d6240de0b7ae29ae93bb75045ee03238a636c8a74314d3e9b393b7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/active_seating/shaders/mat_streamline.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_active_seating/mat_streamline.frag.glsl",
       "source_essl_sha256": "bfb083940895660e1076e972c2d01103c071591e1dca44f478f492ea0928a799",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "195e4e468d6597088031984b5695df0ab226670bfdbe4acc4660ebc8461f041b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/active_seating_timer/shaders/mat_piechart_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_active_seating_timer/mat_piechart_bg.frag.glsl",
       "source_essl_sha256": "5aafcf9f8388b49dc69236cdba5219bb3f33a6eb233beec78f89a1a1d737f2bc",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "1573d9e2689d6d07feafb64bd05e3078d63640f7edbcff22fd39aeb83dbe8773",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_scale.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_clock/mat_scale.frag.glsl",
       "source_essl_sha256": "28c789f15ac9ff7bb93680cc2b7851b1cd2ab0341ea3d704801110d721b31992",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8a723047891c02291d985cf595b22ec1964684c976434df799a9896c7dd7d1f2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_clock/mat_bg.frag.glsl",
       "source_essl_sha256": "41c3744ca232e7e0ec75f6846c731e08cd50d947097edf72c00c504723221445",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "65856f15cfd3515d68a02d9d1e2143df64e58a84ab7e09bd5ecf8246873e4219",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_piemenu.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_controller/fx_piemenu.frag.glsl",
       "source_essl_sha256": "bfb083940895660e1076e972c2d01103c071591e1dca44f478f492ea0928a799",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d137d0cc78fc7f35253db64ed414cc9dcc34d8a3d44da6a53d3c5f70bae07193",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/cursor/Cursor/shaders/mat_charge_needle.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_cursor_Cursor/mat_charge_needle.frag.glsl",
       "source_essl_sha256": "dae576667d7f4afa8816708ed14500d09bd6d39b20677d1ed8698c8fabe0be35",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "bad3752753613cac48661b24c537e15e411e894f8aca621401b1b176ab31e6ea",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/cursor/Cursor/shaders/mat_reading.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_cursor_Cursor/mat_reading.frag.glsl",
       "source_essl_sha256": "5aafcf9f8388b49dc69236cdba5219bb3f33a6eb233beec78f89a1a1d737f2bc",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "284dd417063862d7202a95ffc3ef9114e18e30678804eea51602334e925205e2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/mainmenu/shaders/mat_main_domain.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_mainmenu/mat_main_domain.frag.glsl",
       "source_essl_sha256": "1e885ea4732e85611abd8afbc85c2db92d9bbe3d4a74da6c3ffc7998ca8b52cd",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "7b8534fba360bb3ba42370bd9e8045cab73cf518b56818d88cd422a50946801d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/navi_startup/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_navi_startup/mat_bg.frag.glsl",
       "source_essl_sha256": "dd28eed2ec4b3b7baf6f5ecc80331069fafb983d68edd68e1c13d6c87cd23212",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e91ca04f66f8e7ce881eef4dfe3d71586a8a6fcbe81e051e3a87e433f3fe09e7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/pma_rfa/shaders/fx_rfa_active.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_pma_rfa/fx_rfa_active.frag.glsl",
       "source_essl_sha256": "5904e156b5787244e8ccbdc7ce72a19248bcec8bb6f8d76559f065edd585bcbf",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d028406dcf768f032fefa4eb6bcdf34c496fc8c66364a5fcb6ffedc64694275a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_player_asset/shaders/mat_player_star.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_progressbar_player_asset/mat_player_star.frag.glsl",
       "source_essl_sha256": "bfb083940895660e1076e972c2d01103c071591e1dca44f478f492ea0928a799",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "58bd0a89545e331cdb4dca3cd24e39d18c16170a6c29de9c9233ac390a699af8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/compass/shaders/mat_compass_ring.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_roadbook_compass/mat_compass_ring.frag.glsl",
       "source_essl_sha256": "6c6792f3940daad3a839fa92fc2359e2fde5b75f154534306d7309a231921c4d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "213192855c44b22362a3ad37860ca3bdce38d55b906fd5eed4f14a9b5a79d581",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/compass/shaders/mat_compass_shadow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_roadbook_compass/mat_compass_shadow.frag.glsl",
       "source_essl_sha256": "6c6792f3940daad3a839fa92fc2359e2fde5b75f154534306d7309a231921c4d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2c8505b288f660ebb784bf6e80978dd366b8807ec9e44a56f467c7565f2d61f4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/panel/shaders/mat_panel_fx_panel.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_roadbook_panel/mat_panel_fx_panel.frag.glsl",
       "source_essl_sha256": "dee535c21426e2dca2e1bf1c4403e596019fade781264852ce8f09eee9b4bb32",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a7a89e43d510f57f49be4e3dfdb4965486ebbab71e46bbcd1b73b778a083a912",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/road/shaders/mat_road_city.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_roadbook_road/mat_road_city.frag.glsl",
       "source_essl_sha256": "b59160d37721583975430a39531f92e024311ccbf07b92feef58b6582806f2b0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "ae6b686865da76e6261dc197e4450b4dffdbd6cfe5167c87115f8f9c20fa056b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/road/shaders/mat_road.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_roadbook_road/mat_road.frag.glsl",
       "source_essl_sha256": "48d3066a11ee496ce1b4371bbafa477566892fa1c67b8110736d8ca07f526e2f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "55670e72b7578fab20948c69cb45b0e810e7ce227b43cdc3b6de405d0836a006",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_frequency_90.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_spellerBackground_spellerBackgroundModel/fx_frequency_90.frag.glsl",
       "source_essl_sha256": "6ab14f48def0c22a286207b46c5be2f4127997b38ee9dcdc20ae863426eb90f4",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "942516a772fa14c62a34f042b26881def7036c099c4f31ba4360f974b39f7f20",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_ece.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_spellerBackground_spellerBackgroundModel/fx_ece.frag.glsl",
       "source_essl_sha256": "fdd67e0a2a3c3be168631aebae0db05b9e8cf1acef4efa5c132c64bcd62f7c09",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e89282994f6d9b79368f28f21cbf37f0aa45e669f76507f3ad0abbdca9977ba9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_number.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_spellerBackground_spellerBackgroundModel/fx_number.frag.glsl",
       "source_essl_sha256": "2aeac99c2cdefffcf387497cb4a646f3383e382d791574058146b166278ebb37",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e7dc9423433280d6afad38d3373ac580a067aece55ef910ede21fcdd9515fa0a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/statusbar/shaders/mat_statusbar.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/widgets/common_widgetasset_statusbar/mat_statusbar.frag.glsl",
       "source_essl_sha256": "b9b7443b0b39de86aebab3b08c0a1d84643c3c5b8e80779ba6ef2cc0df737f52",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "21e3139cdfa59e3b0e22d584ae144515ec7e278f8a0de86bb6cfb7cf3b31f3cf",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/NinePartImageRGBA_fragment.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/NinePartImageRGBA_fragment.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "05f512ec9741ac23332552a37e3866a338515d1e2a40637f9c8f4356864c36fb"
+      "source_essl_sha256": "05f512ec9741ac23332552a37e3866a338515d1e2a40637f9c8f4356864c36fb",
+      "program_sha256": "08cbc2b2df2a8b3b34ef256d83469fc3e3f16adf57e137a47a81a4795017de3b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/NinePartImageRGBA_fragment_fade.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/common/NinePartImageRGBA_fragment_fade.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "a9c49db649eab8b681461aab8777ffeadb88c10e7cb9086e09ee7a9765ad7088"
+      "source_essl_sha256": "a9c49db649eab8b681461aab8777ffeadb88c10e7cb9086e09ee7a9765ad7088",
+      "program_sha256": "3a96bef4c0fc6bd8da62f8f1f7e61fa094f4282a540821130602354bd591ffcb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_popup_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_popup_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "2c76044ea79ef0c9b123a8fe5d2f1f3e0a74434e57ba0caad75140f96c59eeb6"
+      "source_essl_sha256": "2c76044ea79ef0c9b123a8fe5d2f1f3e0a74434e57ba0caad75140f96c59eeb6",
+      "program_sha256": "0e561d7b01ec452de766c51dd984d28ed91f78ff8d8d04d953363b63ec68bee1",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_popup_shadow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_popup_shadow.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "91086e2b6e8302f6d682b64b6d0366f776e9d70a81d1fcfd0556255ca7be75eb"
+      "source_essl_sha256": "91086e2b6e8302f6d682b64b6d0366f776e9d70a81d1fcfd0556255ca7be75eb",
+      "program_sha256": "b660f5a82b6faa243fa8e654d1841a4dad58241e258506c6987bf0cf0d06aba8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "a80ecbe1b028157115e6015b496e74d0c65ae4eed01b66e8af7edfb4079371ee"
+      "source_essl_sha256": "a80ecbe1b028157115e6015b496e74d0c65ae4eed01b66e8af7edfb4079371ee",
+      "program_sha256": "636f17d027af0f05af2b6906e2f7a9a4ba4f7f85f3af6dc933d7cd394aa24d13",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_edge_l.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_edge_l.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "ae186f9b96629d0dfaeba162751978c6033b859077b94296d06d1859bf22327a"
+      "source_essl_sha256": "ae186f9b96629d0dfaeba162751978c6033b859077b94296d06d1859bf22327a",
+      "program_sha256": "ebe7bdea9b0a4c80840bd8fb973fe37b28e92bdc11aa5ae5b1d466d677ba4efe",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_mirrored.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_fb_mirrored.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "d882ce251fc4968d5cba859ded26c10387fec4a2354153ef1a9cf53bd634e978"
+      "source_essl_sha256": "d882ce251fc4968d5cba859ded26c10387fec4a2354153ef1a9cf53bd634e978",
+      "program_sha256": "1aa7d60f2e0288a540c6379940baf77fb11bcd80a806b23a03c20c160bf5873b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_player_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_player_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "e698c6b51bfc5b0adad408869c9da55d42a26083eb96266d3c94110583ecfa2e"
+      "source_essl_sha256": "e698c6b51bfc5b0adad408869c9da55d42a26083eb96266d3c94110583ecfa2e",
+      "program_sha256": "f78e8645efeb441d1f3c5f9bce770a2a834f17e35e1f1a37b2ae46e29ecc75c7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_player_mirrored.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_player_mirrored.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "32394fea2882776b9238a79a699260ddbb22ed66cfcdd09db0f5ab4e938aac79"
+      "source_essl_sha256": "32394fea2882776b9238a79a699260ddbb22ed66cfcdd09db0f5ab4e938aac79",
+      "program_sha256": "325348558be8c6a4f4aeb837f7b53e9d6e93663c9d043a3fe988eda3da4985ee",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_pie_edges.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_mat_pie_edges.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "1052c886fe7a7941d421100843a26e6cf9ba0a0606d04f736e2455bd968d35aa"
+      "source_essl_sha256": "1052c886fe7a7941d421100843a26e6cf9ba0a0606d04f736e2455bd968d35aa",
+      "program_sha256": "4b0c1a60640054fffb8757d4a488d827217d0f855eea9367c2cf0b26faadbfe0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "5722f2f77bf4426da8269e9cd60472ad692986c7712cbd99cdcb3e4f6e15d42c"
+      "source_essl_sha256": "5722f2f77bf4426da8269e9cd60472ad692986c7712cbd99cdcb3e4f6e15d42c",
+      "program_sha256": "71eaa0d6b00383a15c25a75776f5e2542dc3b1c165c33a4824f0da8c4a4f4aa0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_frame.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_frame.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "3b9ea39820a67f3002b982b06c3883a9949f35b8bd5cd986bbcb9ecc16072374"
+      "source_essl_sha256": "3b9ea39820a67f3002b982b06c3883a9949f35b8bd5cd986bbcb9ecc16072374",
+      "program_sha256": "60cb3d2dc963b8654e63128cb37e358d80d3921ef7a2da22428d601c4175a0c5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_highlight.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_highlight.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "18b8f0d9fd3592cde5e80d27d25d7e8c6be294476879475bed574a7c397a038b"
+      "source_essl_sha256": "18b8f0d9fd3592cde5e80d27d25d7e8c6be294476879475bed574a7c397a038b",
+      "program_sha256": "a9ccf36094221249b3ecf9cb273435d061a822d922b5241f2dfb49d2a1f26bbd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_list_pressed.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_mat_list_pressed.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "5467ddc00ad7d342183a94f42ad6295c64c82103160ac4338652467a20429a1b"
+      "source_essl_sha256": "5467ddc00ad7d342183a94f42ad6295c64c82103160ac4338652467a20429a1b",
+      "program_sha256": "ae344016c220b6aa668eaacee45f48588512ee79b425b8646bb8879da284c9c1",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/split/shaders/mat_split_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_split_mat_split_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "532c657b882a5027d9ef7e2c934b3bee3e726ff61c918a42d8c22be6c34985cd"
+      "source_essl_sha256": "532c657b882a5027d9ef7e2c934b3bee3e726ff61c918a42d8c22be6c34985cd",
+      "program_sha256": "8cebba0939598596ab69dbd0c52c22d452c5a02a23870740c3a1630166778a24",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/split/shaders/mat_split_edge.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/panel_split_mat_split_edge.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "a20b77b3c15f6df405afe3d0b04f0ffb30dc8091bad6ed888f714e137bd65ba4"
+      "source_essl_sha256": "a20b77b3c15f6df405afe3d0b04f0ffb30dc8091bad6ed888f714e137bd65ba4",
+      "program_sha256": "f5c15213efe91663beb0f78f5d59bc617ee03be599e6d4bed3a58f02312039ff",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/statusbar/shaders/mat_splitscreenshadow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/statusbar_mat_splitscreenshadow.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "6585c07b7517cbf6ebec7312729a3f5a5a042cb617a86fc4b99e2276250d0179"
+      "source_essl_sha256": "6585c07b7517cbf6ebec7312729a3f5a5a042cb617a86fc4b99e2276250d0179",
+      "program_sha256": "073f4defcdf14a724d0dd7c3d5de0035466611eca719b421f135420412422148",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge2.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/cursor_Cursor_mat_edge2.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "6960335e08873bad9359510eb1a23f5a2330180310f03cfc922c8c89816c5cf6"
+      "source_essl_sha256": "6960335e08873bad9359510eb1a23f5a2330180310f03cfc922c8c89816c5cf6",
+      "program_sha256": "b2eb712a5829e283a6269a6faba7cd76ea6de8ce48bd8eeb5983a8990dba14d3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow3.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/cursor_Cursor_mat_main_edge_glow3.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "78ae119e0a520925669276b6bdc1fb117a3f6669f9e0a9ec269d4e3c90a21b64"
+      "source_essl_sha256": "78ae119e0a520925669276b6bdc1fb117a3f6669f9e0a9ec269d4e3c90a21b64",
+      "program_sha256": "165d9332403e706fef97433e779eec8a74f5162b3257e9e1e28b5a82b470cca8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_mat_bmw_logo1.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "6d9913960e6118dffed91a21014aae474d48b384e41d93fe8eb43432390d3858"
+      "source_essl_sha256": "6d9913960e6118dffed91a21014aae474d48b384e41d93fe8eb43432390d3858",
+      "program_sha256": "847d2cb5880aa6f2692b8376d72015dc26e373aaddeb6981a35329b7d45c74f6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_glow_tower.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_mat_glow_tower.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "c8ab91bee4d42d37ebdb693f71b5d786e8982eb43bf0c376fdc2657279f52817"
+      "source_essl_sha256": "c8ab91bee4d42d37ebdb693f71b5d786e8982eb43bf0c376fdc2657279f52817",
+      "program_sha256": "8d15b67e5e1cee03397370285f1cd5dd5059b34b11844e835e8ecafc4acda098",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_mat_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "21d6f3449ed042b56dfe2cc46cad519c6c8334c19bf686a823fa5e48cfc8b6b1"
+      "source_essl_sha256": "21d6f3449ed042b56dfe2cc46cad519c6c8334c19bf686a823fa5e48cfc8b6b1",
+      "program_sha256": "e91ca04f66f8e7ce881eef4dfe3d71586a8a6fcbe81e051e3a87e433f3fe09e7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_city.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_city.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "0c6c502245a9fd2b7a5a35d7369f8224694928447cb585749ab3a297c43bd358"
+      "source_essl_sha256": "0c6c502245a9fd2b7a5a35d7369f8224694928447cb585749ab3a297c43bd358",
+      "program_sha256": "dd12ca6b856d7069eeb9b1879efb2f6fb7935f2e23b75e51e235e10a190df1c6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_bg.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_bg.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "a9db8e45a306a49a0c763c4eff2637a1dd6a78aae36aebcfa8e605eeb129dcac"
+      "source_essl_sha256": "a9db8e45a306a49a0c763c4eff2637a1dd6a78aae36aebcfa8e605eeb129dcac",
+      "program_sha256": "fbd0e9874263b732c508f9f96c1936e7d03c7afb7cdfe65faa5c4ea199410c80",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_blue_glow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_blue_glow.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "99a27815d32e2644714f279614d102ef0c3840bd268db62d4842f6b0a23a0ef3"
+      "source_essl_sha256": "99a27815d32e2644714f279614d102ef0c3840bd268db62d4842f6b0a23a0ef3",
+      "program_sha256": "80dd1fec865d1655dfb57a087c27c8d9c131ca48489903617451843d9e1d1b57",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_single_glow.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "6d3681399be5bd4a50a325799c2f94f87a4789033030ef06a614176f331c7296"
+      "source_essl_sha256": "6d3681399be5bd4a50a325799c2f94f87a4789033030ef06a614176f331c7296",
+      "program_sha256": "8d15b67e5e1cee03397370285f1cd5dd5059b34b11844e835e8ecafc4acda098",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow1.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch3/navi_startup_pad_mat_single_glow1.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "7ef4cd5fb76bb65f0b2e17e815ef4c6264b00b4c3d41ed4b194e16c318056e8a"
+      "source_essl_sha256": "7ef4cd5fb76bb65f0b2e17e815ef4c6264b00b4c3d41ed4b194e16c318056e8a",
+      "program_sha256": "89c0968f7240e2f70cee0618a9e49c103c679b252c2630885e93c2d536eb9469",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/WI_HwShader18.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_WI_HwShader18.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "2c4fba3d2c506c9f4b1e62c461df7ba88f2dcd068ed2048c013787ea6fca4c65"
+      "source_essl_sha256": "2c4fba3d2c506c9f4b1e62c461df7ba88f2dcd068ed2048c013787ea6fca4c65",
+      "program_sha256": "87197e8bb46a7a178bea00664d83bbc82624e451fabf736fcc00eef1529bf613",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/WI_HwShader22.frag.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-fragment-car006/batch2/pad_WI_HwShader22.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "62261db51310e2a62797bd685aad08498b1ad276261efe40babbbd764470524f"
+      "source_essl_sha256": "62261db51310e2a62797bd685aad08498b1ad276261efe40babbbd764470524f",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     }
-  ],
-  "generation_failures": [],
-  "scope": "V74 with one exact fragment binary mapped to a normalized sample-times-tint candidate. V97 draw 190 replays with the captured BMW texture, geometry and uniforms. Full native HMI composition remains a runtime check.",
-  "map_version": "v99-icon-rgba-candidate",
-  "base_manifest": "tools/shaders/native-reconstructions/hmi-fragment-map-v74.json",
-  "base_manifest_sha256": "90a33d03d6783c402d4018aa1c5804443b2e2917f084504a93cbbc3777d8b80a",
-  "addition_source": "tools/shaders/native-reconstructions/hmi-fragment/IconRGBA_fragment.glsl",
-  "addition_source_sha256": "b93f19db59de98b00717cdbddee9b2e378af8bfd3c77b4efbdc2a2acc6ec4c42",
-  "addition_finalizer_manifest_sha256": "a69346b9d859d5ef77182edb8b54a33b2cd71d0365a8b7f3da2399ec6cdd753d",
-  "derived_from": "hmi-fragment-map-v112.json",
-  "purpose": "HU 006.027.001 (ID5_1811) copy of hmi-fragment-map-v112.json; same GLSL, native hashes re-pinned to the 006 shader files"
+  ]
 }

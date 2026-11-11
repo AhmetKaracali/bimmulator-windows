@@ -1,8 +1,13 @@
-/* Controller producer for the hash-checked HmiMain3D of HU 006.027.001 (ID5_1811),
- * ported from X20511I 007.030.001 by code matching (vendor/port-hmi.py).
+/* Controller producer for a hash-checked HmiMain3D. Build-specific addresses come from
+ * builds/<id>/build.json "controller" (tools/build-qnx-hmi-controller.sh passes them
+ * as -D defines; tools/port-build.py ports them to a new build by code matching).
  * The two pop wrappers observe the native main queue without changing its wait
  * arguments. A worker submits authentic BMW interaction events, which wake
  * that queue through libhmicom's existing mutex and condition variable. */
+#if !defined(HMI_APP_VTABLE) || !defined(HMI_POP_CALLER_3)
+#error "build with tools/build-qnx-hmi-controller.sh (addresses from builds/<id>/build.json)"
+#endif
+
 #include "angle-egl-rpc.h"
 
 #include <stdint.h>
@@ -28,12 +33,12 @@ typedef void (*EnableDisplay)(void *, int);
 
 enum {
     kAppQueueOffset = 0x114,
-    kAppVtable = 0x029cf520,
-    kEventVtable = 0x03747ee0,
-    kAllocateEvent = 0x00247c4c,
-    kGetDisplayServiceCache = 0x0024eeb8,
-    kDisplayServiceVtable = 0x029e7780,
-    kEnableDisplay = 0x002d9a70,
+    kAppVtable = HMI_APP_VTABLE,
+    kEventVtable = HMI_EVENT_VTABLE,
+    kAllocateEvent = HMI_ALLOCATE_EVENT,
+    kGetDisplayServiceCache = HMI_GET_DISPLAY_SERVICE_CACHE,
+    kDisplayServiceVtable = HMI_DISPLAY_SERVICE_VTABLE,
+    kEnableDisplay = HMI_ENABLE_DISPLAY,
     kDisplayHardwareOn = 0x30,
     kDisplayBackend = 0x34,
     kDisplayEnabled = 0x3d,
@@ -146,7 +151,7 @@ static void observe_app_queue(void *proc)
         *(uintptr_t *)proc != kAppVtable)
         return;
     const uintptr_t *vtable = *(const uintptr_t **)proc;
-    if (vtable[kInteractionSlot] != 0x0020f0a0u &&
+    if (vtable[kInteractionSlot] != HMI_INTERACTION_SLOT_FUNCTION &&
         vtable[kInteractionSlot] != (uintptr_t)submit_event)
         return;
     app_proc = proc;
@@ -160,7 +165,7 @@ static void observe_app_queue(void *proc)
 static void *pop_from_queue(PopEvent pop, void *queue, unsigned int mode,
                             uintptr_t caller)
 {
-    if (caller != 0x00214b44u && caller != 0x00214b78u && caller != 0x00215d74u)
+    if (caller != HMI_POP_CALLER_1 && caller != HMI_POP_CALLER_2 && caller != HMI_POP_CALLER_3)
         return pop(queue, mode);
     void *proc = (unsigned char *)queue - kAppQueueOffset;
     observe_app_queue(proc);

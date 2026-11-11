@@ -1,1726 +1,2518 @@
 {
-  "schema": "idrive6-hmi-exact-vertex-map-v1",
-  "realized_rootfs": "build/idrive6-cache/rootfs-x20511i",
-  "finalizer_manifest_sha256": "58af89d4d854f488a3bfaa966f68bcd4a0017b48570158874b18b4c7f88ff613",
-  "usse_manifest_sha256": "fca74d0d628a1d282d5b7a8741c5907ac93e1f760607bb9bd5077a32234b6da4",
+  "library_schema": "bimmulator-shader-library-v1",
+  "library_version": 1,
+  "program_fingerprint": 1,
+  "manifest_header": {
+    "schema": "idrive6-hmi-exact-vertex-map-v1",
+    "finalizer_manifest_sha256": "58af89d4d854f488a3bfaa966f68bcd4a0017b48570158874b18b4c7f88ff613",
+    "usse_manifest_sha256": "fca74d0d628a1d282d5b7a8741c5907ac93e1f760607bb9bd5077a32234b6da4",
+    "generation_failures": [],
+    "additional_evidence": [
+      {
+        "source_manifest": "tools/shaders/native-reconstructions/hmi-vertex-map-v54.json",
+        "source_manifest_sha256": "1a827f1b87bfd4459046e81c336a6444eac8e9ae85e5e5f7c444bde7799101f2",
+        "runtime_capture": "build/idrive6-cache/evidence/hmi-id6l-v66-shader-captures.json",
+        "reason": "Exact shader hash was uploaded in V66 and mapped by the retained V54 finalized translation."
+      },
+      {
+        "generated_map_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-vertex-additions.json",
+        "generated_map_manifest_sha256": "4dba30111884a3da82216b960495af732eb926b3249d5930f528e49598ff4c07",
+        "reason": "V82 exact-hash shader payloads finalized by the BMW QNX UniPatch tool, translated by the native-register USSE pipeline, and passed SPIR-V validation; ESSL maps are candidates for the V84 runtime comparison."
+      }
+    ],
+    "map_version": "v67",
+    "base_manifest": "tools/shaders/native-reconstructions/hmi-vertex-map-v66.json",
+    "base_manifest_sha256": "7b1a1f863e3f443187de1969802b838934cf34a8d110a9661e7ac75c0ea47c66",
+    "addition_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-vertex-additions.json",
+    "addition_manifest_sha256": "4dba30111884a3da82216b960495af732eb926b3249d5930f528e49598ff4c07",
+    "addition_finalizer_manifest_sha256": "6825fb7fcd59d340acc0cb457a27f41ea12d1fc0bc1a5c9309802ab17afebee0",
+    "addition_usse_manifest_sha256": "df5c34d0d2f642f55fe64613d0a2a97fd0ddb727bc28afe03bd35b0c277f4743"
+  },
   "mappings": [
     {
       "asset_path": "common/shader/Rectangle_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/Rectangle_vertex.glsl",
       "basis": "previously ANGLE-compiled exact Rectangle reconstruction",
-      "source_essl_sha256": "c0310cfb74cb2fc444fadc591b562c46c72af44b2351b6af0e1d461b29984f41"
+      "source_essl_sha256": "c0310cfb74cb2fc444fadc591b562c46c72af44b2351b6af0e1d461b29984f41",
+      "program_sha256": "f30e608a2c2a3e0ff486f07efdbae5e4a175398b743e432e288965c9c7aa5c93",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/0382ae187199c506.glsl",
-      "shader_sha256": "3075b9a392744ba8bdfd0436a534adadb8a7fb9aba6f0ef3223bcfbe7af302cf",
       "source_essl_sha256": "1bf98bc2d2a0ccc79a848d9292470e15f0936ecc7ffa69c38cb318ff70c39fd7",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "0382ae187199c5061655fd06a2c656413eed2717066256c814ff40d290ea51a1"
+      "program_sha256": "8f4415366cee9958a5d43c5116c133b77fe1b95a17f9f6d6bddf49e012301b18",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/07d36c6663560def.glsl",
-      "shader_sha256": "07d36c6663560def374a837ade6853a077ad5d65422ade3bfd28faeec7a86703",
       "source_essl_sha256": "0770d768af9002d01e32945902c8c6a5795c3bf49da2d0bbd718a042630dfc09",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "7d11a28af3e00fb2d69155bf095bb33a59e2713e2608244a4398489e6a7e49f6",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/0b18c1a830b59a75.glsl",
-      "shader_sha256": "0b18c1a830b59a75938ffbb3382bdaf39842da05b625b4e43521095929fe5561",
       "source_essl_sha256": "4e6584fd9ad9d619b96567cf1f6ce34bf4ff727ed6a5f546029b71a016b80f9f",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "6108cf3d423c31f74ff23de83795b337fadb8049de3a70e951a1326ec9517909",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Text_ColorFading_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/114cd36df0bf7ecd.glsl",
-      "shader_sha256": "114cd36df0bf7ecdaf83574794c30ed68802357d8c35d43e2429ab1520412ef5",
       "source_essl_sha256": "04a34e6f715e9615fdcc211637d029e66e5ecee2c2a53d23e6ecc630d575f6cd",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "d3f5957153c958c8cfe12040229cd2dbc8bd76cd76a946e5bf262d6d3de1b012",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/1a9b04c0947ca46a.glsl",
-      "shader_sha256": "1a9b04c0947ca46a3e64180cb8c32c85862e1b3000c594b0128ecc4ff03d2d4d",
       "source_essl_sha256": "06960f72249f3388187ff4f7259156a563080125a27a3a80862b8cb7a68ba42a",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "ceddde2481cbb860840bc0cfdd3774c31e3bca42bf1b07efd913d78c4dec52e7",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame4.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/37a553bc52c3d989.glsl",
-      "shader_sha256": "37a553bc52c3d989fb65694998ddfc39a058b67e7f31c245968894f0770809f1",
       "source_essl_sha256": "b6905d36a332d391a3fc84935b3cc016da501e3530dc238f1c45c041fb5eb96d",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "4d3f3f41861538861a443829f3ab847da1f847aabf41bd6117b90cfa2e2b9257",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/3909557b13bfa88c.glsl",
-      "shader_sha256": "3909557b13bfa88ccd0bbbdac194cd0ae39449fece2622f63edea0a85fcecce7",
       "source_essl_sha256": "946aaf0d8965887fedecfbc3f0daf8a84f379d748653f250a91272d10b0d600b",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "509e205729397d4082dd8efc8465dfee32520e2fbe825f11315c9641968ea483",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/4be5eee54cb5abe2.glsl",
-      "shader_sha256": "4be5eee54cb5abe264fdc91b80296f49c9d0744e203b2a7426d6f07ff0a7d386",
       "source_essl_sha256": "c8ae73d3c9fdf7523ecd51eec7d1dd2e3e49a327b2ba13d0d21568f80d26b533",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "904a2f42cd82fe0668c56e7d4c2a5ee49a1ac8c811378fc8a09fb6550b2b0f3f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_line.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/66a41b5e9c5848b1.glsl",
-      "shader_sha256": "66a41b5e9c5848b1a15b89cb279a52d31c18d8ab2ce5ea7a5222a92c428c2379",
       "source_essl_sha256": "db98c5823d7e372bfdd4aeb1177b58f87e83da341ddfa31db59decb9a1972d4b",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "40e3bead70d68f6c0dfe53a1a6a4b6a3af5521690525f25345381ec8e019bae5",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/73fb860e62e40746.glsl",
-      "shader_sha256": "73fb860e62e407463560482b88e6ed959e708af92fdda1231948dd8126df9b6d",
       "source_essl_sha256": "1faa397066f8839b3eef3c3fc3aa39529c4c98f9392aa26f79ffac639348234c",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "22898ff7e033bbd4cef06ee989f044b5c72e46c65e8179977f3da3659fc95f6f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_gloss.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/809f277f207ea5be.glsl",
-      "shader_sha256": "809f277f207ea5be31df9ccc4dd380f459c41bad5897da6ed7ac46365aea2967",
       "source_essl_sha256": "5d6c75bfaa7eed4ec973bd338f86e7c89dfdd7f6c09b52c2427dd747b7dbcb4b",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "a6878f400023182143fc95f18dd1a2ec891ab2b9244002324a800f97ae2c1769",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_floor1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/963b69aafca4e103.glsl",
-      "shader_sha256": "963b69aafca4e103eb5ec07b85454aa64b1bb509040f76f284b148633d15aa45",
       "source_essl_sha256": "ed901ed0283bbed3ada0280dd351cd0aa161083c757b063ae9f6c82cf3f2910c",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "85423231d272ea022ea7581968b924ec4e6fcc6dc16380007c17e2ee99d4c20d",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_mirrored.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/9ef7219ad8ac6b05.glsl",
-      "shader_sha256": "9ef7219ad8ac6b05c81a56b716922b7065ab667363a2f9d5e3326c1439a7ecae",
       "source_essl_sha256": "add58bcb6000752eec8fefa01ef0dd106b992f05341d5e5848794af833a6063c",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "344638dda882c43a541642dac30261cb257be9fdbb27bb36ad17590e9e900d58",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_sky.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/aa67c4b7b0191663.glsl",
-      "shader_sha256": "aa67c4b7b01916635a839e9ec17f8c843d10e5059a91b88a677f19e14e95e31b",
       "source_essl_sha256": "19a154a657096a9df9a6ca321f2ee99022fef39bdf743664ac2778af17b78538",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "a096027f1a0cd3b77f02d7f50f5914015eb2e6276747ed82bfcd61d4dae78d38",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/background/shaders/mat_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/b6d5e42c6e2858f2.glsl",
-      "shader_sha256": "eddb66b6a0346c54bc965479086ace8cb3222b57a405573a4d5814bf910d7d29",
       "source_essl_sha256": "2674d189ebd5654550da9d49b14ddf77bbad5dc387c604bab13ffe0f163dd4db",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "b6d5e42c6e2858f269decbb0a36d9a542dc885fb5841a359c23a20eccbb7384e"
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/b8da2966f915fe5e.glsl",
-      "shader_sha256": "b8da2966f915fe5ec6f3314d0a4c092b4d8a7da5da1635025d61754eb1a98807",
       "source_essl_sha256": "9d77fc6bf00ddd76330480bbd28b96f4aceb44fd3bbb22b1175046702c544d94",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "cbfc1c3ef0ac99b5815513cc67f2b7d20dcee4a8b28e98629256be1076f9cf33",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/c9163daf462ec503.glsl",
-      "shader_sha256": "c9163daf462ec5035e40f188c86fbe0ebd0a44a4c43d6534e48512058d7b1680",
       "source_essl_sha256": "4876a35d7269fc2570700e5b476968663e3c5c8854a699ab33ff4fea2e89e0c4",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "1678044e64a9356a67f8e004b16a311d13c50109d640dfe16b7e8e81f562a407",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/statusbar/shaders/mat_statusbar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/mat_statusbar.vert.glsl",
-      "shader_sha256": "b24c5b37cbf7e362c9ffd49efd49cebfb3b873a23b7cba5a06cf0ade51147765",
       "source_essl_sha256": "d9d071c0b515b9d33d95ab88ae8527afe6d2c3acf5d24af7f9dbc48001cb6ef5",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "ddc68e69ebab4e8423574814fc30728843531e8458de806eb552b76a8d783c3e"
+      "program_sha256": "a822aa223957fd1e4e945b5c181c9e5895a968877bde78b118110ea50b495214",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/ec0105664ee6202f.glsl",
-      "shader_sha256": "96823a3fdc165eacde3a4fb90cb843a9a54325fbc4e584f6a633ddce97891c94",
       "source_essl_sha256": "bd67fbbfca1a2de7baac480ef7f5ded2071803ff9d8c9760f202e6660eb21eb4",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "ec0105664ee6202ffa8b692e1e6c63ede8ff169f8a0434cdc3be40d67be219be"
+      "program_sha256": "795c76dee9f0fd9b9a8bc44b83f8728b0bd33ca11224a5c37d8dc6dce317b28e",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/f1d37c0e8f7d98bb.glsl",
-      "shader_sha256": "f1d37c0e8f7d98bb49d47c2c2c4c2c51d236413e11bc94dcf0a9b7b5e4bf623b",
       "source_essl_sha256": "7b25aa57c1567497e6d9b6134570c90ac8c4d57eb53a699de9492baf54a2c182",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "d4096dc98ac32ad073c599987f2cd283befb592969b25b5a73e6674c2b9fc363",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Text_ColorFading_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/Text_ColorFading_vertex_fadeVertical.glsl",
-      "shader_sha256": "21bd82bd8d53570bd6f330770809bd6f6cdce5907d6dc17e8568ffffba0c4ade",
       "source_essl_sha256": "94094f40b17c51a18d4554efd4e80b1d721418357a1145761c025daecd3be4ec",
       "basis": "hand-written test: MVP*position, u_color, no fade",
-      "previous_source_path": "tools/shaders/native-reconstructions/hmi-vertex/21bd82bd8d53570b.glsl"
+      "previous_source_path": "tools/shaders/native-reconstructions/hmi-vertex/21bd82bd8d53570b.glsl",
+      "program_sha256": "844aed5608a878c45c8f2c68c4d150a13bee9f83eb91105e85fcdde7da6e9b88",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/0b93dc1126628cda.glsl",
-      "shader_sha256": "0b93dc1126628cda2473fb3cc8265e43fbbd1dc95139d608e381de573655ccd7",
       "source_essl_sha256": "3af8254840f320e21b7089f6d940f3cc53a861bf49f60c83306752e62227b663",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "f8fa4774785712fa6255f67c08878fb0b5be264351e2426c3dbe7457fc9ff03b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_pressed.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/0bb0e2183547aacb.glsl",
-      "shader_sha256": "0bb0e2183547aacbe945cbbb23e97ea85fa7c08348a58b24446733669c781358",
       "source_essl_sha256": "f3407c450c15237a22b2c4b469046b66930f5a5df93be76f30b9225329552a12",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "de167e506075218fcc50f8072958b507e35e130b4ed7703638ef6db2aa7a243a",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_touch.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/178e9190c72eb45a.glsl",
-      "shader_sha256": "178e9190c72eb45a7fbdf9d6b487113d7a8bdbca94d59fed2a99db7f59625253",
       "source_essl_sha256": "e427abba3b330f9a2c0ac7e0a187dad51d51ed065de8efe521a98a8e1f5486fb",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "8346976dda765412c1b02d24e8d75d3639e88a36105c213e14b6e22173024947",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge_inner_touch.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/1a37cc86bcb63e31.glsl",
-      "shader_sha256": "1a37cc86bcb63e31a5d19e72e8a080098e032b118830d719d3ce5372fb9bb1be",
       "source_essl_sha256": "55fdda81cae676eacaccd4f958581d05952752216d88206da1bb7cdd9fb3d1f4",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "79d51b1066a1be85b8f20b2651c0d1a5419628435c442efc85d11234cddabf18",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_top.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/1bb39ac8e4ddef12.glsl",
-      "shader_sha256": "ded46c6b819c447d43d9f9e7290235eb1a0ac8cb667c2887c306e762f6389cc5",
       "source_essl_sha256": "a2920f3a591cb7545888b02f8fcd19e34cd79f2a211b57eddbffa00cba9c32af",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "1bb39ac8e4ddef12954b18912922af5d84c53fe4a01cac7e35f3216a8416060b"
+      "program_sha256": "c6206c13104475377895c1cfa9fc980da3e161e56121702dbac61b3147e4e070",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_pad.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/375b211483984a31.glsl",
-      "shader_sha256": "375b211483984a3126663d24f35684423e0c0631a7111e03d36707bd13090e5e",
       "source_essl_sha256": "b7733cbb15fd20b73e337f500d25042ef3f12df063773b31621fb6e4048fea89",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "0c2cd2a25a5b719c09b077a473d47b784407452c9c0910dedb3984556ddda87b",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/6e02005a078d6333.glsl",
-      "shader_sha256": "6e02005a078d63336a621f4b95fe0b59c65ee17dcd0ec25851635e0231537525",
       "source_essl_sha256": "ec6a31f65339f11b0e777a1331c9fd401bdac3aa2ccb65241b32414b60142a1a",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "cfa374961162921ef7170637a8277e3bbb9cd8b819068891f23fd195b124c38c",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_reflection.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/6e517696a761d8f9.glsl",
-      "shader_sha256": "2356bbce0d4e28d268cb710866479a8cd74edcd651244e412713d177c02469d2",
       "source_essl_sha256": "256371854bc1d5c1a8340c410fedc883623f17b739af6c29ddf17b8eb37a34c7",
       "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
-      "x20511i_shader_sha256": "6e517696a761d8f9fa0ca3cb66f64e73b27a7934d3bfcaebb595264c6c913e81"
+      "program_sha256": "ca3601f15bf7d26c1fc89a7792ca39a1379b22b9b2cf695a73c95501c1905f16",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Image_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/8d11288e219cee7a.glsl",
-      "shader_sha256": "8d11288e219cee7a1e83d0f9bbf3735827c55c618a45d830a3c1f5970020cdd9",
       "source_essl_sha256": "51f5b21891695c9aed7c7343c1de61a59661815fccdcc5620620875e49a7a5eb",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "2f1ed0a04a361db7b4987e97aba25c7d1ee5b43db5f06f3634b853c5fe158d28",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_pad_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/df0b141abf1f025c.glsl",
-      "shader_sha256": "df0b141abf1f025c94d5a64bc9233fbd46abfa25c7ef4b2e5b89366ac101c26b",
       "source_essl_sha256": "9b5aee8a6d54c4ae2f644341f253410ca9d97cfaf168e5819f537f207d15952b",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "53fdc17fb862260e47f24a1cf769c5d2e921b86ffb6c3b0b7c2235533a810b3f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight_main.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex/e37592a3fde5b416.glsl",
-      "shader_sha256": "e37592a3fde5b4166c38f15400de1fe702700bdcdec46d8ddb811e8dc6acefa6",
       "source_essl_sha256": "3557ce8643399dfab16c0dc3f9b88ab92beb97b50f0b575ebc6cbe4c1f6b79b0",
-      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation"
+      "basis": "exact .shd symbols + cached QNX finalizer constants + native-register USSE translation",
+      "program_sha256": "ebb5b1fae7dbb7236252d47d8d066ebb07a449b2349bb4348dda60c11da2906f",
+      "native_hash_pinned": true,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/sport_mat_SportTube.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "5da80ac0859774e86f986ec183700071e6157342c7f85fc8ebf31e192303c615"
+      "source_essl_sha256": "5da80ac0859774e86f986ec183700071e6157342c7f85fc8ebf31e192303c615",
+      "program_sha256": "1dd143adab7201680599fd0279d543418edcd78c20782cc79ec4ed99dfa6a701",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/sport_mat_cursor.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "4eb09913d419a4d7380ab433fef028a1e62ee666d015a9c0cd7fcc0c8fb346d5"
+      "source_essl_sha256": "4eb09913d419a4d7380ab433fef028a1e62ee666d015a9c0cd7fcc0c8fb346d5",
+      "program_sha256": "1f9e6fecbbe73d2e630035d9179f18ec6c8ea10e1f79c294bddd1985d15d83a5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ContentShader_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/ContentShader_vertex.glsl",
       "source_essl_sha256": "2e1cfbe7f423d6cdf575da0d1f5cf01b4f25b8df07c2f02c56e43ebfd6f6fa68",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ad9e2f1d0b2b557f3369316c47917605b894dbf7efff45a244c3962b2251f910",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Debug_circlelayout_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Debug_circlelayout_vertex.glsl",
       "source_essl_sha256": "9436cbad7114998ad4e86be93b426ed947da2c1772095b403d9b112a60946283",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "9adb197b3901f2ec00bec71c150c1f0bc350481ea44e9f8295a440b3127fd19f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Gal3DDraw2D_vertex.glsl",
       "source_essl_sha256": "2bebf3498da8c20568df6d3404a7481af78f11b68568055b5a74f882d85c1889",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "bae3d8cc46d545a3f010d799ce6b7097ab1e4e327019af6aa6f3ee515bc7520e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Gal3DDraw2D_vertexColor_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Gal3DDraw2D_vertexColor_vertex.glsl",
       "source_essl_sha256": "f804847a64308b6c869eadfa128e754c6cc31d771700142f5710d6c0bdf362a8",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "1655aca9d14d2f947c28b8605050c0bf64507e394e588cdf169b78dbbc6ccd98",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageAnimation_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/ImageAnimation_vertex.glsl",
       "source_essl_sha256": "4b501fb3549744b250fde2de40cae4cd767540749897f601133fd7b7db21b4bf",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "d8c394bd918012b7c8d374cc426da3610090a440c2b6c927bbac110c4d0e1a13",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/ImageMaskedAppearance_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/ImageMaskedAppearance_vertex.glsl",
       "source_essl_sha256": "1e8cda3f1cfc203847ab5249db9053e6b69c068409c3e6a467f60136f69711c4",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "57f40592c4999da1e213dfcdf543d3b65e577da6469ca964ab9bcd356a322f62",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Image_vertex_fadeHorizontal.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Image_vertex_fadeHorizontal.glsl",
       "source_essl_sha256": "cd93ff97c7de0c74eaa92d41b6809a8e99097beedeb4fb6be19346ded7a9a318",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "9fd052d8bbd87fc2f958429bddf7bb04abb7379ebae2c514d171b999570beee8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Image_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Image_vertex_fadeVertical.glsl",
       "source_essl_sha256": "d0fe68fe047b0bad1f7906261ca1d360a390fa08b773667f82f74a1de3e61094",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "4513c118a58525847cc1a2062d314b427b67aac3db92837f069714dfab9e16e4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Rectangle_vertex_fadeHorizontal.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Rectangle_vertex_fadeHorizontal.glsl",
       "source_essl_sha256": "447acb885c5a2d1f6ac23f092bb81f821f6237b34a03914ad511829232b5abae",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "f540706c0e820efac6b9c7d5efd62b0da994df2117a7a439fde122b466dd2b30",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Rectangle_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Rectangle_vertex_fadeVertical.glsl",
       "source_essl_sha256": "6ac46581a9c7f677c53a24d6b225ff49b9dd2a29916e12b2cf24e79508bd250a",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "767384268ef42b73607133cd974187281ed120c241b06fa4c3e06c424393a40e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SharedTextureMasked_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/SharedTextureMasked_vertex.glsl",
       "source_essl_sha256": "7485d6d9b8b373c95f5fbf3c2f406882c47f6cda7e5eacd8cbbfe2c6c86aa9b5",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "6173d9875117e80b43db2ab7b942e2967a2ae59251d7d85e491567b8e4410e09",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SharedTexture_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/SharedTexture_vertex.glsl",
       "source_essl_sha256": "fbbab80e3ec51802ad55d904eafc0012ab042e42bbfe773a7be94bc55e20c7b8",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "896fe5c1f0d9f785291d67bc7d0cd0b03df993478695afe42fad71c714d9609b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/SpecialText_vertex.glsl",
       "source_essl_sha256": "e3f7dd8144810677d0d76daaff2827b041bab6f68e54ad860fcb7f994293e282",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_vertex_fadeHorizontal.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/SpecialText_vertex_fadeHorizontal.glsl",
       "source_essl_sha256": "5da94cf6a6241fe94da98a49557e03dbfca83196acd4352186c2e64d5826630c",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/SpecialText_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/SpecialText_vertex_fadeVertical.glsl",
       "source_essl_sha256": "2b4ff8f2b6d88df0388d0a027efd25329edb98245b2f82f5df92de33f3625fb6",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Teletext_Background_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Teletext_Background_vertex.glsl",
       "source_essl_sha256": "29df11ab5029005a175ec41f1ba178b69041ab8b522e46c57631b339983ed752",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "ebeaf4c555f3cd26352c8fa43e72858c9200071b2e8e6812ffc7f13545749223",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Teletext_Character_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Teletext_Character_vertex.glsl",
       "source_essl_sha256": "6ab99137811e77d8a10a2a5cf983f08d2f3e37618c85ef41c32b6a95d6a5115d",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "2894efecc0dd8b6f0c3e05fede1f9767cac6f7bff09c30184a0c89ba4db42980",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/Text_ColorFading_vertex_fadeHorizontal.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/Text_ColorFading_vertex_fadeHorizontal.glsl",
       "source_essl_sha256": "12ad022982881264a30eda36e9242a75b878e8c1ac35064609a857f2f5333143",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "e3f582b14fefb2026029cd452a9e966643c47ad2fb2cf34e052d01c10aa2b0d8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/glowStreetAppearance_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/glowStreetAppearance_vertex.glsl",
       "source_essl_sha256": "bd6a192082ca88a039f4cde77cdbb3ff616cf3334f7fc2668fa889868da4fcf2",
-      "basis": "generated by tools/make-common-host-shaders.py from the native interface"
+      "basis": "generated by tools/make-common-host-shaders.py from the native interface",
+      "program_sha256": "729c792b8f2e8188b02033fa93d60c4ac490f8d6862e66248adf4578580625b7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller/shaders/mat_piemenu_outline.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/generic_uv_mvp.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "85b629ab7ed0c3024cf9d0a0ac1629aca980f01885da46ef5817954524ebd9f4"
+      "source_essl_sha256": "85b629ab7ed0c3024cf9d0a0ac1629aca980f01885da46ef5817954524ebd9f4",
+      "program_sha256": "6fff721cd9effd88fb8b326be77853895339cf7358be77c30f49b2c1c9c5746f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/generic_varcoord_mvp.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "f5ed7b4b92be0e920dccefbe0cad597dbb1670ef171791fc28f178432a740501"
+      "source_essl_sha256": "f5ed7b4b92be0e920dccefbe0cad597dbb1670ef171791fc28f178432a740501",
+      "program_sha256": "4c16459d2814e6f32e6d356c1f1fd27cad9dabde0d1470403e16fd70fc1589b4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/Cursor_mat_edge.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "42b2f98b0176db7f5046650c1404440e73b5baa950e767cbf9600807eafc0dfa"
+      "source_essl_sha256": "42b2f98b0176db7f5046650c1404440e73b5baa950e767cbf9600807eafc0dfa",
+      "program_sha256": "20b62239e30a829997de547dfa6b07d60651681f23a6e946dddfa7ce22a6082d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow3.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/Cursor_mat_main_edge_glow3.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "a4d527459cca33573a7916ab26bb5a7bd7aa5dfe5499b578d12fa7e54a9ef985"
+      "source_essl_sha256": "a4d527459cca33573a7916ab26bb5a7bd7aa5dfe5499b578d12fa7e54a9ef985",
+      "program_sha256": "b32ddaa816565e362fb99ef965a5557a171b2fe11b4a8746c623db008d012ffd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBP1_BLACKPLASTIC1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBP1_BLACKPLASTIC1.vert.glsl",
       "source_essl_sha256": "a01142bdd9be0cd386d95c42b95b0f79286312badf2a4e6c9a1e6fcc31429640",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "a511ec6a819d84eaf391f807d06549980d636db85c1fe6ec7a0cda2524f748f7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBP2_BLACKPLASTIC2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBP2_BLACKPLASTIC2.vert.glsl",
       "source_essl_sha256": "8da3e1e7e9ada3c081dbfee785afae832bb1d672015b425ecf10af08fa79f0bc",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6cbf1f0016ac67a5e2ca11ec769cb80169076e79dddcb82dc7fb7564ef45cd52",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBRB_BRAKEDISCBMW.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBRB_BRAKEDISCBMW.vert.glsl",
       "source_essl_sha256": "126c981e88b07c2d67790fe4f8c5bb52ab786e4e11089f3b816f0a028b508895",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "430de797eb6850da753c805213c44598487eea50daffce2263e738f33329ec7d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MBRC_BRAKECUT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MBRC_BRAKECUT.vert.glsl",
       "source_essl_sha256": "c74cb04a7047a0e800f83596bf74297b7dffe0f503c7f4f4e6398f5c3fa0a4aa",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "5c341a447d14bfade4ef68476bfe17f048e5a6a2975bd08b553efe5af9b9b702",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCH2_CHROME2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCH2_CHROME2.vert.glsl",
       "source_essl_sha256": "f6be924f35bd445f016fb4ad53414011d45710749f91cad8a3a1a775a3a57ff6",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "97a59eeab0981c70f4b1386e87a784dd3dba2a810d387bc0bdfe95f03a383ca7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCHR_CHROME.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCHR_CHROME.vert.glsl",
       "source_essl_sha256": "a24ca6f756afd2e1fd865c3c16e5f63ed66af2546bf089a521fe0d4cca30cc82",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "5e4d7ed3d9931a8f9225b129daf944e116599cdadf06223e2b62aa3ba46e192f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCHS_CHASSIS.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCHS_CHASSIS.vert.glsl",
       "source_essl_sha256": "78d1d5c5d97d274de64e65f4fdb58bcd0299e156a43ec6d161d72106d2670998",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "3ed2d095d7d98f53e7c9807aac4608efb9110fd0afaa96cb052cf29027cf826c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP1_CARPAINT1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP1_CARPAINT1.vert.glsl",
       "source_essl_sha256": "7c114a882cfc2e756bc7c0fc31406fbcd0cb2540cbae17cf3a1b36a716d1f4a5",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "611b3a3e58da903bf696b430564f91a754f59029b658458a3d98eeb3d748a4ea",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP2_CARPAINT2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP2_CARPAINT2.vert.glsl",
       "source_essl_sha256": "10adb2c31890abbeff1dc0cb3c64916156425c2b2c122a410912e3e4319777b6",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "10a693c259a727d63987c285834eadc59f12d9b8a28b51a7606268d6adbade3f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCP3_CARPAINT3.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCP3_CARPAINT3.vert.glsl",
       "source_essl_sha256": "ad0a548829f67dd4a7b3b52014c6f5da7095908635c9f43d55f739cb9693fa66",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6657bfea1f208e7c63ab0a89c9988d3a88e195aabe545163ce3947c4c56173cf",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MCPS_PDCCARPAINTADD.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MCPS_PDCCARPAINTADD.vert.glsl",
       "source_essl_sha256": "ea6a44c10fabe107b8a008e54eb570cf98183c1361c1eb880da600770fec7ad5",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "15856c40c1c1c762fd887b813ad28b78722d2ffd3b2d2d180a38674c2775afdb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MFI2_FILLER2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MFI2_FILLER2.vert.glsl",
       "source_essl_sha256": "c206b812d7f01f75145272026f2cb11bfdc4c78d18dad2490327e8ce93f2ef23",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "2ac79bbd36e30f59ec9c2f4401881744365f458b7faa71e28d6d8e20ff5116f9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MFIL_FILLER.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MFIL_FILLER.vert.glsl",
       "source_essl_sha256": "5782f26acc740481209b1e7e42ea0916e55ad287c7cec786055faa697b91645b",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "0ed7ac67aa953d7fd1a9203e0060e6a287837822ff2b51a3ad76c32bb5046836",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL1_GLASS1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL1_GLASS1.vert.glsl",
       "source_essl_sha256": "35b9c9291fe1768c3f11128f9d459c45848cab7c11ea9859451cc53de143099a",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "dbc4c1b65d6beedd22cc377db4588a2f67589c7cd6d92c8f3bd48b11fbddafd5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL2_GLASS2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL2_GLASS2.vert.glsl",
       "source_essl_sha256": "dbcb3e3c6cf945f5561204049910e75f3b1f38792417c01fb41abeb3604ba2fe",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "338b697676416def0e42ac78c0391dd662ee7004f7780a5b85ed2207ade9d652",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL4_GLASS4.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL4_GLASS4.vert.glsl",
       "source_essl_sha256": "ce3bd1d52e0488982a87186de7d32a19802d29d7cec3bd85ddfb86d70a88cd7c",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "4018106a9610210b17d0b89a36fea40305bd9343589be0b804b94e09526d711e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGL5_GLASS5.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGL5_GLASS5.vert.glsl",
       "source_essl_sha256": "f3b3c2163d90ee964e9b7ab128241bb6dd4ad9d5e146cacff70fbcb44c48e5a8",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "ab4933ab637d1efacf06f53c69b6c25507bb4bb21cb7eb829f31b7f693cdc7eb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGLC_GROUNDCARPET.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGLC_GROUNDCARPET.vert.glsl",
       "source_essl_sha256": "cbabcd06a682604dddf9e31f3c4ee88f6f617c8f41e56256dc7b450235e50ba4",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "c0f8dbcd594f4d262092199f62dcda8a1da25dcb09ebdba07a1f2e933f86704c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRD_GROUNDDSC.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRD_GROUNDDSC.vert.glsl",
       "source_essl_sha256": "635b6065c0fe695dc0d0f970e1b56842148a6d0db0e1481f1a800a5bf6e25aaf",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "55d99539a5e07630db38f023f7fe89cb2bdb89862f48d59201d46dc90e295076",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRF_GROUNDFRONT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRF_GROUNDFRONT.vert.glsl",
       "source_essl_sha256": "0a62e2d323e2b548ee820f22e90512211e1b6c8b6dd126eb024648a7bfa92818",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6359785fc8c69c0aa4c821a53719b2f22d7abeb3a45c4e0fb8f1cee1ea06aab6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRO_GROUND.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRO_GROUND.vert.glsl",
       "source_essl_sha256": "a8d94db0fbdbaff99c3a2c1edd3115b9a61f59f81be53daee8d51a315aa4fd5b",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6e69b57b3a5b62b084098bef7cdb463ff5802ca30ca298329fa86aa38bb622fa",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MGRR_GROUNDREAR.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MGRR_GROUNDREAR.vert.glsl",
       "source_essl_sha256": "146e1e232392417262b25830fc2293a19aae10c73e1df4854319a9fabf03455e",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "6359785fc8c69c0aa4c821a53719b2f22d7abeb3a45c4e0fb8f1cee1ea06aab6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MIN2_INTERIOR2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MIN2_INTERIOR2.vert.glsl",
       "source_essl_sha256": "640df94e3dca0d3c0e757e914113517ab631c3a0e7b82438fe554db3203eece7",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "134d20b12ffa05051943fe8ac4684fda466a8909c8dbb3457231ed71851a03f4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MINR_INTERIORRIGHT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MINR_INTERIORRIGHT.vert.glsl",
       "source_essl_sha256": "f9127d6f5eb8e4203a35b0fd938c942745d04e8e599a7d9dd70d49128dbce469",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "8192a76471538ad79f630fdf385acb976f269fe50252901b7ea5daea6df9775b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFE_LIGHTFLAREECO.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFE_LIGHTFLAREECO.vert.glsl",
       "source_essl_sha256": "6cd1ce9e271fe47f80875d17a8bd59d4f14c98eb758c6d79911d9ea35cc32a1c",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "b56057f9f1b01f3901a256405b2c6b98ac559c14e3fec191d19ea07abb12b5cb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFG_LIGHTFOG.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFG_LIGHTFOG.vert.glsl",
       "source_essl_sha256": "d079669e599444064d4a04fc9a1346cf15f4461a1d3f4c0006ce5f758387dc3f",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "c04495e9efda3efd7d7c2a96c02ce99086b18b95148cca8f1ac7527361543713",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLFO_FOGLIGHT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLFO_FOGLIGHT.vert.glsl",
       "source_essl_sha256": "33ff48cbe8eabab91d5df01992bbfa8c2a0d45b94a6b22b163f5cd04e6cd760d",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "8c1e32d5a232ea1bca4a73a415a7b7f341815b2883a0f5895f84dd9ef1967744",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLGS_BMWLOGO.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLGS_BMWLOGO.vert.glsl",
       "source_essl_sha256": "a559cb1b6b017dc5afb7f24cb6fa67a227bf1a7a9875c70f0965a748a58d838f",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "090b66f0dd88cfd2a81f477166412efc26d88c06c971ad41f8d4bad31e73159d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIA_LIGHTADD2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIA_LIGHTADD2.vert.glsl",
       "source_essl_sha256": "16d5d318d2703e72d37e92a54313c286ac8cd371ba626dd7177e287403a7728a",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "a7b4536107750381c4ffbc77d07131640012be38639e9c54e18a13eab709b553",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLID_LIGHTDOOR.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLID_LIGHTDOOR.vert.glsl",
       "source_essl_sha256": "a525462629f25414b3236fb036e08e303c6874411733969268faaf951acdd37c",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "aaae2dbeeb8b97f68bb220b75d8fe253cd30a8f1c36013df9090b76284a4c957",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIF_LIGHTFRONT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIF_LIGHTFRONT.vert.glsl",
       "source_essl_sha256": "ff3335d448e058fc2618c618738e3dd4ee24d640c03d7c4e8a0f7f2d05740c92",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "b5d551c6c5ae51f32d67041c8a3e4ad71daf8826e1fe0ee7166597cf23605d20",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIG_LIGHTADD.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIG_LIGHTADD.vert.glsl",
       "source_essl_sha256": "87e5f9d4f4c0571f0ab4be15719befdba8443b305455efc472f2c1fe6fa1545d",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "ee1ed5cb2e64139b19cd2b372ebda6a3a1e77880d23bfa43995231cf7267e151",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MLIR_LIGHTREAR.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MLIR_LIGHTREAR.vert.glsl",
       "source_essl_sha256": "67b2411d0e658fca3d75d0f6e64adfcfc2b5b4c921ccf159550164c240f547e1",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "c692df66c1e0cfae003bbd282d605bd113283ea5182878790fed2de2ae921aaa",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MRLC_RLCUT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MRLC_RLCUT.vert.glsl",
       "source_essl_sha256": "90d3192e4d9c34b0be4bb63214923141735297b9b940f62ee7c368ef0486e490",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "d123c3afb81dc232361a52d596a2a148a861217c2443775ab8abbbecde45e770",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWCT_WHEELCOAT.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWCT_WHEELCOAT.vert.glsl",
       "source_essl_sha256": "65395ed198f463c1591c0f0a7d03644eca4f5ea16f2b97282028fe859e3a62d6",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "192517342bab19a5e034ed47efefc1f9ae86108d5fea6a63b28af06f7ecede84",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWMK_WHEELMASK.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWMK_WHEELMASK.vert.glsl",
       "source_essl_sha256": "91bd9d4c6b174b63e9c52cb3f782387506ec7aa21a07691fe511575bbf7119e7",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "5c341a447d14bfade4ef68476bfe17f048e5a6a2975bd08b553efe5af9b9b702",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_MWRM_WHEELRIM.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_MWRM_WHEELRIM.vert.glsl",
       "source_essl_sha256": "6bbfd0c0b551f34db67422d626b029a22149563d16804d079d4c64a9a322b4f7",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "fc75b00945988f740254367ff397ab2a70412f4e10f4724610dc08dcd0b39766",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/widgetasset/vehicles/F30/vehicle/shaders/M_CAR_Quad_RL0.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/bmw_widgetasset_vehicles_F30_vehicle/M_CAR_Quad_RL0.vert.glsl",
       "source_essl_sha256": "5792b24eef088f6a37ac8075e76eae9063dea6dd04f2ef30780a8a3554743c4e",
-      "basis": "generated by tools/make-car-model-shaders.py from the native interface"
+      "basis": "generated by tools/make-car-model-shaders.py from the native interface",
+      "program_sha256": "074b1df77c18f8a960c8964052fb0c16ecd21dbf3ba4529c5c267960cd673f7e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller/shaders/mat_speller_rim.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_controller/mat_speller_rim.vert.glsl",
       "source_essl_sha256": "83b18178d72ce0226c19c3aa94386933c3c918f065be46b96a429d3a95fa5544",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b9205c72f593513c6a99b5864849b70b35d71ae4ec8dc8db7b6ed7b5ac7ee674",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/controller/shaders/mat_speller_cursor_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_controller/mat_speller_cursor_bg.vert.glsl",
       "source_essl_sha256": "ecb451c1e7250d4b140dec5c7840e018d2272366feb427852255b9808a5bcc3f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8cdbe3926c37fc2940ad2c8f986d159d53563dba888430d642abfac8cc308391",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/WI_HwShader2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_cursor_Cursor/WI_HwShader2.vert.glsl",
       "source_essl_sha256": "bf31832cfdc1528397c84912acb02714b6e33a50ae20fb60a0d33823dbfedb38",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare2.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_cursor_Cursor/mat_flare2.vert.glsl",
       "source_essl_sha256": "c23de66d0ea57a39abd4561d7817d54588c84968b8ce6f7e14ff4558fe091974",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "35b8f7c345352504d7015f523732d504b7433f8b34ff06df08009b4652c9823a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_cursor_Cursor/mat_frame_inner1.vert.glsl",
       "source_essl_sha256": "eead7649d183a00817edacf40ff7437a2a82e6491d70d5102869e1090f2f02f0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "806ffce686198015955f8c87d5ee300bb29ffa443288d6c9bcea05e30153c84b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_speller_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_cursor_CursorBG/mat_speller_bg.vert.glsl",
       "source_essl_sha256": "9127019596c16cf798790f7b58cf6787f9f876a531e29d39fd98d52513c997a4",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c137ab6bfa0f4292516cd92d30ee555e9757a86bd20c60cc2c7a7643f7c991c0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_band.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_band.vert.glsl",
       "source_essl_sha256": "ad6f26d5f4a2951bd09705458d9c61472c7cdb4085a682a92167c23b02372ba0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6e05cca90f0e1d77ab80b3636f55f517267c00419ec841e5ce31f06ffe8b1c24",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_gridline.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_gridline.vert.glsl",
       "source_essl_sha256": "68bf64dc9a155d3d3f32b9091e22aece60f5194d705c5e9fc0262ac87baab050",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "fe645b138dee99a88ab298b15e98d5f99d59aa848718b79f5a182ab39f6b6990",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_masterslide.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_masterslide.vert.glsl",
       "source_essl_sha256": "112b76b79ae84d21c206d1739f47448650a0ed787c9127ac473a0319a619b3ee",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6b2583bdd7e17f0eed7c464c90ce2e5e9129bf1954740a8d7c4cae4ebfe40799",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_frame.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_frame.vert.glsl",
       "source_essl_sha256": "bd0dc6a54bd85ba314ac6da06cf1ffc17b9cef5c52aa2871706d0ef06235dcde",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "bcf3a81b2ddf009c4299612629941f0a2b2a54a52e408f518bd3c4b6992bc5e6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_press.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_press.vert.glsl",
       "source_essl_sha256": "bd0dc6a54bd85ba314ac6da06cf1ffc17b9cef5c52aa2871706d0ef06235dcde",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f8e939c67d3c8cfd76735edaa44a4200af56d43a93d6e6d37b60cef2f3ef8690",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_clipping.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_clipping.vert.glsl",
       "source_essl_sha256": "250c5c101be450d5ffd39f2d97093ec7b21b0fa5293bbc8877c8f5aa72b855af",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "551d3267ae255372018fb274192f3585c2d7f6a6883425f94d9eaeb7aa3402d3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_scale.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_scale.vert.glsl",
       "source_essl_sha256": "e05f555e8929b89d0d1bd15d8b826648acc7377a5530e79155277c12666c5f20",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "648ebd04bc5b5cc7397a334aa85fcc2a9e6328bdb937e1a53b724e06fecfece9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_slide.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_slide.vert.glsl",
       "source_essl_sha256": "f1c556215dbc9638b92ebfb43812d41382a27c91b73a7b0a735c35dfd17b44d8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "578bb6e6d58cf4683cd8736a6de2fb07c2fba85af60d1c31a99a36a50391e763",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_slide_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_slide_bg.vert.glsl",
       "source_essl_sha256": "16175b5ea5982beb3182bcb365988a9b086cb4a9e6d2a54274977e0e0f4a370e",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e2aacdb1e74130dad355fd00fdad5040f1b87c82afc207ee179263f60c41efdd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/equalizer/shaders/mat_masterslide_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_equalizer/mat_masterslide_bg.vert.glsl",
       "source_essl_sha256": "f64bad60d8dd790ec7a48fb0d90c48f81067ef19d34d7a9c6eb3b9440265f146",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "27cf09c80540389ccf5bef4b70a30bf14a5eb5cc6deb505c0aa51523370b2c26",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_blue_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup/mat_blue_glow.vert.glsl",
       "source_essl_sha256": "7de8ed4726b88c8f31e7615c1e4aa1a44cc688d3e623ae1136970614ecbe30b8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "bde64536607430451e9609e66e4b24958fcda0fb9c0c439419737eee78540392",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup/mat_shadow.vert.glsl",
       "source_essl_sha256": "d7a84d9a28a6c0feb9c5293db0e5bc286d1bd6769a4bb7fa1e803259ac27ba2a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f51d593c156348950ea44d46c84846c7c32f65c38a553a28559c822dbf897f29",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup/mat_bg.vert.glsl",
       "source_essl_sha256": "75f110f1d1d7fcc3f2ed6288def0f43bab3f4d55a7878f701fca2c4fef61347c",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "55c73f4bcf7beed1e591f25acf6a2ebfac1a63843d0c6d005ceb823068b91061",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup/shaders/mat_city.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup/mat_city.vert.glsl",
       "source_essl_sha256": "2fa4bd4bb63154fa1dd13902da2d7313e625784fb1285bb5fde2fc333f009812",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "29f55a2ab9cd0ca388ab8633737706a9a511e0126594d0e28e64ffb8f8559bd8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup_pad/mat_single_glow.vert.glsl",
       "source_essl_sha256": "228128a825eadddd95f2a92a63981e6f7ecbca7f0f7263a1a60ac768bef7cb21",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "33af54f5b10442f150cf3cd258f1b87151444e8cea8bfc75e5dec754a76fa4ae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup_pad/mat_single_glow1.vert.glsl",
       "source_essl_sha256": "6390e4d014406ca194e92dc856d34b05300cf9dc59c3e62d9b845f9937619b37",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "be08810de4157799bcbae32698dd2c56f32ba8816475adff20c58bef71bed7dc",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_city.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_navi_startup_pad/mat_city.vert.glsl",
       "source_essl_sha256": "e037a802827f81f9243bf6f1c64c32325d04a0ac489d5c0bb598c4c437d0c8b8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a7abe583a75347897e8f51cc136091f20416d0ae02f549c604431d4960349db5",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/WI_HwShader18.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/WI_HwShader18.vert.glsl",
       "source_essl_sha256": "cd5cf2c4fb370216d98b0ee3dda358962b8f1bc0e84c28cd0d9d589ef6952f04",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "06b95f8f1a595212e2e6c91f65f597e13aa491781ac88ba0941dae24bcf28333",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_highlight.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_highlight.vert.glsl",
       "source_essl_sha256": "c0734d763be69fbc96404f29e21167bd77b5d5e78d6b9fc388e141226f5dcc8b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "86de23e980d4b75c2ad91011c43112948b9bd84d631cf825b0dd870949994c16",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_frame.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_frame.vert.glsl",
       "source_essl_sha256": "bfd40885a57b3ba9f10023d1ab0180490695ee8cf16454b138aa48abe01e99df",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a3a76d1e7b3e455d33d9c1d56ce4082e2560e88a21ab6e1629543aa45838352a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_frame_touch.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_frame_touch.vert.glsl",
       "source_essl_sha256": "0f7d8425e071f0d9c48452c43f24ce7cbb62b76597c3fad43f4daa98bbbbd78d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "82daf6d1ecf43e7a6e3ecc282ac11b80b8e35c434e6bdcb95f3f797fb55a2824",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_bg.vert.glsl",
       "source_essl_sha256": "de73774bdc316b77e8128e250c179ffcb5d6af3a1f97ef95c4f9e202a7045275",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0d4ace5805bd18d69003fe7895b4fce33271134b6b99977ae8f8e75cd1a85a36",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_list_pressed.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_list_pressed.vert.glsl",
       "source_essl_sha256": "4ed11bb1c736d39e3aadf7fd868596ba0c3a389b639872e7dabd3b3b3778e765",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e360b3e7d5e35c4bb51641fd21abefac5b20932f3e42c6755f78ce2a10453387",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/pad/shaders/mat_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_pad/mat_shadow.vert.glsl",
       "source_essl_sha256": "c4b777278a020c3a6b0853b6c2d8a409dee191febeb3a65fb514fbeb195d4369",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d7d9b171de06069112895f122a1d78a10ff03002ad1b405269f243a7e9c4c3cd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_popup_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_popup_bg.vert.glsl",
       "source_essl_sha256": "bae55d84de52ac9d584285772f819c9760428b441c25e8d8a115530f70b6ec18",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f2d27b4694b6ff39019b29f21313cf712e3627ae0ca2099eaee2dc2034e856ef",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_fb_bg.vert.glsl",
       "source_essl_sha256": "317592b2976d69be196bd28531f3148d277b7492dbf087af65d0ff8b1ebce3bf",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "89594c9468b8cb2ba625bb6ebc9c00a6d202aa354bcddf1ceb2f77bbe7e7fe13",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_edge_l.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_fb_edge_l.vert.glsl",
       "source_essl_sha256": "bb7fb85a037c62a3ede090d28c5326397c2903bb473bd31f06b82d928776d07b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8cdb6ae427cd8654a9291059bacdbd74a9fbad3e3c7d3fc1fed731920974f92d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_fb_popup_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_fb_popup_bg.vert.glsl",
       "source_essl_sha256": "09545a37e53c22d55aa0ccac44d44defe2564f3788f61af921bb764f4a709a6a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d3b572e4a28bfb3d4233298f04f9e566242fc0af57988ac563fb305d8464c1d6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_popup_edges.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_popup_edges.vert.glsl",
       "source_essl_sha256": "e7a32bf1598b08acbbfc2cd79e8bf69874cc13ab912217796fa4cb14591fd763",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "fbbe7d4369484c0d682e93ee995e31acd9e921c88018d61862352f09b7e8df9e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_pie_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_pie_bg.vert.glsl",
       "source_essl_sha256": "21beb30a35f32cc5067c91453f10e62e8304d3d55cf165b2cf6968888b47add6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "97e124df6e97486aa85d60c20f28c3a3670d6234781069cf1d4abc912eba4eb8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_pie_edges.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_pie_edges.vert.glsl",
       "source_essl_sha256": "9bb476241e34c7fed52886fe81e624e7192efd612b5d78bd68379a77c664ab4b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "758634cc56ad28674ae6b3fa8f46f757674438af9d386978bab90223ad882c84",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_player_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_player_bg.vert.glsl",
       "source_essl_sha256": "052749bad7087ab9d70da71d547b1904378725c68725e605ca5e6e683564cb0f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c90c9c1637d6c823b12a28738cc978ad5f81b7486b18d55a00d1f0c8545eb4d2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/panel/shaders/mat_popup_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_panel/mat_popup_shadow.vert.glsl",
       "source_essl_sha256": "2775a98baa1bdff96ff78f355cd01467ef93b647aa41061f558b6d438b9d131d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "7c6f44fc08bb029634d273b38b23bbb27b497615b515395577c267da40da9fce",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/scrollbar/shaders/mat_bar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_scrollbar/mat_bar.vert.glsl",
       "source_essl_sha256": "9c53dd4d24697e7dd6cee98c95cffe588f0d43b9fde7cc579927bf4f88df7cc6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "32a56ca28a996b7241b0a1940b6e244f4ee65c72d95ae6e039f6e802a06068c0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/scrollbar/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_scrollbar/mat_bg.vert.glsl",
       "source_essl_sha256": "b4f148ee96745cdebb2f19f5e827a311e1aa187ec063a68c84ffee58c0ca6e03",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8a972bafbb47aeb65aae8ed80614a94f1cbcd26caeae8f3399f3bb4d30f3d365",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/scrollbar/shaders/mat_speller_bar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_scrollbar/mat_speller_bar.vert.glsl",
       "source_essl_sha256": "0e8f2ba3aa9c182fdeba131ffed54e6a04fb10d4e019e71f2ec4b63a54cd7276",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "3e3fdd043a4558547c8f1784916c30d024050dd2a48a01541de3e6112f3ff60f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/scrollbar/shaders/mat_speller_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_scrollbar/mat_speller_bg.vert.glsl",
       "source_essl_sha256": "20ecce1e5bec58dc5946261caf21b00c56e9760e69261ea1e72d07be1878d415",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c0ed4f02b638680d4b53528d0a8d6b409391f627158beddbe1179dc253d35a6e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/small_equalizer/shaders/mat_frame.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_small_equalizer/mat_frame.vert.glsl",
       "source_essl_sha256": "bd0dc6a54bd85ba314ac6da06cf1ffc17b9cef5c52aa2871706d0ef06235dcde",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "939537de2a00149cb3c4108416b755a196197af55358f0aa9403761f39e20318",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "bmw/id6l/widgetasset/small_equalizer/shaders/mat_clipping.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/bmw_id6l_widgetasset_small_equalizer/mat_clipping.vert.glsl",
       "source_essl_sha256": "d9521bccd43e706ff68c78b01faa64280421d8906de4523feb1ef479877ad204",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "ca4e0e3d5bb2048ad73a8e44c0f41c6a88b07b2648890649cef60032896664d2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/active_seating_starcounter/shaders/mat_trisector.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_active_seating_starcounter/mat_trisector.vert.glsl",
       "source_essl_sha256": "34a7113fcfb7a57a35b5d1e729efd2748c5140239051911ced9649db970d94ca",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "1c76ee26aff6501976e979344562dbd66bbdc69f031bb2ed59d6544c98f24f08",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/active_seating_timer/shaders/mat_exercise.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_active_seating_timer/mat_exercise.vert.glsl",
       "source_essl_sha256": "f212d9d1f7e23ad57ccb6e0aa2610e47829a5f665778bef5e5fe8465bd1e9f2e",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e4c6a6341a1360b5771f2ab6e5707a7a0f567b1edfcf7df239ac316950ffc9fd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/battery_charge/shaders/mat_charge_bar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_battery_charge/mat_charge_bar.vert.glsl",
       "source_essl_sha256": "bf31832cfdc1528397c84912acb02714b6e33a50ae20fb60a0d33823dbfedb38",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "258591e01d844b44fae81eec6ad9f9948dd41914174d43b7ad2baaa34c24c378",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/calendar/entry/shaders/mat_event_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_calendar_entry/mat_event_bg.vert.glsl",
       "source_essl_sha256": "b8dcc824f20227271ad1da4d2cc6a2e72f02252eb47008fdf328ff5d6eb62b4b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e5654abff92a89eff115b06433ced1f00fef09101e8b3fc706fcda77c00d7764",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/calendar/entry/shaders/mat_event_edge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_calendar_entry/mat_event_edge.vert.glsl",
       "source_essl_sha256": "b8dcc824f20227271ad1da4d2cc6a2e72f02252eb47008fdf328ff5d6eb62b4b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4d6bfd95be4292d3f3bf6f0866cd66cd6e944f4a0a6eb9132c81f55933fa9a06",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_departure_time.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_clock/mat_departure_time.vert.glsl",
       "source_essl_sha256": "a5911e647836ee980fb5a596b88a4bae37f3dae191663e514d3ba98ad91c3845",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c0f8dbcd594f4d262092199f62dcda8a1da25dcb09ebdba07a1f2e933f86704c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_duration.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_clock/mat_duration.vert.glsl",
       "source_essl_sha256": "4a0a8eb174976c4ed0f70ab26316cf0de0628014f033307d0ef136f6c55e40ac",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b2f4ce41c22c8be45dd0beff255e5f4ee27989cbe0f8637cea9297a5ee79f326",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_duration_edge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_clock/mat_duration_edge.vert.glsl",
       "source_essl_sha256": "64f60622035afcb80e555e23e14558c67a151b737351972d41668f885a2688bb",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "bc98abca08fe700da9d1fa0c36b23661124a3a45669cd37e19decda1287f5a9d",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_clock/mat_bg.vert.glsl",
       "source_essl_sha256": "f9164badd49ec1a6f33b2eab49e3d4623a2ee905b0277f2bbefa89cffa3dddb6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "116996bd6223ee216be2625535d9c579bdf1e999c5c6644e55cc1b0a2884283a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/clock/shaders/mat_hour_streaks.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_clock/mat_hour_streaks.vert.glsl",
       "source_essl_sha256": "bff4f52c6daf73fbc6cbb30736e9af05da14db3da3528e2e6e54749c61609cea",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a4db78940cdc2bcb6e146a2c894781b4883196ea75f48e71bd874ad2e35852c2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_highlight.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_highlight.vert.glsl",
       "source_essl_sha256": "5978ea14358e54345e7fe992cae7592273e192ff683561fe254898d0e10c9224",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "eb072e4dda5dc20502b14250e30b9fe0cec271a8fb893b2ef23dc6eb2c9e5223",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_bar_backdrop.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_bar_backdrop.vert.glsl",
       "source_essl_sha256": "538361ac92edba87485b418dd52a15386400d3d5ca551478f99316aeb9da69b1",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6d82f43e18207de09a14bd2b001b142495058cbaa8f2cc1ec0ec71e9ceb519ef",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_bar_below.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_bar_below.vert.glsl",
       "source_essl_sha256": "c4f59cedb5f4d276e0c600ed99a52cad705b15cbad2eac5f20b01a2cef29d5e6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0fc1bbdfa01c901b5de69de4303ae10bd74e082f83dc7cc87d1212556cf61860",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_bar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_bar.vert.glsl",
       "source_essl_sha256": "a8a51828a09260ce9c1d0b67e14752a2c5586c0c290efee4cc5a9a14152c0223",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "65e7269fa3f766b35c1b0ebc1c158533dea69cb34d3dce49776a10fc2d9dd120",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_lid.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_lid.vert.glsl",
       "source_essl_sha256": "39fb3212a3b07af894e4e998acfdb185a5831a504e65675f5a92c5c7106f620c",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4683d3a990d7bde12b67a6b97e146c4bc07fb2e01d56c8e37aba7094ebfdafe6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_groundlight.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_groundlight.vert.glsl",
       "source_essl_sha256": "05aa057ea1bba377b1f24acb2b21445c859715f89c01e8a251817c959825e7f9",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "9f8145d9b402034579a2b1b8d9f84ca230ebc2130f2754d66864c9458e4f2177",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bar/shaders/mat_frame.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bar/mat_frame.vert.glsl",
       "source_essl_sha256": "45f638c5ca82ca1dcda8dff30ce5fc5a8c98b899132bf739e1c26c30b4798b73",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "ba7cf11e81d21cda8a3f4b5c0611cf766c5564dc439a68292ef7e40d4d8a6233",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bg/shaders/mat_bg_refl.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bg/mat_bg_refl.vert.glsl",
       "source_essl_sha256": "d61d144a035293c4f7114043931170b7ee17c0f137797c659c64b01faa295512",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0decb5997907a2557d2806cfb0b07b636443265b431b236af0245098d4b1926e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bg/shaders/mat_pointer.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bg/mat_pointer.vert.glsl",
       "source_essl_sha256": "c9e4606489f2542a29bf6a3ace34760d66371b951e6e8ab007c413595e065012",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "31936494e92a8ca9fd03f560cf5dc5827b496e2bfabd52b57ee57b46608b8245",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bg/shaders/mat_average.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bg/mat_average.vert.glsl",
       "source_essl_sha256": "c9e4606489f2542a29bf6a3ace34760d66371b951e6e8ab007c413595e065012",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f9b42285db6a51b5568d107698d993e1e103c32a4eb2cf09fe92b0ad6bcc71d2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bg/shaders/mat_scale.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bg/mat_scale.vert.glsl",
       "source_essl_sha256": "49a5187f3be218878a148807c7faa8e532656ed928f23fc75349480b4e256406",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0aba7a2f27507a2c72ee44f37dfb62842c60d21d896ce0f44e24c670a04724f3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/bg/shaders/mat_scale_big.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_bg/mat_scale_big.vert.glsl",
       "source_essl_sha256": "a5911e647836ee980fb5a596b88a4bae37f3dae191663e514d3ba98ad91c3845",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2ceb5d1c5af72bc5f6933eb801c45ed256dd6f4821c10615dd92258bd30da41c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/piechart/shaders/mat_pie_electro.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_piechart/mat_pie_electro.vert.glsl",
       "source_essl_sha256": "0f45aa782f1b4e61cf9111bddb25eea3f8970a4e2eb965c8bbdd750e65c107f2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "7d5f88bc40dd72c10eb0092a1301f0b74ca28c8cbcea6601a75cd27f0610cc98",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/piechart/shaders/mat_pie_gab.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_piechart/mat_pie_gab.vert.glsl",
       "source_essl_sha256": "478b42e517f8a6698f86ab0ef31f8d1481dd3444be76c809fa27f3449f019475",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2eba800edf24ec996cec6ba494a7c50fbe729747a4adeb4f290ccf2ccb561efa",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/piechart/shaders/mat_pie_gab_edge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_piechart/mat_pie_gab_edge.vert.glsl",
       "source_essl_sha256": "bfe67653ea4662e5efad4552135d9700eea80a8915b0a5b924fdc42db31ea255",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "875f96f18be56aadb6fef2ab41ca90b02af6eae2d56cea3ab35213e6ff187f11",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/consumption/piechart/shaders/mat_pie_power.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_consumption_piechart/mat_pie_power.vert.glsl",
       "source_essl_sha256": "48b5b79d42521a36c0e9392ec1349da47c8103634307f2806843e2c73b93adf3",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "fcc37b6f1e7505889ef03110765fe3efb520124fa9bc5f0962426bfa073eda40",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_rim.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_rim.vert.glsl",
       "source_essl_sha256": "0ac838725740bbbcf97ee281062e7990010221dc785a4d8773c2c02ae7099cd0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "68eea5c4e3cf057db86cf3c485a24555f75c6cd7e53cd3e8a54d1026ea419c21",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_core.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_core.vert.glsl",
       "source_essl_sha256": "76be9b7248f750236cd1a0178b6ed7d27c12e4f339f55ce3de7fa5817848c3ed",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0fd7646c582dbe9fbe3bcd995842efc8a6d7b9922d7907e9f792102fd9886902",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_speller_rim.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_speller_rim.vert.glsl",
       "source_essl_sha256": "ae03e9642b0765ab08b1f22434c5840a84973147925dddfadcd98d43d819032b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "9ab044def04557fff11632b39e2a95789b840ba9fdcb4542d1374071c90b138e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_zoomscale.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_zoomscale.vert.glsl",
       "source_essl_sha256": "ee6f4aef713b0aa1394d07e3c64e7beacc8338b466746fc834fe5b248defb1dd",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "9a2b8b219ada8dc570ec4c115d79da2b50122d953a9c225f357b49a7a9008dab",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_shadow1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_shadow1.vert.glsl",
       "source_essl_sha256": "bf31832cfdc1528397c84912acb02714b6e33a50ae20fb60a0d33823dbfedb38",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_loader.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_loader.vert.glsl",
       "source_essl_sha256": "bf31832cfdc1528397c84912acb02714b6e33a50ae20fb60a0d33823dbfedb38",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d8ae9b6a12a37e6bd9a3a88ed0e9d4d3947a3b80addb0e5af169a6b4b4e41e9a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_body.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_body.vert.glsl",
       "source_essl_sha256": "73705d9455544456f8e5dc216f22a9c2c66391b3eb0a3018803df22fc8f6e8e5",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "dc5452459d59ea4e97200e2b96dc5a6c18b35e38049e3d65087d5e7c5b0d5c59",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_bordure.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_bordure.vert.glsl",
       "source_essl_sha256": "843cc49910b6438e3d0235a15e0d5d78a4855044cc62660165951f82fc5c8a37",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c79fb9f6c730182c12ab37851f64adb03404b16ad0542bd40a349642482f6ca0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_cursor.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_cursor.vert.glsl",
       "source_essl_sha256": "843cc49910b6438e3d0235a15e0d5d78a4855044cc62660165951f82fc5c8a37",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8ea6cc27f6193f5e3c84b6ab1268f678d9aa3b8019fbc92b719d9204674062f9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_cursor_zoom.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_cursor_zoom.vert.glsl",
       "source_essl_sha256": "822aad86e8056face0c50ff09f826af2ba844f49d1cd92dd954e1eb3d8fbf3d2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b713e333a716ba3cb247263ad00dbca663b315df75b31df21360970aece67971",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_groove.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_groove.vert.glsl",
       "source_essl_sha256": "822aad86e8056face0c50ff09f826af2ba844f49d1cd92dd954e1eb3d8fbf3d2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "67aff75334916f4b6d3c881bc45c8f231489a699f084cf0842eb082ee304e78e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_piemenu_cursor.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_piemenu_cursor.vert.glsl",
       "source_essl_sha256": "221f7dee769628f2d93f4c69db9c3ce43ecf673d9e09d810d38967b4141e4609",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "1e355bb1697a92b559c63c4dbf575f66f72df658ab6e46f2cdce8ea7a8f379bd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_piemenu_groove.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_piemenu_groove.vert.glsl",
       "source_essl_sha256": "a5911e647836ee980fb5a596b88a4bae37f3dae191663e514d3ba98ad91c3845",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a55b253a5a10dadcace12bea8b59564dccb80efb0d548e5b85a1a521715c6127",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_reflection.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_reflection.vert.glsl",
       "source_essl_sha256": "a467d7d6f1876adf9e2a52183c3e4cb65b53d90c36db516a9680332fa7524ca9",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4fd11d4bf2cafe4db3448f58dd74d0cd3f247d1bc4168c9f051064eab1b8f646",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_spark.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_spark.vert.glsl",
       "source_essl_sha256": "ce5a196e22696e19fac03a57b3cbfbdd489c3b69f71f0e339cfc151093f2f1b0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "fb67f41edb5e52cbe3e6d1c8254f8e704d1ebdd2d97103a548ad3814ef162c63",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_speller_body.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_speller_body.vert.glsl",
       "source_essl_sha256": "bb51f3f57914a5df7827f2feccd5af5d0437273740d03d56fdda6afdad3ab4c2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5b77ddf08326cae4f20f88ab606c87a553f1f262b59be4690e300da641744636",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_speller_bordure.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_speller_bordure.vert.glsl",
       "source_essl_sha256": "3d3687a2ff25595ac314853a3b2130559dfd34c194141f4872128bbb3eae89c8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "cc4b36dc2b97f1e3e3dba4136868d3eb44bb34967b60689799425af53a4fd74f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_speller_cursor.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_speller_cursor.vert.glsl",
       "source_essl_sha256": "aacee8c501fb9c5825f1d7e230077d9997101371410283e6d962c84c6a8477d9",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2680b463d3d689eea22e810ae7cde36ba58b391e732f89cedcfb6624d35299fa",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_speller_groove.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_speller_groove.vert.glsl",
       "source_essl_sha256": "f4f689eb89ba4f8c69e6756139824a38653e71da7848984c09239c55885dd520",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "54323ea782dca44cc69d3d377f61a7aafb6f2a09b2d7ec2384e803a2eca260dd",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/fx_speller_pad.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/fx_speller_pad.vert.glsl",
       "source_essl_sha256": "234c73b675b57602311396ddc2f291b762faeadec3155e8df632b4ca5615a003",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0a9c66f1ba067f922504add4a04529dd7b9f158aac808aaf928d80aaf1da6e14",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/controller/shaders/mat_zoomport.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_controller/mat_zoomport.vert.glsl",
       "source_essl_sha256": "adf8d7158a5802ceb428d642fecadde0162b22cb557024fe561dd4ec64ae5445",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8cadbe0c1b041637237c18ef10c0ee2d72643bf723cc27b23c7d6f665db0fbbe",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/cursor/CursorBG/shaders/mat_list_bg_nolink.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_cursor_CursorBG/mat_list_bg_nolink.vert.glsl",
       "source_essl_sha256": "854ca3b1cc0de3d63187197f8a5cbfa32a4dba4a5978869d30bacdff30fa5831",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "219f082bd40020ef50b17ef8a4e5f8a3691f7d3d6c6a4b6df00549a78e098851",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/cursor/CursorBG/shaders/mat_bg_touch.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_cursor_CursorBG/mat_bg_touch.vert.glsl",
       "source_essl_sha256": "f7492f30e2ea8d5fc98665fc7196650327ef5d70c534e51d2cf6e326547a6fe7",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "24af2eca831b4c963c30d4a6958d72836c6134b4f0e3fbb1fa89f1ae07015b25",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/eco_pro_efficiency/shaders/mat_eco_base.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_eco_pro_efficiency/mat_eco_base.vert.glsl",
       "source_essl_sha256": "7fdd1861b8ea7e0055600868225f703533f452162be396dbafb118cc967af6f4",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6f04b9c3e461739b758d79b269525e26bec3c2629e32f4f97c3f9309e32431ae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/eco_pro_efficiency/shaders/mat_eco_edge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_eco_pro_efficiency/mat_eco_edge.vert.glsl",
       "source_essl_sha256": "597a879d9af97df562fa26d45cace5b93be27fea6998e0859c2a024e78191051",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0b3be6c361ed05bbc9787aea9ff898e73214c308e575f6b1e16e2dd270ac74b3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/iba/shaders/mat_numbers.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_iba/mat_numbers.vert.glsl",
       "source_essl_sha256": "77cf32c0359023ed01870fc2ea886f6b388c4a78bbcaa8e34f91c1de35893272",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "72e38e0c273381b8b74dd8c4f7a395a72116c6b988f8dfcaec869cbf6f0b640e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/iba/shaders/mat_iba_scale.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_iba/mat_iba_scale.vert.glsl",
       "source_essl_sha256": "bd0dc6a54bd85ba314ac6da06cf1ffc17b9cef5c52aa2871706d0ef06235dcde",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "939537de2a00149cb3c4108416b755a196197af55358f0aa9403761f39e20318",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/id5_sport_instruments/shaders/mat_speeding.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_id5_sport_instruments/mat_speeding.vert.glsl",
       "source_essl_sha256": "83b9b3033e7b16dfc97b6d208bb8c7ece6215a5d0a6b4204ec4aed9f0f09aef1",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5c765e6ea542dc234cb167a9985ab29e3953587af666cbdfba0cd73224db2dff",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/mainmenu/shaders/mat_main_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_mainmenu/mat_main_bg.vert.glsl",
       "source_essl_sha256": "7de05ef52d7324e051b164a65628944d5a0ca036e1fe84846d5be31b6f220f33",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "52bfef30a6274ae61ed3da23ef91bae6d2241c06a8c64fbe24ba69d7e719a0f0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/mainmenu/shaders/mat_main_domain.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_mainmenu/mat_main_domain.vert.glsl",
       "source_essl_sha256": "1267fd2c2c0ee00d899e317ecc60406a2ee0af880c5e2956258a1ea2086489ab",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c05dc3e74fe936071463edf92148b36f8c9cee2f9c2a90931310ec0e723a5d6c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/mainmenu/shaders/mat_main_pointer_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_mainmenu/mat_main_pointer_glow.vert.glsl",
       "source_essl_sha256": "01c2455c37fc305820a3fa51296282b1d06cecb87cff8204150df26127a0c4b9",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a19c72b6ae8bff4cda6289a292229f23e9468749682040f65fbd52884c9eda8b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/mainmenu/shaders/mat_main_pointer.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_mainmenu/mat_main_pointer.vert.glsl",
       "source_essl_sha256": "01c2455c37fc305820a3fa51296282b1d06cecb87cff8204150df26127a0c4b9",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "411b1514602c4136af8cced3e68c834938193690b3f7f2eb0ea2ba55d5e13159",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/navi_startup/shaders/mat_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_navi_startup/mat_shadow.vert.glsl",
       "source_essl_sha256": "96697fcbbff9291325f09dd240fa28727b1b6a61c90f7a494df6826305abd6c6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "8f6da83700554be5c2b750c9fc3a76e34053b9d57834eaaf482e59759df1050b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/onBoardComputer/shaders/obc_gauge.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_onBoardComputer/obc_gauge.vert.glsl",
       "source_essl_sha256": "35fd1d3367b297899f341a0c558a3351898f336eb7130a9f350a03e3929eabf1",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f2b8793a3a40d2a874bfa8c93a8c026d1233b85d54c86b697f62991d417c3d6b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_no_mould.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_no_mould.vert.glsl",
       "source_essl_sha256": "75619e4096c214adf604dd346abde0fb9236e92295c1773bbd4994b7edc3513b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c1b9af6dd25b8608907ab5aeb405e11ba1dacdb67154080f5c922f6938122864",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_shadow.vert.glsl",
       "source_essl_sha256": "1e46157563a9307314c44b3b16410775c535a2f28ef4a4dbfd0e8f5d75990e09",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c1c8c08b06e54263e4b66867c0ec1f5e3222b51f788e1f152d970909798f0fe2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_shadow_pie.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_shadow_pie.vert.glsl",
       "source_essl_sha256": "aaa33e0bead08c1adc751840539b483dea42c190eb9abc00c235afe54d448254",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "848190dccbc1b947f5c353703b210a8204aa96deec80ca23fd6bd0c4eca12452",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_domain.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_domain.vert.glsl",
       "source_essl_sha256": "f737f50948b7c7e1d730eed54ddc0ccdfa9fed669195e351fd1c1c67cea6a536",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "fc4794977581d43e4d8bb8670c130a681aeab8261682df61b655bf89fdb994e4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_bg_popup.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_bg_popup.vert.glsl",
       "source_essl_sha256": "28bc4554434d02aa05d90b28fd8abc7ac72169537f3d39f96db81e1c43526416",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "aba40e0c631d459733c9fe1beec4edfc2c82d69db5af40af7f046b9afc2672a2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_bg_map.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_bg_map.vert.glsl",
       "source_essl_sha256": "b58f10a7958aa67710992854c0c9cab139b9fb17cd940f4e4aec16c27d3fd86f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "282f18eb648e16907e513cd4be0790bedaafed6b035f829d330e29df196d0d86",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_grip.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_grip.vert.glsl",
       "source_essl_sha256": "cf83de4c87f80fcdb438b67b7b3d7e58eda1f1dc60a1265af6bf72b523a1c4e3",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d026436ca75910fbaa52060dd1b73fdb4c240460b0174dd12272440cb54ab3b3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_grip_center.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_grip_center.vert.glsl",
       "source_essl_sha256": "311c598f4cfd78b5fee39450e77c212a3cac998ce063400409eda1b188214ca8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4dc701fd07f63a8b542bcb8fcd00922a5020cd83d8f55668bb72e0e666100c9b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_bg.vert.glsl",
       "source_essl_sha256": "7eb16e2435d0dc5332a9d1376dfc66f82464086c950aec2950d4f6cc78eabe80",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "96f252708a22304d50cd5b2621ff30605718d199bc2e742536afaaf66be8e994",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_outline.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_outline.vert.glsl",
       "source_essl_sha256": "b1e80da894d2522d007c0458bbbe5927c1245ed993c721abc9d369fad55560af",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2bdc405b4a8544dca981439ef0171629ee677c28939808c1d8d0be7ad653d1ae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_outline_map.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_outline_map.vert.glsl",
       "source_essl_sha256": "c59dd834ee75c5ae72708177eb77ae5d42fa95215605661ecb857883d58c7cf1",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2ff6593d71a2006cb4e788069864bdae8c794618c41e073ac5e5da797ba5854b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/shaders/mat_outline_stack.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel/mat_outline_stack.vert.glsl",
       "source_essl_sha256": "1e66a03c5b695f2d59c879a300727f92e6aa7902fff2b59140a67f572c86cb94",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5c32064e3ea2eb366ca1c2cb1aaae249e75f3b548706384fcc58c2e77c5a0fd3",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/split/shaders/mat_splitscreen.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel_split/mat_splitscreen.vert.glsl",
       "source_essl_sha256": "92dde6903da0e9f8cdfaa0d79ec818157cb6a8528b56a9c34d451e56d243970e",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4448d3f2505b0fc1b7099bb39d8eaec71155718171f1bf5e092f8e065f351c0f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/panel/split/shaders/mat_splitscreen_strap.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_panel_split/mat_splitscreen_strap.vert.glsl",
       "source_essl_sha256": "5dd1223690129a92a95443adc31a59fe88725051f4cd31869bde1b6c8ae56c7a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "4a9526b6bdd791ab65e9957abb3600bc1ea993e8db466e924a8eb15681b7668e",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/PDC_arena/shaders/PDC_Sector.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_PDC_arena/PDC_Sector.vert.glsl",
       "source_essl_sha256": "6233945e28b746f66d8bdf598d78339bc4260e199f1e5709686973b09225828a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "eb1bfaae26423e998c65f2352e5b9a9424ae9f40c447d8c2fe3d2aa7d84acbca",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/pdc_sector/shaders/PDC_Sector.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_pdc_sector/PDC_Sector.vert.glsl",
       "source_essl_sha256": "3570db0b7c862c07baedf01e32d776b6cd1131c0f1f0d3a936eaca405c585a17",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "583bf3fad086a6d3d498398948756b0ed16657034da407d2a3951774439fc649",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/pdc_sector_spline/shaders/PDC_Border.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_pdc_sector_spline/PDC_Border.vert.glsl",
       "source_essl_sha256": "012af51e04b76e9af1e5b38d45ff2f499e003f76336d5d4f0cb2163fbdafcde8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "9673aa526e04775c9106396061aeb9175f1757d786600213cbcda342969e1eae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/pdc_tunnel/shaders/SHD_tunnel.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_pdc_tunnel/SHD_tunnel.vert.glsl",
       "source_essl_sha256": "dd4350cb1ac4b534e1c95c42b1d4563bcb50ae2beee5eea869dd271b235421ad",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d70851fa5af71646e2ac2435462072a5fd12214c4a3b910b2d706dfeca64b306",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/pma_rfa/shaders/fx_rfa_active.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_pma_rfa/fx_rfa_active.vert.glsl",
       "source_essl_sha256": "02d2aa6bf83f233ffce5c288acfeeea0e5beea154ec92bd940380594749c562f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "25611f0448d69bdb0d44e9cfa8accd400ddb169b9538532c18c7e8ee3e282676",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_player_asset/shaders/mat_player_chapter.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_player_asset/mat_player_chapter.vert.glsl",
       "source_essl_sha256": "89856608db7ea580e794246165e8a596c76a6f2203694b96ef0be78a78c51ef4",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "24e6d216cd159bd3053a535cc20e07d7bd0324c58e99af64869fa674bd700265",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_player_asset/shaders/mat_player_fill1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_player_asset/mat_player_fill1.vert.glsl",
       "source_essl_sha256": "e951445745e1ded80adbcdca0091297a7e845b7a2c6e38ba54c2995067d7bfe8",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "29b65aaba8cbda605398c0c62b09f06b52ce8d7af5c267e42326493e4225465a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_player_asset/shaders/mat_player_max1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_player_asset/mat_player_max1.vert.glsl",
       "source_essl_sha256": "b454589d1c1ec2166d4a210c605ffc67ec6dbd86eb0c97654f14639c90162c79",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "3f78090692c1fa26b91e6380842fc2600d911f0c35e722c2b4440e88aa46dc18",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_base.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_volume_asset/mat_volume_base.vert.glsl",
       "source_essl_sha256": "fba9e587b6f0dbd4c89a62d95a18b5aeb93552af16a3c914a62ad877c12c2508",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "dd928d98352f6dbe4c312f8bb92891dbe66672493cd3b5f51bf2236d921bdf73",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_stop1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_volume_asset/mat_volume_stop1.vert.glsl",
       "source_essl_sha256": "743b4b34b04721c46648cb0a69a27db5d705c4345a79073ad4c2c3b1d53f674f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "52a0e1d96341affd84be2e9a8e5efab80d6608ce21637e90950a7ec1ee10f388",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_bar1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_volume_asset/mat_volume_bar1.vert.glsl",
       "source_essl_sha256": "5bbac6ae7b3888ff34cab2f8f116e04a4d52d22bffa6b3020df993194e3a0592",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "93ce8070f0198566a10eb905efde4da8027d30dfe79dab8baa34918779cca485",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_glow1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_volume_asset/mat_volume_glow1.vert.glsl",
       "source_essl_sha256": "5bbac6ae7b3888ff34cab2f8f116e04a4d52d22bffa6b3020df993194e3a0592",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "7aa97b8c7207e6cf6dcb84954f8ae80720db4bec5194e0f27fd5dca3f2e00a9b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_glow_lower.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_progressbar_volume_asset/mat_volume_glow_lower.vert.glsl",
       "source_essl_sha256": "76ba1480db447e4d4f6711e4467f7a19c31f11cba21b1e31cf7c608e5ca638e2",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e4480bc3109e5951abe9c73b30f7433aebf07362721703ba64f26f4ef0e86ce7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/compass/shaders/mat_compass_hl.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_compass/mat_compass_hl.vert.glsl",
       "source_essl_sha256": "d58b5f867737e9cda95bc1fc659420510e739dd7c90e56278f4605bb4c271895",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a6913e58901f94e36f8da1e65b6076d3665f252438686ccf93b21115920d2cef",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/compass/shaders/mat_compass_glow_back.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_compass/mat_compass_glow_back.vert.glsl",
       "source_essl_sha256": "d526230e279a1578db51f53c5605841226c2a69ae034fe6937c659459e6a9f99",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "9c4fbe33d7994dd9ca177d2bbc9050bde19f0aa2bddfaf81183dd25e80a85bd1",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/panel/shaders/mat_panel_fx_panel.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_panel/mat_panel_fx_panel.vert.glsl",
       "source_essl_sha256": "80d2fa399dfe8f10bf0fa45fd0ae3038dae64cdd031a009b4215266a13f1ff4c",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "1cc912e38caab58eadebbff99a410b2035f09fe309fab60aab6a44cb29dc6b3f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/road/shaders/mat_road_city.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_road/mat_road_city.vert.glsl",
       "source_essl_sha256": "ccb19846b5a4782d03e1df668be30378958e677a8b9e2a623a7eb7bf74986630",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0d9539333e6f264583b5be067cd8fc0118e59f78c380ceab643cf28a3e281ce7",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/road/shaders/mat_road.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_road/mat_road.vert.glsl",
       "source_essl_sha256": "442bee7fbdc5ee279bc9b6b26e6a21cfd5ddc905d337e6e6d33610d854df0ae5",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "5e460b8cc561852ce334eac466108384b3271948c58ab9791e402e50fb5de2c0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/roadbook/road/shaders/mat_road_horizon.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_roadbook_road/mat_road_horizon.vert.glsl",
       "source_essl_sha256": "b5e567d35a5dbcb622be5c7867ea2f6f11527ca3668c966f95afe676853697e6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a8d8ac2328e0046c921397634e1b97dde802be61282c0e0e24c00abbc6a1893f",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_speller_shadow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_speller_shadow.vert.glsl",
       "source_essl_sha256": "250abcacbf76465742cb1b77b35111947c1c8b61632146cc2c2451f88a629c6a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "63de2626fe0935db7fff9253a451675df507956dcc0ace7a08bc884525201e16",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_bg_speller.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_bg_speller.vert.glsl",
       "source_essl_sha256": "419b7d8b5cbf437a4c4f79e2bbe532e70f713214ba6cd2b40dd47c84a47c1921",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0f82ff4c29d821097866c6898d14bbf21979d692fc5532d09870c9d535888258",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_bg_quickaccess.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_bg_quickaccess.vert.glsl",
       "source_essl_sha256": "b4f148ee96745cdebb2f19f5e827a311e1aa187ec063a68c84ffee58c0ca6e03",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "60c6ea8d2b8dbe582b5492ddec673ed48a73222f4774c59e3e7dc469e84c0b96",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_bar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_bar.vert.glsl",
       "source_essl_sha256": "508cd49d725feae460dfe36744ce868a8e0cfd6860c22df3ebdf6d1f327ad9ff",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "267f420746009d36aaf1c32b210812b659439f57797d2e23a91ef98ab7b1ba49",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_bg.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_bg.vert.glsl",
       "source_essl_sha256": "b4f148ee96745cdebb2f19f5e827a311e1aa187ec063a68c84ffee58c0ca6e03",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "310ce665bac06bb55d12cd99846586d371d20de4416081df83f14f4ae616bc15",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_glowdot.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_glowdot.vert.glsl",
       "source_essl_sha256": "7cd31cfc695784da08a7198f6a1a57918d8de3cbe217c6e3f347b1796812254a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f0c90a4c5a76ab52b129f6fa52861342773e3c320ff8e3669eb376c0bb3d6e16",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/scrollbar/shaders/mat_tail.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_scrollbar/mat_tail.vert.glsl",
       "source_essl_sha256": "c22c0f1a44d8d7cefdcb2687f8c4c745ce7e1ac3d42278c89e80c282a2c5ae06",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "30b2626ac1aa74649807fe548f6cc25fac9db32888cb5ac6268105ea5411b4a6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/seat_comfort/shaders/M_SEAT_BASE.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_seat_comfort/M_SEAT_BASE.vert.glsl",
       "source_essl_sha256": "65eb441179b9cc7aa22766a6528029248ab3eec43d4779d91300b336761546a0",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2d4ba3eaebbd2d7c91d0692095299d4bdb7ac5f702d1b8157e8d84a99a3125af",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/seat_comfort/shaders/M_SEAT_BUMP.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_seat_comfort/M_SEAT_BUMP.vert.glsl",
       "source_essl_sha256": "dc96fba26c757e98c840a22a353915a3e2bcc6ac4a4ce7598a53c48c8c2ccf7b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "010afd83e31f3b277d1ee69e3389a6e969a91eb1ac6e694d6a093d847f9de47a",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/seat_comfort/shaders/M_SEAT_MORPH.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_seat_comfort/M_SEAT_MORPH.vert.glsl",
       "source_essl_sha256": "3e0eee9eac27a7f1b00635aab3cac631d1972a0b17eca5c5f3f3d29c528d3eef",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b09c53e5be20bad9bdb4de4a5c909adc0c4d758bef96f2e8320120a104657aea",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/seat_comfort/shaders/M_SEAT_MASSAGE.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_seat_comfort/M_SEAT_MASSAGE.vert.glsl",
       "source_essl_sha256": "cf1926698b0631802c12a652d74a393255db2467177c5908f0ecca696adb7fcc",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e5556157bdca67e52e2acd9efd5742af7cf2a15a9cc204d149eb9717849d9b1b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/mat_ece_middle.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_spellerBackground_spellerBackgroundModel/mat_ece_middle.vert.glsl",
       "source_essl_sha256": "0e20c6cda32b24012ef0022254d0ca32d4585a6663bc55fb20852a3db856f319",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "97fbceb78f6ef96717f6231331d58e2bcceaaf761d471d1b8d8bef8de2ea13e2",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_ece.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_spellerBackground_spellerBackgroundModel/fx_ece.vert.glsl",
       "source_essl_sha256": "00140040c405bd973502d0ed75e3a931329a553bd4d1c4bc7e1f483426c3752d",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "89c193c4e46eaa5ef4beec003b0c5ad51b6fbf9a28fe8bc73c6ea36b69ccb4c9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/statusbar/shaders/mat_statusbar.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_statusbar/mat_statusbar.vert.glsl",
       "source_essl_sha256": "ae77cc60a164f8c57174bcd61373187d4aeef20eb6a131df1b0185ce9702498b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "0eebcf55adf797dc82b50984481d4e53bfc9e7e1766a7e00b83bef65980eda73",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/streamline/shaders/WI_Streamline1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_streamline/WI_Streamline1.vert.glsl",
       "source_essl_sha256": "11c35f352abbcb6361d77e1f9a15bfb85229ed67818a5b65d31098bf261bdc5f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "453ed58a43d10b003f7b3b09518dfe56938e6213f905ee77ad09fc30a59c4c66",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/streamline/shaders/WI_StreamlineR1.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_streamline/WI_StreamlineR1.vert.glsl",
       "source_essl_sha256": "11c35f352abbcb6361d77e1f9a15bfb85229ed67818a5b65d31098bf261bdc5f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d4866b6d2ceeed3e5f4f73112659c355af5cdb2468388d60d2fdc3526ebf1cc1",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/streamline/shaders/WI_StreamlineGlows.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_streamline/WI_StreamlineGlows.vert.glsl",
       "source_essl_sha256": "6684323dea3bbdf2ce5ce0cf138a1aa367e96dece648f9283e72b83fb99078b1",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "951f8007945df4c09548373c00623d9b05bbf0cc0b586ef6ac4d6815d4860c18",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/airwaves/shaders/mat_airwaves_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_airwaves/mat_airwaves_glow.vert.glsl",
       "source_essl_sha256": "15c490467f360234a848ba7e90071dfc03b9c723933e5cabe6534d993fd5ba17",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "437ad105bbcfdb392f729fccb2f9c86bafce35e7b98a067d0d9a6962bfcd4663",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/conditioncheck_env/shaders/fx_IceShade.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_conditioncheck_env/fx_IceShade.vert.glsl",
       "source_essl_sha256": "d1714875bb749ae1d6fa8d2a5469cab9c013c5652c50cf8379d6fe0c5cc3a692",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6359785fc8c69c0aa4c821a53719b2f22d7abeb3a45c4e0fb8f1cee1ea06aab6",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_goodbye/shaders/WI_HwShader34.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_goodbye/WI_HwShader34.vert.glsl",
       "source_essl_sha256": "aa6f7378995ae7e5788863899274db94baf15eabcd8d07081353bf41d86c0508",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "aa3e3188a6dad900fde7f670900d95dd0c95647b84a5a478c9f1530e4efd80cc",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_goodbye/shaders/WI_HwShader35.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_goodbye/WI_HwShader35.vert.glsl",
       "source_essl_sha256": "0af9db97cb2b23da26fab24467c0dc5562460c371b56972c0ac84464f81f0214",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d9b799a7a2d9677c5ec19286d41a254e8c921022c60a37c6721656e45f6398ae",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_receiver/shaders/WI_mat_waves.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_receiver/WI_mat_waves.vert.glsl",
       "source_essl_sha256": "2ba8f5e6fe7d22b6fdc0f2876e2038b7019fbfb58d6cae8f7965645f5fa9fe00",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "3f8af93bb2612f60d4b39aac4dfec8cfcc8a1a3a881aed9bbe1a3f22f9838292",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_station.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_station/WI_mat_station.vert.glsl",
       "source_essl_sha256": "1f87391b0892bed56be1da7e9846c2fde5d5b177a3b62ffc286a6691235180d6",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "ca8efae40f011a519b7eebe71378b9f447358d072e607585705ec2784ea63fd8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_docking.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_station/WI_mat_docking.vert.glsl",
       "source_essl_sha256": "d58b5f867737e9cda95bc1fc659420510e739dd7c90e56278f4605bb4c271895",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "380ce68a386daafd4f229e9f00ec4a22f733c752bf135ac0ab44e26ed10a3064",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_highlight.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_inductive_charging_station/WI_mat_highlight.vert.glsl",
       "source_essl_sha256": "daa70c74124fb8ee5b5ac46f64ca75b9941a68303ad7be85ba5ece20f9286b1e",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "af550bec10607fc9a4df8178366e0099c8033ab26e24f068062c78da0be64c97",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/road/shaders/mat_road_mid.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_road/mat_road_mid.vert.glsl",
       "source_essl_sha256": "f988e8bee064f28f1fe9a533f037b5a539927d8d2a11745fce446609bfde24ed",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "92e9bc4f03845b3b20caf5f22654895c9cc62e4fac94d3dde54a54a13ad34ead",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/road/shaders/mat_road_dsc_lane.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_road/mat_road_dsc_lane.vert.glsl",
       "source_essl_sha256": "77b74a77c83139d9efffbe3c094760c39560e46b7830f3de830a1e373077c41f",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2c4f8e5b63c5e4dccb54fdca3f90662c49ba6356597a9550fe2ac338d174a4f8",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/road/shaders/mat_road_guardrail.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_road/mat_road_guardrail.vert.glsl",
       "source_essl_sha256": "905aaaf385522485644cdcb261f0b007f4c9cd9909ae8ead6626590ea40884c5",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "d0eaeb4e8d3fc80c4830776a816269f5606d01da0c4284a1aca1db1ee74316d0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/road/shaders/mat_road_lane.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_road/mat_road_lane.vert.glsl",
       "source_essl_sha256": "bf0c0ff2fde1e98b3b5fd026522151385d8f95fd3ba1e5ff6733b3799a7156a7",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "cfda8f3ab3581781bd9b37f081a031b5367b2c3d83f72b475d7e6de7959f8ed1",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/road/shaders/mat_road_lane_glow.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_road/mat_road_lane_glow.vert.glsl",
       "source_essl_sha256": "90b6598206cd50370626efdfa4b5ee7429f72debed9e033f529b38c7047e5004",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b421da897414922d4dbd2c9e957a5921525427029a0f432a5815040dfb7d0587",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/sarah_rabbit/shaders/WI_HwShader19.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_sarah_rabbit/WI_HwShader19.vert.glsl",
       "source_essl_sha256": "59115a7fd67b9370e135248496c07d04bcf44dc98be956a3cefb5d45379ed5f7",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "c1961dcffb10155df70fa966408c51711e2d5fd148ae3927ddf391063a77d395",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/sarah_ring/shaders/mat_ring.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_sarah_ring/mat_ring.vert.glsl",
       "source_essl_sha256": "de546c159378a12d6b8dec436152d03c9277bcdea325ba31bf87eda34a14f02b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "06c8dc6eb92ee68cef6b1dbe2b470c34d72f7246ed26c623aa458bd5697b94bb",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/sarah_ring/shaders/mat_glow_upper.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_sarah_ring/mat_glow_upper.vert.glsl",
       "source_essl_sha256": "d65156c1388ea59fb3f9f55488c392ac5a4248cc3ffadff68c2fc51c03e07f2a",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "6cd52a300b61af3c683620c456a2c2667fbbd48580bfb51ca774edfad5ba22c4",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/vehicle_EA_EF_Arrow/shaders/M_EAEF_MEAR_ARROW.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_vehicle_EA_EF_Arrow/M_EAEF_MEAR_ARROW.vert.glsl",
       "source_essl_sha256": "ea705cb2bae9314ad95d7d36d33655f02c06ecc708d9bdb35d455731190ca496",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "f0fa6683608eeb1cb02f3bfa7b3abc6b3b4b45e33d12ec257e9740c88455db9b",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_plate.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_xDrive_Plate/fx_plate.vert.glsl",
       "source_essl_sha256": "87e2176df0504f56df1ff9315476663f591a4802e9b7a15d2afe0f4eed528f04",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "2756904c15e0be7568bfd5609495b58d9f6f4470568792a1e22311f2a3c455d9",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_ring.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_xDrive_Plate/fx_ring.vert.glsl",
       "source_essl_sha256": "17a71e240c391cc7378e827ef5618d35bb30cdc29dde2ef26d1da965a94d3c15",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "b2b57e6ad59e496c4b7081ada2cf4b987865e0922b3dfeeec935fccaa8d2d806",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_glowring.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_common_xDrive_Plate/fx_glowring.vert.glsl",
       "source_essl_sha256": "00a18b00b2d16376d55d2181dcb9f6d12736c718aa3c150b1e36f565581c449c",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "a62997984c514a41d3b4bff9a058d6d5e8b99fa5355334b0ba900ebf3040281c",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/vehicles/vehicle2D/G11/shaders/MAT_TOPVIEW2D.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_vehicles_vehicle2D_G11/MAT_TOPVIEW2D.vert.glsl",
       "source_essl_sha256": "ed0773d88ce355327efc4a2090267cc0303f7f456345bbcbfcd970b76dfcc63b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "e665e2c52bcd47b45e7c7a491968d88e6c143f2b0d37b1fd4c15e5c2dc118b56",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/widgetasset/xdrive_compass/shaders/Pointer_Shader.vert.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/widgets/common_widgetasset_xdrive_compass/Pointer_Shader.vert.glsl",
       "source_essl_sha256": "343d72310ce800a7c691df4fb0135409855dcb25a7ae482b2351d883a5f07e0b",
-      "basis": "generated by tools/make-widget-host-shaders.py (conservative)"
+      "basis": "generated by tools/make-widget-host-shaders.py (conservative)",
+      "program_sha256": "bc8fda84802f5dc5430a30d651ca8fcdc66050dd8f456fb56248b6e29f9dbdf0",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/NinePartImage_vertex.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/NinePartImage_vertex.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "ed8f76d569855f968c6e11a6953b30c56a7936e6836ac89f872a097095f3ae80"
+      "source_essl_sha256": "ed8f76d569855f968c6e11a6953b30c56a7936e6836ac89f872a097095f3ae80",
+      "program_sha256": "24baf294832d72ca51e34a68006fbbec2315d82f053d949f7f770cdd66bac622",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/NinePartImage_vertex_fadeHorizontal.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/NinePartImage_vertex_fadeHorizontal.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "cda2096cdb39c7ec54cf017f5045f4bc2d6c5a1cb76eed86593a69eef275bd89"
+      "source_essl_sha256": "cda2096cdb39c7ec54cf017f5045f4bc2d6c5a1cb76eed86593a69eef275bd89",
+      "program_sha256": "111599ace21d86ddffb4d25fb127e9e1d2276a84a3ade3502ad58131c4e2bece",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     },
     {
       "asset_path": "common/shader/NinePartImage_vertex_fadeVertical.shd",
       "source_path": "tools/shaders/native-reconstructions/hmi-vertex-car006/common/NinePartImage_vertex_fadeVertical.glsl",
       "basis": "hand-written host ESSL; native .shd had no reconstruction",
-      "source_essl_sha256": "7d58417de47ff96fb054326b32e43088485faa04bbde76f99ee2143380a1607f"
+      "source_essl_sha256": "7d58417de47ff96fb054326b32e43088485faa04bbde76f99ee2143380a1607f",
+      "program_sha256": "67940ffa94cc116f60a6278c0e2c5c36f77756cae332f835645f4d313e568533",
+      "native_hash_pinned": false,
+      "first_build": "hu-006.027.001"
     }
-  ],
-  "generation_failures": [],
-  "additional_evidence": [
-    {
-      "source_manifest": "tools/shaders/native-reconstructions/hmi-vertex-map-v54.json",
-      "source_manifest_sha256": "1a827f1b87bfd4459046e81c336a6444eac8e9ae85e5e5f7c444bde7799101f2",
-      "runtime_capture": "build/idrive6-cache/evidence/hmi-id6l-v66-shader-captures.json",
-      "reason": "Exact shader hash was uploaded in V66 and mapped by the retained V54 finalized translation."
-    },
-    {
-      "generated_map_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-vertex-additions.json",
-      "generated_map_manifest_sha256": "4dba30111884a3da82216b960495af732eb926b3249d5930f528e49598ff4c07",
-      "reason": "V82 exact-hash shader payloads finalized by the BMW QNX UniPatch tool, translated by the native-register USSE pipeline, and passed SPIR-V validation; ESSL maps are candidates for the V84 runtime comparison."
-    }
-  ],
-  "map_version": "v67",
-  "base_manifest": "tools/shaders/native-reconstructions/hmi-vertex-map-v66.json",
-  "base_manifest_sha256": "7b1a1f863e3f443187de1969802b838934cf34a8d110a9661e7ac75c0ea47c66",
-  "addition_manifest": "build/idrive6-cache/evidence/v82-unmapped-shaders/hmi-vertex-additions.json",
-  "addition_manifest_sha256": "4dba30111884a3da82216b960495af732eb926b3249d5930f528e49598ff4c07",
-  "addition_finalizer_manifest_sha256": "6825fb7fcd59d340acc0cb457a27f41ea12d1fc0bc1a5c9309802ab17afebee0",
-  "addition_usse_manifest_sha256": "df5c34d0d2f642f55fe64613d0a2a97fd0ddb727bc28afe03bd35b0c277f4743",
-  "derived_from": "hmi-vertex-map-v67.json",
-  "purpose": "HU 006.027.001 (ID5_1811) copy of hmi-vertex-map-v67.json; same GLSL, native hashes re-pinned to the 006 shader files"
+  ]
 }

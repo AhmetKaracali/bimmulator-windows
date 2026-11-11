@@ -19,16 +19,13 @@ import uuid
 
 from kombi_firmware import stage_kombi
 from kombi_rpm import RAM_SIZE
+import buildinfo
 
 
-PACKAGES = {
-    "swfl_00002719.bin.006_027_001": "456ca2d6d2b20d080fad38a80f79ea2f5d653439378be3bbe54bd732254e612e",
-    "swfl_0000271a.bin.006_027_001": "f3a987cc2f4c718ed86345e50e15df24c1ad99f4d4f785a77659eb37397c3743",
-    "swfl_00002720.bin.006_027_001": "cd2e1d8b475f2f92408f4a03c9be4f0ac1214041a394175ba1df9efee8db66c3",
-}
+# Head-unit builds (package hashes, patch sites, profiles, shader pins) live in builds/<id>/;
+# the matching build is detected from the PSdZData packages (tools/buildinfo.py).
 MODULES = ("head-unit", "6wb")
-EXPECTED = {"psdzdata", "cacheDir", "display", "cpuCount", "modules"}
-RELEASE = "car-006_027_001-v1"
+EXPECTED = {"psdzdata", "cacheDir", "display", "cpuCount", "modules", "build", "profile"}
 STAGING_SCHEMA = 2
 
 
@@ -80,6 +77,9 @@ def checked_config(project: Path, file: Path, nix: str) -> dict:
     elif not isinstance(cache, str) or not Path(cache).is_absolute():
         raise ValueError("cacheDir, when set, must be an absolute path.")
     config["cacheDir"] = str(external_path(project, Path(cache), "cacheDir"))
+    for key in ("build", "profile"):
+        if key in config and not isinstance(config[key], str):
+            raise ValueError(f"{key}, when set, must be a string.")
     return config
 
 
@@ -95,29 +95,30 @@ def external_path(project: Path, path: Path, setting: str) -> Path:
     )
 
 
-def verify_packages(psdzdata: Path) -> tuple[dict[str, Path], dict[str, str]]:
+def verify_packages(psdzdata: Path, forced: str | None = None):
+    """Return (build, package paths, digests) for the registered build in this PSdZData."""
+    if not forced:
+        return buildinfo.detect(psdzdata)
+    build = buildinfo.get(forced)
     root = psdzdata / "swe/swfl"
     paths, digests = {}, {}
-    for name, expected in PACKAGES.items():
+    for name, expected in build["packages"].items():
         path = root / name
         if not path.is_file():
-            raise ValueError(
-                f"Missing required PSdZData package: {path}\n"
-                "Install or extract the car-matched PSdZData 4.15.12 HU_NBTEVO packages "
-                "00002719, 0000271a and 00002720 (branch 006_027_001, I-level F020-18-11)."
-            )
+            raise ValueError(f"Missing required PSdZData package for build {build.id}: {path}")
         actual = sha256(path)
         if actual != expected:
-            raise ValueError(
-                f"Unsupported PSdZData package {name}: expected SHA-256 {expected}, got {actual}.\n"
-                "This release uses the verified NBTevo_X20511I firmware; use the matching PSdZData extraction."
-            )
+            raise ValueError(f"Package {name} does not match build {build.id}: SHA-256 {actual} != {expected}")
         paths[name] = path
         digests[name] = actual
-    return paths, digests
+    return build, paths, digests
 
 
-def stage(project: Path, cache: Path, package_paths: dict[str, Path], digests: dict[str, str]) -> Path:
+def stage(project: Path, cache: Path, build, package_paths: dict[str, Path], digests: dict[str, str]) -> Path:
+    RELEASE = build["release"]
+    vehicle = build["vehicle"]
+    environment = os.environ.copy()
+    environment["IDRIVE_BUILD"] = str(build.dir / "build.json")
     final = cache / "firmware" / RELEASE
     marker = final / ".complete.json"
     cache.mkdir(parents=True, exist_ok=True)
@@ -144,51 +145,44 @@ def stage(project: Path, cache: Path, package_paths: dict[str, Path], digests: d
     except (OSError, json.JSONDecodeError):
         staged_marker = None
     if staged_marker == expected_marker:
-        return publish_generation(final, generation)
+        return publish_generation(final, generation, RELEASE)
 
     temp = generations / f".staging-{uuid.uuid4().hex}"
     temp.mkdir()
     try:
         firmware = temp / "firmware"
         command = [sys.executable, str(project / "tools/extract-psdz-swfl.py")]
-        command.extend(str(package_paths[name]) for name in PACKAGES)
+        command.extend(str(package_paths[name]) for name in build["packages"])
         command.extend(["--output", str(firmware)])
-        subprocess.run(command, cwd=project, check=True)
+        subprocess.run(command, cwd=project, env=environment, check=True)
 
         root = temp / "rootfs"
         subprocess.run([
             sys.executable, str(project / "tools/stage-idrive-rootfs.py"),
             str(firmware / "rootfs"), str(root),
-        ], cwd=project, check=True)
+        ], cwd=project, env=environment, check=True)
         subprocess.run([
             sys.executable, str(project / "tools/stage-psdz-hmi.py"),
-            str(firmware / "rootfs"), str(root), "--vehicle", "F30", "--theme", "id6l",
-        ], cwd=project, check=True)
+            str(firmware / "rootfs"), str(root), "--vehicle", vehicle, "--theme", build["theme"],
+        ], cwd=project, env=environment, check=True)
         subprocess.run([
             sys.executable, str(project / "tools/materialize-hmi-assetdb.py"),
             str(firmware / "rootfs/opt/hmi/ID5/data/ro"),
             str(root / "opt/hmi/ID5/data/ro"),
             "--psdz-extraction-manifest", str(firmware / "extraction.json"),
             "--manifest", str(temp / "hmi-assetdb-overlay.json"),
-        ], cwd=project, check=True)
+        ], cwd=project, env=environment, check=True)
 
         required = [
             firmware / "sda2/boot1.ifs",
             root / "bin/mkqnx6fs", root / "bin/devb-loopback", root / "bin/bsdtar",
             root / "opt/sys/etc/starter.cfg", root / "opt/hmi/ID5/bin/HmiMain3D",
             root / "opt/hmi/ID5/lib/libhmicoding.so",
-            root / "opt/hmi/ID5/data/ro/bmw/widgetasset/vehicles/F30",
+            root / f"opt/hmi/ID5/data/ro/bmw/widgetasset/vehicles/{vehicle}",
         ]
         absent = [str(path.relative_to(temp)) for path in required if not path.exists()]
         if absent:
             raise ValueError("The firmware extraction is incomplete; missing: " + ", ".join(absent))
-
-        for shader_map in ("hmi-vertex-map-car006.json", "hmi-fragment-map-car006.json"):
-            subprocess.run([
-                sys.executable, str(project / "tools/prepare-hmi-native-essl-map.py"),
-                str(project / "tools/shaders/native-reconstructions" / shader_map),
-                str(root), str(project),
-            ], cwd=project, stdout=subprocess.DEVNULL, check=True)
 
         (temp / ".complete.json").write_text(json.dumps(expected_marker, indent=2) + "\n")
         try:
@@ -205,12 +199,28 @@ def stage(project: Path, cache: Path, package_paths: dict[str, Path], digests: d
     except BaseException:
         shutil.rmtree(temp, ignore_errors=True)
         raise
-    publish_generation(final, generation)
+    publish_generation(final, generation, RELEASE)
     print(f"Prepared verified firmware cache: {final}", flush=True)
     return final
 
 
-def publish_generation(final: Path, generation: Path) -> Path:
+def compose_shader_maps(project: Path, cache: Path, build, firmware: Path) -> Path:
+    """Library + this build's pins -> map manifests the emulator reads; validated against the rootfs."""
+    out = cache / "shader-maps" / build.id
+    environment = os.environ.copy()
+    environment["IDRIVE_BUILD"] = str(build.dir / "build.json")
+    subprocess.run([sys.executable, str(project / "tools/shader-library.py"), "compose",
+                    "--build", build.id, "--out", str(out), "--rootfs", str(firmware / "rootfs")],
+                   cwd=project, env=environment, stdout=subprocess.DEVNULL, check=True)
+    for shader_map in ("hmi-vertex-map.json", "hmi-fragment-map.json"):
+        subprocess.run([
+            sys.executable, str(project / "tools/prepare-hmi-native-essl-map.py"),
+            str(out / shader_map), str(firmware / "rootfs"), str(project),
+        ], cwd=project, env=environment, stdout=subprocess.DEVNULL, check=True)
+    return out
+
+
+def publish_generation(final: Path, generation: Path, RELEASE: str) -> Path:
     """Atomically switch the public cache path to a complete immutable generation."""
     final.parent.mkdir(parents=True, exist_ok=True)
     if final.exists() and not final.is_symlink():
@@ -227,9 +237,11 @@ def publish_generation(final: Path, generation: Path) -> Path:
     return final
 
 
-def head_unit_command(project, config, firmware):
+def head_unit_command(project, config, firmware, build, shader_maps):
     environment = os.environ.copy()
     environment.update({
+        "IDRIVE_BUILD": str(build.dir / "build.json"),
+        "IDRIVE_SHADER_MAPS_DIR": str(shader_maps),
         "IDRIVE_CACHE_DIR": config["cacheDir"],
         "IDRIVE_BOOT_IMAGE": str(firmware / "firmware/sda2/boot1.ifs"),
         "IDRIVE_ROOTFS_TREE": str(firmware / "rootfs"),
@@ -242,7 +254,7 @@ def head_unit_command(project, config, firmware):
         "IDRIVE_QNX_PDEBUG": "0",
         "IDRIVE_QNX_HMI_WEB_INSPECTOR": "0",
     })
-    profile = project / "profiles/f30-car-006027-id6-light.json"
+    profile = build.profile(config.get("profile"))
     command = [sys.executable, str(project / "tools/run-hmi-profile.py"), str(profile),
                "--set", f"IDRIVE_QEMU_CPUS={config['cpuCount']}",
                "--set", f"IDRIVE_TCG_THREAD={environment['IDRIVE_TCG_THREAD']}"]
@@ -334,9 +346,11 @@ def main() -> int:
         head_unit = None
         kombi_images = None
         if "head-unit" in modules:
-            package_paths, digests = verify_packages(psdzdata)
-            firmware = stage(project, cache, package_paths, digests)
-            head_unit = head_unit_command(project, config, firmware)
+            build, package_paths, digests = verify_packages(psdzdata, config.get("build"))
+            print(f"Head-unit build: {build.id} - {build['title']}", flush=True)
+            firmware = stage(project, cache, build, package_paths, digests)
+            shader_maps = compose_shader_maps(project, cache, build, firmware)
+            head_unit = head_unit_command(project, config, firmware, build, shader_maps)
         if "6wb" in modules:
             kombi_images = stage_kombi(psdzdata, cache)
         if args.prepare_only:

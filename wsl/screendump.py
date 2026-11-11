@@ -44,8 +44,24 @@ def ppm_to_png(ppm_path: str, png_path: str) -> None:
     print(f"{width}x{height} -> {png_path}")
 
 
+def lit_samples(ppm_path: str) -> int:
+    pixels = open(ppm_path, "rb").read().split(maxsplit=4)[4]
+    return sum(1 for i in range(0, len(pixels) - 2, 3 * 97) if pixels[i] or pixels[i + 1] or pixels[i + 2])
+
+
 if __name__ == "__main__":
-    ppm = "/tmp/idrive6-shot.ppm"
-    qmp(sys.argv[1], ppm)
-    time.sleep(0.5)
-    ppm_to_png(ppm, sys.argv[2])
+    args = sys.argv[1:]
+    wait = 0.0
+    if args and args[0] == "--wait":     # --wait SECONDS: poll until the display is not black
+        wait, args = float(args[1]), args[2:]
+    ppm = f"/tmp/idrive6-shot-{int(time.time() * 1000)}.ppm"
+    deadline = time.time() + wait
+    while True:
+        qmp(args[0], ppm)
+        time.sleep(0.5)
+        if wait <= 0 or lit_samples(ppm) > 20 or time.time() >= deadline:
+            break
+        time.sleep(10)
+    if wait > 0 and lit_samples(ppm) <= 20:
+        print("display still black", file=sys.stderr)
+    ppm_to_png(ppm, args[1])

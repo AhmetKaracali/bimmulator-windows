@@ -3,8 +3,15 @@
 Run the **real BMW NBT EVO iDrive 6 head-unit software** (QNX 6.5 + HmiMain3D) on a **Windows 11
 PC** through WSL2, QEMU and ANGLE. This is the Windows/WSL2 port of
 [agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator) (see Credits), extended
-so that the head unit build **HU 006.027.001 / HMI ID5_1811** (F30 3 Series, PSdZData 4.15.12) boots
-with a working *My Vehicle* menu, vehicle values and a diagnostic gateway simulator.
+with a working *My Vehicle* menu, vehicle values, a diagnostic gateway simulator and a
+**multi-firmware structure**: every supported head-unit build (PSdZData release) has its own folder
+in [`builds/`](builds/README.md), detected automatically, and you can add yours with
+`tools/port-build.py`.
+
+| Supported build | Status |
+|---|---|
+| HU 006.027.001, HMI ID5_1811, PSdZData 4.15.12 (F30 assets) | verified, main development build |
+| HU 007.030.001 (NBTevo_X20511I), HMI ID5_2103, PSdZData 4.61.20 (F32 assets) | upstream reference build |
 
 > **No BMW software is included.** You need your own extracted PSdZData. This project is not
 > affiliated with or endorsed by BMW AG. "BMW", "iDrive" and related names are BMW trademarks.
@@ -30,9 +37,9 @@ with a working *My Vehicle* menu, vehicle values and a diagnostic gateway simula
 
 - Windows 11 (WSLg shows the emulator window), WSL2 with **Ubuntu** and **systemd enabled**
 - 16 GB RAM recommended, ~25 GB free disk inside WSL, a fast CPU (graphics run in software)
-- Extracted **PSdZData** containing `swe/swfl/swfl_00002719.bin.006_027_001`,
-  `swfl_0000271a.bin.006_027_001`, `swfl_00002720.bin.006_027_001` (NBT EVO, I-level F020-18-11,
-  PSdZData 4.15.12). The launcher verifies their SHA-256 before use.
+- Extracted **PSdZData** with the NBT EVO head-unit packages `swe/swfl/swfl_00002719.bin.*`,
+  `swfl_0000271a.bin.*` and `swfl_00002720.bin.*` of a supported build (table above). The launcher
+  identifies the build by their SHA-256. Another build? See [builds/README.md](builds/README.md).
 
 ## Quick start
 
@@ -64,7 +71,7 @@ server; the first build takes 30-90 minutes):
 
 ```bash
 mkdir -p ~/psdzdata/swe/swfl
-cp /mnt/c/path/to/psdzdata/swe/swfl/swfl_0000271{9,a}.bin.006_027_001 /mnt/c/path/to/psdzdata/swe/swfl/swfl_00002720.bin.006_027_001 ~/psdzdata/swe/swfl/
+cp /mnt/c/path/to/psdzdata/swe/swfl/swfl_0000271[9a].bin.* /mnt/c/path/to/psdzdata/swe/swfl/swfl_00002720.bin.* ~/psdzdata/swe/swfl/
 bash wsl/setup.sh ~/psdzdata
 ```
 
@@ -141,11 +148,13 @@ Optional: properties nobody answers can get "neutral" (minimum valid) payloads. 
 | `overlay/make_overlay.py` | Builds the per-boot overlay (language, coding, plug-ins, 3D body) |
 | `tools/idrive6-launch.py`, `run-emulator.sh` | Launcher and QEMU runner (from upstream, ported) |
 | `tools/angle-egl-rpc-server.cpp`, `tools/qnx-angle-egl-provider.c` | GLES2 bridge guest → host ANGLE (incl. framebuffer objects) |
-| `tools/shaders/native-reconstructions/` | SGX shader reconstructions; `*-car006.json` maps for HU 006.027.001, `hmi-fragment-car006/` hand-written stages |
+| `builds/<id>/` | Per firmware build: `build.json` (hashes, patch sites, hook addresses), `profiles/`, `shader-pins.json`, `signatures.json` — [builds/README.md](builds/README.md) |
+| `tools/shaders/native-reconstructions/hmi-*-library.json` | Shared, versioned shader library (GLSL reconstructions keyed by program fingerprint); GLSL in `hmi-*-car006/` and the upstream folders |
+| `tools/buildinfo.py`, `tools/shader-library.py`, `tools/port-build.py` | Build registry, shader library (pin/compose/sync), porting to new firmware |
 | `tools/qnx-j5-bridge.c`, `tools/qnx-wsl-fetch.c`, `tools/wsl-snapshot.py` | WSL2 port pieces (Jacinto bridge, overlay fetch, snapshot) |
 | `nix/patches/` | QEMU OMAP5430 / SGX / Capricorn-M patches (GPL-2.0-or-later) |
-| `profiles/f30-car-006027-id6-light.json` | Emulator profile for HU 006.027.001 |
 | `docs/UPSTREAM-README.md` | Original upstream README (macOS, X20511I 007.030.001, 6WB cluster/HUD) |
+| `docs/PORTING.md`, `CONTRIBUTING.md` | Porting details, how to contribute a build |
 | `NATIVE_GRAPHICS_CONTRACT.md`, `HMI_STARTUP_DEPENDENCY.md` | Deep technical notes from upstream |
 | [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents |
 
@@ -159,7 +168,7 @@ Optional: properties nobody answers can get "neutral" (minimum valid) payloads. 
 | Black screen for a few minutes after `fast` | normal: HmiMain3D loads assets in software; watch `~/idrive/run.log` |
 | Keys seem ignored | click the window; step slowly — keys sent while a screen loads are dropped |
 | `My Vehicle` says *Function currently not available* | build the overlay (`wsl/overlay.sh`) and keep `SIM=1` |
-| Firmware hash mismatch | your PSdZData files are a different build; only HU 006.027.001 is supported on `main` |
+| `No registered build matches` | your PSdZData is another build: port it with `tools/port-build.py` ([builds/README.md](builds/README.md)) |
 
 ## Credits
 
@@ -183,8 +192,10 @@ their author's terms, and the QEMU patches under `nix/patches/` remain GPL-2.0-o
 
 ### Türkçe özet
 
-Bu depo, BMW NBT EVO iDrive 6 ana ünite yazılımını (HU 006.027.001 / ID5_1811, F30) **Windows 11
-üzerinde WSL2** ile çalıştırır. BMW yazılımı içermez; kendi PSdZData'nızı kullanırsınız. Kurulum:
+Bu depo, BMW NBT EVO iDrive 6 ana ünite yazılımını **Windows 11 üzerinde WSL2** ile çalıştırır.
+Her PSdZData/ana ünite sürümü `builds/` altında kendi klasörüne sahiptir ve otomatik tanınır
+(şu an HU 006.027.001 / ID5_1811 F30 ve HU 007.030.001 / X20511I). Kendi sürümünüzü
+`tools/port-build.py` ile ekleyip pull request açabilirsiniz (`builds/README.md`). BMW yazılımı içermez; kendi PSdZData'nızı kullanırsınız. Kurulum:
 yukarıdaki *Quick start* adımları (`wsl/setup.sh`, ardından `wsl/emulator.sh snapshot`, sonra her
 seferinde `wsl/emulator.sh fast`). Dil için `wsl/overlay.sh --language tr`. Orijinal proje:
 [agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator). Lisans: ticari olmayan

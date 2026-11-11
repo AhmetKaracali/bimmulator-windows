@@ -11,19 +11,22 @@
 # Optional:
 #   * --car-coding: your head unit's coding pages (IDriveReader NCD backup), emulator bits re-applied
 #   * --plugins DIR: every sub-folder of DIR is copied to Plugins/<Name>/ (RA plug-ins)
-#   * HERO=picture.png: 378x243 RGBA picture for the My Vehicle tile (F30)
+#   * HERO=picture.png: 378x243 RGBA picture for the My Vehicle tile
 #   * J5=0: leave the Jacinto bridge out (stock behaviour, empty My Vehicle)
 # Re-run after every change; the next emulator start (also `fast`) picks it up.
 set -euo pipefail
 source "$(dirname "$0")/env.sh"
 nix_env
 [ -x "$LAUNCHER" ] || { echo "Launcher missing: run wsl/setup.sh first." >&2; exit 2; }
-ROOTFS="$IDRIVE_CACHE/firmware/car-006_027_001-v1/firmware/rootfs"
-[ -d "$ROOTFS" ] || { echo "Firmware not staged yet: run wsl/emulator.sh prepare (or snapshot) first." >&2; exit 2; }
+BUILD=$(current_build_id) || exit 2
+VEHICLE=$(build_value "$BUILD" vehicle)
+ROOTFS="$IDRIVE_CACHE/firmware/$(build_value "$BUILD" release)/rootfs"
+[ -d "$ROOTFS" ] || { echo "Firmware of $BUILD not staged yet: run wsl/emulator.sh prepare first." >&2; exit 2; }
 
 mkdir -p "$OVERLAY_DIR"
 OUT="$OVERLAY_DIR/overlay.tar"
-python3 "$REPO/overlay/make_overlay.py" --firmware car006 --vehicle F30 -o "$OUT" "$@"
+echo "Overlay for build $BUILD"
+python3 "$REPO/overlay/make_overlay.py" --build "$BUILD" -o "$OUT" "$@"
 
 if [ "${J5:-1}" = "1" ]; then
     WORK="$IDRIVE_HOME/build/j5"; mkdir -p "$WORK"
@@ -46,9 +49,9 @@ fi
 
 if [ -n "${HERO:-}" ]; then
     H="$IDRIVE_HOME/build/hero"; rm -rf "$H"
-    D=opt/hmi/ID5/data/ro/bmw/id6l/assetDB/Domains/Main/Heroes/hero_myvehicle_F30
-    mkdir -p "$H/$D" && cp "$HERO" "$H/$D/id6hero_f30.png"
-    tar --owner=0 --group=0 --format=ustar -rf "$OUT" -C "$H" "$D/id6hero_f30.png"
+    D=opt/hmi/ID5/data/ro/bmw/id6l/assetDB/Domains/Main/Heroes/hero_myvehicle_$VEHICLE
+    mkdir -p "$H/$D" && cp "$HERO" "$H/$D/id6hero_$(echo "$VEHICLE" | tr A-Z a-z).png"
+    tar --owner=0 --group=0 --format=ustar -rf "$OUT" -C "$H" "$D"
     echo "  + My Vehicle picture ($HERO)"
 fi
 echo "-> $OUT"

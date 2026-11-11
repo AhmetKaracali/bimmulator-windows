@@ -35,7 +35,7 @@ HMI_BENCH_INPUT="${IDRIVE_HMI_BENCH_INPUT:-0}"
 HMI_RESOURCE_EN_US="${IDRIVE_HMI_RESOURCE_EN_US:-0}"
 HMI_CID_POINTER="${IDRIVE_HMI_CID_POINTER:-0}"
 HMI_CONTROLLER="${IDRIVE_HMI_CONTROLLER:-0}"
-HMI_CID_PORT=43567
+HMI_CID_PORT="${IDRIVE_HMI_CID_PORT:-43567}"   # override to run several instances side by side
 HMI_CODING_DEVELOPER_MENU="${IDRIVE_HMI_CODING_DEVELOPER_MENU:-0}"
 HMI_CODING_CAMERA_RVC="${IDRIVE_HMI_CODING_CAMERA_RVC:-0}"
 HMI_VARIANTREGISTRY_F32="${IDRIVE_HMI_VARIANTREGISTRY_F32:-0}"
@@ -70,7 +70,7 @@ SCREEN_SHARED_RAM_POST="${IDRIVE_SCREEN_SHARED_RAM_POST:-0}"
 SCREEN_SHARED_RAM_POST_MODE="${IDRIVE_SCREEN_SHARED_RAM_POST_MODE:-read-write}"
 SCREEN_NATIVE_SHARED_IMAGE="${IDRIVE_SCREEN_NATIVE_SHARED_IMAGE:-0}"
 
-if [[ -z "${IDRIVE_ROOTFS_TREE:-}" && -d "$IDRIVE_CACHE_DIR/rootfs-x20511i" ]]; then
+if [[ -z "${IDRIVE_ROOTFS_TREE:-}" && -d "$IDRIVE_CACHE_DIR/rootfs-x20511i" ]]; then  # legacy upstream layout
   IDRIVE_ROOTFS_TREE="$IDRIVE_CACHE_DIR/rootfs-x20511i"
 fi
 if [[ -n "${IDRIVE_ROOTFS_TREE:-}" && -z "${IDRIVE_REALIZED_ROOTFS:-}" ]]; then
@@ -986,20 +986,20 @@ if [[ "$ANGLE_EGL_RPC_SMOKE" == "1" || "$ANGLE_EGL_HMI" == "1" ]]; then
   fi
 fi
 if [[ "$HMI_CONTROLLER" == "1" ]]; then
-  python3 - "$IDRIVE_ROOTFS_TREE" <<'PY'
+  python3 - "$IDRIVE_ROOTFS_TREE" "$SCRIPT_DIR/tools" <<'PY'
 import hashlib
 from pathlib import Path
 import sys
 
-root = Path(sys.argv[1]) / "opt/hmi/ID5"
-expected = {
-    "bin/HmiMain3D": "406a672cf6e603752953189a65429745ab44fd2172b17de381d5f59818e3f64a",
-    "lib/libhmicom.so": "33b1cbb49407408dc4ee2fd9497fc1f7ca444f919225050ab6c448e77e6d9396",
-}
-for name, digest in expected.items():
+sys.path.insert(0, sys.argv[2])
+import buildinfo
+
+build = buildinfo.current_build()
+root = Path(sys.argv[1])
+for name in ("opt/hmi/ID5/bin/HmiMain3D", "opt/hmi/ID5/lib/libhmicom.so"):
     path = root / name
-    if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
-        raise SystemExit(f"Unsupported binary for the X20511I native controller: {path}")
+    if hashlib.sha256(path.read_bytes()).hexdigest() != build["binaries"][name]:
+        raise SystemExit(f"{path} is not the binary of build {build.id} (native controller hook)")
 PY
   export IDRIVE_HMI_CONTROLLER_LIBRARY="$WORK_DIR/libidrive-hmi-controller.so"
   "$SCRIPT_DIR/tools/build-qnx-hmi-controller.sh" "$IDRIVE_HMI_CONTROLLER_LIBRARY"

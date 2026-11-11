@@ -1,0 +1,2402 @@
+{
+ "schema": "bimmulator-build-signatures-v1",
+ "build": "hu-007.030.001",
+ "HmiMain3D": {
+  "allocate_event": {
+   "entry": [
+    {
+     "back": 0,
+     "value": "00309fe54000a0e330482de90cb08de2b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1045084e52c3093e533ff2fe10400a0e13088bde81c289403f0492de918b08de249de4de20150a0e10cd04de20040a0e100109fe5",
+     "mask": "00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff"
+    },
+    {
+     "back": -2,
+     "value": "30482de90cb08de2b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1045084e52c3093e533ff2fe10400a0e13088bde81c289403f0492de9",
+     "mask": "ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -4,
+     "value": "b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1045084e52c3093e533ff2fe10400a0e13088bde81c289403f0492de918b08de249de4de2",
+     "mask": "ffffffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "0558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1045084e52c3093e533ff2fe10400a0e13088bde81c289403f0492de918b08de249de4de20150a0e10cd04de20040a0e100109fe5",
+     "mask": "ffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff"
+    },
+    {
+     "back": 0,
+     "value": "00309fe54000a0e330482de90cb08de2b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1005084e5003093e533ff2fe10400a0e13088bde800000000f0492de918b08de249de4de20150a0e10cd04de20040a0e100109fe5",
+     "mask": "00f0fffffffffffffffffffffffffffff0f0ffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -2,
+     "value": "30482de90cb08de2b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1005084e5003093e533ff2fe10400a0e13088bde800000000f0492de9",
+     "mask": "fffffffffffffffff0f0ffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00000000ffffffff",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "b050d3e1000000eb0558a0e12558e0e10558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1005084e5003093e533ff2fe10400a0e13088bde800000000f0492de918b08de249de4de2",
+     "mask": "f0f0ffff000000ffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00000000ffffffffffffffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "0558e0e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50400a0e1005084e5003093e533ff2fe10400a0e13088bde800000000f0492de918b08de249de4de20150a0e10cd04de20040a0e100109fe5",
+     "mask": "ffffffffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+     "loose": true
+    }
+   ],
+   "calls": [
+    {
+     "back": 4,
+     "value": "00c08de5000000eb000000ea000000ea000000eb005050e20000001a000000eb",
+     "mask": "ffffffff000000ff000000ff000000ff000000ffffffffff000000ff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "000000eb943094e5000053e30000000a000000eb004050e20000001a000000eb",
+     "mask": "000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "042042e2000000eb000000ea000000ea000000eb008050e20000000a2c201be5",
+     "mask": "ffffffff000000ff000000ff000000ff000000ffffffffff000000ffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "0110a0130230a0e1000000eb000000ea000000eb006050e20000000a003057e20130a013184086e51c30c6e5020057e3",
+     "mask": "ffffffffffffffff000000ff000000ff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "000000ea44004be2000000eb000000ea000000eb008050e20000001a000000ea",
+     "mask": "000000ffffffffff000000ff000000ff000000ffffffffff000000ff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "f048bde8000000ea000055e3f088bd08000000eb007050e2f088bd08000055e3",
+     "mask": "ffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffff"
+    }
+   ]
+  },
+  "get_display_service_cache": {
+   "entry": [],
+   "calls": [
+    {
+     "back": 4,
+     "value": "08b08de214d04de20040a0e1000000eb000000eb000050e308009015003090e5",
+     "mask": "ffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "0500a0e1000000eb000054e30000000a000000eb000050e308009015003090e5143093e533ff2fe1000050e30000001a000000eb000050e30010a0e308009015003090e51c3093e533ff2fe1000000eb000050e308009015003090e5543093e5",
+     "mask": "ffffffff000000ffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "143093e533ff2fe1000050e30000001a000000eb000050e30010a0e308009015003090e51c3093e533ff2fe1000000eb",
+     "mask": "ffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "00e08de5b4e00be5b8c00be5000000eb000000eb000050e300c01fe50810a0e1",
+     "mask": "ffffffffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "48c00be500e08de544e00be5000000eb000000eb000050e308009015003090e5143093e533ff2fe13b03c5e5000000eb",
+     "mask": "ffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "003090e5143093e533ff2fe13b03c5e5000000eb000050e300c09fe50810a0e1",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "0000001a3b33d6e5000053e30000001a000000eb000050e30010a0e308009015",
+     "mask": "000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "003090e5d03093e533ff2fe10080a0e1000000eb000050e30000000a083090e5",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffff"
+    }
+   ]
+  },
+  "enable_display": {
+   "entry": [
+    {
+     "back": 0,
+     "value": "70482de910b08de214d04de20040a0e10160a0e118004be200109fe5000000eb18301be51430d3e5400013e30000000a000000eb000050e308009015003090e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": -2,
+     "value": "14d04de20040a0e10160a0e118004be200109fe5000000eb18301be51430d3e5400013e30000000a000000eb000050e3",
+     "mask": "ffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff000000ffffffffff"
+    },
+    {
+     "back": -4,
+     "value": "0160a0e118004be200109fe5000000eb18301be51430d3e5400013e30000000a000000eb000050e308009015003090e5",
+     "mask": "ffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "18301be51430d3e5400013e30000000a000000eb000050e308009015003090e5543093e533ff2fe10010a0e13d20d4e5",
+     "mask": "ffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 0,
+     "value": "70482de910b08de214d04de20040a0e10160a0e118004be200109fe5000000eb00301be50030d3e5400013e30000000a000000eb000050e300009015003090e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff000000ffffffffff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -2,
+     "value": "14d04de20040a0e10160a0e118004be200109fe5000000eb00301be50030d3e5400013e30000000a000000eb000050e3",
+     "mask": "ffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff000000ffffffffff",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "0160a0e118004be200109fe5000000eb00301be50030d3e5400013e30000000a000000eb000050e300009015003090e5",
+     "mask": "ffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff000000ffffffffff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "00301be50030d3e5400013e30000000a000000eb000050e300009015003090e5003093e533ff2fe10010a0e10020d4e500009fe50030d4e5000000eb00501be50030d5e5040013e30000000a000000eb000050e300009015003090e5003093e533ff2fe100c0d4e50020a0e10030d4e50500a0e100109fe500c08de5000000eb0030d4e5000053e30000000a000056e30000001a000000eb000050e300009015003090e5003093e533ff2fe1010050e3000000000000000a0030d4e5000053e3",
+     "mask": "00f0ffff00f0ffffffffffff000000ff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff000000ff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff00000000000000ff00f0ffffffffffff",
+     "loose": true
+    }
+   ],
+   "calls": [
+    {
+     "back": 4,
+     "value": "000053e30000001a0500a0e10110a0e3000000eb28301be51430d3e5400013e3",
+     "mask": "ffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "1c3093e533ff2fe10400a0e10010a0e3000000eb00209fe50030a0e31830c2e5",
+     "mask": "ffffffffffffffffffffffffffffffff000000ff00f0ffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "0520a0e1000000eb0400a0e10010a0e3000000eb0020a0e300309fe50020c3e5",
+     "mask": "ffffffff000000ffffffffffffffffff000000ffffffffff00f0ffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "000053e30000000a0400a0e10110a0e3000000eb10301be51430d3e5400013e30000000a000000eb000050e308009015003090e5543093e533ff2fe10010a0e13020d4e500009fe5000000eb10501be51430d5e5040013e30000000a000000eb000050e308009015003090e5543093e533ff2fe10020a0e13030d4e50500a0e100109fe5000000eb000000ea0040a0e110004be2000000eb0400a0e1000000eb10004be2000000eb0cd04be23088bde8e89e85033da7a9029ca7a90230482de9",
+     "mask": "ffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "000053e30000000a0400a0e10110a0e3000000eb10301be51430d3e5400013e30000000a000000eb000050e308009015003090e5543093e533ff2fe10010a0e13020d4e500009fe5000000eb10501be51430d5e5040013e30000000a000000eb000050e308009015003090e5543093e533ff2fe10020a0e13030d4e50500a0e100109fe5000000eb000000ea0040a0e110004be2000000eb0400a0e1000000eb10004be2000000eb0cd04be23088bde8e89e8503fba7a9025aa8a90270482de9",
+     "mask": "ffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff"
+    }
+   ]
+  },
+  "pop_callers": [
+   [
+    {
+     "back": 2,
+     "value": "0010a0e3000000eb000000ea000000000c000001147d850350e6a70280678503",
+     "mask": "ffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "0000000a20011be50010a0e3000000eb000000ea000000000c000001147d8503",
+     "mask": "000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": 6,
+     "value": "000000eb000054e30000000a20011be50010a0e3000000eb000000ea00000000",
+     "mask": "000000ffffffffff000000ffffffffffffffffff000000ff000000ffffffffff"
+    },
+    {
+     "back": 8,
+     "value": "0000000a00109fe5000000eb000054e30000000a20011be50010a0e3000000eb",
+     "mask": "000000ff00f0ffff000000ffffffffff000000ffffffffffffffffff000000ff"
+    },
+    {
+     "back": 10,
+     "value": "1430d0e5040013e30000000a00109fe5000000eb000054e30000000a20011be5",
+     "mask": "ffffffffffffffff000000ff00f0ffff000000ffffffffff000000ffffffffff"
+    },
+    {
+     "back": 12,
+     "value": "000000eb48001be51430d0e5040013e30000000a00109fe5000000eb000054e3",
+     "mask": "000000ffffffffffffffffffffffffff000000ff00f0ffff000000ffffffffff"
+    },
+    {
+     "back": 2,
+     "value": "0010a0e3000000eb000000ea00000000000000000000000000000000000000000000000000000000000000000000000000001be50110a0e3000000eb00000be5",
+     "mask": "ffffffff000000ff000000ff00000000000000000000000000000000000000000000000000000000000000000000000000f0ffffffffffff000000ff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "0000000a00001be50010a0e3000000eb000000ea000000000000000000000000",
+     "mask": "000000ff00f0ffffffffffff000000ff000000ff000000000000000000000000",
+     "loose": true
+    },
+    {
+     "back": 6,
+     "value": "000000eb000054e30000000a00001be50010a0e3000000eb000000ea00000000",
+     "mask": "000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff00000000",
+     "loose": true
+    },
+    {
+     "back": 8,
+     "value": "0000000a00109fe5000000eb000054e30000000a00001be50010a0e3000000eb",
+     "mask": "000000ff00f0ffff000000ffffffffff000000ff00f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 10,
+     "value": "0030d0e5040013e30000000a00109fe5000000eb000054e30000000a00001be5",
+     "mask": "00f0ffffffffffff000000ff00f0ffff000000ffffffffff000000ff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 12,
+     "value": "000000eb00001be50030d0e5040013e30000000a00109fe5000000eb000054e30000000a00001be50010a0e3000000eb",
+     "mask": "000000ff00f0ffff00f0ffffffffffff000000ff00f0ffff000000ffffffffff000000ff00f0ffffffffffff000000ff",
+     "loose": true
+    }
+   ],
+   [
+    {
+     "back": 2,
+     "value": "0110a0e3000000ebdc000be56936d7e5000053e30000000a000055e30110a0e3",
+     "mask": "ffffffff000000ffffffffffffffffffffffffff000000ffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "ac25a80220011be50110a0e3000000ebdc000be56936d7e5000053e30000000a",
+     "mask": "ffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 6,
+     "value": "605989039625a802ac25a80220011be50110a0e3000000ebdc000be56936d7e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff"
+    },
+    {
+     "back": 8,
+     "value": "806785032cf58303605989039625a802ac25a80220011be50110a0e3000000eb",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 10,
+     "value": "147d850350e6a702806785032cf58303605989039625a802ac25a80220011be5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 12,
+     "value": "000000000c000001147d850350e6a702806785032cf58303605989039625a802",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 2,
+     "value": "0110a0e3000000eb00000be50030d7e5000053e30000000a000055e30110a0e3",
+     "mask": "ffffffff000000ff00f0ffff00f0ffffffffffff000000ffffffffffffffffff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "0000000000001be50110a0e3000000eb00000be50030d7e5000053e30000000a",
+     "mask": "0000000000f0ffffffffffff000000ff00f0ffff00f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 6,
+     "value": "00000000000000000000000000001be50110a0e3000000eb00000be50030d7e5",
+     "mask": "00000000000000000000000000f0ffffffffffff000000ff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 8,
+     "value": "000000000000000000000000000000000000000000001be50110a0e3000000eb00000be50030d7e5000053e30000000a",
+     "mask": "000000000000000000000000000000000000000000f0ffffffffffff000000ff00f0ffff00f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 10,
+     "value": "0000000000000000000000000000000000000000000000000000000000001be50110a0e3000000eb00000be50030d7e5",
+     "mask": "0000000000000000000000000000000000000000000000000000000000f0ffffffffffff000000ff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 12,
+     "value": "00000000000000000000000000000000000000000000000000000000000000000000000000001be50110a0e3000000eb00000be50030d7e5000053e30000000a",
+     "mask": "00000000000000000000000000000000000000000000000000000000000000000000000000f0ffffffffffff000000ff00f0ffff00f0ffffffffffff000000ff",
+     "loose": true
+    }
+   ],
+   [
+    {
+     "back": 2,
+     "value": "0010a0e3000000eb00a050e20000001a48301be51430d3e5400013e30000000a",
+     "mask": "ffffffff000000ffffffffff000000ffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "d0c00be520011be50010a0e3000000eb00a050e20000001a48301be51430d3e5",
+     "mask": "ffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffff"
+    },
+    {
+     "back": 6,
+     "value": "000000ea00c0a0e3d0c00be520011be50010a0e3000000eb00a050e20000001a",
+     "mask": "000000ffffffffffffffffffffffffffffffffff000000ffffffffff000000ff"
+    },
+    {
+     "back": 8,
+     "value": "000000eb0a90a0e1000000ea00c0a0e3d0c00be520011be50010a0e3000000eb",
+     "mask": "000000ffffffffff000000ffffffffffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 10,
+     "value": "000000ea70004be2000000eb0a90a0e1000000ea00c0a0e3d0c00be520011be5",
+     "mask": "000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff"
+    },
+    {
+     "back": 12,
+     "value": "70004be2000000eb000000ea70004be2000000eb0a90a0e1000000ea00c0a0e3",
+     "mask": "ffffffff000000ff000000ffffffffff000000ffffffffff000000ffffffffff"
+    },
+    {
+     "back": 2,
+     "value": "0010a0e3000000eb00a050e20000001a00301be50030d3e5400013e30000000a",
+     "mask": "ffffffff000000ffffffffff000000ff00f0ffff00f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "00c00be500001be50010a0e3000000eb00a050e20000001a00301be50030d3e5",
+     "mask": "00f0ffff00f0ffffffffffff000000ffffffffff000000ff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 6,
+     "value": "000000ea00c0a0e300c00be500001be50010a0e3000000eb00a050e20000001a",
+     "mask": "000000ffffffffff00f0ffff00f0ffffffffffff000000ffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 8,
+     "value": "000000eb0a90a0e1000000ea00c0a0e300c00be500001be50010a0e3000000eb",
+     "mask": "000000ffffffffff000000ffffffffff00f0ffff00f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 10,
+     "value": "000000ea70004be2000000eb0a90a0e1000000ea00c0a0e300c00be500001be5",
+     "mask": "000000ffffffffff000000ffffffffff000000ffffffffff00f0ffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 16,
+     "value": "0050a0e170004be2000000eb000000ea70004be2000000eb000000ea70004be2000000eb0a90a0e1000000ea00c0a0e3",
+     "mask": "ffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffff000000ffffffffff000000ffffffffff",
+     "loose": true
+    }
+   ]
+  ],
+  "app_vtable": [
+   {
+    "slot": 0,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "f0482de90050a0e1fc0290e514b08de200309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ff",
+      "count": 3,
+      "occurrence": 1
+     },
+     {
+      "back": -2,
+      "value": "fc0290e514b08de200309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a003090e5043093e5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffff",
+      "count": 3,
+      "occurrence": 1
+     },
+     {
+      "back": -4,
+      "value": "00309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a003090e5043093e533ff2fe10030a0e3",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffff",
+      "count": 3,
+      "occurrence": 1
+     },
+     {
+      "back": 0,
+      "value": "f0482de90050a0e1000090e514b08de200309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a",
+      "mask": "ffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff",
+      "count": 3,
+      "occurrence": 1
+     },
+     {
+      "back": -2,
+      "value": "000090e514b08de200309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e5",
+      "mask": "00f0ffffffffffff00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffff",
+      "count": 3,
+      "occurrence": 1
+     },
+     {
+      "back": -4,
+      "value": "00309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3",
+      "mask": "00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff",
+      "count": 3,
+      "occurrence": 1
+     }
+    ]
+   },
+   {
+    "slot": 1,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "f0482de90050a0e1fc0290e514b08de200309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ff",
+      "count": 3,
+      "occurrence": 0
+     },
+     {
+      "back": -2,
+      "value": "fc0290e514b08de200309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a003090e5043093e5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffff",
+      "count": 3,
+      "occurrence": 0
+     },
+     {
+      "back": -4,
+      "value": "00309fe5000050e36c2083e2102085e5003085e50000000a003090e50c3093e533ff2fe1bf0f85e20010a0e3000000eb004395e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb3c4595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb3c0595e5000000eb3c0595e5000050e30000000a003090e5043093e533ff2fe10030a0e33c3585e5380595e5000050e30000000a003090e5043093e533ff2fe10030a0e3383585e5444595e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb440595e5000000eb440595e5000050e30000000a003090e5043093e533ff2fe10030a0e3",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffff",
+      "count": 3,
+      "occurrence": 0
+     },
+     {
+      "back": 0,
+      "value": "f0482de90050a0e1000090e514b08de200309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a",
+      "mask": "ffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff",
+      "count": 3,
+      "occurrence": 0
+     },
+     {
+      "back": -2,
+      "value": "000090e514b08de200309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e5",
+      "mask": "00f0ffffffffffff00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffff",
+      "count": 3,
+      "occurrence": 0
+     },
+     {
+      "back": -4,
+      "value": "00309fe5000050e36c2083e2002085e5003085e50000000a003090e5003093e533ff2fe1bf0f85e20010a0e3000000eb004095e5000054e30000000a0400a0e1000000eb0400a0e1000000ebc20f85e2000000eb004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3003085e5004095e5000054e30000000a000000eb000000eb0010a0e10400a0e1000000eb000095e5000000eb000095e5000050e30000000a003090e5003093e533ff2fe10030a0e3",
+      "mask": "00f0ffffffffffffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff00f0ffff00f0ffffffffffff000000ff000000ff000000ffffffffffffffffff000000ff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffffffffffff",
+      "count": 3,
+      "occurrence": 0
+     }
+    ]
+   },
+   {
+    "slot": 2,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de2ce00d0e50088bde800482de9100080e204b08de20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "ce00d0e50088bde800482de9100080e204b08de20088bde800482de9690f80e2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de9100080e204b08de20088bde800482de9690f80e204b08de20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de20000d0e50088bde800482de9100080e204b08de20088bde8",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0000d0e50088bde800482de9100080e204b08de20088bde800482de9690f80e2",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 3,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de9690f80e204b08de20088bde800482de9d00080e204b08de20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de9d00080e204b08de20088bde800482de96f0f80e2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de9d00080e204b08de20088bde800482de96f0f80e204b08de20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 4,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de20048bde8000000ea30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb10001be51430d0e5040013e30000000a00109fe50430a0e1082495e5000000eb083495e5030054e10000000a6936d5e5",
+      "mask": "ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff00f0ffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0048bde8000000ea30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb10001be51430d0e5040013e30000000a00109fe50430a0e1082495e5000000eb083495e5030054e10000000a6936d5e5084485e5000053e3",
+      "mask": "ffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff00f0ffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb10001be51430d0e5040013e30000000a00109fe50430a0e1082495e5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ff00f0ffffffffffffffffffff000000ff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de20048bde8000000ea30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb00001be50030d0e5040013e30000000a00109fe50430a0e1002095e5000000eb003095e5030054e10000000a0030d5e5",
+      "mask": "ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0048bde8000000ea30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb00001be50030d0e5040013e30000000a00109fe50430a0e1002095e5000000eb003095e5030054e10000000a0030d5e5004085e5000053e3",
+      "mask": "ffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffff000000ff00f0ffffffffffff000000ff00f0ffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "30482de90cb08de208d04de20050a0e10140a0e110004be200109fe5000000eb00001be50030d0e5040013e30000000a00109fe50430a0e1002095e5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffff000000ff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 5,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe223ca8ce24cf8bce500c08fe223ca8ce244f8bce500c08fe223ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "4cf8bce500c08fe223ca8ce244f8bce500c08fe223ca8ce23cf8bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "23ca8ce244f8bce500c08fe223ca8ce23cf8bce500c08fe223ca8ce234f8bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 6,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe223ca8ce2f4f4bce500c08fe223ca8ce2ecf4bce500c08fe223ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "f4f4bce500c08fe223ca8ce2ecf4bce500c08fe223ca8ce2e4f4bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "23ca8ce2ecf4bce500c08fe223ca8ce2e4f4bce500c08fe223ca8ce2dcf4bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 7,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe224ca8ce274f5bce500c08fe224ca8ce26cf5bce500c08fe224ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "74f5bce500c08fe224ca8ce26cf5bce500c08fe224ca8ce264f5bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "24ca8ce26cf5bce500c08fe224ca8ce264f5bce500c08fe224ca8ce25cf5bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 8,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe223ca8ce2c4fbbce500c08fe223ca8ce2bcfbbce500c08fe223ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "c4fbbce500c08fe223ca8ce2bcfbbce500c08fe223ca8ce2b4fbbce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "23ca8ce2bcfbbce500c08fe223ca8ce2b4fbbce500c08fe223ca8ce2acfbbce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 9,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "f04f2de920b08de22cd04de234c04be2d0a080e20c008ce8429f80e2b450dbe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "2cd04de234c04be2d0a080e20c008ce8429f80e2b450dbe10230a0e1b870dbe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "d0a080e20c008ce8429f80e2b450dbe10230a0e1b870dbe10040a0e130c01be5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "f04f2de920b08de22cd04de234c04be2d0a080e20c008ce8429f80e2b050dbe1",
+      "mask": "fffffffffffffffffffffffffffffffffffffffffffffffffffffffff0f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "2cd04de234c04be2d0a080e20c008ce8429f80e2b050dbe10230a0e1b070dbe1",
+      "mask": "fffffffffffffffffffffffffffffffffffffffff0f0fffffffffffff0f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "d0a080e20c008ce8429f80e2b050dbe10230a0e1b070dbe10040a0e100c01be5",
+      "mask": "fffffffffffffffffffffffff0f0fffffffffffff0f0ffffffffffff00f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 10,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "f04f2de920b08de234c04be21cd04de224504be20c008ce8428f80e230301be5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "34c04be21cd04de224504be20c008ce8428f80e230301be5d0a080e2b460dbe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "24504be20c008ce8428f80e230301be5d0a080e2b460dbe10190a0e1b870dbe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "f04f2de920b08de234c04be21cd04de224504be20c008ce8428f80e200301be5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "34c04be21cd04de224504be20c008ce8428f80e200301be5d0a080e2b060dbe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0fffffffffffff0f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "24504be20c008ce8428f80e200301be5d0a080e2b060dbe10190a0e1b070dbe1",
+      "mask": "ffffffffffffffffffffffff00f0fffffffffffff0f0fffffffffffff0f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 11,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe223ca8ce234fbbce500c08fe223ca8ce22cfbbce500c08fe223ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "34fbbce500c08fe223ca8ce22cfbbce500c08fe223ca8ce224fbbce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "23ca8ce22cfbbce500c08fe223ca8ce224fbbce500c08fe223ca8ce21cfbbce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 12,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe225ca8ce2ccf4bce500c08fe225ca8ce2c4f4bce500c08fe225ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "ccf4bce500c08fe225ca8ce2c4f4bce500c08fe225ca8ce2bcf4bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "25ca8ce2c4f4bce500c08fe225ca8ce2bcf4bce500c08fe225ca8ce2b4f4bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 13,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe223ca8ce284f5bce500c08fe223ca8ce27cf5bce500c08fe223ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "84f5bce500c08fe223ca8ce27cf5bce500c08fe223ca8ce274f5bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "23ca8ce27cf5bce500c08fe223ca8ce274f5bce500c08fe223ca8ce26cf5bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 14,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de9d00080e204b08de20088bde800482de96f0f80e204b08de20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de96f0f80e204b08de20088bde800309fe500482de9",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de96f0f80e204b08de20088bde800309fe500482de904b08de2003080e5",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de96f0f80e204b08de20088bde800309fe500482de904b08de2003080e5",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 15,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de96f0f80e204b08de20088bde800309fe500482de904b08de2003080e5",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800309fe500482de904b08de2003080e50088bde88815a802",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00309fe500482de904b08de2003080e50088bde88815a80200309fe500482de904b08de2003080e50088bde88815a802",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de96f0f80e204b08de20088bde800309fe500482de904b08de2003080e5",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800309fe500482de904b08de2003080e50088bde80000000000309fe500482de904b08de2003080e50088bde80000000000482de904b08de2000090e50088bde800482de9003090e504b08de2003093e533ff2fe1003090e5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff0000000000f0ffffffffffffffffffff00f0ffffffffffff00000000ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "00309fe500482de904b08de2003080e50088bde80000000000309fe500482de904b08de2003080e50088bde80000000000482de904b08de2000090e50088bde800482de9003090e504b08de2003093e533ff2fe1003090e5003093e533ff2fe1",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffff0000000000f0ffffffffffffffffffff00f0ffffffffffff00000000ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff",
+      "loose": true
+     }
+    ]
+   }
+  ],
+  "event_vtable": [
+   {
+    "slot": 0,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8bc79f9009c5b000000309fe500209fe5",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff00f0ffff00f0ffff"
+     },
+     {
+      "back": -2,
+      "value": "03308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8bc79f9009c5b0000",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8bc79f9009c5b000000309fe500209fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff00f0ffff00f0ffff"
+     },
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "03308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2003093e533ff2fe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 1,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8fc79f9009c5b0000",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "03308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8fc79f9009c5b000000309fe500209fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffff00f0ffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8fc79f9009c5b0000",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "03308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2003093e533ff2fe1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e1000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000000309fe500209fe503308fe030482de9022093e70040a0e10cb08de2082082e2002080e5000000eb0400a0e13088bde8000000000000000030482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffff000000ffffffffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000000000000000f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff0000000000000000ffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 2,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe000482de9020093e704b08de20088bde8b87df900",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "03308fe000482de9020093e704b08de20088bde8b87df900604f000000109fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "020093e704b08de20088bde8b87df900604f000000109fe50020a0e300c09fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff"
+     },
+     {
+      "back": 0,
+      "value": "00309fe500209fe503308fe000482de9020093e704b08de20088bde8000000000000000000109fe50020a0e300c09fe5177adfed01108fe00020c0e5d0482de9",
+      "mask": "00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffff000000000000000000f0ffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "03308fe000482de9020093e704b08de20088bde8000000000000000000109fe50020a0e300c09fe5177adfed01108fe0",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000000000000000f0ffffffffffff00f0ffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "020093e704b08de20088bde8000000000000000000109fe50020a0e300c09fe5177adfed01108fe00020c0e5d0482de9",
+      "mask": "ffffffffffffffffffffffff000000000000000000f0ffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 3,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de94000a0e304b08de20088bde800309fe51020a0e300c09fe503308fe0",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800309fe51020a0e300c09fe503308fe0f0482de90cc093e7",
+      "mask": "ffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00309fe51020a0e300c09fe503308fe0f0482de90cc093e70040a0e10050a0e30c6080e2045080e508c08ce214b08de20600a0e10510a0e100c084e5000000eb186084e5205084e50400a0e11c5084e5146084e5f088bde80c79f90090af0000",
+      "mask": "00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00309fe51020a0e300c09fe503308fe0f0482de90cc093e70040a0e10050a0e30c6080e2005080e508c08ce214b08de20600a0e10510a0e100c084e5000000eb006084e5005084e50400a0e1005084e5006084e5f088bde8000000000000000000309fe51020a0e300c09fe503308fe0f0482de90cc093e70040a0e10050a0e3",
+      "mask": "00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffff00f0ffffffffffff000000000000000000f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 4,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "f0482de914b08de20060a0e10140a0e1000000eb000050e30000000a0400a0e1",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0060a0e10140a0e1000000eb000050e30000000a0400a0e1181086e2000000eb",
+      "mask": "ffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ff"
+     },
+     {
+      "back": -4,
+      "value": "000000eb000050e30000000a0400a0e1181086e2000000eb000054e30050a0e1",
+      "mask": "000000ffffffffff000000ffffffffffffffffff000000ffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 5,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "70482de910b08de20cd04de20060a0e10140a0e1000000eb000050e30000000a0400a0e1181096e5000000eb1c30d6e5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0cd04de20060a0e10140a0e1000000eb000050e30000000a0400a0e1181096e5",
+      "mask": "ffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "0140a0e1000000eb000050e30000000a0400a0e1181096e5000000eb1c30d6e5",
+      "mask": "ffffffff000000ffffffffff000000ffffffffffffffffff000000ffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "70482de910b08de20cd04de20060a0e10140a0e1000000eb000050e30000000a0400a0e1001096e5000000eb0030d6e5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffff00f0ffff000000ff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0cd04de20060a0e10140a0e1000000eb000050e30000000a0400a0e1001096e5",
+      "mask": "ffffffffffffffffffffffff000000ffffffffff000000ffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "0140a0e1000000eb000050e30000000a0400a0e1001096e5000000eb0030d6e5",
+      "mask": "ffffffff000000ffffffffff000000ffffffffff00f0ffff000000ff00f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 6,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "10482de908b08de20cd04de200109fe510204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80030000310482de900309fe508b08de2",
+      "mask": "ffffffffffffffffffffffff00f0ffffffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00f0f0ffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0cd04de200109fe510204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80030000310482de9",
+      "mask": "ffffffff00f0ffffffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00f0f0ffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "10204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80030000310482de900309fe508b08de2",
+      "mask": "ffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00f0f0ffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "10482de908b08de20cd04de200109fe510204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80000000010482de900309fe508b08de2",
+      "mask": "ffffffffffffffffffffffff00f0ffffffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00000000ffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0cd04de200109fe510204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80000000010482de9",
+      "mask": "ffffffff00f0ffffffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00000000ffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "10204be20040a0e1000000eb000000ea000000eb0400a0e108d04be21088bde80000000010482de900309fe508b08de2",
+      "mask": "ffffffffffffffff000000ff000000ff000000ffffffffffffffffffffffffff00000000ffffffff00f0ffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 7,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "30482de9003090e50040a0e10cb08de2303093e533ff2fe1003094e50400a0e1043093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe503308fe0f0482de90cc093e70040a0e10050a0e30c6080e2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0040a0e10cb08de2303093e533ff2fe1003094e50400a0e1043093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "303093e533ff2fe1003094e50400a0e1043093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe503308fe0f0482de9",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "30482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe503308fe0f0482de90cc093e70040a0e10050a0e30c6080e2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0040a0e10cb08de2003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe5",
+      "mask": "ffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe51020a0e300c09fe503308fe0f0482de9",
+      "mask": "00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 8,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00c08fe224ca8ce25cf8bce500c08fe224ca8ce254f8bce500c08fe224ca8ce2",
+      "mask": "00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "5cf8bce500c08fe224ca8ce254f8bce500c08fe224ca8ce24cf8bce500c08fe2",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "24ca8ce254f8bce500c08fe224ca8ce24cf8bce500c08fe224ca8ce244f8bce5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffffffffffff"
+     }
+    ]
+   },
+   {
+    "slot": 9,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de90000a0e304b08de20088bde800482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde8c812a80200482de904b08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde8c812a802",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde8c812a80200482de904b08de2",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de90000a0e304b08de20088bde800482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde80000000000482de904b08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00000000ffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde80000000000482de904b08de20000d0e50088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00000000ffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "00482de90000a0e304b08de20088bde800309fe500482de904b08de2003080e50088bde80000000000482de904b08de20000d0e50088bde800482de9100080e2",
+      "mask": "ffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00000000ffffffffffffffff00f0ffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 10,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de90100a0e304b08de20088bde830482de9003090e50040a0e10cb08de2303093e533ff2fe1003094e50400a0e1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde830482de9003090e50040a0e10cb08de2303093e533ff2fe1003094e50400a0e1043093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe530482de90040a0e10cb08de2003080e5000000eb0400a0e1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "30482de9003090e50040a0e10cb08de2303093e533ff2fe1003094e50400a0e1043093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe530482de90040a0e10cb08de2003080e5000000eb0400a0e13088bde8b098a902",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de90100a0e304b08de20088bde830482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de9",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde830482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe530482de90040a0e10cb08de2003080e5000000eb0400a0e1",
+      "mask": "ffffffffffffffffffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff00f0ffff000000ffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "30482de9003090e50040a0e10cb08de2003093e533ff2fe1003094e50400a0e1003093e533ff2fe13088bde800482de94000a0e304b08de20088bde800309fe530482de90040a0e10cb08de2003080e5000000eb0400a0e13088bde800000000",
+      "mask": "ffffffff00f0ffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff00000000",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 11,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "0030a0e30120a0e300482de92430c0e504b08de2202080e5183080e51c30c0e5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "00482de92430c0e504b08de2202080e5183080e51c30c0e50088bde800482de9",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "04b08de2202080e5183080e51c30c0e50088bde800482de904b08de20048bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "0030a0e30120a0e300482de90030c0e504b08de2002080e5003080e50030c0e5",
+      "mask": "ffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "00482de90030c0e504b08de2002080e5003080e50030c0e50088bde800482de9",
+      "mask": "ffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "04b08de2002080e5003080e50030c0e50088bde800482de904b08de20048bde8",
+      "mask": "ffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 12,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de20048bde8000000ea30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde85c7cf900604f0000dc9980ffdc9b0000",
+      "mask": "ffffffffffffffffffffffff000000ffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0048bde8000000ea30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde85c7cf900604f0000dc9980ffdc9b000070482de910b08de2",
+      "mask": "ffffffff000000ffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde85c7cf900604f0000dc9980ffdc9b000070482de910b08de20cd04de20060a0e1",
+      "mask": "ffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de20048bde8000000ea30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde80000000000000000dc9980ff00000000",
+      "mask": "ffffffffffffffffffffffff000000ffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0fffffffffffff0f0ffffffffffff0000000000000000ffffffff00000000",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0048bde8000000ea30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde80000000000000000dc9980ff0000000070482de910b08de2",
+      "mask": "ffffffff000000ffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0fffffffffffff0f0ffffffffffff0000000000000000ffffffff00000000ffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "30482de900409fe500309fe50cb08de200509fe504408fe0055084e0030094e70510a0e1000000eb0500a0e1000000eb00309fe5033094e7b000c3e13088bde80000000000000000dc9980ff0000000070482de910b08de20cd04de20060a0e1",
+      "mask": "ffffffff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff00f0fffffffffffff0f0ffffffffffff0000000000000000ffffffff00000000ffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 14,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "313943486d69436f6e74726f6c6c65724576656e7400000043486d69436f6e74",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "6e74726f6c6c65724576656e7400000043486d69436f6e74726f6c6c65724576",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "4576656e7400000043486d69436f6e74726f6c6c65724576656e7400636f6e66",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "313943486d69436f6e74726f6c6c65724576656e0000000043486d6900606e74",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00000000ffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "6e74726f6c6c65724576656e0000000043486d6900606e74726f6c6c65724576",
+      "mask": "ffffffffffffffffffffffff00000000ffffffff00f0ffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "4576656e0000000043486d6900606e74726f6c6c6572457600000000636f6e66",
+      "mask": "ffffffff00000000ffffffff00f0ffffffffffffffffffff00000000ffffffff",
+      "loose": true
+     }
+    ]
+   }
+  ],
+  "display_service_vtable": [
+   {
+    "slot": 0,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffff",
+      "count": 2,
+      "occurrence": 0
+     },
+     {
+      "back": -2,
+      "value": "0cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00a0dd2d0000309fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": -4,
+      "value": "342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00a0dd2d0000309fe530482de90cb08de2",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde80000000000000000",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff0000000000000000",
+      "count": 2,
+      "occurrence": 0
+     },
+     {
+      "back": -2,
+      "value": "0cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde800000000000000000000000000309fe5",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff00000000000000000000000000f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde800000000000000000000000000309fe530482de90cb08de2",
+      "mask": "ffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff00000000000000000000000000f0ffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 1,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00a0dd2d001c0040e2",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde80000000000000000",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff0000000000000000",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde80000000000000000000000001c0040e2",
+      "mask": "ffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff000000000000000000000000ffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 2,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "30482de90cb08de220d04de20040a0e1000000eb000050e308009015003090e5543093e533ff2fe1020050e30000000a",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+     },
+     {
+      "back": -2,
+      "value": "20d04de20040a0e1000000eb000050e308009015003090e5543093e533ff2fe1020050e30000000a030050e30000000a",
+      "mask": "ffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff"
+     },
+     {
+      "back": -4,
+      "value": "000000eb000050e308009015003090e5543093e533ff2fe1020050e30000000a030050e30000000a010050e3ff50a013",
+      "mask": "000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "30482de90cb08de220d04de20040a0e1000000eb000050e300009015003090e5003093e533ff2fe1020050e30000000a",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "20d04de20040a0e1000000eb000050e300009015003090e5003093e533ff2fe1020050e30000000a030050e30000000a",
+      "mask": "ffffffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ffffffffff000000ff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "000000eb000050e300009015003090e5003093e533ff2fe1020050e30000000a030050e30000000a010050e3ff50a013",
+      "mask": "000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ffffffffff000000ffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 3,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de2000000eb001000e3000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffffffffffff000000ff00f0f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "000000eb001000e3000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de214d04de20040a0e1",
+      "mask": "000000ff00f0f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de2000000eb001000e3000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffffffffffff000000ff00f0f0ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "000000eb001000e3000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de214d04de20040a0e1",
+      "mask": "000000ff00f0f0ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 4,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de90000a0e304b08de20088bde800482de904b08de2000000eb001000e3000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ff00f0f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de904b08de2000000eb001000e3000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de214d04de20040a0e1",
+      "mask": "ffffffffffffffffffffffffffffffff000000ff00f0f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de904b08de2000000eb001000e3000050e308009015003090e50c3093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffffffffffff000000ff00f0f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de90000a0e304b08de20088bde800482de904b08de2000000eb001000e3000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ff00f0f0ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de20088bde800482de904b08de2000000eb001000e3000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de214d04de20040a0e1",
+      "mask": "ffffffffffffffffffffffffffffffff000000ff00f0f0ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "00482de904b08de2000000eb001000e3000050e300009015003090e5003093e533ff2fe10088bde870482de910b08de214d04de20040a0e10160a0e118004be2",
+      "mask": "ffffffffffffffff000000ff00f0f0ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 5,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de23d00d0e50088bde800482de904b08de23000d0e50088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "3d00d0e50088bde800482de904b08de23000d0e50088bde8f0482de914b08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "00482de904b08de23000d0e50088bde8f0482de914b08de210d04de20040a0e1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de20000d0e50088bde800482de904b08de20000d0e50088bde8f0482de914b08de210d04de20040a0e1",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0000d0e50088bde800482de904b08de20000d0e50088bde8f0482de914b08de210d04de20040a0e10150a0e10030d0e5",
+      "mask": "00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "00482de904b08de20000d0e50088bde8f0482de914b08de210d04de20040a0e10150a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe500e08de500c08de500c08de5000000eb0130a0e30030c4e5003094e5000000ea002093e500c093e5000052e3006093e5002093e5cc0086e0007093e50000001a01001ce3cc3096170220931732ff2fe10730a0e1000053e30510a0e10000001a0400a0e114d04be2f048bde8000000ea00000000000000000000000000000000f04d2de91cb08de210d04de20040a0e101a0a0e10280a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ff00000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 6,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de23000d0e50088bde8f0482de914b08de210d04de20040a0e1",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "3000d0e50088bde8f0482de914b08de210d04de20040a0e10150a0e10830d0e5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "f0482de914b08de210d04de20040a0e10150a0e10830d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe504e08de508c08de500c08de5000000eb0130a0e30830c4e5003094e5000000ea142093e510c093e5000052e3086093e50c2093e5cc0086e0007093e50000001a01001ce3cc3096170220931732ff2fe10730a0e1000053e30510a0e10000001a0400a0e114d04be2f048bde8000000ea53daa70248daa702836eeb021c9da902f04d2de91cb08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de20000d0e50088bde8f0482de914b08de210d04de20040a0e10150a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe500e08de500c08de500c08de5000000eb0130a0e30030c4e5003094e5000000ea002093e500c093e5000052e3006093e5002093e5cc0086e0007093e50000001a01001ce3cc3096170220931732ff2fe10730a0e1000053e30510a0e10000001a0400a0e114d04be2f048bde8000000ea00000000000000000000000000000000f04d2de91cb08de210d04de20040a0e101a0a0e10280a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe5",
+      "mask": "ffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ff00000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "0000d0e50088bde8f0482de914b08de210d04de20040a0e10150a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe500e08de500c08de500c08de5000000eb0130a0e30030c4e5003094e5000000ea002093e500c093e5000052e3006093e5002093e5cc0086e0007093e50000001a01001ce3cc3096170220931732ff2fe10730a0e1000053e30510a0e10000001a0400a0e114d04be2f048bde8000000ea00000000000000000000000000000000f04d2de91cb08de210d04de20040a0e101a0a0e10280a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe500e08de5",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ff00000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "f0482de914b08de210d04de20040a0e10150a0e10030d0e5000053e30000000a00e09fe5e620a0e300009fe500c0a0e300109fe500309fe500e08de500c08de500c08de5000000eb0130a0e30030c4e5003094e5000000ea002093e500c093e5000052e3006093e5002093e5cc0086e0007093e50000001a01001ce3cc3096170220931732ff2fe10730a0e1000053e30510a0e10000001a0400a0e114d04be2f048bde8000000ea00000000000000000000000000000000f04d2de91cb08de2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ff00000000000000000000000000000000ffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 7,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de900c0a0e304b08de208d04de20130a0e10120a0e30c10a0e100c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de208d04de20130a0e10120a0e30c10a0e100c08de504c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+     },
+     {
+      "back": -4,
+      "value": "0130a0e10120a0e30c10a0e100c08de504c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de900c0a0e304b08de208d04de20130a0e10120a0e30c10a0e100c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de208d04de20130a0e10120a0e30c10a0e100c08de500c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffff00f0ffff000000ff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "0130a0e10120a0e30c10a0e100c08de500c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffff000000ffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 8,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de904b08de208d04de20030a0e30320a0e104108de50310a0e100308de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "08d04de20030a0e30320a0e104108de50310a0e100308de5000000eb04d04be2",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "0320a0e104108de50310a0e100308de5000000eb04d04be20088bde800482de9",
+      "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de904b08de208d04de20030a0e30320a0e100108de50310a0e100308de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "08d04de20030a0e30320a0e100108de50310a0e100308de5000000eb04d04be2",
+      "mask": "ffffffffffffffffffffffff00f0ffffffffffff00f0ffff000000ffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "0320a0e100108de50310a0e100308de5000000eb04d04be20088bde800482de9",
+      "mask": "ffffffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 9,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de90130a0e104b08de20110a0e308d04de20120a0e100c0a0e304c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de20110a0e308d04de20120a0e100c0a0e304c08de500c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+     },
+     {
+      "back": -4,
+      "value": "08d04de20120a0e100c0a0e304c08de500c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de90130a0e104b08de20110a0e308d04de20120a0e100c0a0e300c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de20110a0e308d04de20120a0e100c0a0e300c08de500c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffff00f0ffff000000ff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "08d04de20120a0e100c0a0e300c08de500c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffff000000ffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 10,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "00482de900c0a0e304b08de208d04de20110a0e30c20a0e10c30a0e100c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "04b08de208d04de20110a0e30c20a0e10c30a0e100c08de504c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff"
+     },
+     {
+      "back": -4,
+      "value": "0110a0e30c20a0e10c30a0e100c08de504c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "00482de900c0a0e304b08de208d04de20110a0e30c20a0e10c30a0e100c08de5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "04b08de208d04de20110a0e30c20a0e10c30a0e100c08de500c08de5000000eb",
+      "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffff00f0ffff000000ff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "0110a0e30c20a0e10c30a0e100c08de500c08de5000000eb04d04be20088bde8",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffff000000ffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 12,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "30688503849da9020000000002000000509ca90202000000e8748503021c0000",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "0000000002000000509ca90202000000e8748503021c0000000000005b43486d",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "509ca90202000000e8748503021c0000000000005b43486d69446973706c6179",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "0000000000000000000000000000000000000000000000000000000000000000000000005b43486d69446973706c617953657276696365202870753d2564295d0060696465426c61636b73637265656e2c206d5f62446973706c6179456e6162",
+      "mask": "000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "000000000000000000000000000000000000000000000000000000005b43486d69446973706c617953657276696365202870753d2564295d0060696465426c61",
+      "mask": "00000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "00000000000000000000000000000000000000005b43486d69446973706c617953657276696365202870753d2564295d0060696465426c61636b73637265656e",
+      "mask": "0000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 13,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "1c0040e2000000ea00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "ffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffff",
+      "count": 2,
+      "occurrence": 0
+     },
+     {
+      "back": -4,
+      "value": "0cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00a0dd2d0000309fe5",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffff"
+     },
+     {
+      "back": 0,
+      "value": "1c0040e2000000ea00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "ffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde80000000000000000",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff0000000000000000",
+      "count": 2,
+      "occurrence": 0
+     },
+     {
+      "back": -4,
+      "value": "0cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde800000000000000000000000000309fe5",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff00000000000000000000000000f0ffff",
+      "loose": true
+     }
+    ]
+   },
+   {
+    "slot": 14,
+    "thumb": 0,
+    "patterns": [
+     {
+      "back": 0,
+      "value": "1c0040e2000000ea00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e1",
+      "mask": "ffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffff"
+     },
+     {
+      "back": -2,
+      "value": "00309fe530482de90cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff"
+     },
+     {
+      "back": -4,
+      "value": "0cb08de208d04de2342083e21c2080e5003080e50040a0e1000000eb000050e308009015003090e5543093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2080090150510a0e110200be500209fe5200080e2082023e50c0093e8000000eb380094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2082023e50020a0e310200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8b89ca90260de2d00",
+      "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffffffffffff"
+     },
+     {
+      "back": 0,
+      "value": "1c0040e2000000ea00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e1",
+      "mask": "ffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffff",
+      "loose": true
+     },
+     {
+      "back": -2,
+      "value": "00309fe530482de90cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde8",
+      "mask": "00f0ffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff",
+      "loose": true
+     },
+     {
+      "back": -4,
+      "value": "0cb08de208d04de2342083e2002080e5003080e50040a0e1000000eb000050e300009015003090e5003093e533ff2fe1010050e30000001a000000eb000050e30020a0e30c304be21c5084e2000090150510a0e100200be500209fe5200080e2002023e50c0093e8000000eb000094e5000050e30000000a00209fe50c304be2890d80e20510a0e1340080e2002023e50020a0e300200be50c0093e8000000eb0400a0e1000000eb000000ea0050a0e11c0084e2000000eb000000ea1c0084e2000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb0400a0e1000000eb0400a0e1000000eb0400a0e10cd04be23088bde80000000000000000",
+      "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffff000000ffffffffff00f0ffff00f0ffff00f0ffffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff000000ff00f0ffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffff000000ffffffffff000000ffffffffffffffffffffffffff0000000000000000",
+      "loose": true
+     }
+    ]
+   }
+  ],
+  "bench_input_patches": [
+   [
+    {
+     "back": 0,
+     "value": "0110a01333ff2fe1000000ea00e01fe5002000e300001fe500101fe500301fe5",
+     "mask": "ffffffffffffffff000000ff00f0ffff00f0f0ff00f0ffff00f0ffff00f0ffff"
+    },
+    {
+     "back": -2,
+     "value": "000000ea00e01fe5002000e300001fe500101fe500301fe504e08de508c08de500c08de5000000eb0020a0e300001fe5",
+     "mask": "000000ff00f0ffff00f0f0ff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffff000000ffffffffff00f0ffff"
+    },
+    {
+     "back": -4,
+     "value": "002000e300001fe500101fe500301fe504e08de508c08de500c08de5000000eb0020a0e300001fe500101fe50230a0e1",
+     "mask": "00f0f0ff00f0ffff00f0ffff00f0ffffffffffffffffffffffffffff000000ffffffffff00f0ffff00f0ffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "04e08de508c08de500c08de5000000eb0020a0e300001fe500101fe50230a0e1",
+     "mask": "ffffffffffffffffffffffff000000ffffffffff00f0ffff00f0ffffffffffff"
+    },
+    {
+     "back": 2,
+     "value": "543093e5001051e20110a01333ff2fe1000000ea00e01fe5002000e300001fe5",
+     "mask": "ffffffffffffffffffffffffffffffff000000ff00f0ffff00f0f0ff00f0ffff"
+    },
+    {
+     "back": 4,
+     "value": "0c00a0e1081495e5543093e5001051e20110a01333ff2fe1000000ea00e01fe5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ff00f0ffff"
+    },
+    {
+     "back": -2,
+     "value": "000000ea00e01fe5002000e300001fe500101fe500301fe500e08de500c08de500c08de5000000eb0020a0e300001fe5",
+     "mask": "000000ff00f0ffff00f0f0ff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "002000e300001fe500101fe500301fe500e08de500c08de500c08de5000000eb0020a0e300001fe500101fe50230a0e1",
+     "mask": "00f0f0ff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "00e08de500c08de500c08de5000000eb0020a0e300001fe500101fe50230a0e1",
+     "mask": "00f0ffff00f0ffff00f0ffff000000ffffffffff00f0ffff00f0ffffffffffff",
+     "loose": true
+    },
+    {
+     "back": 2,
+     "value": "003093e5001051e20110a01333ff2fe1000000ea00e01fe5002000e300001fe5",
+     "mask": "00f0ffffffffffffffffffffffffffff000000ff00f0ffff00f0f0ff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "0c00a0e1001095e5003093e5001051e20110a01333ff2fe1000000ea00e01fe5",
+     "mask": "ffffffff00f0ffff00f0ffffffffffffffffffffffffffff000000ff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 6,
+     "value": "0000000a00309ce50c00a0e1001095e5003093e5001051e20110a01333ff2fe1",
+     "mask": "000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff",
+     "loose": true
+    }
+   ],
+   [
+    {
+     "back": 0,
+     "value": "33ff2fe13000c4e5000000eb00c09fe50410a0e10420a0e10c30a0e100e0a0e3",
+     "mask": "ffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -2,
+     "value": "000000eb00c09fe50410a0e10420a0e10c30a0e100e0a0e3000050e308009015",
+     "mask": "000000ff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -4,
+     "value": "0410a0e10420a0e10c30a0e100e0a0e3000050e30800901500e08de5040080e2",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "000050e30800901500e08de5040080e23ce00be540c00be5000000eb000000eb",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ff000000ff"
+    },
+    {
+     "back": 2,
+     "value": "003090e5143093e533ff2fe13000c4e5000000eb00c09fe50410a0e10420a0e1",
+     "mask": "ffffffffffffffffffffffffffffffff000000ff00f0ffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "000050e308009015003090e5143093e533ff2fe13000c4e5000000eb00c09fe5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffff000000ff00f0ffff"
+    },
+    {
+     "back": 0,
+     "value": "33ff2fe10000c4e5000000eb00c09fe50410a0e10420a0e10c30a0e100e0a0e3",
+     "mask": "ffffffff00f0ffff000000ff00f0ffffffffffffffffffffffffffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -2,
+     "value": "000000eb00c09fe50410a0e10420a0e10c30a0e100e0a0e3000050e300009015",
+     "mask": "000000ff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "0410a0e10420a0e10c30a0e100e0a0e3000050e30000901500e08de5040080e2",
+     "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "000050e30000901500e08de5040080e200e00be500c00be5000000eb000000eb",
+     "mask": "ffffffff00f0ffff00f0ffffffffffff00f0ffff00f0ffff000000ff000000ff",
+     "loose": true
+    },
+    {
+     "back": 2,
+     "value": "003090e5003093e533ff2fe10000c4e5000000eb00c09fe50410a0e10420a0e1",
+     "mask": "00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffffffffffffffffffff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "000050e300009015003090e5003093e533ff2fe10000c4e5000000eb00c09fe5",
+     "mask": "ffffffff00f0ffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff",
+     "loose": true
+    }
+   ]
+  ]
+ },
+ "libhmicoding": {
+  "code_patches": [
+   [
+    {
+     "back": 0,
+     "value": "0000000a0800a0e3000000ebb011d6e10040a0e1000000eb000000ea0050a0e1",
+     "mask": "000000ffffffffff000000ffffffffffffffffff000000ff000000ffffffffff"
+    },
+    {
+     "back": -2,
+     "value": "000000ebb011d6e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb",
+     "mask": "000000ffffffffffffffffff000000ff000000ffffffffffffffffff000000ff"
+    },
+    {
+     "back": -4,
+     "value": "0040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50510a0e10400a0e1083093e5",
+     "mask": "ffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "0400a0e1000000eb0500a0e1000000eb003094e50510a0e10400a0e1083093e5",
+     "mask": "ffffffff000000ffffffffff000000ffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 2,
+     "value": "000054e30150a0e10000000a0800a0e3000000ebb011d6e10040a0e1000000eb",
+     "mask": "ffffffffffffffff000000ffffffffff000000ffffffffffffffffff000000ff"
+    },
+    {
+     "back": 4,
+     "value": "14b08de20060a0e1000054e30150a0e10000000a0800a0e3000000ebb011d6e1",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff000000ffffffffff"
+    },
+    {
+     "back": 0,
+     "value": "0000000a0800a0e3000000ebb010d6e10040a0e1000000eb000000ea0050a0e1",
+     "mask": "000000ffffffffff000000fff0f0ffffffffffff000000ff000000ffffffffff",
+     "loose": true
+    },
+    {
+     "back": -2,
+     "value": "000000ebb010d6e10040a0e1000000eb000000ea0050a0e10400a0e1000000eb",
+     "mask": "000000fff0f0ffffffffffff000000ff000000ffffffffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "0040a0e1000000eb000000ea0050a0e10400a0e1000000eb0500a0e1000000eb003094e50510a0e10400a0e1003093e5",
+     "mask": "ffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffffffffffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "0400a0e1000000eb0500a0e1000000eb003094e50510a0e10400a0e1003093e5",
+     "mask": "ffffffff000000ffffffffff000000ff00f0ffffffffffffffffffff00f0ffff",
+     "loose": true
+    },
+    {
+     "back": 2,
+     "value": "000054e30150a0e10000000a0800a0e3000000ebb010d6e10040a0e1000000eb",
+     "mask": "ffffffffffffffff000000ffffffffff000000fff0f0ffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "14b08de20060a0e1000054e30150a0e10000000a0800a0e3000000ebb010d6e1",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffff000000fff0f0ffff",
+     "loose": true
+    }
+   ],
+   [
+    {
+     "back": 0,
+     "value": "f0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde890d8020058340400e0ceffffa4cfffff96cfffff",
+     "mask": "ffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -2,
+     "value": "00609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde890d8020058340400e0ceffffa4cfffff96cfffffd0cfffff02001000",
+     "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": -4,
+     "value": "04408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff"
+    },
+    {
+     "back": -8,
+     "value": "0600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffffffffffff000000ff"
+    },
+    {
+     "back": 2,
+     "value": "d6cfffffcecffffff0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde890d8020058340400e0ceffff",
+     "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 4,
+     "value": "d0cfffff02001000d6cfffffcecffffff0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a30c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e008c08de5022084e000c09fe5033084e000708de50cc084e00cc08de504008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde890d80200",
+     "mask": "ffffffffffffffffffffffffffffffffffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffffffffffffffffffff00f0ffffffffffffffffffffffffffffffffffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff"
+    },
+    {
+     "back": 0,
+     "value": "f0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde80000000000000000e0ceffffa4cfffff96cfffff",
+     "mask": "ffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ffffffffffffffffffffffffff0000000000000000ffffffffffffffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -2,
+     "value": "00609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde80000000000000000e0ceffffa4cfffff96cfffffd0cfffff00000000",
+     "mask": "00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ffffffffffffffffffffffffff0000000000000000ffffffffffffffffffffffffffffffff00000000",
+     "loose": true
+    },
+    {
+     "back": -4,
+     "value": "04408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff",
+     "loose": true
+    },
+    {
+     "back": -8,
+     "value": "0600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb",
+     "mask": "ffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff",
+     "loose": true
+    },
+    {
+     "back": 2,
+     "value": "d6cfffffcecffffff0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde80000000000000000e0ceffff",
+     "mask": "ffffffffffffffffffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ffffffffffffffffffffffffff0000000000000000ffffffff",
+     "loose": true
+    },
+    {
+     "back": 4,
+     "value": "d0cfffff00000000d6cfffffcecffffff0452de900409fe500609fe50050a0e104408fe014d04de2066084e00170a0e10600a0e10010e0e302a0a0e10380a0e1000000eb000050e30b50a0130000001a00c09de50710a0e10a20a0e10830a0e10500a0e100c08de5000000eb0050a0e10600a0e1000000eb000050e30000000a000000eb0060a0e1008090e5000000eb0070a0e1000000eb00c09fe50210a0e300209fe500309fe50cc084e000c08de5022084e000c09fe5033084e000708de50cc084e000c08de500008de500009fe5000000eb00109fe500209fe5d200a0e3008086e5011084e0022084e0000000eb0500a0e114d08de2f085bde800000000",
+     "mask": "ffffffff00000000ffffffffffffffffffffffff00f0ffff00f0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ff00f0ffffffffffffffffffffffffffffffffffff00f0ffff000000ffffffffffffffffff000000ffffffffff000000ff000000ffffffffff00f0ffff000000ffffffffff000000ff00f0ffffffffffff00f0ffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ffffffffffffffffffffffffff00000000",
+     "loose": true
+    }
+   ]
+  ]
+ },
+ "libhmidb": {
+  "language_sites": [
+   [
+    {
+     "back": 0,
+     "value": "0000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -2,
+     "value": "1020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e2",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -4,
+     "value": "0800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e20010a0e31020a0e3",
+     "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -8,
+     "value": "6c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e20010a0e31020a0e30600a0e1000000eb00209fe50000a0e3",
+     "mask": "ffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ff00f0ffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": 2,
+     "value": "082082e2040084e50000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": 4,
+     "value": "cc0082e20c6084e5082082e2040084e50000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": 0,
+     "value": "0000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -2,
+     "value": "1020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e2",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -4,
+     "value": "0800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e20010a0e31020a0e3",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": -8,
+     "value": "6c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e20010a0e31020a0e30600a0e1000000eb00209fe50000a0e3",
+     "mask": "ffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffffffffffffffffffffffffffff000000ff00f0ffffffffffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": 2,
+     "value": "082082e2000084e50000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 0
+    },
+    {
+     "back": 4,
+     "value": "cc0082e2006084e5082082e2000084e50000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 0
+    }
+   ],
+   [
+    {
+     "back": 0,
+     "value": "0000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -2,
+     "value": "1020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e2",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -4,
+     "value": "0800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e20010a0e31020a0e3",
+     "mask": "ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -8,
+     "value": "6c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5a43084e5a83084e5000000ebd06084e20010a0e31020a0e30600a0e1000000eb00209fe50000a0e3",
+     "mask": "ffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ff00f0ffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": 2,
+     "value": "082082e2040084e50000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e59c3084e5a03084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": 4,
+     "value": "cc0082e20c6084e5082082e2040084e50000e0e3002084e51020a0e31400c4e50800a0e1106084e5549084e21560c4e56c7084e2000000eb0610a0e11020a0e3308084e5346084e50a00a0e12c8084e5000000eb0610a0e11020a0e348a084e54c6084e50900a0e144a084e5000000eb609084e5646084e50700a0e15c9084e50610a0e11020a0e3000000eb7c6084e5787084e52000a0e3747084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2806084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3947084e50a00a0e1907084e5ac3084e5983084e5",
+     "mask": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": 0,
+     "value": "0000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -2,
+     "value": "1020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e2",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -4,
+     "value": "0800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e20010a0e31020a0e3",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffffffffffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": -8,
+     "value": "6c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5003084e5003084e5000000ebd06084e20010a0e31020a0e30600a0e1000000eb00209fe50000a0e3",
+     "mask": "ffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff000000ffffffffffffffffffffffffffffffffff000000ff00f0ffffffffffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": 2,
+     "value": "082082e2000084e50000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 1
+    },
+    {
+     "back": 4,
+     "value": "cc0082e2006084e5082082e2000084e50000e0e3002084e51020a0e30000c4e50800a0e1006084e5549084e20060c4e56c7084e2000000eb0610a0e11020a0e3008084e5006084e50a00a0e1008084e5000000eb0610a0e11020a0e300a084e5006084e50900a0e100a084e5000000eb009084e5006084e50700a0e1009084e50610a0e11020a0e3000000eb006084e5007084e52000a0e3007084e5000000eb0060a0e10010a0e32020a0e3000000eb0600a0e1000000eb000000ea0080a0e10600a0e1000000eb000000ea887084e2006084e50700a0e10010a0e31020a0e3b0a084e2000000eb0030a0e3007084e50a00a0e1007084e5003084e5003084e5",
+     "mask": "ffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff00f0ffffffffffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffff00f0ffff00f0ffffffffffff00f0ffff000000ff00f0ffff00f0ffffffffffff00f0ffffffffffffffffffff000000ff00f0ffff00f0ffffffffffff00f0ffff000000ffffffffffffffffffffffffff000000ffffffffff000000ff000000ffffffffffffffffff000000ff000000ffffffffff00f0ffffffffffffffffffffffffffffffffffff000000ffffffffff00f0ffffffffffff00f0ffff00f0ffff00f0ffff",
+     "count": 2,
+     "occurrence": 1
+    }
+   ]
+  ]
+ }
+}

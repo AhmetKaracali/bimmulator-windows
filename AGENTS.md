@@ -4,8 +4,9 @@ Instructions for AI coding agents (and humans) changing or operating this reposi
 Read [README.md](README.md) first for what the project does.
 
 ## What this is
-A QEMU-based emulator that boots the real BMW NBT EVO head-unit software (QNX 6.5, HmiMain3D) for
-**HU 006.027.001 / HMI ID5_1811** on Windows 11 via WSL2. Graphics: the guest's GLES2 calls are
+A QEMU-based emulator that boots the real BMW NBT EVO head-unit software (QNX 6.5, HmiMain3D) on
+Windows 11 via WSL2. Several firmware builds are supported side by side: each has a folder in
+`builds/<id>/` and is detected from the PSdZData package hashes (`tools/buildinfo.py`). Graphics: the guest's GLES2 calls are
 forwarded over an RPC bridge to host ANGLE (Vulkan via Mesa lavapipe). Vehicle-side services are
 simulated by Python processes in `vehicle-sim/`. Upstream: agent00jackson/bimmulator (macOS,
 HU 007.030.001); history is preserved.
@@ -19,7 +20,11 @@ HU 007.030.001); history is preserved.
    its documentation as a reference is fine.
 4. Keep `nix/patches/**` GPL-2.0-or-later. New original files fall under PolyForm Noncommercial
    (see LICENSING.md).
-5. Shell scripts and Python must keep **LF** line endings (`.gitattributes` enforces it); `.cmd`
+5. **No build-specific constants in tools.** Offsets, hashes, addresses, vehicle names and release
+   names belong in `builds/<id>/build.json`; read them with `buildinfo.current_build()`
+   (`$IDRIVE_BUILD` is set by the launcher). Shader GLSL belongs in the shared library, per-build
+   native hashes in `builds/<id>/shader-pins.json`.
+6. Shell scripts and Python must keep **LF** line endings (`.gitattributes` enforces it); `.cmd`
    files use CRLF. Do not edit the scripts from a Windows editor that rewrites line endings.
 
 ## Environment
@@ -42,6 +47,10 @@ HU 007.030.001); history is preserved.
 | Stop everything | `bash wsl/control.sh stop` |
 | Logs | `~/idrive/run.log`, per run `~/.cache/idrive6/runs/<RunID>/` (serial log, QMP socket) |
 | Unit tests | `python3 -m unittest discover -s tests` |
+| Which build is this PSdZData | `python3 tools/buildinfo.py detect ~/psdzdata` |
+| Add / port a build | `python3 tools/port-build.py new --from hu-006.027.001 --id hu-X --psdzdata DIR` |
+| Check a build definition | `python3 tools/port-build.py verify --build ID --rootfs ~/.cache/idrive6/firmware/<release>/rootfs` |
+| Shader library | `python3 tools/shader-library.py pin / compose / sync ...` |
 
 After changing the launcher (`tools/idrive6-launch.py`), `run-emulator.sh`, the ANGLE server or
 anything Nix builds, rebuild: `nix build .#default --out-link ~/idrive/launcher` (the launcher runs
@@ -60,13 +69,15 @@ live in the IFS: take a new `snapshot` before `fast` picks them up.
 - `vehicle-sim/NOTES.md` — MOST/NAL-SIPC/DSI protocol findings, vehicle value layouts.
 - `vehicle-sim/TPM-RE.md` — tyre pressure monitor payloads.
 - `NATIVE_GRAPHICS_CONTRACT.md`, `HMI_STARTUP_DEPENDENCY.md` — graphics bridge and HMI start-up.
-- `tools/shaders/native-reconstructions/` — shader maps; `*-car006.json` are the maps pinned for
-  HU 006.027.001 (`tools/make-car006-shader-maps.py` regenerates them from a staged rootfs,
-  `tools/set-shader-map-source.py` repoints one entry, `tools/fix-packed-varyings.py` fixes SGX
-  varying packing).
+- `builds/README.md`, `docs/PORTING.md` — build structure, build.json fields, porting.
+- `tools/shaders/native-reconstructions/hmi-*-library.json` — shared shader library (versioned,
+  program fingerprints). Generators (`make-*-host-shaders.py`, `make-car-model-shaders.py`) append
+  to it; run `tools/shader-library.py sync --build ID --rootfs R` afterwards.
+  `tools/fix-packed-varyings.py` fixes SGX varying packing in reconstructions.
 - `overlay/make_overlay.py` — documents the libhmicoding / libhmidb patch sites per firmware.
 
 ## Before you commit
 - `git status` — no firmware, captures, NCDs, JSON generated from HmiMain3D.
+- For build changes: `tools/port-build.py verify` says OK for every build you touched.
 - `python3 -m unittest discover -s tests` passes.
 - Scripts still run from a fresh clone (no absolute personal paths; use `wsl/env.sh` variables).

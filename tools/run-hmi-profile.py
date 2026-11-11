@@ -66,6 +66,8 @@ def main() -> int:
         "cache_dir": str(cache_dir),
         "run_dir": str(run_dir),
         "run_id": run_id,
+        # Composed per-build shader maps (tools/shader-library.py compose, set by the launcher).
+        "shader_maps_dir": os.environ.get("IDRIVE_SHADER_MAPS_DIR", str(cache_dir / "shader-maps")),
     }
     env = os.environ.copy()
     env["IDRIVE_CACHE_DIR"] = str(cache_dir)

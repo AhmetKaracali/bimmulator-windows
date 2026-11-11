@@ -165,7 +165,7 @@ def fragment(sy):
 def main():
     ro = Path(sys.argv[1])
     write = "--write" in sys.argv
-    maps = {"vertex": MAPS / "hmi-vertex-map-car006.json", "fragment": MAPS / "hmi-fragment-map-car006.json"}
+    maps = {"vertex": MAPS / "hmi-vertex-library.json", "fragment": MAPS / "hmi-fragment-library.json"}  # then: shader-library.py sync
     data = {k: json.loads(p.read_text()) for k, p in maps.items()}
     mapped_hash = set()
     for d in data.values():

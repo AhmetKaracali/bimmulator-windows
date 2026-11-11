@@ -1,7 +1,7 @@
 {
   "schema": "idrive6-hmi-launch-profile-v1",
-  "name": "f30-car-006027-id6-light",
-  "purpose": "Run the owner's F30 head-unit software (HU 006.027.001, HMI ID5_1811, PSdZData 4.15.12) with F30 assets, CID mouse input and native iDrive controller keys.",
+  "name": "f32-x20511i-id6-light-baseline",
+  "purpose": "Run the native F32 ID6 Light interface with F32 assets, English text, rear-camera coding, CID mouse input and native iDrive controller keys.",
   "settings": {
     "IDRIVE_EMULATOR_PROFILE": "omap5-graphics",
     "IDRIVE_ANGLE_EGL_HMI": "1",
@@ -39,14 +39,14 @@
     "IDRIVE_TCG_THREAD": "multi",
     "IDRIVE_QEMU_CPUS": "2",
     "IDRIVE_ANGLE_DRAW_CAPTURE_LIMIT": "256",
-    "IDRIVE_HMI_VERTEX_SHADER_MAP_MANIFEST": "{repo_root}/tools/shaders/native-reconstructions/hmi-vertex-map-car006.json",
-    "IDRIVE_HMI_FRAGMENT_SHADER_MAP_MANIFEST": "{repo_root}/tools/shaders/native-reconstructions/hmi-fragment-map-car006.json"
+    "IDRIVE_HMI_VERTEX_SHADER_MAP_MANIFEST": "{shader_maps_dir}/hmi-vertex-map.json",
+    "IDRIVE_HMI_FRAGMENT_SHADER_MAP_MANIFEST": "{shader_maps_dir}/hmi-fragment-map.json"
   },
   "paths": {
-    "IDRIVE_BOOT_IMAGE": "{cache_dir}/firmware/car-006_027_001-v1/firmware/sda2/boot1.ifs",
-    "IDRIVE_ROOT_ARCHIVE_OUTPUT": "{cache_dir}/idrive-rootfs-car006027-f30.tar.gz",
-    "IDRIVE_ROOTFS_TREE": "{cache_dir}/firmware/car-006_027_001-v1/rootfs",
-    "IDRIVE_REALIZED_ROOTFS": "{cache_dir}/firmware/car-006_027_001-v1/rootfs",
+    "IDRIVE_BOOT_IMAGE": "{cache_dir}/firmware/x20511i-007_030_001-v1/firmware/sda2/boot1.ifs",
+    "IDRIVE_ROOT_ARCHIVE_OUTPUT": "{cache_dir}/idrive-rootfs-omap5-graphics-cid1440-matched-assets-bench-en-us.tar.gz",
+    "IDRIVE_ROOTFS_TREE": "{cache_dir}/firmware/x20511i-007_030_001-v1/rootfs",
+    "IDRIVE_REALIZED_ROOTFS": "{cache_dir}/firmware/x20511i-007_030_001-v1/rootfs",
     "IDRIVE_QEMU_SHARED_RAM_FILE": "{run_dir}/shared-ram.bin",
     "IDRIVE_QEMU_QMP_SOCKET": "{run_dir}/qmp.sock",
     "IDRIVE_SERIAL0_BACKEND": "file",

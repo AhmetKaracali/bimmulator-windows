@@ -1,0 +1,1448 @@
+{
+  "schema": "bimmulator-shader-pins-v1",
+  "build": "hu-007.030.001",
+  "library_version": {
+    "vertex": 1,
+    "fragment": 1
+  },
+  "vertex": {
+    "bmw/id6l/widgetasset/background/shaders/mat_floor1.vert.shd": {
+      "shader_sha256": "963b69aafca4e103eb5ec07b85454aa64b1bb509040f76f284b148633d15aa45",
+      "program_sha256": "85423231d272ea022ea7581968b924ec4e6fcc6dc16380007c17e2ee99d4c20d"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_glow.vert.shd": {
+      "shader_sha256": "b6d5e42c6e2858f269decbb0a36d9a542dc885fb5841a359c23a20eccbb7384e",
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_line.vert.shd": {
+      "shader_sha256": "66a41b5e9c5848b1a15b89cb279a52d31c18d8ab2ce5ea7a5222a92c428c2379",
+      "program_sha256": "40e3bead70d68f6c0dfe53a1a6a4b6a3af5521690525f25345381ec8e019bae5"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_sky.vert.shd": {
+      "shader_sha256": "aa67c4b7b01916635a839e9ec17f8c843d10e5059a91b88a677f19e14e95e31b",
+      "program_sha256": "a096027f1a0cd3b77f02d7f50f5914015eb2e6276747ed82bfcd61d4dae78d38"
+    },
+    "bmw/id6l/widgetasset/controller/shaders/mat_piemenu_outline.vert.shd": {
+      "shader_sha256": "0f43eb3c233b6ad888ca7e3738398a79f9ec8a6c137174a7f3511b8d89160c89",
+      "program_sha256": "6fff721cd9effd88fb8b326be77853895339cf7358be77c30f49b2c1c9c5746f"
+    },
+    "bmw/id6l/widgetasset/controller/shaders/mat_speller_cursor_bg.vert.shd": {
+      "shader_sha256": "18b6d1ba29e571d9d60525a66fc879aa4bf5d34d9c40929c35a6e3e00e7d0eed",
+      "program_sha256": "8cdbe3926c37fc2940ad2c8f986d159d53563dba888430d642abfac8cc308391"
+    },
+    "bmw/id6l/widgetasset/controller/shaders/mat_speller_rim.vert.shd": {
+      "shader_sha256": "6c497ee2a2d878045767a66b87012ce8bccccf344cabc4428e3b695607d07454",
+      "program_sha256": "b9205c72f593513c6a99b5864849b70b35d71ae4ec8dc8db7b6ed7b5ac7ee674"
+    },
+    "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.vert.shd": {
+      "shader_sha256": "0b93dc1126628cda2473fb3cc8265e43fbbd1dc95139d608e381de573655ccd7",
+      "program_sha256": "f8fa4774785712fa6255f67c08878fb0b5be264351e2426c3dbe7457fc9ff03b"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/WI_HwShader2.vert.shd": {
+      "shader_sha256": "b6d5e42c6e2858f269decbb0a36d9a542dc885fb5841a359c23a20eccbb7384e",
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge.vert.shd": {
+      "shader_sha256": "81f02afc795024024336a03ee8748b33c09b4724ce8d51272b0ba49248507833",
+      "program_sha256": "20b62239e30a829997de547dfa6b07d60651681f23a6e946dddfa7ce22a6082d"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge1.vert.shd": {
+      "shader_sha256": "3909557b13bfa88ccd0bbbdac194cd0ae39449fece2622f63edea0a85fcecce7",
+      "program_sha256": "509e205729397d4082dd8efc8465dfee32520e2fbe825f11315c9641968ea483"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge_inner_touch.vert.shd": {
+      "shader_sha256": "1a37cc86bcb63e31a5d19e72e8a080098e032b118830d719d3ce5372fb9bb1be",
+      "program_sha256": "79d51b1066a1be85b8f20b2651c0d1a5419628435c442efc85d11234cddabf18"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare1.vert.shd": {
+      "shader_sha256": "73fb860e62e407463560482b88e6ed959e708af92fdda1231948dd8126df9b6d",
+      "program_sha256": "22898ff7e033bbd4cef06ee989f044b5c72e46c65e8179977f3da3659fc95f6f"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare2.vert.shd": {
+      "shader_sha256": "cd1ba553ec85498214a0841a863e69ee636aebb00b8b71d3493b8aaf796d6024",
+      "program_sha256": "35b8f7c345352504d7015f523732d504b7433f8b34ff06df08009b4652c9823a"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame.vert.shd": {
+      "shader_sha256": "6e02005a078d63336a621f4b95fe0b59c65ee17dcd0ec25851635e0231537525",
+      "program_sha256": "cfa374961162921ef7170637a8277e3bbb9cd8b819068891f23fd195b124c38c"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame4.vert.shd": {
+      "shader_sha256": "37a553bc52c3d989fb65694998ddfc39a058b67e7f31c245968894f0770809f1",
+      "program_sha256": "4d3f3f41861538861a443829f3ab847da1f847aabf41bd6117b90cfa2e2b9257"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner.vert.shd": {
+      "shader_sha256": "07d36c6663560def374a837ade6853a077ad5d65422ade3bfd28faeec7a86703",
+      "program_sha256": "7d11a28af3e00fb2d69155bf095bb33a59e2713e2608244a4398489e6a7e49f6"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner1.vert.shd": {
+      "shader_sha256": "15029b19f6853f20c11b46086ee6c73e6287e8d03f501044c63a0c2c2edbb3df",
+      "program_sha256": "806ffce686198015955f8c87d5ee300bb29ffa443288d6c9bcea05e30153c84b"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_touch.vert.shd": {
+      "shader_sha256": "178e9190c72eb45a7fbdf9d6b487113d7a8bdbca94d59fed2a99db7f59625253",
+      "program_sha256": "8346976dda765412c1b02d24e8d75d3639e88a36105c213e14b6e22173024947"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight.vert.shd": {
+      "shader_sha256": "1a9b04c0947ca46a3e64180cb8c32c85862e1b3000c594b0128ecc4ff03d2d4d",
+      "program_sha256": "ceddde2481cbb860840bc0cfdd3774c31e3bca42bf1b07efd913d78c4dec52e7"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight_main.vert.shd": {
+      "shader_sha256": "e37592a3fde5b4166c38f15400de1fe702700bdcdec46d8ddb811e8dc6acefa6",
+      "program_sha256": "ebb5b1fae7dbb7236252d47d8d066ebb07a449b2349bb4348dda60c11da2906f"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow2.vert.shd": {
+      "shader_sha256": "0b18c1a830b59a75938ffbb3382bdaf39842da05b625b4e43521095929fe5561",
+      "program_sha256": "6108cf3d423c31f74ff23de83795b337fadb8049de3a70e951a1326ec9517909"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow3.vert.shd": {
+      "shader_sha256": "89bbced22f24c84ef020f11822a83bb8686556a496d460e71e1281631f57dbc1",
+      "program_sha256": "b32ddaa816565e362fb99ef965a5557a171b2fe11b4a8746c623db008d012ffd"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "f1d37c0e8f7d98bb49d47c2c2c4c2c51d236413e11bc94dcf0a9b7b5e4bf623b",
+      "program_sha256": "d4096dc98ac32ad073c599987f2cd283befb592969b25b5a73e6674c2b9fc363"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_gloss.vert.shd": {
+      "shader_sha256": "809f277f207ea5be31df9ccc4dd380f459c41bad5897da6ed7ac46365aea2967",
+      "program_sha256": "a6878f400023182143fc95f18dd1a2ec891ab2b9244002324a800f97ae2c1769"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_pressed.vert.shd": {
+      "shader_sha256": "0bb0e2183547aacbe945cbbb23e97ea85fa7c08348a58b24446733669c781358",
+      "program_sha256": "de167e506075218fcc50f8072958b507e35e130b4ed7703638ef6db2aa7a243a"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_shadow.vert.shd": {
+      "shader_sha256": "4be5eee54cb5abe264fdc91b80296f49c9d0744e203b2a7426d6f07ff0a7d386",
+      "program_sha256": "904a2f42cd82fe0668c56e7d4c2a5ee49a1ac8c811378fc8a09fb6550b2b0f3f"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_speller_bg.vert.shd": {
+      "shader_sha256": "0a63dcb954bcd19ba17e18c70e9738196831137fc32f1ca42661942563097dad",
+      "program_sha256": "c137ab6bfa0f4292516cd92d30ee555e9757a86bd20c60cc2c7a7643f7c991c0"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_band.vert.shd": {
+      "shader_sha256": "3022c1ed02795bba159e112634f31fb4ee4e073637cb94d0cf0baac29e662eb5",
+      "program_sha256": "6e05cca90f0e1d77ab80b3636f55f517267c00419ec841e5ce31f06ffe8b1c24"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_clipping.vert.shd": {
+      "shader_sha256": "1d0cdf5ce8081edd6be736a1560f6d00a6b8fd77b72a7f3d6cdd56a34067ca1f",
+      "program_sha256": "551d3267ae255372018fb274192f3585c2d7f6a6883425f94d9eaeb7aa3402d3"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_frame.vert.shd": {
+      "shader_sha256": "30edb2b30390042b16d14b3aa38afe56842960749eb64613f329916215856aef",
+      "program_sha256": "bcf3a81b2ddf009c4299612629941f0a2b2a54a52e408f518bd3c4b6992bc5e6"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_gridline.vert.shd": {
+      "shader_sha256": "98d6e8b4a30fd003e56331412e79ea4c81c43d41240dee4d40aa9f341ec6247b",
+      "program_sha256": "fe645b138dee99a88ab298b15e98d5f99d59aa848718b79f5a182ab39f6b6990"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_masterslide.vert.shd": {
+      "shader_sha256": "147b9761584ee5eda3535188da0cb6a3329c9280852efe41d305288a84e8234b",
+      "program_sha256": "6b2583bdd7e17f0eed7c464c90ce2e5e9129bf1954740a8d7c4cae4ebfe40799"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_masterslide_bg.vert.shd": {
+      "shader_sha256": "a2fdff65c7ff0149f3437076f16db90e25260b1f7ab81b3bfff02f6c26cf64af",
+      "program_sha256": "27cf09c80540389ccf5bef4b70a30bf14a5eb5cc6deb505c0aa51523370b2c26"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_press.vert.shd": {
+      "shader_sha256": "8f6910aa11556a2665f98ce2a49c4d1f991ea5a27b52abf553963243864f8b61",
+      "program_sha256": "f8e939c67d3c8cfd76735edaa44a4200af56d43a93d6e6d37b60cef2f3ef8690"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_scale.vert.shd": {
+      "shader_sha256": "2e9dc26daeaf2393c16bbf359a865b8700191bb9cba897f3c35f317e3941e27a",
+      "program_sha256": "648ebd04bc5b5cc7397a334aa85fcc2a9e6328bdb937e1a53b724e06fecfece9"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_slide.vert.shd": {
+      "shader_sha256": "5bbf7ab55389448ec77a1a1e4b6fdcac54ecae3bdcd8257bb7781d179f70d7f0",
+      "program_sha256": "578bb6e6d58cf4683cd8736a6de2fb07c2fba85af60d1c31a99a36a50391e763"
+    },
+    "bmw/id6l/widgetasset/equalizer/shaders/mat_slide_bg.vert.shd": {
+      "shader_sha256": "f5cf8b723b87f0cac0e2f1c418b79b84bb1a90bb48019bdb973e3da430cdc8b1",
+      "program_sha256": "e2aacdb1e74130dad355fd00fdad5040f1b87c82afc207ee179263f60c41efdd"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "2f055f454385ea1738b07c566ca8383a10e2ea78c53d697893a66c056ef85322",
+      "program_sha256": "55c73f4bcf7beed1e591f25acf6a2ebfac1a63843d0c6d005ceb823068b91061"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_blue_glow.vert.shd": {
+      "shader_sha256": "2eee453afeabd497f20923cefade964a8733afabfac98690e98ea2656f0b1f90",
+      "program_sha256": "bde64536607430451e9609e66e4b24958fcda0fb9c0c439419737eee78540392"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo1.vert.shd": {
+      "shader_sha256": "4d5851e271d4044a3508431873451ef9e8edc53a272da54fbd1d9f296779630d",
+      "program_sha256": "4c16459d2814e6f32e6d356c1f1fd27cad9dabde0d1470403e16fd70fc1589b4"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_city.vert.shd": {
+      "shader_sha256": "3856ca96fb974e504b7fad38a195e07b954f49dffadf3ea410761f3251595db1",
+      "program_sha256": "29f55a2ab9cd0ca388ab8633737706a9a511e0126594d0e28e64ffb8f8559bd8"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_shadow.vert.shd": {
+      "shader_sha256": "b159162b389bd77ad6e313f0c618d9d4306b37981323b94a1b284955593cc9bd",
+      "program_sha256": "f51d593c156348950ea44d46c84846c7c32f65c38a553a28559c822dbf897f29"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_city.vert.shd": {
+      "shader_sha256": "23e133ffb846c3daf8574f89f41e363f951cc4f735b340065483c15718749262",
+      "program_sha256": "a7abe583a75347897e8f51cc136091f20416d0ae02f549c604431d4960349db5"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow.vert.shd": {
+      "shader_sha256": "59e7de49f7b958a7bd7ee7b2e52bb022f81e82e623ec71bc3fdfd1589b27e0b4",
+      "program_sha256": "33af54f5b10442f150cf3cd258f1b87151444e8cea8bfc75e5dec754a76fa4ae"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow1.vert.shd": {
+      "shader_sha256": "f7832ecef8baad5400bd91b78109a4edfabbca5c4712dea9b1ae44416e72b3a1",
+      "program_sha256": "be08810de4157799bcbae32698dd2c56f32ba8816475adff20c58bef71bed7dc"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/WI_HwShader18.vert.shd": {
+      "shader_sha256": "21e29d7605846b580ef5ba27668ca427d3d39fd535834060f5d8914870efeeb7",
+      "program_sha256": "06b95f8f1a595212e2e6c91f65f597e13aa491781ac88ba0941dae24bcf28333"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "240187813ba83832958eff02017e8528da6494756ba57d4c3d4fd6984c6a0d93",
+      "program_sha256": "0d4ace5805bd18d69003fe7895b4fce33271134b6b99977ae8f8e75cd1a85a36"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_frame.vert.shd": {
+      "shader_sha256": "fe14330e28e0bc5b36dca770ff8b9c89c3c12c287b9606802b835be1c7f35640",
+      "program_sha256": "a3a76d1e7b3e455d33d9c1d56ce4082e2560e88a21ab6e1629543aa45838352a"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_frame_touch.vert.shd": {
+      "shader_sha256": "bb83e02a28940c2060250754b8c6ce243008ed5dd291558b349d317b6d004150",
+      "program_sha256": "82daf6d1ecf43e7a6e3ecc282ac11b80b8e35c434e6bdcb95f3f797fb55a2824"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_highlight.vert.shd": {
+      "shader_sha256": "5aa8ac536cd04fe275f1e34569bda30728c6e1a698241567a62c99d5b052a29e",
+      "program_sha256": "86de23e980d4b75c2ad91011c43112948b9bd84d631cf825b0dd870949994c16"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_list_pressed.vert.shd": {
+      "shader_sha256": "9f5294507a910431ad36271375d16e5923f7f93ba85dfa326c895469438b1792",
+      "program_sha256": "e360b3e7d5e35c4bb51641fd21abefac5b20932f3e42c6755f78ce2a10453387"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_pad.vert.shd": {
+      "shader_sha256": "375b211483984a3126663d24f35684423e0c0631a7111e03d36707bd13090e5e",
+      "program_sha256": "0c2cd2a25a5b719c09b077a473d47b784407452c9c0910dedb3984556ddda87b"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_pad_bg.vert.shd": {
+      "shader_sha256": "df0b141abf1f025c94d5a64bc9233fbd46abfa25c7ef4b2e5b89366ac101c26b",
+      "program_sha256": "53fdc17fb862260e47f24a1cf769c5d2e921b86ffb6c3b0b7c2235533a810b3f"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_reflection.vert.shd": {
+      "shader_sha256": "6e517696a761d8f9fa0ca3cb66f64e73b27a7934d3bfcaebb595264c6c913e81",
+      "program_sha256": "ca3601f15bf7d26c1fc89a7792ca39a1379b22b9b2cf695a73c95501c1905f16"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_shadow.vert.shd": {
+      "shader_sha256": "3aa480bad2a5b0a34dd39f90ba823e18cf58179295b440419ea41543508ce51f",
+      "program_sha256": "d7d9b171de06069112895f122a1d78a10ff03002ad1b405269f243a7e9c4c3cd"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_top.vert.shd": {
+      "shader_sha256": "1bb39ac8e4ddef12954b18912922af5d84c53fe4a01cac7e35f3216a8416060b",
+      "program_sha256": "c6206c13104475377895c1cfa9fc980da3e161e56121702dbac61b3147e4e070"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_bg.vert.shd": {
+      "shader_sha256": "dba75f9c7b1c4c30492c7bd12a2b9972a48b20cda32e7699a1bf350ee1deba02",
+      "program_sha256": "89594c9468b8cb2ba625bb6ebc9c00a6d202aa354bcddf1ceb2f77bbe7e7fe13"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_edge_l.vert.shd": {
+      "shader_sha256": "73a937836120fa2d419a452160d57f492c416e897cf66e351a7f01349b08adac",
+      "program_sha256": "8cdb6ae427cd8654a9291059bacdbd74a9fbad3e3c7d3fc1fed731920974f92d"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_popup_bg.vert.shd": {
+      "shader_sha256": "a3c3d60443b4523731c5c8ab27beb8c583c2e57bf4ccacd81accefea854547c0",
+      "program_sha256": "d3b572e4a28bfb3d4233298f04f9e566242fc0af57988ac563fb305d8464c1d6"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_bg.vert.shd": {
+      "shader_sha256": "c9163daf462ec5035e40f188c86fbe0ebd0a44a4c43d6534e48512058d7b1680",
+      "program_sha256": "1678044e64a9356a67f8e004b16a311d13c50109d640dfe16b7e8e81f562a407"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l.vert.shd": {
+      "shader_sha256": "ec0105664ee6202ffa8b692e1e6c63ede8ff169f8a0434cdc3be40d67be219be",
+      "program_sha256": "795c76dee9f0fd9b9a8bc44b83f8728b0bd33ca11224a5c37d8dc6dce317b28e"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l1.vert.shd": {
+      "shader_sha256": "0382ae187199c5061655fd06a2c656413eed2717066256c814ff40d290ea51a1",
+      "program_sha256": "8f4415366cee9958a5d43c5116c133b77fe1b95a17f9f6d6bddf49e012301b18"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_mirrored.vert.shd": {
+      "shader_sha256": "9ef7219ad8ac6b05c81a56b716922b7065ab667363a2f9d5e3326c1439a7ecae",
+      "program_sha256": "344638dda882c43a541642dac30261cb257be9fdbb27bb36ad17590e9e900d58"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_shadow.vert.shd": {
+      "shader_sha256": "b8da2966f915fe5ec6f3314d0a4c092b4d8a7da5da1635025d61754eb1a98807",
+      "program_sha256": "cbfc1c3ef0ac99b5815513cc67f2b7d20dcee4a8b28e98629256be1076f9cf33"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_pie_bg.vert.shd": {
+      "shader_sha256": "8ba862a09704312c183af58088d7936c38988c9e177b3b5424e8a41915cfcaa9",
+      "program_sha256": "97e124df6e97486aa85d60c20f28c3a3670d6234781069cf1d4abc912eba4eb8"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_pie_edges.vert.shd": {
+      "shader_sha256": "e7b130b6b3abca66c1617c571b0df19bee548d35c1a2e18e20fe751922891fe4",
+      "program_sha256": "758634cc56ad28674ae6b3fa8f46f757674438af9d386978bab90223ad882c84"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_player_bg.vert.shd": {
+      "shader_sha256": "76f70eeacfcafe07b89a76e2539971f5b42c92b37a68d6e2a18f93e57b5659ee",
+      "program_sha256": "c90c9c1637d6c823b12a28738cc978ad5f81b7486b18d55a00d1f0c8545eb4d2"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_popup_bg.vert.shd": {
+      "shader_sha256": "13d50c9b80ff4356137987e7b949dd993c8d206f9fbd6738c452f90a50d9e7db",
+      "program_sha256": "f2d27b4694b6ff39019b29f21313cf712e3627ae0ca2099eaee2dc2034e856ef"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_popup_edges.vert.shd": {
+      "shader_sha256": "a6adc70ac30f9b18a914240aa2b38f12e6dfe27bf9d6a529a1465f4f8bb4a4ba",
+      "program_sha256": "fbbe7d4369484c0d682e93ee995e31acd9e921c88018d61862352f09b7e8df9e"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_popup_shadow.vert.shd": {
+      "shader_sha256": "f6dc6540626e9c1e110bb4f5784c1c7c3f24f6eacdfe3c49af0f7cbc9bf70d87",
+      "program_sha256": "7c6f44fc08bb029634d273b38b23bbb27b497615b515395577c267da40da9fce"
+    },
+    "bmw/id6l/widgetasset/scrollbar/shaders/mat_bar.vert.shd": {
+      "shader_sha256": "33ee3e74946cbc44a5775f84511ced805d6cb7db6d4d96cc15dd75c781201637",
+      "program_sha256": "32a56ca28a996b7241b0a1940b6e244f4ee65c72d95ae6e039f6e802a06068c0"
+    },
+    "bmw/id6l/widgetasset/scrollbar/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "1aa0e3cde3593da68b55a821159d7cb93cababba90772d835fdcd2c06113c4a6",
+      "program_sha256": "8a972bafbb47aeb65aae8ed80614a94f1cbcd26caeae8f3399f3bb4d30f3d365"
+    },
+    "bmw/id6l/widgetasset/scrollbar/shaders/mat_speller_bar.vert.shd": {
+      "shader_sha256": "3742fbd5f1f22332e707eb63c90aaab3631f3f7e7e8f10d86f87df94a38a9cbe",
+      "program_sha256": "3e3fdd043a4558547c8f1784916c30d024050dd2a48a01541de3e6112f3ff60f"
+    },
+    "bmw/id6l/widgetasset/scrollbar/shaders/mat_speller_bg.vert.shd": {
+      "shader_sha256": "e66a5917692c28aa483f80c6498dcb071ea4c20f69aed3e3bd8e7e75944dd778",
+      "program_sha256": "c0ed4f02b638680d4b53528d0a8d6b409391f627158beddbe1179dc253d35a6e"
+    },
+    "bmw/id6l/widgetasset/small_equalizer/shaders/mat_clipping.vert.shd": {
+      "shader_sha256": "183897bf984ac33cd13d1d4750f3b2eebae66cbd9ac5005c144ee36311abbad7",
+      "program_sha256": "ca4e0e3d5bb2048ad73a8e44c0f41c6a88b07b2648890649cef60032896664d2"
+    },
+    "bmw/id6l/widgetasset/small_equalizer/shaders/mat_frame.vert.shd": {
+      "shader_sha256": "5d5d9c07650a98681ec6ab828df0257c355eb05bf6927bd431bca8e827c45ba7",
+      "program_sha256": "939537de2a00149cb3c4108416b755a196197af55358f0aa9403761f39e20318"
+    },
+    "bmw/id6l/widgetasset/statusbar/shaders/mat_statusbar.vert.shd": {
+      "shader_sha256": "ddc68e69ebab4e8423574814fc30728843531e8458de806eb552b76a8d783c3e",
+      "program_sha256": "a822aa223957fd1e4e945b5c181c9e5895a968877bde78b118110ea50b495214"
+    },
+    "common/shader/ContentShader_vertex.shd": {
+      "shader_sha256": "963e8741ad4a32505ceecec813f7fa1a8df6a79f942fbed29b1d2a0dee819efa",
+      "program_sha256": "ad9e2f1d0b2b557f3369316c47917605b894dbf7efff45a244c3962b2251f910"
+    },
+    "common/shader/Debug_circlelayout_vertex.shd": {
+      "shader_sha256": "7c5296bf0946b5022b5bbccb6eaf39a4b038612aacb2bdfc263464dd1d8c56c2",
+      "program_sha256": "9adb197b3901f2ec00bec71c150c1f0bc350481ea44e9f8295a440b3127fd19f"
+    },
+    "common/shader/Gal3DDraw2D_vertex.shd": {
+      "shader_sha256": "ee1742eb1ecb2d44f14ef4532d80f140bf4280913d70f19b461cfed99dca4c3c",
+      "program_sha256": "bae3d8cc46d545a3f010d799ce6b7097ab1e4e327019af6aa6f3ee515bc7520e"
+    },
+    "common/shader/Gal3DDraw2D_vertexColor_vertex.shd": {
+      "shader_sha256": "ba4280765b91c23e52cb2016f5ba776ec078940a7ecb3f6811841672d6c2707b",
+      "program_sha256": "1655aca9d14d2f947c28b8605050c0bf64507e394e588cdf169b78dbbc6ccd98"
+    },
+    "common/shader/ImageAnimation_vertex.shd": {
+      "shader_sha256": "df9f57d1a4100d1522d42be540cb42fd6fbd71e11486785f15d1cde8351c6a18",
+      "program_sha256": "d8c394bd918012b7c8d374cc426da3610090a440c2b6c927bbac110c4d0e1a13"
+    },
+    "common/shader/ImageMaskedAppearance_vertex.shd": {
+      "shader_sha256": "3bf261b6cc0f08caa8e28f09095ab9344b97ba786976004d2d76e291bb3445dd",
+      "program_sha256": "57f40592c4999da1e213dfcdf543d3b65e577da6469ca964ab9bcd356a322f62"
+    },
+    "common/shader/Image_vertex.shd": {
+      "shader_sha256": "8d11288e219cee7a1e83d0f9bbf3735827c55c618a45d830a3c1f5970020cdd9",
+      "program_sha256": "2f1ed0a04a361db7b4987e97aba25c7d1ee5b43db5f06f3634b853c5fe158d28"
+    },
+    "common/shader/Image_vertex_fadeHorizontal.shd": {
+      "shader_sha256": "8d8aa80dcef7649642b0d1650ead605c35fdd2857901c941547dca7f1118212b",
+      "program_sha256": "9fd052d8bbd87fc2f958429bddf7bb04abb7379ebae2c514d171b999570beee8"
+    },
+    "common/shader/Image_vertex_fadeVertical.shd": {
+      "shader_sha256": "d31e0a8b63c7a1dc9d23f167fac9aca8e47e020c3ca058087b878889604b0548",
+      "program_sha256": "4513c118a58525847cc1a2062d314b427b67aac3db92837f069714dfab9e16e4"
+    },
+    "common/shader/NinePartImage_vertex.shd": {
+      "shader_sha256": "fb80bf7eaf7760e1d454296fa1bdc7b8af7c7b2898ec27d4540f0b0d86e2b602",
+      "program_sha256": "24baf294832d72ca51e34a68006fbbec2315d82f053d949f7f770cdd66bac622"
+    },
+    "common/shader/NinePartImage_vertex_fadeHorizontal.shd": {
+      "shader_sha256": "81688b651a213d5b2e645b0d072eb8df7700d1af37b0e50d93bf8ecdc2e97276",
+      "program_sha256": "111599ace21d86ddffb4d25fb127e9e1d2276a84a3ade3502ad58131c4e2bece"
+    },
+    "common/shader/NinePartImage_vertex_fadeVertical.shd": {
+      "shader_sha256": "a8cf714b0b00b9e887087830131451d252255cc62e08b929e81b98bba409107d",
+      "program_sha256": "67940ffa94cc116f60a6278c0e2c5c36f77756cae332f835645f4d313e568533"
+    },
+    "common/shader/Rectangle_vertex.shd": {
+      "shader_sha256": "79531e019d6b4098aa2da2aed0f22c09c207511d4980965ec1ab824cca14ba8e",
+      "program_sha256": "f30e608a2c2a3e0ff486f07efdbae5e4a175398b743e432e288965c9c7aa5c93"
+    },
+    "common/shader/Rectangle_vertex_fadeHorizontal.shd": {
+      "shader_sha256": "23067e836cc38a0d322d3b6d76d5e0a545ead9e7a6f3f0e4f2eb3202de96461c",
+      "program_sha256": "f540706c0e820efac6b9c7d5efd62b0da994df2117a7a439fde122b466dd2b30"
+    },
+    "common/shader/Rectangle_vertex_fadeVertical.shd": {
+      "shader_sha256": "6098482830cdb42f99f3076fb5b581d97be8361e5fa9284f6e0d6dde6a80a9ec",
+      "program_sha256": "767384268ef42b73607133cd974187281ed120c241b06fa4c3e06c424393a40e"
+    },
+    "common/shader/SharedTextureMasked_vertex.shd": {
+      "shader_sha256": "a3aad7488f1dc708158f691722779a1dd549e2f835856ec5c7c9442c91ca1269",
+      "program_sha256": "6173d9875117e80b43db2ab7b942e2967a2ae59251d7d85e491567b8e4410e09"
+    },
+    "common/shader/SharedTexture_vertex.shd": {
+      "shader_sha256": "71d67df64c85f485122fa08cc038a82c4e55b64ca35c1536348fa5bfcff24024",
+      "program_sha256": "896fe5c1f0d9f785291d67bc7d0cd0b03df993478695afe42fad71c714d9609b"
+    },
+    "common/shader/SpecialText_vertex.shd": {
+      "shader_sha256": "618391cda37dc60a7701bc10830c04308bd4d3bea8f6b6e01f5d4acb7485bbc7",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5"
+    },
+    "common/shader/SpecialText_vertex_fadeHorizontal.shd": {
+      "shader_sha256": "618391cda37dc60a7701bc10830c04308bd4d3bea8f6b6e01f5d4acb7485bbc7",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5"
+    },
+    "common/shader/SpecialText_vertex_fadeVertical.shd": {
+      "shader_sha256": "618391cda37dc60a7701bc10830c04308bd4d3bea8f6b6e01f5d4acb7485bbc7",
+      "program_sha256": "34252c7f97afd1484f3de10ba157c3d60802b442877454cce18cd6c8b2fe04e5"
+    },
+    "common/shader/Teletext_Background_vertex.shd": {
+      "shader_sha256": "9c6141aa6d2bcc68c2319d30ad78a511a82a46b43cf9f1a69ac363574cbdeea5",
+      "program_sha256": "ebeaf4c555f3cd26352c8fa43e72858c9200071b2e8e6812ffc7f13545749223"
+    },
+    "common/shader/Teletext_Character_vertex.shd": {
+      "shader_sha256": "e45b9fe1bbfe5a36949481cdf47a04031c17ad7af696875116cd69084088282f",
+      "program_sha256": "2894efecc0dd8b6f0c3e05fede1f9767cac6f7bff09c30184a0c89ba4db42980"
+    },
+    "common/shader/Text_ColorFading_vertex.shd": {
+      "shader_sha256": "114cd36df0bf7ecdaf83574794c30ed68802357d8c35d43e2429ab1520412ef5",
+      "program_sha256": "d3f5957153c958c8cfe12040229cd2dbc8bd76cd76a946e5bf262d6d3de1b012"
+    },
+    "common/shader/Text_ColorFading_vertex_fadeHorizontal.shd": {
+      "shader_sha256": "ef5de435113ac9af66b2af5f211153d9afaec93377e660e4d6636a0c622b6364",
+      "program_sha256": "e3f582b14fefb2026029cd452a9e966643c47ad2fb2cf34e052d01c10aa2b0d8"
+    },
+    "common/shader/Text_ColorFading_vertex_fadeVertical.shd": {
+      "shader_sha256": "21bd82bd8d53570bd6f330770809bd6f6cdce5907d6dc17e8568ffffba0c4ade",
+      "program_sha256": "844aed5608a878c45c8f2c68c4d150a13bee9f83eb91105e85fcdde7da6e9b88"
+    },
+    "common/shader/glowStreetAppearance_vertex.shd": {
+      "shader_sha256": "70f5b93337ac3a12922933b585b17323fab57cc589a60b1dc1d4e96988161a04",
+      "program_sha256": "729c792b8f2e8188b02033fa93d60c4ac490f8d6862e66248adf4578580625b7"
+    },
+    "common/widgetasset/PDC_arena/shaders/PDC_Sector.vert.shd": {
+      "shader_sha256": "9f6906b31fa45a8bde6e19f8fdf5a6dbb0a851bafd8147ea04ca195dcb612f7b",
+      "program_sha256": "eb1bfaae26423e998c65f2352e5b9a9424ae9f40c447d8c2fe3d2aa7d84acbca"
+    },
+    "common/widgetasset/active_seating_starcounter/shaders/mat_trisector.vert.shd": {
+      "shader_sha256": "8c350dd3922633b1d1d2c10a0dbbd2db490d6e171f1ca6595eaf5e02002f2f29",
+      "program_sha256": "1c76ee26aff6501976e979344562dbd66bbdc69f031bb2ed59d6544c98f24f08"
+    },
+    "common/widgetasset/active_seating_timer/shaders/mat_exercise.vert.shd": {
+      "shader_sha256": "14fd1a75100282fe5eda9fae421db7b05a021636e038d4450dac84b6ccf74d50",
+      "program_sha256": "e4c6a6341a1360b5771f2ab6e5707a7a0f567b1edfcf7df239ac316950ffc9fd"
+    },
+    "common/widgetasset/battery_charge/shaders/mat_charge_bar.vert.shd": {
+      "shader_sha256": "120f2ef9190186fe9f5035982783254f8893737f35212b6d312c2a53c1ce0650",
+      "program_sha256": "258591e01d844b44fae81eec6ad9f9948dd41914174d43b7ad2baaa34c24c378"
+    },
+    "common/widgetasset/calendar/entry/shaders/mat_event_bg.vert.shd": {
+      "shader_sha256": "c407b1c6280d7342a639c1b59fa1392c5752505215dafe364fc0d9e6845b2ae2",
+      "program_sha256": "e5654abff92a89eff115b06433ced1f00fef09101e8b3fc706fcda77c00d7764"
+    },
+    "common/widgetasset/calendar/entry/shaders/mat_event_edge.vert.shd": {
+      "shader_sha256": "6cdc1b1bbcbe0680822f42c6e8e1c25a3b20ada0318cf62681625f09235f2d08",
+      "program_sha256": "4d6bfd95be4292d3f3bf6f0866cd66cd6e944f4a0a6eb9132c81f55933fa9a06"
+    },
+    "common/widgetasset/clock/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "c356fbd53b3d3a7e15a1058178af1ac2077d7dd3c9261e40dff660ca6208d19c",
+      "program_sha256": "116996bd6223ee216be2625535d9c579bdf1e999c5c6644e55cc1b0a2884283a"
+    },
+    "common/widgetasset/clock/shaders/mat_departure_time.vert.shd": {
+      "shader_sha256": "5f4c3ba63c392f53b6fbc5dfacb66f2eb491c40b3145723c70fbeb0730b22a96",
+      "program_sha256": "c0f8dbcd594f4d262092199f62dcda8a1da25dcb09ebdba07a1f2e933f86704c"
+    },
+    "common/widgetasset/clock/shaders/mat_duration.vert.shd": {
+      "shader_sha256": "b80493b3948ae08049e182651b82c2c84d78fe97314a2c782897fb08f9699c2b",
+      "program_sha256": "b2f4ce41c22c8be45dd0beff255e5f4ee27989cbe0f8637cea9297a5ee79f326"
+    },
+    "common/widgetasset/clock/shaders/mat_duration_edge.vert.shd": {
+      "shader_sha256": "2a8838f65818a9b76e319f894dc13c67e56e5b002382f24e1efb1e7243ff478b",
+      "program_sha256": "bc98abca08fe700da9d1fa0c36b23661124a3a45669cd37e19decda1287f5a9d"
+    },
+    "common/widgetasset/clock/shaders/mat_hour_streaks.vert.shd": {
+      "shader_sha256": "3b5018dbad6d1c4763e2df55b162e58ed2ad716866648e6665230a7569002161",
+      "program_sha256": "a4db78940cdc2bcb6e146a2c894781b4883196ea75f48e71bd874ad2e35852c2"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_bar.vert.shd": {
+      "shader_sha256": "c0ab1376e1a2d7b12284663f91d970dc01b61e5f764596caeae9977beb9c2c77",
+      "program_sha256": "65e7269fa3f766b35c1b0ebc1c158533dea69cb34d3dce49776a10fc2d9dd120"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_bar_backdrop.vert.shd": {
+      "shader_sha256": "09002030db91e251fbc56e7ad16df26a56d6a3eca2923b824e0f2f47d4f96458",
+      "program_sha256": "6d82f43e18207de09a14bd2b001b142495058cbaa8f2cc1ec0ec71e9ceb519ef"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_bar_below.vert.shd": {
+      "shader_sha256": "9db4b6db653d0754460d5b08134de211a94672953cd1262d1f57f5f257574884",
+      "program_sha256": "0fc1bbdfa01c901b5de69de4303ae10bd74e082f83dc7cc87d1212556cf61860"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_frame.vert.shd": {
+      "shader_sha256": "d24cb50f44ed0f93acbcf2f6902ddbb893ff6fef1f64840e11f2e5f7ba3ebb4a",
+      "program_sha256": "ba7cf11e81d21cda8a3f4b5c0611cf766c5564dc439a68292ef7e40d4d8a6233"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_groundlight.vert.shd": {
+      "shader_sha256": "ecfc0ce3ab5e6215239b7d948644db4be1e2626241b92cac46613570128b9feb",
+      "program_sha256": "9f8145d9b402034579a2b1b8d9f84ca230ebc2130f2754d66864c9458e4f2177"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_highlight.vert.shd": {
+      "shader_sha256": "880fc63382cd7cecc7ac298597ef66929dbcc00d165a342a879ac818f3b6e7f2",
+      "program_sha256": "eb072e4dda5dc20502b14250e30b9fe0cec271a8fb893b2ef23dc6eb2c9e5223"
+    },
+    "common/widgetasset/consumption/bar/shaders/mat_lid.vert.shd": {
+      "shader_sha256": "57f5c6173ecc516e0cfcb939b87600c985f4d98aa8f41a8b35f55f68487fb928",
+      "program_sha256": "4683d3a990d7bde12b67a6b97e146c4bc07fb2e01d56c8e37aba7094ebfdafe6"
+    },
+    "common/widgetasset/consumption/bg/shaders/mat_average.vert.shd": {
+      "shader_sha256": "6fa6b08256a42aeee141c541e968244d9875fec7610f697de65a2541c83018a7",
+      "program_sha256": "f9b42285db6a51b5568d107698d993e1e103c32a4eb2cf09fe92b0ad6bcc71d2"
+    },
+    "common/widgetasset/consumption/bg/shaders/mat_bg_refl.vert.shd": {
+      "shader_sha256": "004186cefbabb72fe7cbe65a39ccad9e958dddb558780fc287e829b236ce25e7",
+      "program_sha256": "0decb5997907a2557d2806cfb0b07b636443265b431b236af0245098d4b1926e"
+    },
+    "common/widgetasset/consumption/bg/shaders/mat_pointer.vert.shd": {
+      "shader_sha256": "4c0c4155b4597ea922f2bf61388f2f1976536ca5618f471d94373593959ee261",
+      "program_sha256": "31936494e92a8ca9fd03f560cf5dc5827b496e2bfabd52b57ee57b46608b8245"
+    },
+    "common/widgetasset/consumption/bg/shaders/mat_scale.vert.shd": {
+      "shader_sha256": "044d39b33f8fc9506c31fec35444767ebae53447d6fe85f5c56a2c64acc4b093",
+      "program_sha256": "0aba7a2f27507a2c72ee44f37dfb62842c60d21d896ce0f44e24c670a04724f3"
+    },
+    "common/widgetasset/consumption/bg/shaders/mat_scale_big.vert.shd": {
+      "shader_sha256": "0934674a50ed95042c5e9472c0d4713046d838a0e2df03473f23079652ea7d08",
+      "program_sha256": "2ceb5d1c5af72bc5f6933eb801c45ed256dd6f4821c10615dd92258bd30da41c"
+    },
+    "common/widgetasset/consumption/piechart/shaders/mat_pie_electro.vert.shd": {
+      "shader_sha256": "84dfca925ca81884da95f8d0ec7c8ce5bb5c32e85c2a3835f66542e4bafaf3b6",
+      "program_sha256": "7d5f88bc40dd72c10eb0092a1301f0b74ca28c8cbcea6601a75cd27f0610cc98"
+    },
+    "common/widgetasset/consumption/piechart/shaders/mat_pie_gab.vert.shd": {
+      "shader_sha256": "8511d71e6158a96105464f680e87bb04c6c81b245912c45f12ae287dd428cffc",
+      "program_sha256": "2eba800edf24ec996cec6ba494a7c50fbe729747a4adeb4f290ccf2ccb561efa"
+    },
+    "common/widgetasset/consumption/piechart/shaders/mat_pie_gab_edge.vert.shd": {
+      "shader_sha256": "22e1c7e52ddcd484dfe14aa6119364da458ab0dbc2a6a6923794e1b991ea31e5",
+      "program_sha256": "875f96f18be56aadb6fef2ab41ca90b02af6eae2d56cea3ab35213e6ff187f11"
+    },
+    "common/widgetasset/consumption/piechart/shaders/mat_pie_power.vert.shd": {
+      "shader_sha256": "1d697c65b60b3acc2b863bb14fefce2a7c74e79d36e2e05eb5d31559b632d4ee",
+      "program_sha256": "fcc37b6f1e7505889ef03110765fe3efb520124fa9bc5f0962426bfa073eda40"
+    },
+    "common/widgetasset/controller/shaders/fx_body.vert.shd": {
+      "shader_sha256": "939c6131e36b5b8bb83c9e13d55742fe3d4a1e3118969945fcad9046dfcdef3e",
+      "program_sha256": "dc5452459d59ea4e97200e2b96dc5a6c18b35e38049e3d65087d5e7c5b0d5c59"
+    },
+    "common/widgetasset/controller/shaders/fx_bordure.vert.shd": {
+      "shader_sha256": "fc9fbb6f39082e4220a437c97781732e65435561be747ede8b2f87147d6ddcb6",
+      "program_sha256": "c79fb9f6c730182c12ab37851f64adb03404b16ad0542bd40a349642482f6ca0"
+    },
+    "common/widgetasset/controller/shaders/fx_groove.vert.shd": {
+      "shader_sha256": "8733d3dc1d3417cd6651d9ccf404566fdf0c2a066c36eb7445d1fa6490f708a7",
+      "program_sha256": "67aff75334916f4b6d3c881bc45c8f231489a699f084cf0842eb082ee304e78e"
+    },
+    "common/widgetasset/controller/shaders/fx_piemenu_cursor.vert.shd": {
+      "shader_sha256": "36ff82e01ebecc52078e386fa7762372fd11da0afcf919c77d7a89a402ea645f",
+      "program_sha256": "1e355bb1697a92b559c63c4dbf575f66f72df658ab6e46f2cdce8ea7a8f379bd"
+    },
+    "common/widgetasset/controller/shaders/fx_piemenu_groove.vert.shd": {
+      "shader_sha256": "7e1e1021ae7ce03116d4ba1d80e7934744109085b575fe466871f57e44a84a62",
+      "program_sha256": "a55b253a5a10dadcace12bea8b59564dccb80efb0d548e5b85a1a521715c6127"
+    },
+    "common/widgetasset/controller/shaders/fx_reflection.vert.shd": {
+      "shader_sha256": "4f20b1f68a93245cc615313a543d4a363f242a21fa2eed432771eb540057b306",
+      "program_sha256": "4fd11d4bf2cafe4db3448f58dd74d0cd3f247d1bc4168c9f051064eab1b8f646"
+    },
+    "common/widgetasset/controller/shaders/fx_shadow1.vert.shd": {
+      "shader_sha256": "a461c65674349c17974b9c99c22c6e67493c12bddc8b520c9edb661c237408f7",
+      "program_sha256": "c68f7786117b05e1dace9e1b44ee16d746a10542da7166ccf0be21c4d677a372"
+    },
+    "common/widgetasset/controller/shaders/fx_spark.vert.shd": {
+      "shader_sha256": "a4e503159b186d0600e55ff835e4c3759dcf7340d9a1279bd4f1340546a4c743",
+      "program_sha256": "fb67f41edb5e52cbe3e6d1c8254f8e704d1ebdd2d97103a548ad3814ef162c63"
+    },
+    "common/widgetasset/controller/shaders/fx_speller_body.vert.shd": {
+      "shader_sha256": "75c02ef2d225e9bfea5c41061d418d30fb019d34c687f1e754b14b211dfcd90f",
+      "program_sha256": "5b77ddf08326cae4f20f88ab606c87a553f1f262b59be4690e300da641744636"
+    },
+    "common/widgetasset/controller/shaders/fx_speller_bordure.vert.shd": {
+      "shader_sha256": "78c19b7539bdbc4bcbec8998e45d7cda13760cad1a50e369ef2809b49bd86e6f",
+      "program_sha256": "cc4b36dc2b97f1e3e3dba4136868d3eb44bb34967b60689799425af53a4fd74f"
+    },
+    "common/widgetasset/controller/shaders/fx_speller_cursor.vert.shd": {
+      "shader_sha256": "e68671654f29dea871e92ee8be584d96d9be7bf09370caeb7dfe7d2b38fcd9ae",
+      "program_sha256": "2680b463d3d689eea22e810ae7cde36ba58b391e732f89cedcfb6624d35299fa"
+    },
+    "common/widgetasset/controller/shaders/fx_speller_groove.vert.shd": {
+      "shader_sha256": "c97c786dffdfacbc53b4d85ec0f3bf2c51af5c3a08a39a3555fb86045bddc4a9",
+      "program_sha256": "54323ea782dca44cc69d3d377f61a7aafb6f2a09b2d7ec2384e803a2eca260dd"
+    },
+    "common/widgetasset/controller/shaders/fx_speller_pad.vert.shd": {
+      "shader_sha256": "3822f9ed7a06af692032390428bdc162146ed866e8c5cae40047b941e157c36c",
+      "program_sha256": "0a9c66f1ba067f922504add4a04529dd7b9f158aac808aaf928d80aaf1da6e14"
+    },
+    "common/widgetasset/controller/shaders/mat_core.vert.shd": {
+      "shader_sha256": "b9b62d69034034dcf8ab3598d0a16bb2438b484587e18a4192f441bb733a9227",
+      "program_sha256": "0fd7646c582dbe9fbe3bcd995842efc8a6d7b9922d7907e9f792102fd9886902"
+    },
+    "common/widgetasset/controller/shaders/mat_cursor.vert.shd": {
+      "shader_sha256": "a85c412c144d89675391136ade62049a5ca4f54dedbf307a3da7f7ebef2db41d",
+      "program_sha256": "8ea6cc27f6193f5e3c84b6ab1268f678d9aa3b8019fbc92b719d9204674062f9"
+    },
+    "common/widgetasset/controller/shaders/mat_cursor_zoom.vert.shd": {
+      "shader_sha256": "69c600a32777464c8838f1be4b013000e44ac1889294b1ad3c8c866500f46f4c",
+      "program_sha256": "b713e333a716ba3cb247263ad00dbca663b315df75b31df21360970aece67971"
+    },
+    "common/widgetasset/controller/shaders/mat_loader.vert.shd": {
+      "shader_sha256": "215177ea807d999bb4f8c1fbb90dac7d983313d15abfd357e8a373e00dd92497",
+      "program_sha256": "d8ae9b6a12a37e6bd9a3a88ed0e9d4d3947a3b80addb0e5af169a6b4b4e41e9a"
+    },
+    "common/widgetasset/controller/shaders/mat_rim.vert.shd": {
+      "shader_sha256": "6e83d500ea6b90142d91aa5b9a76c516ae422cbb58f894271de8856947ab478d",
+      "program_sha256": "68eea5c4e3cf057db86cf3c485a24555f75c6cd7e53cd3e8a54d1026ea419c21"
+    },
+    "common/widgetasset/controller/shaders/mat_speller_rim.vert.shd": {
+      "shader_sha256": "e7126db0e7d659556e0178e7304cf5e5c984d06309ffbaf487b7e56003e41c4d",
+      "program_sha256": "9ab044def04557fff11632b39e2a95789b840ba9fdcb4542d1374071c90b138e"
+    },
+    "common/widgetasset/controller/shaders/mat_zoomport.vert.shd": {
+      "shader_sha256": "c56625e9850d594e6effc3fa0e7b61aff63e40b0ceb0ea9553958e1ca36f8396",
+      "program_sha256": "8cadbe0c1b041637237c18ef10c0ee2d72643bf723cc27b23c7d6f665db0fbbe"
+    },
+    "common/widgetasset/controller/shaders/mat_zoomscale.vert.shd": {
+      "shader_sha256": "cc2087a4863fd85b1ad859ba7990652d66f97962271746f8c50818dab98626e2",
+      "program_sha256": "9a2b8b219ada8dc570ec4c115d79da2b50122d953a9c225f357b49a7a9008dab"
+    },
+    "common/widgetasset/cursor/CursorBG/shaders/mat_bg_touch.vert.shd": {
+      "shader_sha256": "91bf5e0136ec00701f7f32cbfbd49f2bdb90a405949570797a50e7e93c81c62e",
+      "program_sha256": "24af2eca831b4c963c30d4a6958d72836c6134b4f0e3fbb1fa89f1ae07015b25"
+    },
+    "common/widgetasset/cursor/CursorBG/shaders/mat_list_bg_nolink.vert.shd": {
+      "shader_sha256": "0867233d82286ff53ec8f9de2db7a7da562eb1c8a11604c008416a5b4322be8d",
+      "program_sha256": "219f082bd40020ef50b17ef8a4e5f8a3691f7d3d6c6a4b6df00549a78e098851"
+    },
+    "common/widgetasset/eco_pro_efficiency/shaders/mat_eco_base.vert.shd": {
+      "shader_sha256": "ee5ec2dbd5463e012efe52b1dd2822eb084fd75608680881f5cb0d49b4ec6edd",
+      "program_sha256": "6f04b9c3e461739b758d79b269525e26bec3c2629e32f4f97c3f9309e32431ae"
+    },
+    "common/widgetasset/eco_pro_efficiency/shaders/mat_eco_edge.vert.shd": {
+      "shader_sha256": "3ada3d8298a614e2ddebfde17f798029c20baf1db9d516afa47337853657a3e4",
+      "program_sha256": "0b3be6c361ed05bbc9787aea9ff898e73214c308e575f6b1e16e2dd270ac74b3"
+    },
+    "common/widgetasset/iba/shaders/mat_iba_scale.vert.shd": {
+      "shader_sha256": "392efab4bbcdd6245c90f3ab2ecdfa1510f987a8d147b324740088e1256a92dd",
+      "program_sha256": "939537de2a00149cb3c4108416b755a196197af55358f0aa9403761f39e20318"
+    },
+    "common/widgetasset/iba/shaders/mat_numbers.vert.shd": {
+      "shader_sha256": "dac8f73850d2c67394c09a5497fcc02e07e94ce2de2ec7277fc37ea6f0bf9188",
+      "program_sha256": "72e38e0c273381b8b74dd8c4f7a395a72116c6b988f8dfcaec869cbf6f0b640e"
+    },
+    "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.vert.shd": {
+      "shader_sha256": "9e2b8b3e3a3ab94dee0b9f7abe3a8f8ee69abf19fbc52d9dd0c496dabe37e1ab",
+      "program_sha256": "1dd143adab7201680599fd0279d543418edcd78c20782cc79ec4ed99dfa6a701"
+    },
+    "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.vert.shd": {
+      "shader_sha256": "310c85b80d926ea8f434474347873cfdecf6284838bdc664a6bde7ae805073a5",
+      "program_sha256": "1f9e6fecbbe73d2e630035d9179f18ec6c8ea10e1f79c294bddd1985d15d83a5"
+    },
+    "common/widgetasset/id5_sport_instruments/shaders/mat_speeding.vert.shd": {
+      "shader_sha256": "b06149551ccc7b87ac95530a33cc9e15510bc88797b3dc4718afad2f956f9620",
+      "program_sha256": "5c765e6ea542dc234cb167a9985ab29e3953587af666cbdfba0cd73224db2dff"
+    },
+    "common/widgetasset/mainmenu/shaders/mat_main_bg.vert.shd": {
+      "shader_sha256": "ca8a7fcaf3a03893e96d400b4006db4949a047a49b911d4c6744bff64e5cf432",
+      "program_sha256": "52bfef30a6274ae61ed3da23ef91bae6d2241c06a8c64fbe24ba69d7e719a0f0"
+    },
+    "common/widgetasset/mainmenu/shaders/mat_main_domain.vert.shd": {
+      "shader_sha256": "4cc3fc1008126bd5fe8acf50865c2deda0e06aa0e6a07f9e32e7ffa1f2042685",
+      "program_sha256": "c05dc3e74fe936071463edf92148b36f8c9cee2f9c2a90931310ec0e723a5d6c"
+    },
+    "common/widgetasset/mainmenu/shaders/mat_main_pointer.vert.shd": {
+      "shader_sha256": "47cef275affd1e77c36a3a5e6bb4a6dc6311a92b12d702d4bd6f9f977fc37aee",
+      "program_sha256": "411b1514602c4136af8cced3e68c834938193690b3f7f2eb0ea2ba55d5e13159"
+    },
+    "common/widgetasset/mainmenu/shaders/mat_main_pointer_glow.vert.shd": {
+      "shader_sha256": "102c4f67ddeb441cff2f7b1ed5d9304e925317dc6c7a2447b7344cbe44dde549",
+      "program_sha256": "a19c72b6ae8bff4cda6289a292229f23e9468749682040f65fbd52884c9eda8b"
+    },
+    "common/widgetasset/navi_startup/shaders/mat_shadow.vert.shd": {
+      "shader_sha256": "4a4435b7eb0c6aa463d86c8e5b73eea28e4f04268445d53efd7cef6d1bba0cd1",
+      "program_sha256": "8f6da83700554be5c2b750c9fc3a76e34053b9d57834eaaf482e59759df1050b"
+    },
+    "common/widgetasset/onBoardComputer/shaders/obc_gauge.vert.shd": {
+      "shader_sha256": "2b094e3a662b1e7f073e34087c6f02085cd7e533819023f827b2e6f576764910",
+      "program_sha256": "f2b8793a3a40d2a874bfa8c93a8c026d1233b85d54c86b697f62991d417c3d6b"
+    },
+    "common/widgetasset/panel/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "305d80d4df1beaf54879c88b478bef40cdc01649288625ffb1508c15adf5875a",
+      "program_sha256": "96f252708a22304d50cd5b2621ff30605718d199bc2e742536afaaf66be8e994"
+    },
+    "common/widgetasset/panel/shaders/mat_bg_map.vert.shd": {
+      "shader_sha256": "ed04c61e9b4c431afceeb11ddd18a4bb622c682b97b5c12983b540ca02d05907",
+      "program_sha256": "282f18eb648e16907e513cd4be0790bedaafed6b035f829d330e29df196d0d86"
+    },
+    "common/widgetasset/panel/shaders/mat_bg_popup.vert.shd": {
+      "shader_sha256": "42129197a16c78132da5f31accef663048c3d72a29a63e6217026e7389204c70",
+      "program_sha256": "aba40e0c631d459733c9fe1beec4edfc2c82d69db5af40af7f046b9afc2672a2"
+    },
+    "common/widgetasset/panel/shaders/mat_domain.vert.shd": {
+      "shader_sha256": "4cdacd5e9a6c8a677b0109d3bbf50fa28bdf909e88ca090353776537df762502",
+      "program_sha256": "fc4794977581d43e4d8bb8670c130a681aeab8261682df61b655bf89fdb994e4"
+    },
+    "common/widgetasset/panel/shaders/mat_grip.vert.shd": {
+      "shader_sha256": "e0283a947634f31a3b01f05fb58dd0b4c1608e6fdf891a78eddc2feab11d2211",
+      "program_sha256": "d026436ca75910fbaa52060dd1b73fdb4c240460b0174dd12272440cb54ab3b3"
+    },
+    "common/widgetasset/panel/shaders/mat_grip_center.vert.shd": {
+      "shader_sha256": "8b59645bfef690bc8d53e7e0a046a730707bd00989e2a01713caddd19a89aa56",
+      "program_sha256": "4dc701fd07f63a8b542bcb8fcd00922a5020cd83d8f55668bb72e0e666100c9b"
+    },
+    "common/widgetasset/panel/shaders/mat_no_mould.vert.shd": {
+      "shader_sha256": "8a86ec6fcaa5df9978a84e0b266068805969bee07506c4ba58f4a7e8d23c648e",
+      "program_sha256": "c1b9af6dd25b8608907ab5aeb405e11ba1dacdb67154080f5c922f6938122864"
+    },
+    "common/widgetasset/panel/shaders/mat_outline.vert.shd": {
+      "shader_sha256": "91a2d6ca1a354828b7e85176a714551163ff6b099ecec5230e036447d9cb11db",
+      "program_sha256": "2bdc405b4a8544dca981439ef0171629ee677c28939808c1d8d0be7ad653d1ae"
+    },
+    "common/widgetasset/panel/shaders/mat_outline_map.vert.shd": {
+      "shader_sha256": "eed0d31be427293ede8b481761d4a78b38450169199285630090634908b2054a",
+      "program_sha256": "2ff6593d71a2006cb4e788069864bdae8c794618c41e073ac5e5da797ba5854b"
+    },
+    "common/widgetasset/panel/shaders/mat_outline_stack.vert.shd": {
+      "shader_sha256": "5bbcfcb94d2f4695d3c7d7f480e8cfef22dde0cb27bca481cff5315f1b9907bc",
+      "program_sha256": "5c32064e3ea2eb366ca1c2cb1aaae249e75f3b548706384fcc58c2e77c5a0fd3"
+    },
+    "common/widgetasset/panel/shaders/mat_shadow.vert.shd": {
+      "shader_sha256": "f2544c95c8a67ef672f45cca42808527a4f1c42f4fb7efb4b13edfa7bf84253e",
+      "program_sha256": "c1c8c08b06e54263e4b66867c0ec1f5e3222b51f788e1f152d970909798f0fe2"
+    },
+    "common/widgetasset/panel/shaders/mat_shadow_pie.vert.shd": {
+      "shader_sha256": "859cb53ec1ed0bdce2600e4977a6bc9e52b9b38c2dfdf883cf8acd0a6139ae4b",
+      "program_sha256": "848190dccbc1b947f5c353703b210a8204aa96deec80ca23fd6bd0c4eca12452"
+    },
+    "common/widgetasset/panel/split/shaders/mat_splitscreen.vert.shd": {
+      "shader_sha256": "a8b7ce28ea0c10553bab63a0f7d6be570e553720faa3047bc8477da8cf69f5a9",
+      "program_sha256": "4448d3f2505b0fc1b7099bb39d8eaec71155718171f1bf5e092f8e065f351c0f"
+    },
+    "common/widgetasset/panel/split/shaders/mat_splitscreen_strap.vert.shd": {
+      "shader_sha256": "e4323f4b5cc05e4538e77c70fa1003e9720235e2083d5dab6d1e1ab8b19d4d1f",
+      "program_sha256": "4a9526b6bdd791ab65e9957abb3600bc1ea993e8db466e924a8eb15681b7668e"
+    },
+    "common/widgetasset/pdc_sector/shaders/PDC_Sector.vert.shd": {
+      "shader_sha256": "97903de9a9da39ce262b8d77f97bfa3b636c4878b40253363c90ec4b52838c94",
+      "program_sha256": "583bf3fad086a6d3d498398948756b0ed16657034da407d2a3951774439fc649"
+    },
+    "common/widgetasset/pdc_sector_spline/shaders/PDC_Border.vert.shd": {
+      "shader_sha256": "ec4bb5326377aee212a80e87a454b87e41f704e652d5e8481615bd71ae64b357",
+      "program_sha256": "9673aa526e04775c9106396061aeb9175f1757d786600213cbcda342969e1eae"
+    },
+    "common/widgetasset/pdc_tunnel/shaders/SHD_tunnel.vert.shd": {
+      "shader_sha256": "6bc867a7f68773129cbfde6b7e032e3ff044092d85c26cff154f4be7293d5c17",
+      "program_sha256": "d70851fa5af71646e2ac2435462072a5fd12214c4a3b910b2d706dfeca64b306"
+    },
+    "common/widgetasset/pma_rfa/shaders/fx_rfa_active.vert.shd": {
+      "shader_sha256": "9d6ad58cec158e193dd61e0b17533820ec18717c6ca6111b1648f50a7ab0b077",
+      "program_sha256": "25611f0448d69bdb0d44e9cfa8accd400ddb169b9538532c18c7e8ee3e282676"
+    },
+    "common/widgetasset/progressbar_player_asset/shaders/mat_player_chapter.vert.shd": {
+      "shader_sha256": "e4753e4329232ab421f02da51d2e39e2e1925f95ae484152215f0fc460311ad6",
+      "program_sha256": "24e6d216cd159bd3053a535cc20e07d7bd0324c58e99af64869fa674bd700265"
+    },
+    "common/widgetasset/progressbar_player_asset/shaders/mat_player_fill1.vert.shd": {
+      "shader_sha256": "f78622aac8133feb58ec5ecd27b880c5971159ff64eb3ee2cb226672cab0009e",
+      "program_sha256": "29b65aaba8cbda605398c0c62b09f06b52ce8d7af5c267e42326493e4225465a"
+    },
+    "common/widgetasset/progressbar_player_asset/shaders/mat_player_max1.vert.shd": {
+      "shader_sha256": "e85e1d68c3cde4c1605edb8f8c05914bde90839ce40ca34efc643207dfcd308e",
+      "program_sha256": "3f78090692c1fa26b91e6380842fc2600d911f0c35e722c2b4440e88aa46dc18"
+    },
+    "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_bar1.vert.shd": {
+      "shader_sha256": "fa153627f99841ec2645941c1cb94dec66c45ad1de04b4c49118d0760ff8d68f",
+      "program_sha256": "93ce8070f0198566a10eb905efde4da8027d30dfe79dab8baa34918779cca485"
+    },
+    "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_base.vert.shd": {
+      "shader_sha256": "a349fcaf0b737a79bde25cd81d17696a66dca03ba1c11c5c3e67a7c6a71ddc1d",
+      "program_sha256": "dd928d98352f6dbe4c312f8bb92891dbe66672493cd3b5f51bf2236d921bdf73"
+    },
+    "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_glow1.vert.shd": {
+      "shader_sha256": "2cc5b85f1ad3dd370788e00d168f2df2c44d98cec6e0c48c3c0e49cc4d699c4e",
+      "program_sha256": "7aa97b8c7207e6cf6dcb84954f8ae80720db4bec5194e0f27fd5dca3f2e00a9b"
+    },
+    "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_glow_lower.vert.shd": {
+      "shader_sha256": "80f32e9c81eac6f329e77d2f44229351f34f3e540862ac9ad99686dcafdcb293",
+      "program_sha256": "e4480bc3109e5951abe9c73b30f7433aebf07362721703ba64f26f4ef0e86ce7"
+    },
+    "common/widgetasset/progressbar_volume_asset/shaders/mat_volume_stop1.vert.shd": {
+      "shader_sha256": "db76669c623b6b2e5c33fa2b79d0f06aea5e156f24251df958942850bc9f136b",
+      "program_sha256": "52a0e1d96341affd84be2e9a8e5efab80d6608ce21637e90950a7ec1ee10f388"
+    },
+    "common/widgetasset/roadbook/compass/shaders/mat_compass_glow_back.vert.shd": {
+      "shader_sha256": "077f99b6a8fe223db61017a49d774989515af282152b9546819099cc6e261242",
+      "program_sha256": "9c4fbe33d7994dd9ca177d2bbc9050bde19f0aa2bddfaf81183dd25e80a85bd1"
+    },
+    "common/widgetasset/roadbook/compass/shaders/mat_compass_hl.vert.shd": {
+      "shader_sha256": "45e5027689068528f2e5120ba48c22436c16f659f95318232a91d2e54d87a623",
+      "program_sha256": "a6913e58901f94e36f8da1e65b6076d3665f252438686ccf93b21115920d2cef"
+    },
+    "common/widgetasset/roadbook/panel/shaders/mat_panel_fx_panel.vert.shd": {
+      "shader_sha256": "4fe791bdd255d41f86247824f1a628deed94a8fe70b122cc71ce2560a6af37ac",
+      "program_sha256": "1cc912e38caab58eadebbff99a410b2035f09fe309fab60aab6a44cb29dc6b3f"
+    },
+    "common/widgetasset/roadbook/road/shaders/mat_road.vert.shd": {
+      "shader_sha256": "466c527e666780d133e19268f59546f65fd27c83068b69368a3c3be300ada822",
+      "program_sha256": "5e460b8cc561852ce334eac466108384b3271948c58ab9791e402e50fb5de2c0"
+    },
+    "common/widgetasset/roadbook/road/shaders/mat_road_city.vert.shd": {
+      "shader_sha256": "e52c6a16ff9de57460e5aecd471bd3481ef3e1f960e375179cd22bbe1a37d756",
+      "program_sha256": "0d9539333e6f264583b5be067cd8fc0118e59f78c380ceab643cf28a3e281ce7"
+    },
+    "common/widgetasset/roadbook/road/shaders/mat_road_horizon.vert.shd": {
+      "shader_sha256": "5ce4a0dbd5150cdc102ea2cbdca37861633d41c22c502f3a485e7e2b5b978584",
+      "program_sha256": "a8d8ac2328e0046c921397634e1b97dde802be61282c0e0e24c00abbc6a1893f"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_bar.vert.shd": {
+      "shader_sha256": "6b61a68ca9ab4e42aa0b220a5a033e34387261b3e6c9ca010eb520e9c670b6f5",
+      "program_sha256": "267f420746009d36aaf1c32b210812b659439f57797d2e23a91ef98ab7b1ba49"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_bg.vert.shd": {
+      "shader_sha256": "f587f11b5e1bcc41846ef93db8351c34bf9d818c207b1cafe737e007d945a983",
+      "program_sha256": "310ce665bac06bb55d12cd99846586d371d20de4416081df83f14f4ae616bc15"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_bg_quickaccess.vert.shd": {
+      "shader_sha256": "e966df4e7b4474174da750155a5f5f3caaa339f838fa75123919c65040cd2107",
+      "program_sha256": "60c6ea8d2b8dbe582b5492ddec673ed48a73222f4774c59e3e7dc469e84c0b96"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_bg_speller.vert.shd": {
+      "shader_sha256": "5a37d95a8bf162e1fbea0c3a6024385c65a04d1365bef70c5afd934742b1c44d",
+      "program_sha256": "0f82ff4c29d821097866c6898d14bbf21979d692fc5532d09870c9d535888258"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_glowdot.vert.shd": {
+      "shader_sha256": "32b5f88e74d0147f81fdb24620976d867f57b8c07066cf213174467105ba9ea4",
+      "program_sha256": "f0c90a4c5a76ab52b129f6fa52861342773e3c320ff8e3669eb376c0bb3d6e16"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_speller_shadow.vert.shd": {
+      "shader_sha256": "a8d8046b01ad88d50f04e59a7481bdfc472227c9e3bd006c505e58d3cd1e1808",
+      "program_sha256": "63de2626fe0935db7fff9253a451675df507956dcc0ace7a08bc884525201e16"
+    },
+    "common/widgetasset/scrollbar/shaders/mat_tail.vert.shd": {
+      "shader_sha256": "62c375ab3a6348dfeb54e1f350e0ea1129077a6f9cd4c0094e77f2a5d02e45ba",
+      "program_sha256": "30b2626ac1aa74649807fe548f6cc25fac9db32888cb5ac6268105ea5411b4a6"
+    },
+    "common/widgetasset/seat_comfort/shaders/M_SEAT_BASE.vert.shd": {
+      "shader_sha256": "66525a1a3682233a7d277b5fd248448d7219f3c5c08ba6bdf56359615a656b4a",
+      "program_sha256": "2d4ba3eaebbd2d7c91d0692095299d4bdb7ac5f702d1b8157e8d84a99a3125af"
+    },
+    "common/widgetasset/seat_comfort/shaders/M_SEAT_BUMP.vert.shd": {
+      "shader_sha256": "40de260b68d94745242d79fb4b7e9fd04df363881e34d1400d6130d3ccc942f2",
+      "program_sha256": "010afd83e31f3b277d1ee69e3389a6e969a91eb1ac6e694d6a093d847f9de47a"
+    },
+    "common/widgetasset/seat_comfort/shaders/M_SEAT_MASSAGE.vert.shd": {
+      "shader_sha256": "a86559690337d19c8e791f092b066168550cb9f30e50539937b173ffece91c26",
+      "program_sha256": "e5556157bdca67e52e2acd9efd5742af7cf2a15a9cc204d149eb9717849d9b1b"
+    },
+    "common/widgetasset/seat_comfort/shaders/M_SEAT_MORPH.vert.shd": {
+      "shader_sha256": "84f1bcbdee0c52a6e9fd1c3558b7b0e49c99a39c22ed1dc3d484191ffdda9113",
+      "program_sha256": "b09c53e5be20bad9bdb4de4a5c909adc0c4d758bef96f2e8320120a104657aea"
+    },
+    "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_ece.vert.shd": {
+      "shader_sha256": "ca5fb10b9bb9da6bc0ed02644274d46150d7a87357e5e94f7158f420a502fcef",
+      "program_sha256": "89c193c4e46eaa5ef4beec003b0c5ad51b6fbf9a28fe8bc73c6ea36b69ccb4c9"
+    },
+    "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/mat_ece_middle.vert.shd": {
+      "shader_sha256": "1c6f9e0a5b266ac1a89104e9e60f77f157f3a71380514ef4ee4491195e64f9ba",
+      "program_sha256": "97fbceb78f6ef96717f6231331d58e2bcceaaf761d471d1b8d8bef8de2ea13e2"
+    },
+    "common/widgetasset/statusbar/shaders/mat_statusbar.vert.shd": {
+      "shader_sha256": "4378686d292e30277470948fc75e2aa9575949f6a4024a6d2db99b2a0bf81ded",
+      "program_sha256": "0eebcf55adf797dc82b50984481d4e53bfc9e7e1766a7e00b83bef65980eda73"
+    },
+    "common/widgetasset/streamline/shaders/WI_Streamline1.vert.shd": {
+      "shader_sha256": "2fbae52045a86025fb0d9385eea6202dafb4b8e430381d21997d09601454aaac",
+      "program_sha256": "453ed58a43d10b003f7b3b09518dfe56938e6213f905ee77ad09fc30a59c4c66"
+    },
+    "common/widgetasset/streamline/shaders/WI_StreamlineGlows.vert.shd": {
+      "shader_sha256": "d60d19030bc89428ba567de98da0fc233acdce76830ccf191cce9a2bbcbe70e4",
+      "program_sha256": "951f8007945df4c09548373c00623d9b05bbf0cc0b586ef6ac4d6815d4860c18"
+    },
+    "common/widgetasset/streamline/shaders/WI_StreamlineR1.vert.shd": {
+      "shader_sha256": "68c5ef5ff2e2155ce3e8e8d651d4df67b489365455717b75bb19988f182da313",
+      "program_sha256": "d4866b6d2ceeed3e5f4f73112659c355af5cdb2468388d60d2fdc3526ebf1cc1"
+    },
+    "common/widgetasset/vehicles/common/airwaves/shaders/mat_airwaves_glow.vert.shd": {
+      "shader_sha256": "b658f699fbd6cdcb2c91e17ca9376c5410a318317a340446d990367e568d8bc8",
+      "program_sha256": "437ad105bbcfdb392f729fccb2f9c86bafce35e7b98a067d0d9a6962bfcd4663"
+    },
+    "common/widgetasset/vehicles/common/conditioncheck_env/shaders/fx_IceShade.vert.shd": {
+      "shader_sha256": "8494a858502be5e1603a150d5547d6a1fff410fee231ae3fec7e6891c5e27717",
+      "program_sha256": "6359785fc8c69c0aa4c821a53719b2f22d7abeb3a45c4e0fb8f1cee1ea06aab6"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_goodbye/shaders/WI_HwShader34.vert.shd": {
+      "shader_sha256": "55909080b0b7a7e15decbce11812b2970df6edf88a70519c887729e7683b5c33",
+      "program_sha256": "aa3e3188a6dad900fde7f670900d95dd0c95647b84a5a478c9f1530e4efd80cc"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_goodbye/shaders/WI_HwShader35.vert.shd": {
+      "shader_sha256": "ffdea704e2df0581ebebf42ebdadffb5c265f78901a487c268556d8b4885b9dd",
+      "program_sha256": "d9b799a7a2d9677c5ec19286d41a254e8c921022c60a37c6721656e45f6398ae"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_receiver/shaders/WI_mat_waves.vert.shd": {
+      "shader_sha256": "aa2682c73beac6e5c2433c3953684452a2b9422a51892301b8a9f139a0f9657a",
+      "program_sha256": "3f8af93bb2612f60d4b39aac4dfec8cfcc8a1a3a881aed9bbe1a3f22f9838292"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_docking.vert.shd": {
+      "shader_sha256": "fe094e0a5887578b6bfd07819f29ac4bbda008074d94748d233562ebe932ec00",
+      "program_sha256": "380ce68a386daafd4f229e9f00ec4a22f733c752bf135ac0ab44e26ed10a3064"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_highlight.vert.shd": {
+      "shader_sha256": "e5268218be50dbe93f5d4922b78100b343cf3218710c15b7686ef460b4316ec1",
+      "program_sha256": "af550bec10607fc9a4df8178366e0099c8033ab26e24f068062c78da0be64c97"
+    },
+    "common/widgetasset/vehicles/common/inductive_charging_station/shaders/WI_mat_station.vert.shd": {
+      "shader_sha256": "b9b9ac8147953b2afb0506d984c621df90747157726149cd5965ff9a9ab2272b",
+      "program_sha256": "ca8efae40f011a519b7eebe71378b9f447358d072e607585705ec2784ea63fd8"
+    },
+    "common/widgetasset/vehicles/common/road/shaders/mat_road_dsc_lane.vert.shd": {
+      "shader_sha256": "9eb3c5cf5553a45e4fe0abe5ad58e470a46cfb53c6ebc487441322a9df1133ee",
+      "program_sha256": "2c4f8e5b63c5e4dccb54fdca3f90662c49ba6356597a9550fe2ac338d174a4f8"
+    },
+    "common/widgetasset/vehicles/common/road/shaders/mat_road_guardrail.vert.shd": {
+      "shader_sha256": "a57becbc50b6e2cae703176e2499ba28bc9d07f23bfa4fa2924a73ce2a339462",
+      "program_sha256": "d0eaeb4e8d3fc80c4830776a816269f5606d01da0c4284a1aca1db1ee74316d0"
+    },
+    "common/widgetasset/vehicles/common/road/shaders/mat_road_lane.vert.shd": {
+      "shader_sha256": "83584095efe3557a979fcf2e0af8cc9b5d104bc25b132f78180167272eda17f7",
+      "program_sha256": "cfda8f3ab3581781bd9b37f081a031b5367b2c3d83f72b475d7e6de7959f8ed1"
+    },
+    "common/widgetasset/vehicles/common/road/shaders/mat_road_lane_glow.vert.shd": {
+      "shader_sha256": "7cbcd1f2d1a41a47c62c15e6e8da479a638cea8442835cdf95a544931b787a69",
+      "program_sha256": "b421da897414922d4dbd2c9e957a5921525427029a0f432a5815040dfb7d0587"
+    },
+    "common/widgetasset/vehicles/common/road/shaders/mat_road_mid.vert.shd": {
+      "shader_sha256": "6049bd3257f39b1aa5ac034991f0122458bfdcef4ae63cb2142eeb39970c483a",
+      "program_sha256": "92e9bc4f03845b3b20caf5f22654895c9cc62e4fac94d3dde54a54a13ad34ead"
+    },
+    "common/widgetasset/vehicles/common/sarah_rabbit/shaders/WI_HwShader19.vert.shd": {
+      "shader_sha256": "750c1c7d5e9ea89ff60a98a980e001ca3928e8069572a5b55a70eb4fc7310afc",
+      "program_sha256": "c1961dcffb10155df70fa966408c51711e2d5fd148ae3927ddf391063a77d395"
+    },
+    "common/widgetasset/vehicles/common/sarah_ring/shaders/mat_glow_upper.vert.shd": {
+      "shader_sha256": "e4739da55a338cfbd6d4c4a4c73da1f550cac1bb3f17dfed5e6a3c69823ba610",
+      "program_sha256": "6cd52a300b61af3c683620c456a2c2667fbbd48580bfb51ca774edfad5ba22c4"
+    },
+    "common/widgetasset/vehicles/common/sarah_ring/shaders/mat_ring.vert.shd": {
+      "shader_sha256": "87ee4432cdde59adbb5333c0542c41d550442bdb2080220dfa44876e0f7e791f",
+      "program_sha256": "06c8dc6eb92ee68cef6b1dbe2b470c34d72f7246ed26c623aa458bd5697b94bb"
+    },
+    "common/widgetasset/vehicles/common/vehicle_EA_EF_Arrow/shaders/M_EAEF_MEAR_ARROW.vert.shd": {
+      "shader_sha256": "efa9c9168e6f7c16947b5ca6868488ea24b71d88094ed60679642e2f776323b9",
+      "program_sha256": "f0fa6683608eeb1cb02f3bfa7b3abc6b3b4b45e33d12ec257e9740c88455db9b"
+    },
+    "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_glowring.vert.shd": {
+      "shader_sha256": "87add6df0a2955cb5b6c1909d367e353a86d2aece37d4d7392d85dc675e0f882",
+      "program_sha256": "a62997984c514a41d3b4bff9a058d6d5e8b99fa5355334b0ba900ebf3040281c"
+    },
+    "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_plate.vert.shd": {
+      "shader_sha256": "a09bab2a2fc850f4d9a6d4a24eaf5335ee9d8920545b7be8d527e957b61af0f1",
+      "program_sha256": "2756904c15e0be7568bfd5609495b58d9f6f4470568792a1e22311f2a3c455d9"
+    },
+    "common/widgetasset/vehicles/common/xDrive_Plate/shaders/fx_ring.vert.shd": {
+      "shader_sha256": "2035436f3c2d5830024801f52b7fac868d34ceab0f22a6f40d5ba3759c5f54b1",
+      "program_sha256": "b2b57e6ad59e496c4b7081ada2cf4b987865e0922b3dfeeec935fccaa8d2d806"
+    },
+    "common/widgetasset/vehicles/vehicle2D/G11/shaders/MAT_TOPVIEW2D.vert.shd": {
+      "shader_sha256": "12d8a0ef3444cd357fe80400dbd1c7240848e42b90c5ee92ec9fd3d3d3c35d94",
+      "program_sha256": "e665e2c52bcd47b45e7c7a491968d88e6c143f2b0d37b1fd4c15e5c2dc118b56"
+    },
+    "common/widgetasset/xdrive_compass/shaders/Pointer_Shader.vert.shd": {
+      "shader_sha256": "ec296cb2be0cc78b0c9a8064988c6621b453e585bcb881e808965d5aa1bbe220",
+      "program_sha256": "bc8fda84802f5dc5430a30d651ca8fcdc66050dd8f456fb56248b6e29f9dbdf0"
+    }
+  },
+  "fragment": {
+    "bmw/id6l/widgetasset/background/shaders/mat_floor1.frag.shd": {
+      "shader_sha256": "6f991032523e15edf141037b5636cb1ae888da29e90b731da94481afad13c750",
+      "program_sha256": "f3bfb1b906daecad810e921cf2762465869a76f3d0e35299f679e06c9d4c8e7f"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_glow.frag.shd": {
+      "shader_sha256": "ce3e1166e4bdf28927cc52b1f35db60ed5a95e283d903d8af742a0fd5bb90fbb",
+      "program_sha256": "7e9b8991d945d531670f625dd913f9643fa255f79f8f3ced2638f5aab43b0166"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_hl.frag.shd": {
+      "shader_sha256": "bd86937b29b3e04294830a8d7cbc84af5ba4d456f03f4148674803fb2709158d",
+      "program_sha256": "7c62bcb4b2b7b4c6227f3a4245127054a0193f781235349066475ce56a2ac402"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_line.frag.shd": {
+      "shader_sha256": "97c1c6620721dd924eb601633826d20b2575201e584978c57c88ef2924375ce1",
+      "program_sha256": "954bc856b0702f3654845beee1f6b7dd685cebfd41fdba7c13e9aae0d5fa11cc"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_sky.frag.shd": {
+      "shader_sha256": "82c1e1c65498546013b074e710a0b6e3b7bad499d2f28f853d389f3968f95da3",
+      "program_sha256": "ff163f12a5d130c719ef4f3912b8cca7951092435d1c119fa64c3571bdee6b3a"
+    },
+    "bmw/id6l/widgetasset/background/shaders/mat_subline.frag.shd": {
+      "shader_sha256": "d071d981e4ee3d9228a526688d55d7177ab1b63cded0c703c5e18c36bbfafa5c",
+      "program_sha256": "a8d0f7fbdc0fc0bfb2073e6204b884309de0514daa25f6257703a79caa679181"
+    },
+    "bmw/id6l/widgetasset/controller/shaders/mat_mapscale_bg7.frag.shd": {
+      "shader_sha256": "abe754162b3ec4c8a4468613db72163b061b417bcf967faf9781b1ab04348668",
+      "program_sha256": "87197e8bb46a7a178bea00664d83bbc82624e451fabf736fcc00eef1529bf613"
+    },
+    "bmw/id6l/widgetasset/controller_arrow/shaders/mat_arrow.frag.shd": {
+      "shader_sha256": "ba29cf6aad326a4459b43a3a8013908221ff5c1921372d65c19b9b0b5ba8c7ca",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge.frag.shd": {
+      "shader_sha256": "9a5fa03a07c432cc947f68d17f7e6bc5ecf239ba99eca2f24659871e68a57f5c",
+      "program_sha256": "660ae463754bec504273b675a724e3e488f48132288a6f5a2653536452bb6880"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge2.frag.shd": {
+      "shader_sha256": "a5ee1f1d1cb5eeacea9b5777e5584946ff560060b183f96980fbe0bf2ff8186f",
+      "program_sha256": "b2eb712a5829e283a6269a6faba7cd76ea6de8ce48bd8eeb5983a8990dba14d3"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_edge_inner_touch.frag.shd": {
+      "shader_sha256": "f97ae83c017725712d59e91955527bc37939f83621d75c1f96b9cdf4db70fd93",
+      "program_sha256": "14dcb1ba0a18cd49b65326b331b0dab02c6045d11fa9bb9978a51157d986668b"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_flare1.frag.shd": {
+      "shader_sha256": "d9d8e3728334167293b09859d596ef463cd8137e8f4f85958ba3a957355b269f",
+      "program_sha256": "b0fd5b689d29ff7ad1794355e6aaf45f91c1d9e6f9ec8ffe6f84da15a4615f9b"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame.frag.shd": {
+      "shader_sha256": "5f45a97a60bccdb66297b2328f8a10f9e114170c47b825006dd8e020bd13cf1c",
+      "program_sha256": "a9d95e14056aebe829b02a7d0f83b971b66345ba80235273927b430dd1a804d9"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_inner.frag.shd": {
+      "shader_sha256": "ad5dde505415813072f598d1e990758eb85493b23de8d54d72c427a59328dd87",
+      "program_sha256": "1b6af8fb49da373777e270fb1b7cf1d9631ab7989871f2554104f974fafe8f0e"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frame_seeall_touch.frag.shd": {
+      "shader_sha256": "97fc77bf116044ef91afe8c9d93390a24802d6b20ca91ff0879b6c5b4a1e820b",
+      "program_sha256": "240670eeec67bb4111f8b17de8f98b8950e66e91c5b974f3ecb7230efabe8326"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_frequency_pointer.frag.shd": {
+      "shader_sha256": "c8b5f944c93897b465afaf8cee79dee492cd3b0de744574151d615816302e00b",
+      "program_sha256": "e139cbeb2f7d109b570c05e328160a8a6e4dcd91991accb1dccfc872d6eeb049"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight.frag.shd": {
+      "shader_sha256": "c30fe0d0cbc29e076d1db22e54949e38854172748a3e29babf66dd85dc295558",
+      "program_sha256": "bc11b030c589e5dac695859219e772d0fff36f927d69151d58d7aab232a01b63"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_highlight_main.frag.shd": {
+      "shader_sha256": "61145e59abc8e80a8e97022962b9372379407f38fc08185d190dd165a38f8014",
+      "program_sha256": "f4ba9671405cb18ffdbb4e60169479dc6693fcb784be22f3f072fa37e7ef8467"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow2.frag.shd": {
+      "shader_sha256": "7bb56fa7eb34d1994110de7ab97b86f28ceab7e24f4fd21e3eea8b3a472b6853",
+      "program_sha256": "55d2db42f72c857c1b9924f298ac5890bc5251882e9e4696fe9bb11b24137488"
+    },
+    "bmw/id6l/widgetasset/cursor/Cursor/shaders/mat_main_edge_glow3.frag.shd": {
+      "shader_sha256": "af368e4de983e32b1e57ee8bb4c55df9ad5ebf511ba48a0bb68f726c47e7dd77",
+      "program_sha256": "165d9332403e706fef97433e779eec8a74f5162b3257e9e1e28b5a82b470cca8"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "9af0a57ef55d32dd32464f117c5d692b60c63e2d87e7986b733c7ac74eb4457e",
+      "program_sha256": "70e639786a88d45d721e64fd9e7356e0e3d69b4064e82426b24cc02da8793b6b"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_dotglow.frag.shd": {
+      "shader_sha256": "6c12160f3c05b9e3987bc96bea23c024eeb65039d31edd4d583d172d946f24ae",
+      "program_sha256": "f7a5f86466006efdd6ae9ef93a811fad073311094ed2d78c678e4c296802e2ec"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_gloss.frag.shd": {
+      "shader_sha256": "c4324ac0edffdf3b4af3ed532c8fe071793fd7a253319bf3069814ab211b9991",
+      "program_sha256": "8e5093f01c8e49390d052d59ceaa93a80162a2eba47049be22eaaf6309f637db"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_list_pressed.frag.shd": {
+      "shader_sha256": "cd02bf138fc0ca859e3f171fd8922d4b3e0523f0c5a971e191d32893c4126ec6",
+      "program_sha256": "ee007b0d6120f1e43b6f68e94f55d7b644dae50d18e686f86c8dba5f70384074"
+    },
+    "bmw/id6l/widgetasset/cursor/CursorBG/shaders/mat_shadow.frag.shd": {
+      "shader_sha256": "7559af48f921868efb22902ac0dfdcf5d29d0e188d3554cca806c029fcf19260",
+      "program_sha256": "f9beb20ec6424186e6bbb2097952255798a9ab26bfecd9c5dbbb1dd1aef6b266"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "1cac5ccd766c7a7c010000a67fbbc5bfd344a0114b8cccaf9c884b4d26e51590",
+      "program_sha256": "e91ca04f66f8e7ce881eef4dfe3d71586a8a6fcbe81e051e3a87e433f3fe09e7"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo.frag.shd": {
+      "shader_sha256": "01b145555969273bd077fc6bf4ac7f6c9a935d970fa2cae644e78b700fe7ba44",
+      "program_sha256": "5fb0d7db155ffe1edfacb68f9f5e2beb821583a6fb3fa7201c22b9c15fea34dd"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_bmw_logo1.frag.shd": {
+      "shader_sha256": "8f4cfb90fea6e21c50824349b86467716ffe8a3020eeaa26cdee8d8ab7a788ee",
+      "program_sha256": "847d2cb5880aa6f2692b8376d72015dc26e373aaddeb6981a35329b7d45c74f6"
+    },
+    "bmw/id6l/widgetasset/navi_startup/shaders/mat_glow_tower.frag.shd": {
+      "shader_sha256": "f1d1e83f9ce45c990c834783cfd16d95f9c31e7620c346358933bcc54bd3f6f8",
+      "program_sha256": "8d15b67e5e1cee03397370285f1cd5dd5059b34b11844e835e8ecafc4acda098"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "f61cc553cd872a1cc2e82c7ac0cf8f25e18730033965ec2ebc6310b501621b17",
+      "program_sha256": "fbd0e9874263b732c508f9f96c1936e7d03c7afb7cdfe65faa5c4ea199410c80"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_blue_glow.frag.shd": {
+      "shader_sha256": "4384083fca95bbc2aca74870b96fbd4ab19fb29e07cc379e3011102adacebeea",
+      "program_sha256": "80dd1fec865d1655dfb57a087c27c8d9c131ca48489903617451843d9e1d1b57"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_city.frag.shd": {
+      "shader_sha256": "3e9ab7d9ec620e2da4dfcb997a356ed054c4a0a20691c3fac6e424d3650546f2",
+      "program_sha256": "dd12ca6b856d7069eeb9b1879efb2f6fb7935f2e23b75e51e235e10a190df1c6"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow.frag.shd": {
+      "shader_sha256": "7e5b1037cfdf4356d3edfb844c7113a79ada85b360563cdab8c0b906d11284a4",
+      "program_sha256": "8d15b67e5e1cee03397370285f1cd5dd5059b34b11844e835e8ecafc4acda098"
+    },
+    "bmw/id6l/widgetasset/navi_startup_pad/shaders/mat_single_glow1.frag.shd": {
+      "shader_sha256": "e551916847a7a67a9c7e9c071242b3b6650e58d0772a7ad63186107234a7c16b",
+      "program_sha256": "89c0968f7240e2f70cee0618a9e49c103c679b252c2630885e93c2d536eb9469"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/WI_HwShader18.frag.shd": {
+      "shader_sha256": "1116d6e9e5d06b173f64467ca9dd0c7686291f6450b5922d49ec0361dc010561",
+      "program_sha256": "87197e8bb46a7a178bea00664d83bbc82624e451fabf736fcc00eef1529bf613"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/WI_HwShader22.frag.shd": {
+      "shader_sha256": "236bdfb1917119fb50f25a37d44f69e7a9b476b8765263e247a30872b655674f",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "3ca916d0c8a4bb28c90e102cef708d7227f110d45def4a6b795b14fc2aa9f8d1",
+      "program_sha256": "71eaa0d6b00383a15c25a75776f5e2542dc3b1c165c33a4824f0da8c4a4f4aa0"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_edge.frag.shd": {
+      "shader_sha256": "026138133c428a1e3191686f0d0d59e2bd49b699dcfcc23e5ac2577789c01539",
+      "program_sha256": "78d1b43eac032a08b04ebfbbcce990afa1b94040ff46f8b9011839c216e19b45"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_frame.frag.shd": {
+      "shader_sha256": "56aa870a80db2451d19b2865da9745d3290f10d63bf2b1b089ad432c9424db37",
+      "program_sha256": "60cb3d2dc963b8654e63128cb37e358d80d3921ef7a2da22428d601c4175a0c5"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_highlight.frag.shd": {
+      "shader_sha256": "e553e4e9b34e205f62b8fb8abb6a7373e556f6d3796e33446754600f69458a5a",
+      "program_sha256": "a9ccf36094221249b3ecf9cb273435d061a822d922b5241f2dfb49d2a1f26bbd"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_list_pressed.frag.shd": {
+      "shader_sha256": "6d395411fafc8228ccdf3d95dd332679bad8a26abbb1ea018b853efb1b8d30cb",
+      "program_sha256": "ae344016c220b6aa668eaacee45f48588512ee79b425b8646bb8879da284c9c1"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_main_edge_glow.frag.shd": {
+      "shader_sha256": "6296d7ea4d180f9daf8f1df24898d5d5fb1921d0ae47c8d7d30e08d9b1086347",
+      "program_sha256": "300444d9f9e931b1b22ed8a6025ea6fe6c5bc665c823e3d60a047d513d637d13"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_pad.frag.shd": {
+      "shader_sha256": "14f74983d4621b9b1f0d51d666cf8189129afc151e596e79e81a1746442cb3c8",
+      "program_sha256": "fa0c2f68db256961e07cff01b47615a6303a9a2d94702f936556a18a35ff31c2"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_pad_bg.frag.shd": {
+      "shader_sha256": "726bf332014cfe9aa86842c3b7d4fa2682bccaa0aff75b915578ae270ddb5c9f",
+      "program_sha256": "c6917f11d755355e7094bb29079aa12898d9c2c65b0d1ab9cbf11ffe572f959c"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_reflection.frag.shd": {
+      "shader_sha256": "d9ee51b652dc95f4bb5c41428a3e64013bc03ddb6157641d994c663c98329353",
+      "program_sha256": "da320ea81ab1626395315ea926f831884fe65e5967a00a3617f1360b9605846f"
+    },
+    "bmw/id6l/widgetasset/pad/shaders/mat_top.frag.shd": {
+      "shader_sha256": "94607d87c4120580a4b7f51328c66c25cf759e884ebe69e252ee2c700fef343b",
+      "program_sha256": "054856f95f5d4daf451aee5cf7df302ce68f6a727c7ce19180567aa12e12ca9b"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_bg.frag.shd": {
+      "shader_sha256": "b1de2441a10e481d1069fa24aeb559aa1422496038004370c610d13c1172147c",
+      "program_sha256": "636f17d027af0f05af2b6906e2f7a9a4ba4f7f85f3af6dc933d7cd394aa24d13"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_edge_l.frag.shd": {
+      "shader_sha256": "af56c7e0b330baac7e9c4e2d8654d39b6736d9e8635e7434a38de9efd1354382",
+      "program_sha256": "ebe7bdea9b0a4c80840bd8fb973fe37b28e92bdc11aa5ae5b1d466d677ba4efe"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_mirrored.frag.shd": {
+      "shader_sha256": "743597f7045fc265d6007302934b4f7769122ccbf5affb24229057883da4ec2d",
+      "program_sha256": "1aa7d60f2e0288a540c6379940baf77fb11bcd80a806b23a03c20c160bf5873b"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_fb_popup_bg.frag.shd": {
+      "shader_sha256": "20a40dc4212730080ccaed55e1ee665de2248c196f1fdcf58f993aa2e32c8f5e",
+      "program_sha256": "0e561d7b01ec452de766c51dd984d28ed91f78ff8d8d04d953363b63ec68bee1"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_bg.frag.shd": {
+      "shader_sha256": "277e23435359690bf18af136fbc862ca228d05307a2a0715d72c5353560340fd",
+      "program_sha256": "cd735b393cb5a0fe2bea662bfc33f0fcb1d0c3c84d9f4833506ca255527b625c"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l.frag.shd": {
+      "shader_sha256": "f4d4085ac3008d75d4fcc68df42345f907802be0a6a3ac7e40849a69aa626349",
+      "program_sha256": "27119e681b3518f9cf439d507949006fd7a573a9c6138bd67ddd3ac901417147"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_edge_l1.frag.shd": {
+      "shader_sha256": "28d0404d6155198ca1756afa9e3cdea12c0060573af523559e09cc78ba724ff3",
+      "program_sha256": "260717fb0694507a2c1b8e228f8f5db11c1cb763006042c5b8025b052a25207b"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_mirrored.frag.shd": {
+      "shader_sha256": "fe143e10ad56d53f8507acfa3d70466831e5add28b4c6dcea86a7bfc1dbfdd50",
+      "program_sha256": "afd43e5a39d123d0170d35f91a9cf400bff3870dc127aa14689e2bdebd45eaad"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_list_shadow.frag.shd": {
+      "shader_sha256": "cf69532a3d1177d0f00bac883c933d1a3b3afb6703647f1ebe93c6109e1f36e6",
+      "program_sha256": "7449f6f72a37211187ffec784d0485b033108856f2d7f3aeb3ed954df85d819c"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_pie_edges.frag.shd": {
+      "shader_sha256": "45460adcdd63fae491d2156aa43451e6f5245e740dc2fea73dbcf1294674a29e",
+      "program_sha256": "4b0c1a60640054fffb8757d4a488d827217d0f855eea9367c2cf0b26faadbfe0"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_player_bg.frag.shd": {
+      "shader_sha256": "c0407d433c10568b300da43beec936b8ada341fb767b4cdd33b10d6d7dd10d08",
+      "program_sha256": "f78e8645efeb441d1f3c5f9bce770a2a834f17e35e1f1a37b2ae46e29ecc75c7"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_player_mirrored.frag.shd": {
+      "shader_sha256": "50d96f79d67e9873dedf4cccb3f2254fa2c658ca175ff2c53a12f86a6c230b61",
+      "program_sha256": "325348558be8c6a4f4aeb837f7b53e9d6e93663c9d043a3fe988eda3da4985ee"
+    },
+    "bmw/id6l/widgetasset/panel/shaders/mat_popup_shadow.frag.shd": {
+      "shader_sha256": "53391ea6199d6758045cb2e5b007339a4a6898bf365382e814fe0f2a73189e40",
+      "program_sha256": "b660f5a82b6faa243fa8e654d1841a4dad58241e258506c6987bf0cf0d06aba8"
+    },
+    "bmw/id6l/widgetasset/panel/split/shaders/mat_split_bg.frag.shd": {
+      "shader_sha256": "d2cf6cfe495972cb037f71c63cacf38f70c0cb39c875b7d437a718843523f4f4",
+      "program_sha256": "8cebba0939598596ab69dbd0c52c22d452c5a02a23870740c3a1630166778a24"
+    },
+    "bmw/id6l/widgetasset/panel/split/shaders/mat_split_edge.frag.shd": {
+      "shader_sha256": "33e4a7e7192bdebcce5a266f3f5951ca913d5b347604a37a6ee47b3dfeafc41a",
+      "program_sha256": "f5c15213efe91663beb0f78f5d59bc617ee03be599e6d4bed3a58f02312039ff"
+    },
+    "bmw/id6l/widgetasset/panel/split/shaders/mat_split_strap.frag.shd": {
+      "shader_sha256": "ba29cf6aad326a4459b43a3a8013908221ff5c1921372d65c19b9b0b5ba8c7ca",
+      "program_sha256": "7962214744cbebb94f1928128112ac97d8bf2edb15770ed17bfd2f5c3ed320ee"
+    },
+    "bmw/id6l/widgetasset/spellerBackground/spellerBackgroundModel/shaders/mat_speller_bg.frag.shd": {
+      "shader_sha256": "c972067c69269f7a16f79d5c2e02d25f6589d0d0f64a9faddeb350054489640f",
+      "program_sha256": "a40a4c711d1bcbc48bafeb75b6a5b775c485e77e6fc9897d60b35f074d9b7668"
+    },
+    "bmw/id6l/widgetasset/spellerBackground/spellerBackgroundModel/shaders/speller_bg1_mat.frag.shd": {
+      "shader_sha256": "6e08ef76ac4e52036dc0e042f4a48de1fc57187ee3a6f91d99a8ca0c334e1543",
+      "program_sha256": "5e8f6a4603d6240de0b7ae29ae93bb75045ee03238a636c8a74314d3e9b393b7"
+    },
+    "bmw/id6l/widgetasset/statusbar/shaders/mat_splitscreenshadow.frag.shd": {
+      "shader_sha256": "0f5ee99ef5a8769ca01c6d53ab11e1a3abd48c52e76b53ff3602c0fadc4dd320",
+      "program_sha256": "073f4defcdf14a724d0dd7c3d5de0035466611eca719b421f135420412422148"
+    },
+    "bmw/id6l/widgetasset/statusbar/shaders/mat_statusbar.frag.shd": {
+      "shader_sha256": "b01fecb1c1da0447c0f75a0427a89be71a20867c49aa49ce949678b0242150e3",
+      "program_sha256": "f74422067fce5ad2372b96430a89600ac176a90ba1afcbc09256ab2ad9daa60f"
+    },
+    "common/shader/ContentShader_fragment.shd": {
+      "shader_sha256": "6200b698a80916db6bf411976d6fb1102d329f8f26b97425255b04ebb4dfe76f",
+      "program_sha256": "813e6428bd6110fc8f183e0d2f3ac079d8a7a865cf75db7c95575bfe175ab4b0"
+    },
+    "common/shader/Gal3DDraw2D_notex_fragment.shd": {
+      "shader_sha256": "67533175c65e3b7a7e03e00bb66bc8e461b311fc7326e30ef7547923919fa91a",
+      "program_sha256": "46bfc805a3accff0663ae248a77780100c7cdd4195ffef22ae39cee2e56f4474"
+    },
+    "common/shader/Gal3DDraw2D_tex_luminance_fragment.shd": {
+      "shader_sha256": "aab0ec85b11a70491b6f6b80e2d1d736c94ae3c0b4be117a5eb0bc411cda353f",
+      "program_sha256": "fd75c0c0217e9910f38bca414adc8e3c008cb41468ef86e3b0d7ab92a81db712"
+    },
+    "common/shader/Gal3DDraw2D_tex_luminance_repeat_fragment.shd": {
+      "shader_sha256": "4232434de3fc1578e9df63d9f6e5d6c1d26071ae8ad5aa9025b56fff75c0a714",
+      "program_sha256": "964253161024a718ca9b9a68ff9e08d6290b428a87388c111632a9ad70c17e82"
+    },
+    "common/shader/Gal3DDraw2D_tex_rgb_fragment.shd": {
+      "shader_sha256": "adc3114e4f2ddfc26526eb414d5a9414235bf34809a515d48406e0292abe4115",
+      "program_sha256": "d099999a07ae0352c63da48ba7c2579e6706262b89402878f734ea9463a3668e"
+    },
+    "common/shader/Gal3DDraw2D_tex_rgb_repeat_fragment.shd": {
+      "shader_sha256": "23f72bbdb3f8921aab7226c8d2b5c6ea97f6fc25bfa1ed3d918159010f777482",
+      "program_sha256": "dd2d86853c63ca8bfef242090e58a020cf7c24827380c92db36172455a1ccb27"
+    },
+    "common/shader/IconRGBA_fragment.shd": {
+      "shader_sha256": "befb1737d8e7110cea4f797343c2eaca51c2d9d95249f45774c34d0982fc9819",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252"
+    },
+    "common/shader/IconRGBA_fragment_fade.shd": {
+      "shader_sha256": "ea1e898c16fc7127d5c9faa31f336cddeac368ae4309c6c6a6d897f4073776f6",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d"
+    },
+    "common/shader/IconRGBA_fragment_repeat.shd": {
+      "shader_sha256": "466da476c6b56bbe4bb4546df620f7734eb2fb96ee9bf74c16c88d6d675de909",
+      "program_sha256": "01389a690977104315e01309e8e6d200e506165bd23f94e751fb9861a833929e"
+    },
+    "common/shader/IconRGBA_fragment_repeat_fade.shd": {
+      "shader_sha256": "e271b74c1a498bb05a4b37958b3345556bb53193e078487c510a840c9209264f",
+      "program_sha256": "899ac4419128863cdf1485e9e3d136e0593000470168274ba05570f025b93e15"
+    },
+    "common/shader/ImageAnimationBlend_fragment.shd": {
+      "shader_sha256": "fa2165b1db14d2a937068e9c29065cf125ef5a8defced135407cabf52d14580a",
+      "program_sha256": "ec824edd8fc1c5a104b3092343c31ee8a0003c3705153a38bf22055581895324"
+    },
+    "common/shader/ImageAnimation_fragment.shd": {
+      "shader_sha256": "c3cf8e3a261180b20419d9cb614fd1718a784ca0905d9e71ab39b2474e6128f1",
+      "program_sha256": "7c8b945f88bd034ba93973312639f411e580fa37b5c8a59327d886b6e3dad70f"
+    },
+    "common/shader/ImageLuminanceAlpha_fragment.shd": {
+      "shader_sha256": "95504122ff43b1115c468962076a83ac2c2beeef7346733e7b6e1bf67fc0ce66",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252"
+    },
+    "common/shader/ImageLuminanceAlpha_fragment_fade.shd": {
+      "shader_sha256": "ea1e898c16fc7127d5c9faa31f336cddeac368ae4309c6c6a6d897f4073776f6",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d"
+    },
+    "common/shader/ImageLuminanceAlpha_fragment_repeat.shd": {
+      "shader_sha256": "2fe74dbb8532f7ea66f24a2b6c91a37424c3bed579566bfab374b134661856db",
+      "program_sha256": "5a127eb89090058bde92600af0611863eefb085ec878b2961e830dae26327c6d"
+    },
+    "common/shader/ImageLuminanceAlpha_fragment_repeat_fade.shd": {
+      "shader_sha256": "b9d634778045768141396af7d7380597c33247ae90362438c4f860419bd29917",
+      "program_sha256": "991bf4cd00f49d11fa1594d4f4e3e047106e8da51d43c52f7227114cccec2f39"
+    },
+    "common/shader/ImageLuminance_fragment.shd": {
+      "shader_sha256": "4da2fcc3b2b8668ae4de206a7c2cd10dded6c9bc34c12505750515a44e69644d",
+      "program_sha256": "0d69af6bebfcb3ed29b655ab92ed80a15cdcdbec3f21c7ed11e8c29bc1177945"
+    },
+    "common/shader/ImageLuminance_fragment_fade.shd": {
+      "shader_sha256": "61edb65b686f9179753e4a0f99d3fb191cc6773c9a852fd215ab765c796e12a5",
+      "program_sha256": "3afa1307480d803cff390182743188758deab101a59fd6546613c741608e9853"
+    },
+    "common/shader/ImageLuminance_fragment_repeat.shd": {
+      "shader_sha256": "2919686c8a7d355e08987cd809a28a12fe279e5ea80167a9cf21797048a62367",
+      "program_sha256": "14c0a75cd732928d1ee6663d32e3844df0d65c37e0af77460aee2d7dd765c0ea"
+    },
+    "common/shader/ImageLuminance_fragment_repeat_fade.shd": {
+      "shader_sha256": "ecc8a7c0a398d5ee4325a2086ddf9b8698e9f4c3e4f8f3a646bc15f10a6d60a7",
+      "program_sha256": "0292308bbfae9f2352d51575913457948e429138ca98a271e820e6d9b829cc84"
+    },
+    "common/shader/ImageRGBA_fragment.shd": {
+      "shader_sha256": "befb1737d8e7110cea4f797343c2eaca51c2d9d95249f45774c34d0982fc9819",
+      "program_sha256": "ae63038edb6785573144154cd5d3e8c81c18940c5b6b2dece70976bc5c6fe252"
+    },
+    "common/shader/ImageRGBA_fragment_fade.shd": {
+      "shader_sha256": "ea1e898c16fc7127d5c9faa31f336cddeac368ae4309c6c6a6d897f4073776f6",
+      "program_sha256": "7be227fe127e03f311a1f5b71d03259d869edd987ed6be8dc51568097b4a243d"
+    },
+    "common/shader/ImageRGBA_fragment_repeat.shd": {
+      "shader_sha256": "655f610916b3eb48b47ba4eb49888859b59bd7e68a8dd32bf4f1752f723d21e7",
+      "program_sha256": "800bf4e70d7211574551f5af75c436a229bbbaae4d8c518ce7c135fa58f80c85"
+    },
+    "common/shader/ImageRGBA_fragment_repeat_fade.shd": {
+      "shader_sha256": "94d860564eb288fddfb5a00161c2fca51332f6b6bedb29cade3d0658a5230588",
+      "program_sha256": "22802093f2ab96e647d7fafc949713a7a9e06cd234dcc325de72c9603be6e95d"
+    },
+    "common/shader/NinePartImageRGBA_fragment.shd": {
+      "shader_sha256": "4da298a03030e2398219c3a1d96e350d610d8bb925c36e7deee84a691f08518a",
+      "program_sha256": "08cbc2b2df2a8b3b34ef256d83469fc3e3f16adf57e137a47a81a4795017de3b"
+    },
+    "common/shader/NinePartImageRGBA_fragment_fade.shd": {
+      "shader_sha256": "18e4a33abd56a744cfa77602e8e6f88346427d09bfb0e78e46a3e604d71b5caa",
+      "program_sha256": "3a96bef4c0fc6bd8da62f8f1f7e61fa094f4282a540821130602354bd591ffcb"
+    },
+    "common/shader/Rectangle_fragment_fade.shd": {
+      "shader_sha256": "1c62c9631e469ee69f6fc070c67369b7228904b2f29c0dc00aa2e65febca5504",
+      "program_sha256": "ed39e068a33c94fa4f2ad114cfac87cad5c91de746cf6812aa8b11533a0cd1a2"
+    },
+    "common/shader/SpecialText_fragment.shd": {
+      "shader_sha256": "5b91425d247ce4f62b3c93ece473994439136cfbe147ab50d5271486da4d9af3",
+      "program_sha256": "2923e3be362e88ccee4f5faef607d7a60676c66f97289e0052725be2d423515f"
+    },
+    "common/shader/SpecialText_fragment_fade.shd": {
+      "shader_sha256": "10cc49271cd956f735005eb133ce82d12931a325ac11462aeed73fa1d9ee5bf6",
+      "program_sha256": "9dde753277990fb79c8b5f22bdf593b17bcd40f76ea1564dadb4677dca9fb178"
+    },
+    "common/shader/SpecialText_fragment_repeat.shd": {
+      "shader_sha256": "7c4fefa8653238bd5877267c0a0c51146695400e8d1462d0d69e0f722317fe64",
+      "program_sha256": "c53b1085a045165678baceef51987af0529252ca7f786488ef82b00a4145a557"
+    },
+    "common/shader/SpecialText_fragment_repeat_fade.shd": {
+      "shader_sha256": "86e0931eba5bb35139ae7bd46613bf3ee9b3e924667b4bfe809552ab3bbc88dc",
+      "program_sha256": "292505c31179ddcafc2c904a52c2c3fd08839872f4999b38864ca85c308fe4e5"
+    },
+    "common/shader/Text_fragment.shd": {
+      "shader_sha256": "afbcb6c7aa216e1f273960a0fb3f566a55fd4fe8d02ff737f8f1ae53e2d36b2c",
+      "program_sha256": "81d8eb760752cbc9e0872da85bb44effee35e7542125ce85f4491dbcedbf6e1b"
+    },
+    "common/shader/Text_fragment_fade.shd": {
+      "shader_sha256": "77140b130ca8a7cee0aab7ea128babdcb43afe8e8818e5b21c5e36695054b6e4",
+      "program_sha256": "c90f828a81468c027800c630524757ed5df0f95ecea3c27b6d2f7f6908472fa0"
+    },
+    "common/widgetasset/active_seating/shaders/mat_streamline.frag.shd": {
+      "shader_sha256": "e2fdddc931efbfefee2a832b738346c5c923439ec7db766103dc625425ccbedd",
+      "program_sha256": "195e4e468d6597088031984b5695df0ab226670bfdbe4acc4660ebc8461f041b"
+    },
+    "common/widgetasset/active_seating_timer/shaders/mat_piechart_bg.frag.shd": {
+      "shader_sha256": "9fe60434d448650a8b5e853fb18b7a432424e0d87ae321f7bbac90884e483704",
+      "program_sha256": "1573d9e2689d6d07feafb64bd05e3078d63640f7edbcff22fd39aeb83dbe8773"
+    },
+    "common/widgetasset/clock/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "e79f3795ff1b3eb3d51030481513bec0d12bb3bb154ea9efc868b08a7d88962a",
+      "program_sha256": "65856f15cfd3515d68a02d9d1e2143df64e58a84ab7e09bd5ecf8246873e4219"
+    },
+    "common/widgetasset/clock/shaders/mat_scale.frag.shd": {
+      "shader_sha256": "e9010894566b160ddb836c020742b6aca366574cb8b18d9093d59483cb2e8786",
+      "program_sha256": "8a723047891c02291d985cf595b22ec1964684c976434df799a9896c7dd7d1f2"
+    },
+    "common/widgetasset/controller/shaders/fx_piemenu.frag.shd": {
+      "shader_sha256": "47001b4c5cb1e1791b3172f34904b540255885f569d2cd5f8df79f01d3d65f4d",
+      "program_sha256": "d137d0cc78fc7f35253db64ed414cc9dcc34d8a3d44da6a53d3c5f70bae07193"
+    },
+    "common/widgetasset/cursor/Cursor/shaders/mat_charge_needle.frag.shd": {
+      "shader_sha256": "d80b2a13976d97ce6609c5bd5e2c80c8a5107caaa0ebdf5f4da594cd411eead4",
+      "program_sha256": "bad3752753613cac48661b24c537e15e411e894f8aca621401b1b176ab31e6ea"
+    },
+    "common/widgetasset/cursor/Cursor/shaders/mat_reading.frag.shd": {
+      "shader_sha256": "3fed461650e9d23d87a5f3bb58167f53a9129d4f7e69efcd005ae70d253245b6",
+      "program_sha256": "284dd417063862d7202a95ffc3ef9114e18e30678804eea51602334e925205e2"
+    },
+    "common/widgetasset/id5_sport_instruments/shaders/mat_SportTube.frag.shd": {
+      "shader_sha256": "977db4ac7046ee605281c283ad807e5af25ff8c30c54dafda38f0ba6fa0008a1",
+      "program_sha256": "9ad2da68c419d4b9891faca7259f3efc3a9471dee2eb604ecbcbb2d3815c2b81"
+    },
+    "common/widgetasset/id5_sport_instruments/shaders/mat_cursor.frag.shd": {
+      "shader_sha256": "2d6f86bedf906d92cf9d7d36a7a110535435423587569938fa9bffc47660ffb0",
+      "program_sha256": "d137d0cc78fc7f35253db64ed414cc9dcc34d8a3d44da6a53d3c5f70bae07193"
+    },
+    "common/widgetasset/mainmenu/shaders/mat_main_domain.frag.shd": {
+      "shader_sha256": "44742617ed9a5f656755bfe85cc6af062e0cfd33fd786164b952f1e24f48b69d",
+      "program_sha256": "7b8534fba360bb3ba42370bd9e8045cab73cf518b56818d88cd422a50946801d"
+    },
+    "common/widgetasset/navi_startup/shaders/mat_bg.frag.shd": {
+      "shader_sha256": "1cac5ccd766c7a7c010000a67fbbc5bfd344a0114b8cccaf9c884b4d26e51590",
+      "program_sha256": "e91ca04f66f8e7ce881eef4dfe3d71586a8a6fcbe81e051e3a87e433f3fe09e7"
+    },
+    "common/widgetasset/pma_rfa/shaders/fx_rfa_active.frag.shd": {
+      "shader_sha256": "59e1df0cac200b9c7788fe5b6f90b2ba2a37bd64d12e632a7518c0769f6db772",
+      "program_sha256": "d028406dcf768f032fefa4eb6bcdf34c496fc8c66364a5fcb6ffedc64694275a"
+    },
+    "common/widgetasset/progressbar_player_asset/shaders/mat_player_star.frag.shd": {
+      "shader_sha256": "8badb93d7e37552851a4e01da72af8f28051c051fcece9863384d7fc1b47b02e",
+      "program_sha256": "58bd0a89545e331cdb4dca3cd24e39d18c16170a6c29de9c9233ac390a699af8"
+    },
+    "common/widgetasset/roadbook/compass/shaders/mat_compass_ring.frag.shd": {
+      "shader_sha256": "6fdf69d1114bd773d1c4c075658ab722a50911a1fddf91b7f8bd46ceef908ef0",
+      "program_sha256": "213192855c44b22362a3ad37860ca3bdce38d55b906fd5eed4f14a9b5a79d581"
+    },
+    "common/widgetasset/roadbook/compass/shaders/mat_compass_shadow.frag.shd": {
+      "shader_sha256": "6691b95b8b19d7c774201c7878a0d50fb9899e6a88dc4780af117ca92a4d2d26",
+      "program_sha256": "2c8505b288f660ebb784bf6e80978dd366b8807ec9e44a56f467c7565f2d61f4"
+    },
+    "common/widgetasset/roadbook/panel/shaders/mat_panel_fx_panel.frag.shd": {
+      "shader_sha256": "e3c3d1cd8df489173e9f2c5b3dbdf6a3067a306d5613efd9797529c46a771736",
+      "program_sha256": "a7a89e43d510f57f49be4e3dfdb4965486ebbab71e46bbcd1b73b778a083a912"
+    },
+    "common/widgetasset/roadbook/road/shaders/mat_road.frag.shd": {
+      "shader_sha256": "6356c50c0dacdefde4a16bc6058942b734f6c284bc55cbc792959f8ed1ab6d69",
+      "program_sha256": "55670e72b7578fab20948c69cb45b0e810e7ce227b43cdc3b6de405d0836a006"
+    },
+    "common/widgetasset/roadbook/road/shaders/mat_road_city.frag.shd": {
+      "shader_sha256": "e3f1eaeac37db80ace854800ec166320ad26c8815386f27ac438b03d3690ffc1",
+      "program_sha256": "ae6b686865da76e6261dc197e4450b4dffdbd6cfe5167c87115f8f9c20fa056b"
+    },
+    "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_ece.frag.shd": {
+      "shader_sha256": "699a316cbd3b8d5c93852e8236410343ba8c7428cb757a8c4bb09a7b5b7e2d12",
+      "program_sha256": "e89282994f6d9b79368f28f21cbf37f0aa45e669f76507f3ad0abbdca9977ba9"
+    },
+    "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_frequency_90.frag.shd": {
+      "shader_sha256": "89ab3afbc10e009260aa9d85024d39c89ad0654dc01a64841e0988003ef4718b",
+      "program_sha256": "942516a772fa14c62a34f042b26881def7036c099c4f31ba4360f974b39f7f20"
+    },
+    "common/widgetasset/spellerBackground/spellerBackgroundModel/shaders/fx_number.frag.shd": {
+      "shader_sha256": "0d6ce6c8c18df0e1ca4aa3e1150b8fe44fdcb629f7cf4c4b56c8fd00585f20ea",
+      "program_sha256": "e7dc9423433280d6afad38d3373ac580a067aece55ef910ede21fcdd9515fa0a"
+    },
+    "common/widgetasset/statusbar/shaders/mat_statusbar.frag.shd": {
+      "shader_sha256": "5021685949da05de2645e0584b612888f3ddf43cb9b2d86303c252b2b6c752e4",
+      "program_sha256": "21e3139cdfa59e3b0e22d584ae144515ec7e278f8a0de86bb6cfb7cf3b31f3cf"
+    }
+  }
+}
