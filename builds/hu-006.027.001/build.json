@@ -29,41 +29,128 @@
   "coding": {
     "defaults_index": "0xD9D68",
     "expected_pages": {
-      "3": ["0x96", "0xD9C8C"],
-      "7": ["0x96", "0xD9AE0"],
-      "8": ["0x32", "0xD8D20"],
-      "9": ["0x64", "0xD96FC"],
-      "12": ["0x32", "0xD8AD4"],
-      "15": ["0x1E", "0xD8B10"]
+      "3": [
+        "0x96",
+        "0xD9C8C"
+      ],
+      "7": [
+        "0x96",
+        "0xD9AE0"
+      ],
+      "8": [
+        "0x32",
+        "0xD8D20"
+      ],
+      "9": [
+        "0x64",
+        "0xD96FC"
+      ],
+      "12": [
+        "0x32",
+        "0xD8AD4"
+      ],
+      "15": [
+        "0x1E",
+        "0xD8B10"
+      ]
     },
     "code_patches": [
-      ["0x648A0", "16 00 00 0a", "00 00 a0 e1"],
-      ["0x683D4", "f0 45 2d e9 e0 40 9f e5", "01 00 a0 e3 1e ff 2f e1"]
+      [
+        "0x648A0",
+        "16 00 00 0a",
+        "00 00 a0 e1"
+      ],
+      [
+        "0x683D4",
+        "f0 45 2d e9 e0 40 9f e5",
+        "01 00 a0 e3 1e ff 2f e1"
+      ]
     ],
     "id6l_patches": [
-      ["0xD9AFD", "00", "0c"],
-      ["0xD8AD8", "00", "42"],
-      ["0xD8AE4", "11", "18"],
-      ["0xD8D20", "04", "14"],
-      ["0xD9719", "08", "0c"]
+      [
+        "0xD9AFD",
+        "00",
+        "0c"
+      ],
+      [
+        "0xD8AD8",
+        "00",
+        "40"
+      ],
+      [
+        "0xD8AE4",
+        "11",
+        "12"
+      ],
+      [
+        "0xD8D20",
+        "04",
+        "14"
+      ],
+      [
+        "0xD9719",
+        "08",
+        "0c"
+      ]
     ],
-    "developer_menu_patch": ["0xD9718", "00", "40"],
-    "cid_1440_patch": ["0xD9CD1", "09", "0b"],
+    "developer_menu_patch": [
+      "0xD9718",
+      "00",
+      "40"
+    ],
+    "cid_1440_patch": [
+      "0xD9CD1",
+      "09",
+      "0b"
+    ],
     "cid_touch_patches": [
-      ["0xD9CD0", "a4", "a5"],
-      ["0xD8B15", "00", "01"]
+      [
+        "0xD9CD0",
+        "a4",
+        "a5"
+      ],
+      [
+        "0xD8B15",
+        "00",
+        "01"
+      ]
     ],
-    "camera_rvc": {"page_key": 5, "page_data": "0xD97CC", "patch": ["0xD9809", "00", "02"]}
+    "camera_rvc": {
+      "page_key": 5,
+      "page_data": "0xD97CC",
+      "patch": [
+        "0xD9809",
+        "00",
+        "02"
+      ]
+    }
   },
   "variantregistry_paths": [
-    ["vehicles/G11/vehicle_G11", "vehicles/F30/vehicle_F30"],
-    ["vehicles/G11/camera_crane", "vehicles/F30/camera_crane"]
+    [
+      "vehicles/G11/vehicle_G11",
+      "vehicles/F30/vehicle_F30"
+    ],
+    [
+      "vehicles/G11/camera_crane",
+      "vehicles/F30/camera_crane"
+    ]
   ],
   "bench_input_patches": [
-    ["0x11B7C8", "01 10 a0 13", "01 10 a0 e3"],
-    ["0x222518", "33 ff 2f e1", "01 00 a0 e3"]
+    [
+      "0x11B7C8",
+      "01 10 a0 13",
+      "01 10 a0 e3"
+    ],
+    [
+      "0x222518",
+      "33 ff 2f e1",
+      "01 00 a0 e3"
+    ]
   ],
-  "resource_language_sites": ["0x83F0C", "0x84258"],
+  "resource_language_sites": [
+    "0x83F0C",
+    "0x84258"
+  ],
   "controller": {
     "app_vtable": "0x029cf520",
     "event_vtable": "0x03747ee0",
@@ -72,7 +159,11 @@
     "display_service_vtable": "0x029e7780",
     "enable_display": "0x002d9a70",
     "interaction_slot_function": "0x0020f0a0",
-    "pop_callers": ["0x00214b44", "0x00214b78", "0x00215d74"]
+    "pop_callers": [
+      "0x00214b44",
+      "0x00214b78",
+      "0x00215d74"
+    ]
   },
   "assetdb_domains": {
     "common/assetDB/Domains/Entertainment/FM/title_track": "7ecd95ef707ad26104cce36e005bd06cb96fc33cc02b32ff46c5016998e14100",

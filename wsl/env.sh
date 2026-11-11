@@ -10,7 +10,7 @@ MESA_LINK="$IDRIVE_HOME/mesa"
 OVERLAY_DIR="$IDRIVE_HOME/overlay"
 RUN_LOG="$IDRIVE_HOME/run.log"
 PID_DIR="$IDRIVE_HOME/pids"   # processes started by these scripts (stop only touches these)
-OVERLAY_PORT="${OVERLAY_PORT:-41600}"  # the guest fetches overlay.tar from this host port
+OVERLAY_PORT=41600                     # fixed: the guest fetches overlay.tar from 160.48.199.253:41600
 IOC_PORT="${IOC_PORT:-8766}"           # vehicle-sim/ioc_sim.py  (Jacinto-side MOST link, NAL-SIPC)
 DIAG_PORT="${DIAG_PORT:-6801}"         # vehicle-sim/diag_sim.py (HSFZ gateway, guest 160.48.199.253)
 export IDRIVE_HOME IDRIVE_CACHE
