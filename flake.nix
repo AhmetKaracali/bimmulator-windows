@@ -144,6 +144,8 @@
         qemu-omap5 = qemu;
         qemu-capricorn-m = pkgs.qemu-capricorn-m;
         angle-egl-rpc-server = angleServer;
+        # WSL2: Mesa lavapipe ICD for ANGLE's Vulkan backend (wsl/setup.sh).
+        mesa = pkgs.mesa;
       };
 
       apps.${system}.idrive6 = {

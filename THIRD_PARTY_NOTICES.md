@@ -19,3 +19,21 @@ source itself remains external to this repository.
 The launcher also depends on QEMU, ANGLE, and other packages built from the
 pinned Nixpkgs revision. Their source licenses and notices remain with those
 upstream packages; this repository does not vendor their source.
+
+## Upstream project
+
+This repository is a Windows/WSL2 port of
+[agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator) by Jackson Randolph.
+Upstream history is preserved (commit `bf03f2e`). See [LICENSING.md](LICENSING.md).
+
+## IDEmu (reference only)
+
+[herrbimmer/IDEmu](https://github.com/herrbimmer/IDEmu) documentation was used as a reference for
+MOST FBlock/property semantics while writing `vehicle-sim/`. No IDEmu code or data is included;
+`vehicle-sim/hmi_neutral.py` and `rules.py` can optionally read data files from a local IDEmu
+checkout (`IDRIVE_IDEMU_DIR`), which is distributed under its own PolyForm Noncommercial license.
+
+## Mesa
+
+`wsl/setup.sh` builds Mesa (lavapipe) from the pinned Nixpkgs revision; Mesa's licenses remain with
+that package.

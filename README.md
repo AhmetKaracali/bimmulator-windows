@@ -1,179 +1,191 @@
-# BMW iDrive 6 emulator
+# bimmulator-windows
 
-This project boots the native BMW F32 iDrive 6 Light interface in patched
-QEMU. It does not include BMW firmware. You supply an extracted PSdZData
-directory containing the verified NBTevo X20511I packages.
+Run the **real BMW NBT EVO iDrive 6 head-unit software** (QNX 6.5 + HmiMain3D) on a **Windows 11
+PC** through WSL2, QEMU and ANGLE. This is the Windows/WSL2 port of
+[agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator) (see Credits), extended
+so that the head unit build **HU 006.027.001 / HMI ID5_1811** (F30 3 Series, PSdZData 4.15.12) boots
+with a working *My Vehicle* menu, vehicle values and a diagnostic gateway simulator.
+
+> **No BMW software is included.** You need your own extracted PSdZData. This project is not
+> affiliated with or endorsed by BMW AG. "BMW", "iDrive" and related names are BMW trademarks.
+
+![status](https://img.shields.io/badge/host-Windows%2011%20%2B%20WSL2-blue) ![license](https://img.shields.io/badge/license-PolyForm%20Noncommercial-orange)
+
+## What works
+
+| Area | State |
+|---|---|
+| QNX boot, HmiMain3D, ID6 Light home screen and main menu | works |
+| Rendering (host ANGLE over Mesa lavapipe, SGX shader reconstructions incl. lists, cursor, 3D F30 car model) | works, software rendering (slow but usable) |
+| CID touch (mouse) and iDrive controller (keyboard) | works |
+| Snapshot fast start (skip QNX boot) | works, ~2-3 min to first frame |
+| *My Vehicle*, vehicle settings, Onboard info, Sport displays, tyre pressure, clock | works with the bundled vehicle simulators (`vehicle-sim/`) |
+| Start language (35 languages in `text.db`, e.g. `en-us`, `tr`, `de`) | via `wsl/overlay.sh --language` |
+| Your own car's head-unit coding (NCD) | via `wsl/overlay.sh --car-coding` |
+| Native RA plug-ins (own apps under *My Vehicle*) | via `wsl/overlay.sh --plugins` |
+| HSFZ diagnostic gateway on TCP 6801 for plug-ins (synthetic engine or replay of your own capture) | `vehicle-sim/diag_sim.py` |
+| Navigation, media, phone audio, real CAN/MOST bus | not emulated |
+
+## Requirements
+
+- Windows 11 (WSLg shows the emulator window), WSL2 with **Ubuntu** and **systemd enabled**
+- 16 GB RAM recommended, ~25 GB free disk inside WSL, a fast CPU (graphics run in software)
+- Extracted **PSdZData** containing `swe/swfl/swfl_00002719.bin.006_027_001`,
+  `swfl_0000271a.bin.006_027_001`, `swfl_00002720.bin.006_027_001` (NBT EVO, I-level F020-18-11,
+  PSdZData 4.15.12). The launcher verifies their SHA-256 before use.
 
 ## Quick start
 
-The supported release host is Apple silicon macOS with Nix flakes enabled.
-Clone the repository, copy the example config, and set `psdzdata` to the
-absolute path of your extracted PSdZData directory:
+**1. WSL2 + Ubuntu** (PowerShell as administrator, once):
 
-```sh
-cp idrive6.example.toml idrive6.toml
+```powershell
+wsl --install -d Ubuntu
 ```
 
-```toml
-psdzdata = "/path/to/psdzdata"
-modules = ["head-unit", "6wb"]
+Inside Ubuntu, enable systemd and restart WSL:
+
+```bash
+printf '[boot]\nsystemd=true\n' | sudo tee /etc/wsl.conf
 ```
 
-For the first run, check and stage the firmware:
-
-```sh
-nix run .#idrive6 -- --prepare-only
+```powershell
+wsl --shutdown
 ```
 
-Then start the selected modules:
+**2. Clone inside WSL** (not on `C:\` — speed and line endings):
 
-```sh
-nix run .#idrive6
+```bash
+git clone https://github.com/AhmetKaracali/bimmulator-windows ~/bimmulator-windows
+cd ~/bimmulator-windows
 ```
 
-The default module selection opens the head unit, cluster, and HUD as
-three windows. Use `modules = ["head-unit"]` or `modules = ["6wb"]` to
-start one ECU. Closing a selected ECU's window ends the session.
+**3. Copy PSdZData into WSL and run the setup** (installs Nix, builds the patched QEMU and the ANGLE
+server; the first build takes 30-90 minutes):
 
-Point `psdzdata` at the directory containing `swe/swfl`. The head unit
-uses `swfl_00002719.bin.007_030_001`, `swfl_0000271a.bin.007_030_001`,
-and `swfl_00002720.bin.007_030_001`. The 6WB uses the `.bin` and `.xml`
-pairs for `00003e5b`, `00003e5c`, and `00003e5d` at `007_003_005`.
-The launcher extracts and verifies the selected firmware, then reuses the
-verified cache on later runs. By default the cache lives under
-`$XDG_CACHE_HOME/idrive6` or `~/.cache/idrive6`.
-
-The optional settings are `cacheDir`, `display` (`cocoa` or `none`), and
-`cpuCount` (`1` or `2`). Keep PSdZData and the cache outside the repository;
-the launcher rejects paths inside the checkout so local firmware and cache
-files never enter the Nix source or store. Both paths may contain spaces.
-The launcher reads `./idrive6.toml` by default; pass `--config /path/to/file`
-to either command to use another config.
-
-## Controls and logs
-
-Use the mouse for CID touch. The controller mapping uses the wheel or Page
-Up/Page Down to turn, arrow keys to tilt, Return or Space to select, Escape or
-Backspace for Back, M for Menu, and O for Options. C or R sends Media/Radio,
-T sends Communication, N sends Navigation, and V sends Map. Click the QEMU
-window first to give it keyboard focus.
-
-Each run gets its own directory below the cache's `runs/` folder. It contains
-the guest serial stream, QEMU debug log, ANGLE server log, and a manifest of
-the source and firmware inputs. OTF recording, network packet dumps, ANGLE
-shader/draw/resource captures, `pdebug`, and the web inspector remain off by
-default. For an already staged cache, set `IDRIVE_CACHE_DIR` to the same path
-as `cacheDir` (or its default) before using the developer profile runner. For
-example, with the default cache location:
-
-```sh
-export IDRIVE_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/idrive6"
-nix develop -c python3 tools/run-hmi-profile.py \
-  profiles/f32-x20511i-id6-light.json \
-  --set IDRIVE_OTF_CAPTURE=1 \
-  --set IDRIVE_OTF_CAPTURE_OUTPUT=/tmp/idrive6-otf.bin \
-  --set IDRIVE_OTF_CAPTURE_SERVER_LOG=/tmp/idrive6-otf.log
+```bash
+mkdir -p ~/psdzdata/swe/swfl
+cp /mnt/c/path/to/psdzdata/swe/swfl/swfl_0000271{9,a}.bin.006_027_001 /mnt/c/path/to/psdzdata/swe/swfl/swfl_00002720.bin.006_027_001 ~/psdzdata/swe/swfl/
+bash wsl/setup.sh ~/psdzdata
 ```
 
-## Current limits
+**4. First boot** (stages the firmware, boots QNX, saves a snapshot, ~7 minutes):
 
-The F32 home interface, text, controller input, and CID touch run through
-BMW's native HmiMain3D and QNX Screen. QEMU supplies an OMAP5430 board model
-and a software display path. The PowerVR SGX540 is not fully emulated; the
-host ANGLE bridge implements the graphics calls used by the tested HMI path.
-Other vehicle variants and Linux hosts are not part of the verified release.
-
-## Developer notes
-
-- [QEMU patch workflow](docs/qemu-patches.md) explains how to update the four
-  topic patches against the pinned QEMU in Nixpkgs.
-- [Graphics contract](NATIVE_GRAPHICS_CONTRACT.md) documents the current
-  native HMI display path and observed boundaries.
-- [HMI startup trace](HMI_STARTUP_DEPENDENCY.md) records the measured service
-  and startup dependencies.
-- [Third-party notices](THIRD_PARTY_NOTICES.md) covers the QEMU patches and
-  optional Vita3K-based shader diagnostics.
-- `tools/` contains the retained firmware extraction, graphics, and QNX
-  diagnostics. Enter `nix develop` for the corresponding build tools.
-
-The exact PSdZData package SHA-256 values are pinned in
-`tools/idrive6-launch.py`. A different firmware revision must be reviewed and
-added as a distinct, verified profile before use. The checked-in shader data is
-limited to the host-side ESSL reconstructions and hashes used by this profile;
-the original BMW shader payloads are verified from PSdZData at runtime.
-
-## Developer diagnostics
-
-Run the firmware-free extractor, QNX bootstrap, and QEMU device tests with:
-
-```sh
-nix develop -c python3 -m unittest discover -s tests -v
+```bash
+bash wsl/emulator.sh prepare
+bash wsl/overlay.sh --language en-us
+bash wsl/emulator.sh snapshot
 ```
 
-The firmware staging diagnostics use the same verified input as the launcher;
-`nix run .#idrive6 -- --prepare-only` checks and stages it without starting
-QEMU. The device tests use QEMU directly and need no firmware or GUI.
+**5. Every later start:**
 
-## Experimental 6WB cluster and HUD
-
-The Bosch BO03 6WB runs in a separate QEMU guest. Its cluster and HUD
-open as SDL windows. The live fixture replays KSS startup and HUD
-readiness in temporary guest RAM and uses the firmware's unwarped HUD
-output.
-
-The launcher prints a local simulator URL. Open it for manual speed and
-RPM controls. External simulators can read `GET /api/v1/vehicle` or send
-partial updates to `POST /api/v1/vehicle` at that URL. The API uses km/h
-for `speed_kph` and RPM for `engine_rpm`.
-
-### Standalone 6WB probe
-
-Use this path to capture startup graphics or run the simulator separately.
-Build the Capricorn-M machine and set `BO03_IMAGES` to the unpacked
-`firmware/bo03-007_003_005` directory in the cache created by
-`nix run .#idrive6 -- --prepare-only`.
-
-```sh
-nix build .#qemu-capricorn-m --out-link /tmp/idrive6-capricorn-qemu
-kombi_run="$(mktemp -d /tmp/idrive6-kombi.XXXXXX)"
-printf '6WB run directory %s\n' "$kombi_run"
-nix develop -c python3 tools/kombi-gss-probe.py \
-  "$BO03_IMAGES/swfl_00003e5b-bf400000.bin" \
-  --config "$BO03_IMAGES/swfl_00003e5c-bec00000.bin" \
-  --graphics-data "$BO03_IMAGES/swfl_00003e5d-bc000000.bin" \
-  --qemu /tmp/idrive6-capricorn-qemu/bin/qemu-system-mips64el \
-  --log "$kombi_run/gss.log" --kss-replay \
-  --vehicle-ram "$kombi_run/vehicle.ram" \
-  --display vnc=127.0.0.1:1,display=cluster
+```bash
+bash wsl/emulator.sh fast
 ```
 
-Connect a VNC client to `127.0.0.1:5901`. Use `display=hud` to view the
-native HUD. For a one-shot cluster and HUD startup capture, replace the
-live RAM and display options with `--capture "$kombi_run/frames"`.
+From Windows you can use `windows\bimmulator.cmd start` instead (see the file header; set
+`BIMMULATOR_REPO` if you cloned somewhere else than `~/bimmulator-windows`).
 
-In another terminal, set `kombi_run` to the printed run directory and start
-the host-side Python simulator.
+## Controls
 
-```sh
-python3 tools/kombi-sim.py --vehicle-ram "$kombi_run/vehicle.ram"
+Click the emulator window first. Mouse = CID touch. Mouse wheel / Page Up / Page Down = turn the
+controller, arrow keys = tilt, Return or Space = press, Escape or Backspace = back, M = Menu,
+O = Options, C/R = Media/Radio, T = Communication, N = Navigation, V = Map.
+
+Scriptable control (used by AI agents and tests):
+
+```bash
+bash wsl/control.sh key next next press      # controller steps; step slowly while screens load
+bash wsl/control.sh tap 720 270              # touch at x,y on the 1440x540 CID
+bash wsl/control.sh shot ~/screen.png        # screenshot
+bash wsl/control.sh stop
 ```
 
-Open `http://127.0.0.1:8765/` for controls and browser-rendered previews.
-Add `--demo` for a looping feed. External simulators can read
-`GET /api/v1/vehicle` and send partial updates. The API uses km/h for
-`speed_kph` and RPM for `engine_rpm`. Both fields drive the stock QEMU
-renderers through the shared RAM fixture.
+## Customising the head unit (overlay)
 
-```sh
-curl --fail -H 'Content-Type: application/json' \
-  --data '{"speed_kph":87,"engine_rpm":2300}' http://127.0.0.1:8765/api/v1/vehicle
+`wsl/overlay.sh` writes `~/idrive/overlay/overlay.tar`. The guest downloads it right before
+HmiMain3D starts, so changes apply on the next start (also `fast`) without rebuilding the snapshot.
+
+```bash
+bash wsl/overlay.sh --language tr                                   # Turkish UI
+bash wsl/overlay.sh --car-coding ~/hu_coding_backup.ncd --language de  # your car's HU coding
+bash wsl/overlay.sh --plugins ~/my-plugins                          # ~/my-plugins/<Name>/ -> Plugins/<Name>/
+HERO=~/mycar.png bash wsl/overlay.sh                                # My Vehicle tile picture (378x243 RGBA)
 ```
 
-To test head-unit MOST transport, also start the simulator with
-`--sipc-port 8766` and launch the head unit with
-`IDRIVE_MOST_SIPC_HOST_PORT=8766 nix run .#idrive6`. The native
-`DSYSMOSTServer` runs inside the guest. QEMU forwards its upstream TCP SIPC
-connection to the host Python process. `GET /api/v1/most?after=0` returns
-link state and decoded telegrams. The vehicle-state feed and SIPC telegrams
-are separate interfaces. Native MOST delivery to the Kombi still needs
-network-master behavior and Kombi registration.
+## Vehicle simulators (`vehicle-sim/`)
+
+`wsl/emulator.sh` starts three host processes unless `SIM=0`:
+
+| Process | Port | Role |
+|---|---|---|
+| `ioc_sim.py` + `rules.py` | 8766 | Jacinto-side MOST link (NAL-SIPC): network registry, power mode, terminal status, mileage, tyre pressures, oil, trip data, live engine values for Sport displays. `rules.py` is hot-reloaded. |
+| `j5_server.py` + `j5_rules.py` | 5600 | Host side of the guest bridge `tools/qnx-j5-bridge.c` (DSI `DSYSMOSTServer` stand-in) |
+| `diag_sim.py` | 6801 | HSFZ/UDS diagnostic gateway for plug-ins (guest address 160.48.199.253). Synthetic idle engine by default; `DIAG_RECORD=<IDriveReader record>` replays your own read-only capture. |
+
+Protocol notes: [`vehicle-sim/NOTES.md`](vehicle-sim/NOTES.md), tyre-pressure reverse engineering:
+[`vehicle-sim/TPM-RE.md`](vehicle-sim/TPM-RE.md).
+
+Optional: properties nobody answers can get "neutral" (minimum valid) payloads. Generate
+`vehicle-sim/hmi_layouts.json` and `helper_sizes.json` from *your* `HmiMain3D`
+(`python3 vehicle-sim/hmi_layouts.py <HmiMain3D>`, then `hmi_helper_sizes.py`) and point
+`IDRIVE_IDEMU_DIR` at a local checkout of [herrbimmer/IDEmu](https://github.com/herrbimmer/IDEmu)
+(its data is not redistributed here). Without these files the feature is simply off.
+
+## Repository layout
+
+| Path | Content |
+|---|---|
+| `wsl/` | Windows/WSL2 workflow: `setup.sh`, `emulator.sh`, `overlay.sh`, `control.sh`, QMP helpers |
+| `windows/bimmulator.cmd` | Windows wrapper around the WSL scripts |
+| `vehicle-sim/` | Host simulators for the vehicle side (MOST/Jacinto, HSFZ gateway) |
+| `overlay/make_overlay.py` | Builds the per-boot overlay (language, coding, plug-ins, 3D body) |
+| `tools/idrive6-launch.py`, `run-emulator.sh` | Launcher and QEMU runner (from upstream, ported) |
+| `tools/angle-egl-rpc-server.cpp`, `tools/qnx-angle-egl-provider.c` | GLES2 bridge guest → host ANGLE (incl. framebuffer objects) |
+| `tools/shaders/native-reconstructions/` | SGX shader reconstructions; `*-car006.json` maps for HU 006.027.001, `hmi-fragment-car006/` hand-written stages |
+| `tools/qnx-j5-bridge.c`, `tools/qnx-wsl-fetch.c`, `tools/wsl-snapshot.py` | WSL2 port pieces (Jacinto bridge, overlay fetch, snapshot) |
+| `nix/patches/` | QEMU OMAP5430 / SGX / Capricorn-M patches (GPL-2.0-or-later) |
+| `profiles/f30-car-006027-id6-light.json` | Emulator profile for HU 006.027.001 |
+| `docs/UPSTREAM-README.md` | Original upstream README (macOS, X20511I 007.030.001, 6WB cluster/HUD) |
+| `NATIVE_GRAPHICS_CONTRACT.md`, `HMI_STARTUP_DEPENDENCY.md` | Deep technical notes from upstream |
+| [`AGENTS.md`](AGENTS.md) | Instructions for AI coding agents |
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `systemd is not running` | enable it in `/etc/wsl.conf` (Quick start 1) and `wsl --shutdown` |
+| No window appears | Windows 11 with WSLg is required; `echo $WAYLAND_DISPLAY` must be set inside WSL |
+| `No snapshot yet` | run `wsl/emulator.sh snapshot` once |
+| Black screen for a few minutes after `fast` | normal: HmiMain3D loads assets in software; watch `~/idrive/run.log` |
+| Keys seem ignored | click the window; step slowly — keys sent while a screen loads are dropped |
+| `My Vehicle` says *Function currently not available* | build the overlay (`wsl/overlay.sh`) and keep `SIM=1` |
+| Firmware hash mismatch | your PSdZData files are a different build; only HU 006.027.001 is supported on `main` |
+
+## Credits
+
+- **[agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator)** by Jackson Randolph —
+  the original iDrive 6 emulator (patched QEMU OMAP5430/SGX, ANGLE bridge, shader reconstruction
+  pipeline, launcher, 6WB cluster/HUD). This project is inspired by and built on top of that work;
+  without it none of this would exist. Upstream history is preserved in this repository.
+- [herrbimmer/IDEmu](https://github.com/herrbimmer/IDEmu) — its documentation was used as a
+  reference for MOST FBlock/property semantics. No IDEmu code or data is included.
+- QEMU, ANGLE, Mesa, Vita3K and Nixpkgs — see [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+## License
+
+Non-commercial. The additions of this repository (WSL2/Windows port, HU 006.027.001 port, vehicle
+simulators, overlay builder, documentation) are licensed under the
+**[PolyForm Noncommercial License 1.0.0](LICENSE)**. Files from the upstream project remain under
+their author's terms, and the QEMU patches under `nix/patches/` remain GPL-2.0-or-later. Details:
+[`LICENSING.md`](LICENSING.md).
+
+---
+
+### Türkçe özet
+
+Bu depo, BMW NBT EVO iDrive 6 ana ünite yazılımını (HU 006.027.001 / ID5_1811, F30) **Windows 11
+üzerinde WSL2** ile çalıştırır. BMW yazılımı içermez; kendi PSdZData'nızı kullanırsınız. Kurulum:
+yukarıdaki *Quick start* adımları (`wsl/setup.sh`, ardından `wsl/emulator.sh snapshot`, sonra her
+seferinde `wsl/emulator.sh fast`). Dil için `wsl/overlay.sh --language tr`. Orijinal proje:
+[agent00jackson/bimmulator](https://github.com/agent00jackson/bimmulator). Lisans: ticari olmayan
+kullanım (PolyForm Noncommercial 1.0.0).

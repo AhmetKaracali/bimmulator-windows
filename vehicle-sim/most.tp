@@ -1,0 +1,5 @@
+HBTracePersistence 1.1.0
+# emulator: route the MOST daemon traces to the console (serial log)
+[*]
+sys_most ff 08
+framework_comm_most ff 08

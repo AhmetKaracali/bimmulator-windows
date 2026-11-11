@@ -20,3 +20,10 @@ captures/
 *.p7b
 psdzdata/
 firmware/
+# generated from your own HmiMain3D (BMW binary) - never commit
+vehicle-sim/hmi_layouts.json
+vehicle-sim/helper_sizes.json
+# personal vehicle data
+*.ncd
+kayitlar/
+records/
